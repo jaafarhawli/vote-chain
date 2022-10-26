@@ -21,7 +21,7 @@ const electionsSchema = new mongoose.Schema({
         required: 'Time zone is required',
     },
 
-    elections_code: {
+    code: {
         type: String
     },
 
