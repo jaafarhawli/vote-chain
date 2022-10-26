@@ -2,6 +2,7 @@ const User = require('../models/users.model');
 const Election = require('../models/elections.model');
 const Voter = require('../models/voters.model');
 const Party = require('../models/parties.model');
+const bcrypt = require('bcrypt');
 
 const getUser = async (req, res) => {
     const {email} = req.params;
@@ -69,7 +70,7 @@ const editAccount = async (req, res) => {
 
     User.findById(id, (err) => {
         if(err) {
-            res.status(404).json("Invalid input");
+            res.status(400).json("Invalid input");
             return;
         }
     });
@@ -85,11 +86,33 @@ const editAccount = async (req, res) => {
     });
 } 
 
+const changePassword = async (req, res) => {
+    const {id, old_password, password} = req.body;
+
+    const user = await User.findById(id).select("password");
+    const isMatch = await bcrypt.compare(old_password, user.password);
+    if(!isMatch) return res.status(404).json({message: "Old password is invalid"});
+    
+    if(password.length<8) {
+        res.status(400).json("Invalid password");
+        return;
+    }
+    hashed = await bcrypt.hash(password, 10);
+    User.findByIdAndUpdate(id,{
+        password: hashed
+    }, async (err) => {
+        if(err)
+        res.status(400).json("Invalid password");
+        res.status(200).json("Password updated successfully");
+    });
+}
+
 
 module.exports = {
     getUser,
     createElection,
     viewElectionsAsAdmin,
     viewElectionsAsModerator,
-    editAccount
+    editAccount,
+    changePassword
 }
