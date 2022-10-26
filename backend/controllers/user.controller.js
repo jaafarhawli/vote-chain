@@ -44,8 +44,21 @@ const createElection = async(req, res) => {
     }
 }
 
+const viewElectionsAsAdmin = (req, res) => {
+    const {id} = req.params;
+    Election.find({admin_id: id}, (err, elections) => {
+        if(err) 
+        res.status(404).json("No Elections");
+        res.status(200).json(elections);
+    });
+}
+
+
+
 
 module.exports = {
     getUser,
-    createElection
+    createElection,
+    viewElectionsAsAdmin,
+
 }
