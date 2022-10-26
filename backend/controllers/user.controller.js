@@ -9,7 +9,7 @@ const getUser = async (req, res) => {
         email: email
    }, async (err, user) => {
     if(err)
-    res.status(404).json("user not found");
+    res.status(404).json("User not found");
     else {
         res.status(200).json(user);
     } 
@@ -64,10 +64,32 @@ const viewElectionsAsModerator = (req, res) => {
     });
 }
 
+const editAccount = async (req, res) => {
+    const {id, ...data} = req.body
+
+    User.findById(id, (err) => {
+        if(err) {
+            res.status(404).json("Invalid input");
+            return;
+        }
+    });
+    
+    User.findByIdAndUpdate(id,{
+        first_name: data.first_name,
+        last_name: data.last_name,
+        email: data.email,
+    }, async (err) => {
+        if(err)
+        res.status(400).json("Invalid input");
+        res.status(200).json("Account updated successfully");
+    });
+} 
+
 
 module.exports = {
     getUser,
     createElection,
     viewElectionsAsAdmin,
-    viewElectionsAsModerator
+    viewElectionsAsModerator,
+    editAccount
 }
