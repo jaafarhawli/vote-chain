@@ -1,4 +1,5 @@
 const User = require('../models/users.model');
+const Voter = require('../models/voters.model');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 var validator = require("email-validator");
@@ -50,8 +51,25 @@ const userSignup = async (req, res)=>{
     }
 }
 
+const voterLogin = async (req, res)=>{
+    const {email, password} = req.body;
+    
+    const voter = await Voter.findOne({email}).select("+password");
+
+    if(!voter) return res.status(404).json({message: "Invalid Credentials"});
+    
+    const isMatch = await bcrypt.compare(password, voter.password);
+    if(!isMatch) return res.status(404).json({message: "Invalid Credentials"});
+
+    const token = jwt.sign({email: voter.email}, process.env.JWT_SECRET_KEY, {
+        expiresIn: '1y'
+    });
+    res.status(200).json(token);
+}
+
 
 module.exports = {
     login,
-    userSignup
+    userSignup,
+    voterLogin
 }
