@@ -30,7 +30,7 @@ const ballotSchema = new mongoose.Schema({
     }],
     
     voters: [{
-        type: Schema.Types.ObjectId, ref: 'Voter'
+        type: String
     }],
 
     parties: [{

@@ -13,16 +13,16 @@ const voterSchema = new mongoose.Schema({
         select: false
     },
 
-    voted: {
-        type: Boolean,
-    }, 
-    
-    voting_time: {
-        type: Date,
-    }, 
-
     ballots: [{
-        type: Schema.Types.ObjectId, ref: 'Ballot'
+        ballot_id: {
+            type: Schema.Types.ObjectId, ref: 'Ballot'
+        },
+        voted: {
+            type: Boolean,
+        }, 
+        voting_time: {
+            type: Date,
+        }, 
     }],
 
 })
