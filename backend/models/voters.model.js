@@ -4,26 +4,27 @@ const voterSchema = new mongoose.Schema({
     email: {
         type: String,
         required: 'Email is required',
-    }, 
-
-    password: {
-        type: String,
-        required: 'Password is required',
-        minlength: 8,
-        select: false
+    },
+    
+    voter_id: {
+        type: Number,
     },
 
-    ballots: [{
-        ballot_id: {
-            type: mongoose.Schema.Types.ObjectId, ref: 'Ballot'
-        },
-        voted: {
-            type: Boolean,
-        }, 
-        voting_time: {
-            type: Date,
-        }, 
-    }],
+    voter_key: {
+        type: String
+    },
+
+    ballot_id: {
+        type: mongoose.Schema.Types.ObjectId, ref: 'Ballot'
+    },
+
+    voted: {
+        type: Boolean,
+    },
+
+    voting_time: {
+        type: Date,
+    }, 
 
 })
 

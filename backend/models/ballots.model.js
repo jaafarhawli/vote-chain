@@ -21,6 +21,10 @@ const ballotSchema = new mongoose.Schema({
         required: 'Time zone is required',
     },
 
+    ballot_code: {
+        type: String
+    },
+
     admin: {
         type: mongoose.Schema.Types.ObjectId, ref: 'User'
     },
