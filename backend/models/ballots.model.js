@@ -22,11 +22,11 @@ const ballotSchema = new mongoose.Schema({
     },
 
     admin: {
-        type: Schema.Types.ObjectId, ref: 'User'
+        type: mongoose.Schema.Types.ObjectId, ref: 'User'
     },
     
     moderators: [{
-        type: Schema.Types.ObjectId, ref: 'User'
+        type: mongoose.Schema.Types.ObjectId, ref: 'User'
     }],
     
     voters: [{
@@ -34,7 +34,7 @@ const ballotSchema = new mongoose.Schema({
     }],
 
     parties: [{
-        type: Schema.Types.ObjectId, ref: 'Party'
+        type: mongoose.Schema.Types.ObjectId, ref: 'Party'
     }],
 })
 

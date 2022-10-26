@@ -25,11 +25,11 @@ const userSchema = new mongoose.Schema({
     },
 
     ballots: [{
-        type: Schema.Types.ObjectId, ref: 'Ballot'
+        type: mongoose.Schema.Types.ObjectId, ref: 'Ballot'
     }],
     
     moderator_for: [{
-        type: Schema.Types.ObjectId, ref: 'Ballot'
+        type: mongoose.Schema.Types.ObjectId, ref: 'Ballot'
     }],
 })
 

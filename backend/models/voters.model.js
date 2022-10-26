@@ -15,7 +15,7 @@ const voterSchema = new mongoose.Schema({
 
     ballots: [{
         ballot_id: {
-            type: Schema.Types.ObjectId, ref: 'Ballot'
+            type: mongoose.Schema.Types.ObjectId, ref: 'Ballot'
         },
         voted: {
             type: Boolean,
