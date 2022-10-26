@@ -6,8 +6,8 @@ const partySchema = new mongoose.Schema({
         required: 'Name is required',
     }, 
 
-    ballot: {
-        type: mongoose.Schema.Types.ObjectId, ref: 'Ballot'
+    election: {
+        type: mongoose.Schema.Types.ObjectId, ref: 'Election'
     },
 
     candidates: [{

@@ -1,5 +1,5 @@
 const User = require('../models/users.model');
-const Ballot = require('../models/ballots.model');
+const Election = require('../models/elections.model');
 const Voter = require('../models/voters.model');
 const Party = require('../models/parties.model');
 
@@ -13,7 +13,8 @@ const getUser = async (req, res) => {
     else {
         res.status(200).json(user);
     } 
-})}
+})};
+
 
 module.exports = {
     getUser

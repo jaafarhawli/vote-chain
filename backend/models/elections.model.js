@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const ballotSchema = new mongoose.Schema({
+const electionsSchema = new mongoose.Schema({
     title: {
         type: String,
         required: 'Title is required',
@@ -21,7 +21,7 @@ const ballotSchema = new mongoose.Schema({
         required: 'Time zone is required',
     },
 
-    ballot_code: {
+    elections_code: {
         type: String
     },
 
@@ -42,6 +42,6 @@ const ballotSchema = new mongoose.Schema({
     }],
 })
 
-const Ballot = mongoose.model('Ballot', ballotSchema);
+const Elections = mongoose.model('Elections', electionsSchema);
 
-module.exports = Ballot;
+module.exports = Elections;

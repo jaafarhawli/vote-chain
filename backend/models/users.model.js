@@ -24,12 +24,12 @@ const userSchema = new mongoose.Schema({
         select: false
     },
 
-    ballots: [{
-        type: mongoose.Schema.Types.ObjectId, ref: 'Ballot'
+    elections: [{
+        type: mongoose.Schema.Types.ObjectId, ref: 'Election'
     }],
     
     moderator_for: [{
-        type: mongoose.Schema.Types.ObjectId, ref: 'Ballot'
+        type: mongoose.Schema.Types.ObjectId, ref: 'Election'
     }],
 })
 

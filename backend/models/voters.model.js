@@ -14,8 +14,8 @@ const voterSchema = new mongoose.Schema({
         type: String
     },
 
-    ballot_id: {
-        type: mongoose.Schema.Types.ObjectId, ref: 'Ballot'
+    election_id: {
+        type: mongoose.Schema.Types.ObjectId, ref: 'Election'
     },
 
     voted: {

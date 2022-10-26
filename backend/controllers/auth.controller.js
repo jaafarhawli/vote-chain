@@ -1,6 +1,6 @@
 const User = require('../models/users.model');
 const Voter = require('../models/voters.model');
-const Ballot = require('../models/ballots.model');
+const Election = require('../models/elections.model');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 var validator = require("email-validator");
@@ -78,18 +78,18 @@ const voterSignup = async (req, res)=>{
     if(!validate)
     return res.status(400).json("Invalid input");
 
-    const ballots = Ballot.find({voters: {"$in": [email]}});
+    const elections = Election.find({voters: {"$in": [email]}});
     
     try{
         const voter = new Voter();
         voter.email = email;
         voter.password = await bcrypt.hash(password, 10);
-        (await ballots).forEach((ballot) => {
+        (await elections).forEach((election) => {
             let element = {
-                ballot_id: ballot,
+                election_id: election,
                 voted: false
             }
-            voter.ballots.push(element);
+            voter.elections.push(element);
         });
         await voter.save();
 
