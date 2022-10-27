@@ -206,6 +206,22 @@ const addParty = async (req, res) => {
         }
 }
 
+const removeParty = async (req, res) => {
+    const {party_id, election_id} = req.body;
+    Party.findByIdAndRemove(party_id, async (err) => {
+        if(err)
+        return res.status(400).json("Invalid input");
+    });
+    Election.findById(election_id, (err, election) => {
+        if(err)
+        return res.status(404).json("Election not found");
+        const index = election.parties.indexOf(election_id);
+        election.parties.splice(index, 1); 
+        election.save();
+    })
+    res.status(200).json("Party removed successfully");
+}
+
 module.exports = {
     getUser,
     createElection,
@@ -217,5 +233,6 @@ module.exports = {
     viewElectionAsModerator,
     addModerator,
     removeModerator,
-    addParty
+    addParty, 
+    removeParty
 }
