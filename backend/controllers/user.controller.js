@@ -161,6 +161,25 @@ const addModerator = async (req, res) => {
 });
 }
 
+const removeModerator = async (req, res) => {
+    const {moderator_id, election_id} = req.body;
+    User.findById(moderator_id, (err, user) => {
+        if(err)
+        return res.status(404).json("User not found");
+        const index = user.moderator_for.indexOf(moderator_id);  
+        user.moderator_for.splice(index, 1); 
+        user.save();
+    })
+    Election.findById(election_id, (err, election) => {
+        if(err)
+        return res.status(404).json("Election not found");
+        const index = election.moderators.indexOf(election_id);
+        election.moderators.splice(index, 1); 
+        election.save();
+    })
+    res.status(200).json("Moderator removed successfully");
+}
+
 module.exports = {
     getUser,
     createElection,
@@ -170,5 +189,6 @@ module.exports = {
     changePassword,
     viewElectionAsAdmin,
     viewElectionAsModerator,
-    addModerator
+    addModerator,
+    removeModerator
 }
