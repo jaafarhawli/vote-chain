@@ -5,6 +5,10 @@ const voterSchema = new mongoose.Schema({
         type: String,
         required: 'Email is required',
     },
+
+    name: {
+        type: String
+    },
     
     voter_id: {
         type: Number,
