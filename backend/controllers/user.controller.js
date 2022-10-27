@@ -329,6 +329,7 @@ const searchModerator = async (req, res) => {
             return res.status(404).json("Moderator is not found");
             return res.status(200).json(moderator);
         });
+        return res.status(200).json(parties);
     })
 }
 
@@ -337,21 +338,14 @@ const searchParty = async (req, res) => {
     Election.findById(election_id, async(err, election) => {
         if(err)
         return res.status(404).json("Election not found");
-        Party.findOne({name:party_name}, async(err, party) => {
-            if(err)
-            return res.status(404).json("Party is not found");
-            if(!party)
-            return res.status(404).json("Party is not found");
-            if(!election.parties.includes(party._id))
-            return res.status(404).json("Party is not found");
-            return res.status(200).json(party);
-        });
+        const parties = await Party.find({$and:[{election: election_id},{name: {$regex: party_name, $options: 'i'}}]});
+        return res.status(200).json(parties);
     })
 }
 
 const searchCandidate = async (req, res) => {
     const {election_id, candidate_name} = req.params;
-    var regex = new RegExp("^" + candidate_name + "$", "i");
+    const regex = new RegExp("^" + candidate_name + "$", "i");
     Election.findById(election_id, async(err) => {
         if(err)
         return res.status(404).json("Election not found");
