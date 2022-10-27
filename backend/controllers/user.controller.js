@@ -366,6 +366,17 @@ const searchCandidate = async (req, res) => {
     })
 }
 
+const searchVoter = async (req, res)  => {
+    const {election_id, voter_email} = req.params;
+    Voter.findOne({$and: [{election_id: election_id}, {email: voter_email}]}, async (err, voter) => {
+        if(err)
+        return res.status(404).json("Election not founnd");
+        if(!voter)
+        return res.status(404).json("Voter not found");
+        return res.status(200).json(voter);
+    })
+}
+
 module.exports = {
     getUser,
     createElection,
@@ -385,5 +396,6 @@ module.exports = {
     removeVoter,
     searchModerator,
     searchParty,
-    searchCandidate
+    searchCandidate, 
+    searchVoter
 }
