@@ -222,6 +222,22 @@ const removeParty = async (req, res) => {
     res.status(200).json("Party removed successfully");
 }
 
+const addCandidate = async (req, res) => {
+    const {name, party_id} = req.body;
+    Party.findById(party_id, async (err, party) => {
+        if(err) 
+        return res.status(404).json("Party not found");
+        const candidate = {
+            name: name,
+            score: 0,
+            picture_url: ""
+        }
+        party.candidates.push(candidate);
+        party.save();
+        res.status(200).json("Candidate added successfully");
+    });
+}
+
 module.exports = {
     getUser,
     createElection,
@@ -234,5 +250,6 @@ module.exports = {
     addModerator,
     removeModerator,
     addParty, 
-    removeParty
+    removeParty,
+    addCandidate
 }
