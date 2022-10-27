@@ -1,5 +1,6 @@
 const {Router} = require('express');
-const {getUser, createElection, viewElectionsAsAdmin, viewElectionsAsModerator, editAccount, changePassword, viewElectionAsAdmin} = require('../controllers/user.controller');
+const {getUser, createElection, viewElectionsAsAdmin, viewElectionsAsModerator, editAccount, changePassword, viewElectionAsAdmin,
+viewElectionAsModerator} = require('../controllers/user.controller');
 const authMiddleware = require('../middlewares/auth.middleware');
 const router = Router();
 
@@ -10,5 +11,6 @@ router.get('/elections/moderator/:id', authMiddleware, viewElectionsAsModerator)
 router.put('/account', authMiddleware, editAccount);
 router.put('/password', authMiddleware, changePassword);
 router.get('/election/:user_id/:election_id', authMiddleware, viewElectionAsAdmin);
+router.get('/election/moderator/:user_id/:election_id', authMiddleware, viewElectionAsModerator);
 
 module.exports = router;
