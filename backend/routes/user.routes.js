@@ -1,6 +1,6 @@
 const {Router} = require('express');
 const {getUser, createElection, viewElectionsAsAdmin, viewElectionsAsModerator, editAccount, changePassword, viewElectionAsAdmin,
-viewElectionAsModerator, addModerator, removeModerator, addParty, removeParty, addCandidate, removeCandidate, addVoter, removeVoter, searchModerator, searchParty, searchCandidate, searchVoter} = require('../controllers/user.controller');
+viewElectionAsModerator, addModerator, removeModerator, addParty, removeParty, addCandidate, removeCandidate, addVoter, removeVoter, searchModerator, searchParty, searchCandidate, searchVoter, viewModerators} = require('../controllers/user.controller');
 const authMiddleware = require('../middlewares/auth.middleware');
 const router = Router();
 
@@ -24,5 +24,6 @@ router.get('/moderator/:election_id/:moderator_email', authMiddleware, searchMod
 router.get('/party/:election_id/:party_name', authMiddleware, searchParty);
 router.get('/candidate/:election_id/:candidate_name', authMiddleware, searchCandidate);
 router.get('/voter/:election_id/:voter_email', authMiddleware, searchVoter);
+router.get('/moderator/:election_id', authMiddleware, viewModerators);
 
 module.exports = router;
