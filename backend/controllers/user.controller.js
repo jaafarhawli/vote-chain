@@ -335,7 +335,7 @@ const searchModerator = async (req, res) => {
 
 const searchParty = async (req, res) => {
     const {election_id, party_name} = req.params;
-    Election.findById(election_id, async(err, election) => {
+    Election.findById(election_id, async(err) => {
         if(err)
         return res.status(404).json("Election not found");
         const parties = await Party.find({$and:[{election: election_id},{name: {$regex: party_name, $options: 'i'}}]});
@@ -419,6 +419,25 @@ const viewVoters = async (req, res) => {
     })
 }
 
+const editElection = async (req, res) => {
+    const {id, ...data} = req.body
+
+    Election.findById(id, async (err) => {
+        if(err) 
+        return res.status(400).json("Invalid input");
+        Election.findByIdAndUpdate(id,{
+            title: data.title,
+            start_time: data.start_time,
+            end_time: data.end_time,
+            timezone: data.timezone,
+        }, async (err) => {
+            if(err)
+            return res.status(400).json("Invalid input");
+            res.status(200).json("Election updated successfully");
+        });
+    }); 
+} 
+
 module.exports = {
     getUser,
     createElection,
@@ -443,5 +462,6 @@ module.exports = {
     viewModerators,
     viewParties,
     viewCandidates,
-    viewVoters
+    viewVoters,
+    editElection
 }
