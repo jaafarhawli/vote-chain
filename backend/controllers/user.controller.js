@@ -349,6 +349,29 @@ const searchParty = async (req, res) => {
     })
 }
 
+const searchCandidate = async (req, res) => {
+    const {election_id, candidate_name} = req.params;
+    var regex = new RegExp("^" + candidate_name + "$", "i");
+    Election.findById(election_id, async(err) => {
+        if(err)
+        return res.status(404).json("Election not found");
+        Party.find({election:election_id}, async(err, party) => {
+            if(err)
+            return res.status(404).json("No candidates found");
+            if(!party)
+            return res.status(404).json("No candidates found");
+            const candidates = [];
+            party.forEach((party) => {
+                party.candidates.forEach((candidate) => {
+                    if(candidate.name.match(regex))
+                    candidates.push(candidate);
+                })
+            })
+            return res.status(200).json(candidates);
+        });
+    })
+}
+
 module.exports = {
     getUser,
     createElection,
@@ -367,5 +390,6 @@ module.exports = {
     addVoter,
     removeVoter,
     searchModerator,
-    searchParty
+    searchParty,
+    searchCandidate
 }
