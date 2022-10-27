@@ -10,7 +10,7 @@ const getUser = async (req, res) => {
         email: email
    }, async (err, user) => {
     if(err)
-    res.status(404).json("User not found");
+    return res.status(404).json("User not found");
     else {
         res.status(200).json(user);
     } 
@@ -53,7 +53,7 @@ const viewElectionsAsAdmin = (req, res) => {
     const {id} = req.params;
     Election.find({admin_id: id}, (err, elections) => {
         if(err) 
-        res.status(404).json("No Elections");
+        return res.status(404).json("No Elections");
         res.status(200).json(elections);
     });
 }
@@ -62,9 +62,9 @@ const viewElectionsAsModerator = (req, res) => {
     const {id} = req.params;
     Election.find({moderators: {"$in": [id]}}, (err, elections) => {
         if(err) 
-        res.status(404).json("No Elections");
+        return res.status(404).json("No Elections");
         if(elections.length==0)
-        res.status(404).json("No Elections");
+        return res.status(404).json("No Elections");
         res.status(200).json(elections);
     });
 }
@@ -73,10 +73,8 @@ const editAccount = async (req, res) => {
     const {id, ...data} = req.body
 
     User.findById(id, (err) => {
-        if(err) {
-            res.status(400).json("Invalid input");
-            return;
-        }
+        if(err) 
+        return res.status(400).json("Invalid input");
     });
     
     User.findByIdAndUpdate(id,{
@@ -85,7 +83,7 @@ const editAccount = async (req, res) => {
         email: data.email,
     }, async (err) => {
         if(err)
-        res.status(400).json("Invalid input");
+        return res.status(400).json("Invalid input");
         res.status(200).json("Account updated successfully");
     });
 } 
@@ -97,16 +95,15 @@ const changePassword = async (req, res) => {
     const isMatch = await bcrypt.compare(old_password, user.password);
     if(!isMatch) return res.status(404).json({message: "Old password is invalid"});
     
-    if(password.length<8) {
-        res.status(400).json("Invalid password");
-        return;
-    }
+    if(password.length<8) 
+    return res.status(400).json("Invalid password");
+
     hashed = await bcrypt.hash(password, 10);
     User.findByIdAndUpdate(id,{
         password: hashed
     }, async (err) => {
         if(err)
-        res.status(400).json("Invalid password");
+        return res.status(400).json("Invalid password");
         res.status(200).json("Password updated successfully");
     });
 }
@@ -115,9 +112,9 @@ const viewElectionAsAdmin = (req, res) => {
     const {user_id, election_id} = req.params;
     Election.findById(election_id, (err, election) => {
         if(err) 
-        res.status(404).json("Election not found");
+        return res.status(404).json("Election not found");
         if(election.admin!=user_id)
-        res.status(401).json("Unauthorized");
+        return res.status(401).json("Unauthorized");
         res.status(200).json(election);
     });
 }
@@ -126,9 +123,9 @@ const viewElectionAsModerator = (req, res) => {
     const {user_id, election_id} = req.params;
     Election.findById(election_id, (err, election) => {
         if(err) 
-        res.status(404).json("Election not found");
+        return res.status(404).json("Election not found");
         if(!election.moderators.includes(user_id))
-        res.status(401).json("Unauthorized");
+        return res.status(401).json("Unauthorized");
         const result = {
             id: election._id,
             code: election.code,
@@ -142,6 +139,27 @@ const viewElectionAsModerator = (req, res) => {
     });
 }
 
+const addModerator = async (req, res) => {
+    const {email, election_id} = req.body;
+    User.findOne({email: email}, async (err, user) => {
+        if(err) 
+        return res.status(404).json("User not found");
+        if(!user)
+        return res.status(404).json("User not found");
+        Election.findById(election_id, async (err, election) => {
+            if(err) 
+            return res.status(404).json("Election not found");
+            if(election.moderators.includes(user._id))
+            return res.status(400).json("This user is already a moderator to your election");
+            user.moderator_for.push(election_id);
+            await user.save();
+
+            election.moderators.push(user._id);
+            await election.save();
+            res.status(200).json(user);
+    });
+});
+}
 
 module.exports = {
     getUser,
@@ -151,5 +169,6 @@ module.exports = {
     editAccount,
     changePassword,
     viewElectionAsAdmin,
-    viewElectionAsModerator
+    viewElectionAsModerator,
+    addModerator
 }
