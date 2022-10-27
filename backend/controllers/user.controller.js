@@ -386,6 +386,15 @@ const viewModerators = async (req, res) => {
     })
 }
 
+const viewParties = async (req, res) => {
+    const {election_id} = req.params;
+    Party.find({election: election_id}, async (err, parties) => {
+        if(err)
+        return res.status(404).json("Election not founnd"); 
+        return res.status(200).json(parties);
+    })
+}
+
 module.exports = {
     getUser,
     createElection,
@@ -407,5 +416,6 @@ module.exports = {
     searchParty,
     searchCandidate, 
     searchVoter,
-    viewModerators
+    viewModerators,
+    viewParties
 }
