@@ -315,7 +315,7 @@ const removeVoter = async (req, res) => {
     res.status(200).json("Voter removed successfully");
 }
 
-const searchModerators = async (req, res) => {
+const searchModerator = async (req, res) => {
     const {election_id, moderator_email} = req.params;
     Election.findById(election_id, async(err, election) => {
         if(err)
@@ -328,6 +328,23 @@ const searchModerators = async (req, res) => {
             if(!election.moderators.includes(moderator._id))
             return res.status(404).json("Moderator is not found");
             return res.status(200).json(moderator);
+        });
+    })
+}
+
+const searchParty = async (req, res) => {
+    const {election_id, party_name} = req.params;
+    Election.findById(election_id, async(err, election) => {
+        if(err)
+        return res.status(404).json("Election not found");
+        Party.findOne({name:party_name}, async(err, party) => {
+            if(err)
+            return res.status(404).json("Party is not found");
+            if(!party)
+            return res.status(404).json("Party is not found");
+            if(!election.parties.includes(party._id))
+            return res.status(404).json("Party is not found");
+            return res.status(200).json(party);
         });
     })
 }
@@ -349,5 +366,6 @@ module.exports = {
     removeCandidate,
     addVoter,
     removeVoter,
-    searchModerators
+    searchModerator,
+    searchParty
 }
