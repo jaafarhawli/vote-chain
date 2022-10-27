@@ -73,5 +73,4 @@ module.exports = {
     login,
     userSignup,
     voterLogin,
-    voterSignup
 }
