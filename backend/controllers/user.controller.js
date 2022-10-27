@@ -107,6 +107,17 @@ const changePassword = async (req, res) => {
     });
 }
 
+const viewElectionAsAdmin = (req, res) => {
+    const {user_id, election_id} = req.params;
+    Election.findById(election_id, (err, election) => {
+        if(err) 
+        res.status(404).json("Election not found");
+        if(election.admin!=user_id)
+        res.status(401).json("Unauthorized");
+        res.status(200).json(election);
+    });
+}
+
 
 module.exports = {
     getUser,
@@ -114,5 +125,6 @@ module.exports = {
     viewElectionsAsAdmin,
     viewElectionsAsModerator,
     editAccount,
-    changePassword
+    changePassword,
+    viewElectionAsAdmin
 }
