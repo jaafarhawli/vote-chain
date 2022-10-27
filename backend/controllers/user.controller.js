@@ -36,6 +36,10 @@ const createElection = async(req, res) => {
         election.admin = admin_id;
         await election.save();
 
+        const admin = await User.findById(admin_id);
+        admin.elections.push(election._id);
+        await admin.save();
+
         res.status(200).json(election);
 
     }catch(err){
