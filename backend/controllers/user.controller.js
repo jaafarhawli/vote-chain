@@ -487,13 +487,12 @@ const uploadCandidateImage = (req, res, next) => {
         res.status(404).json("Party not found");
         party.candidates.forEach((candidate)=> {
             if(candidate._id == candidate_id) {
-                candidate.picture_url = url + `/public/${id}` + req.file.filename;
+                candidate.picture_url = url + `/public/${candidate_id}` + req.file.filename;
             }
         })
         party.save().then(result => {
         res.status(201).json({
             message: "Image uploaded successfully!",    
-            picture_url: result.profileImg
         })
     }).catch(err => {
         console.log(err),

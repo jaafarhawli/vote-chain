@@ -31,7 +31,7 @@ router.get('/candidates/:election_id', authMiddleware, viewCandidates);
 router.get('/voters/:election_id', authMiddleware, viewVoters);
 router.put('/election', authMiddleware, editElection);
 router.delete('/election', authMiddleware, removeElection);
-router.post('/picture', imageMiddleware.single('profileImg'), uploadCandidateImage);
+router.post('/image', imageMiddleware.single('profileImg'), uploadCandidateImage);
 
 
 

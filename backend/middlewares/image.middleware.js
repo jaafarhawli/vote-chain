@@ -3,12 +3,13 @@ const multer = require('multer');
 
 const storage = multer.diskStorage({
     destination: async (req, file, cb) => {
-        const {id} = req.body;
-        let DIR = `./public/${id}`;
+        const {party_id} = req.body;
+        console.log(req.body);
+        let DIR = `./public/${party_id}`;
         if (!fs.existsSync(DIR)){
             fs.mkdirSync(DIR);
         }
-        cb(null, DIR);        
+        cb(null, DIR);       
     },
     filename: (req, file, cb) => {
         const fileName = file.originalname.toLowerCase().split(' ').join('-');
