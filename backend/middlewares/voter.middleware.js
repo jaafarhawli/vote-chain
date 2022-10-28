@@ -9,7 +9,7 @@ const voterMiddleware = async (req, res, next) => {
     if(!token) return res.status(401).json({message: "Unauthorized"})
     try{
         const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
-        const voter = await Voter.findOne({email: decoded.email}).lean();
+        const voter = await Voter.findOne({voter_id: decoded.voter_id}).lean();
         req.voter = {...voter};
         next()
 
