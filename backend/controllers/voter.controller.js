@@ -44,9 +44,18 @@ const vote = async (req, res) => {
     return res.status(200).json("Voted Successfully");
 }
 
+const viewParties = async (req, res) => {
+    const {election_id} = req.params;
+    Party.find({election: election_id}, async (err, parties) => {
+        if(err)
+        return res.status(404).json("Election not founnd"); 
+        return res.status(200).json(parties);
+    })
+}
 
 module.exports = {
     getVoter,
     viewElectionAsVoter,
-    vote
+    vote,
+    viewParties
 }
