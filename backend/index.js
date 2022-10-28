@@ -10,6 +10,9 @@ app.use('/auth', authRoutes);
 const userRoutes = require('./routes/user.routes');
 app.use('/user', userRoutes);
 
+const voterRoutes = require('./routes/voter.routes');
+app.use('/voter', voterRoutes);
+
 app.listen(process.env.PORT, (err)=>{
     if(err) throw err;
     console.log(`server running on port ${process.env.PORT}`);
