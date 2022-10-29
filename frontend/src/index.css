@@ -14,4 +14,12 @@
 	}
 }
 
+.hero {
+	background-image: url("assets/backgroundcurve.svg");
+}
 
+@media (max-width: 640px) {
+	.hero {
+	  background-image: url("assets/backgroundcurve-sm.svg");
+	}
+  }
