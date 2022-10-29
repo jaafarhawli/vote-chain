@@ -18,6 +18,14 @@ module.exports = {
       '2xl': '1536px',
       // => @media (min-width: 1536px) { ... }
     },
+    colors: {
+      'purple': '#6B81FF',
+      'cyan': '#00B8FF',
+      'black': {
+        100: '#000000',
+        200: '#777777',
+      }
+    }
   },
   plugins: [],
 }
