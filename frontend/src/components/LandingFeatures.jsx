@@ -1,13 +1,15 @@
 import React from 'react';
-import curve from '../assets/features.svg';
+import curve from '../assets/feature-curve.svg';
 import {BiCheckShield} from 'react-icons/bi';
 import {MdEmail} from 'react-icons/md';
 import {ImStatsBars} from 'react-icons/im';
 
 const LandingFeatures = () => {
   return (
-    <div style={{backgroundImage: `url("${curve}")`}} className='flex flex-col items-center lg:px-28 md:px-10 px-4 min-h-[400px]  bg-no-repeat bg-cover bg-purple-400 w-full'>
-      <h1 className='pt-12 text-[36px] text-purple-100 font-bold'>Excellent Features</h1>
+    <div>
+        <div className='aspect-960/200 w-full  bg-no-repeat bg-cover bg-center h-[150px]' style={{backgroundImage: `url("${curve}")`}}></div>
+    <div className='flex flex-col items-center lg:px-28 md:px-10 px-4 min-h-[400px] bg-[#3D3C3C] w-full'>
+      <h1 className='text-[36px] text-purple-100 font-bold'>Excellent Features</h1>
       <div className='flex flex-col'>
         <div className='flex flex-col text-center items-center w-[300px] text-purple-200 pt-8'>
             <BiCheckShield className='text-[60px]' />
@@ -25,7 +27,8 @@ const LandingFeatures = () => {
             <p>Checkout live statistical data over the ongoing election</p>
         </div>
       </div>
-      <img src={curve} alt='/' className='w-full invisible ' />
+    </div>
+      <div className='aspect-960/200 w-full  bg-no-repeat bg-cover bg-center rotate-180 h-[150px]' style={{backgroundImage: `url("${curve}")`}}></div>
     </div>
   );
 }
