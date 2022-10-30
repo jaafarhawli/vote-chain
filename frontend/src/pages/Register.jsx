@@ -1,4 +1,5 @@
 import React from 'react';
+import {RegisterForm} from '../components/RegisterForm';
 import banner from '../assets/banner.png';
 
 const Register = () => {
