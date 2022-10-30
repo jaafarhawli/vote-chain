@@ -2,6 +2,7 @@ import React from 'react';
 import curve from '../assets/features.svg';
 import {BiCheckShield} from 'react-icons/bi';
 import {MdEmail} from 'react-icons/md';
+import {ImStatsBars} from 'react-icons/im';
 
 const LandingFeatures = () => {
   return (
@@ -17,6 +18,11 @@ const LandingFeatures = () => {
             <MdEmail className='text-[60px]' />
             <h2 className='text-[22px] font-medium'>Email Voters</h2>
             <p>Automatically sends to each voter his ID and key, and notifies them when the election starts via email</p>
+        </div>
+        <div className='flex flex-col text-center items-center w-[300px] text-purple-200 pt-8'>
+            <ImStatsBars className='text-[60px]' />
+            <h2 className='text-[22px] font-medium'>Statistical Overview</h2>
+            <p>Checkout live statistical data over the ongoing election</p>
         </div>
       </div>
       <img src={curve} alt='/' className='w-full invisible ' />
