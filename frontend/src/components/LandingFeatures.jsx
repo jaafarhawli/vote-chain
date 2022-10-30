@@ -1,6 +1,7 @@
 import React from 'react';
 import curve from '../assets/features.svg';
 import {BiCheckShield} from 'react-icons/bi';
+import {MdEmail} from 'react-icons/md';
 
 const LandingFeatures = () => {
   return (
@@ -11,6 +12,11 @@ const LandingFeatures = () => {
             <BiCheckShield className='text-[60px]' />
             <h2 className='text-[22px] font-medium'>Secure Voting</h2>
             <p>Each voter has a unique "Voter ID" and "Voter Key" and can only vote once.</p>
+        </div>
+        <div className='flex flex-col text-center items-center w-[300px] text-purple-200 pt-8'>
+            <MdEmail className='text-[60px]' />
+            <h2 className='text-[22px] font-medium'>Email Voters</h2>
+            <p>Automatically sends to each voter his ID and key, and notifies them when the election starts via email</p>
         </div>
       </div>
       <img src={curve} alt='/' className='w-full invisible ' />
