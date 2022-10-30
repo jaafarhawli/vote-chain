@@ -32,7 +32,8 @@ module.exports = {
         100: '#000000',
         200: '#777777',
       },
-      'white': '#FFFFFF'
+      'white': '#FFFFFF',
+      'red': '#FF3636'
     }
   },
   plugins: [],
