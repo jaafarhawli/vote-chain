@@ -7,8 +7,8 @@ import {BsInstagram} from 'react-icons/bs';
 const LandingFooter = () => {
   return (
     <div>
-      <div className='aspect-960/200 w-full  bg-no-repeat bg-cover bg-center h-[150px]' style={{backgroundImage: `url("${curve}")`}}></div>
-      <div className='flex flex-col items-center lg:px-28 md:px-10 px-4 bg-purple-100 w-full pb-4'>
+      <div className='aspect-960/200 w-full  bg-no-repeat bg-cover bg-center h-[150px] ' style={{backgroundImage: `url("${curve}")`}}></div>
+      <div className='flex flex-col items-center lg:px-28 md:px-10 px-4 bg-purple-100 w-full pb-4 lg:pt-4'>
           <div className='flex flex-col items-center text-center md:items-start md:text-left md:flex-row w-full pb-8'>
               <div className='flex flex-col flex-1 pb-8'>
                   <h1 className='text-[28px] font-semibold text-purple-200'>About us</h1>
