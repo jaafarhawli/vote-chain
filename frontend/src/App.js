@@ -11,7 +11,7 @@ function App() {
     <QueryClientProvider client={client}>
     	<BrowserRouter>
 				<Routes>
-					<Route path='/' element={<Navigate to={<Landing />} />} />
+					<Route path='/' element={<Landing />} />
 					{/* <Route path='/login' element={<Login />} />
 					<Route path='/register' element={<Register />} />
 					<Route path='/main/*' element={<MainPage />} /> */}
