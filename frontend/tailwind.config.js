@@ -21,7 +21,12 @@ module.exports = {
       // => @media (min-width: 1536px) { ... }
     },
     colors: {
-      'purple': '#6B81FF',
+      'purple': {
+        100: '#6B81FF',
+        200: '#D3DCFF',
+        300: '#EBEBFF',
+        400: '#F9F8FF'
+      }, 
       'cyan': '#00B8FF',
       'black': {
         100: '#000000',

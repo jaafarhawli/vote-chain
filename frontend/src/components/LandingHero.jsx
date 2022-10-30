@@ -5,9 +5,9 @@ import landinglg from '../assets/landing-lg.svg';
 import curve from '../assets/backgroundcurve.svg';
 import {FaRegPlusSquare} from 'react-icons/fa';
 
-const Hero = () => {
+const LandingHero = () => {
   return (
-    <div className='hero flex flex-col bg-no-repeat bg-center bg-cover' >
+    <div className='hero flex flex-col bg-no-repeat bg-center bg-cover bg-purple-300 w-full' >
       <div className='flex w-full pt-4 items-center justify-between lg:px-28 md:px-10 px-4'>
         <img src={logo} alt="logo" className='w-48' />
         <div className='flex gap-4'>
@@ -17,7 +17,7 @@ const Hero = () => {
       </div>
       <div className='flex h-full flex-1 lg:pl-28 md:pl-10 pl-4 justify-between'>
         <div className='flex flex-col justify-center'>
-            <h1 className='text-4xl text-white md:text-5xl lg:text-6xl pt-12 md:pt-8'><span className='text-purple font-semibold'>Blockchain-based</span><br/>online voting system </h1>
+            <h1 className='text-4xl text-white md:text-5xl lg:text-6xl pt-12 md:pt-8'><span className='text-purple-100 font-semibold'>Blockchain-based</span><br/>online voting system </h1>
             <p className='text-white pt-6'>Create and launch your election securely<br/>from your own device</p>
             <button className='mt-6 max-w-[300px] gap-2'>Create a new election <FaRegPlusSquare className='text-[18px]' /> </button>
         </div>
@@ -29,4 +29,4 @@ const Hero = () => {
   );
 }
 
-export default Hero;
+export default LandingHero;

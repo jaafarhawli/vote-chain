@@ -1,10 +1,12 @@
 import React from 'react';
-import Hero from '../../components/Hero';
+import LandingHero from '../../components/LandingHero';
+import LandingSteps from '../../components/LandingSteps';
 
 const Landing = () => {
   return (
     <div>
-      <Hero />
+      <LandingHero />
+      <LandingSteps />
     </div>
   );
 }
