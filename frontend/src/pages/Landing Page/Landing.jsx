@@ -1,4 +1,5 @@
 import React from 'react';
+import LandingFeatures from '../../components/LandingFeatures';
 import LandingHero from '../../components/LandingHero';
 import LandingSteps from '../../components/LandingSteps';
 
@@ -7,6 +8,7 @@ const Landing = () => {
     <div>
       <LandingHero />
       <LandingSteps />
+      <LandingFeatures />
     </div>
   );
 }
