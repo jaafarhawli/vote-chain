@@ -1,6 +1,8 @@
 import React from 'react';
 import banner from '../assets/voting.png';
 import {MdBallot} from 'react-icons/md';
+import {AiOutlineUsergroupAdd} from 'react-icons/ai';
+import {FaUserShield} from 'react-icons/fa';
 
 const LandingSteps = () => {
   return (
@@ -20,11 +22,20 @@ const LandingSteps = () => {
         </div>
         <div className='flex mt-8 gap-4 text-left h-fit'>
             <div className='w-[70px] h-[70px] bg-purple-100 rounded-full flex justify-center items-center flex-shrink-0'>
-                <MdBallot className='text-white text-[30px]' />
+                <AiOutlineUsergroupAdd className='text-white text-[30px]' />
             </div>
             <div>
                 <h2 className='font-medium text-[18px] text-purple-100'>Add Voters</h2>
-                <p>Add voters to your election blockchain, create a unique password and id for each voter and sent it to them by email </p>
+                <p>Add voters to your election, create a unique password and id for each voter and sent it to them by email </p>
+            </div>
+        </div>
+        <div className='flex mt-8 gap-4 text-left h-fit'>
+            <div className='w-[70px] h-[70px] bg-purple-100 rounded-full flex justify-center items-center flex-shrink-0'>
+                <FaUserShield className='text-white text-[30px]' />
+            </div>
+            <div>
+                <h2 className='font-medium text-[18px] text-purple-100'>Add Moderators</h2>
+                <p>Add moderators to help you in adding voters to your election</p>
             </div>
         </div>
       </div>
