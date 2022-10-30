@@ -1,5 +1,6 @@
 import React from 'react';
 import LandingFeatures from '../../components/LandingFeatures';
+import LandingFooter from '../../components/LandingFooter';
 import LandingHero from '../../components/LandingHero';
 import LandingSignup from '../../components/LandingSignup';
 import LandingSteps from '../../components/LandingSteps';
@@ -11,6 +12,7 @@ const Landing = () => {
       <LandingSteps />
       <LandingFeatures />
       <LandingSignup />
+      <LandingFooter />
     </div>
   );
 }
