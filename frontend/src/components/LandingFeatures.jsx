@@ -8,9 +8,9 @@ const LandingFeatures = () => {
   return (
     <div>
         <div className='aspect-960/200 w-full  bg-no-repeat bg-cover bg-center h-[150px]' style={{backgroundImage: `url("${curve}")`}}></div>
-    <div className='flex flex-col items-center lg:px-28 md:px-10 px-4 min-h-[400px] bg-[#3D3C3C] w-full'>
-      <h1 className='text-[36px] text-purple-100 font-bold'>Excellent Features</h1>
-      <div className='flex flex-col'>
+    <div className='flex flex-col items-center lg:px-28 md:px-10 px-4 bg-[#3D3C3C] w-full lg:pb-12'>
+      <h1 className='md:text-[36px] text-purple-100 font-bold lg:text-[40px] lg:pb-4 text-[32px]'>Excellent Features</h1>
+      <div className='flex flex-col items-center lg:flex-row lg:justify-between w-full'>
         <div className='flex flex-col text-center items-center w-[300px] text-purple-200 pt-8'>
             <BiCheckShield className='text-[60px]' />
             <h2 className='text-[22px] font-medium'>Secure Voting</h2>

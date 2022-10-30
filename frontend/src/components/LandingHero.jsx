@@ -15,8 +15,8 @@ const LandingHero = () => {
             <button>Register</button>
         </div>
       </div>
-      <div className='flex h-full flex-1 lg:pl-28 md:pl-10 pl-4 justify-between'>
-        <div className='flex flex-col justify-center'>
+      <div className='flex h-full flex-1 lg:pl-28 md:pl-10 pl-4 sm:justify-between justify-center'>
+        <div className='flex flex-col justify-center sm:items-start items-center text-center sm:text-left'>
             <h1 className='text-4xl text-white md:text-5xl lg:text-6xl pt-12 md:pt-8'><span className='text-purple-100 font-semibold'>Blockchain-based</span><br/>online voting system </h1>
             <p className='text-white pt-6'>Create and launch your election securely<br/>from your own device</p>
             <button className='mt-6 max-w-[300px] gap-2'>Create a new election <FaRegPlusSquare className='text-[18px]' /> </button>
