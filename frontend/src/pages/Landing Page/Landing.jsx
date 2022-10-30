@@ -1,6 +1,7 @@
 import React from 'react';
 import LandingFeatures from '../../components/LandingFeatures';
 import LandingHero from '../../components/LandingHero';
+import LandingSignup from '../../components/LandingSignup';
 import LandingSteps from '../../components/LandingSteps';
 
 const Landing = () => {
@@ -9,6 +10,7 @@ const Landing = () => {
       <LandingHero />
       <LandingSteps />
       <LandingFeatures />
+      <LandingSignup />
     </div>
   );
 }
