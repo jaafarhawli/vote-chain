@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import MainHeader from '../../components/MainHeader';
 import axios from '../../api/axios';
 import ConfirmModal from '../../components/ConfirmModal';
+import ErrorModal from '../../components/ErrorModal';
 import { useNavigate } from 'react-router-dom';
 
 const UserSettings = () => {
@@ -88,7 +89,7 @@ const logout = () => {
   return (
     <div>
       <ConfirmModal open={openConfirmModal} closeModal={closeModal} />
-      <ErrorModal open={errorModal} closeModal={closeError} />
+      <ErrorModal open={errorModal} error={error} closeModal={closeError} />
       <MainHeader title={'Account Settings'} empty={true} />
       <form className='lg:w-[600px] w-[400px] flex flex-col gap-5 lg:px-28 md:px-10 px-4'>
           <h1 className='text-[28px] font-semibold text-purple-100'>Account Info</h1>
