@@ -6,11 +6,30 @@ import logo from '../assets/VOTE CHAIN-logo-black.png';
 const CreateElection = ({open, closeModal}) => {
 
     const [title, setTitle] = useState();
-    const [startdate, setStartDate] = useState();
-    const [enddate, setEndDate] = useState();
+    const [starttime, setStarttime] = useState();
+    const [endtime, setEndtime] = useState();
     const [timezone, setTimezone] = useState();
 
-    
+    const createElection = async () => {
+        const form = {
+            admin_id: localStorage.id,
+            title: title,
+            start_time: starttime,
+            end_time: endtime,
+            timezone: timezone
+        }
+        
+        try {
+             const data = await axios.post('user/election', form, {
+                headers: {
+                  Authorization: `bearer ${localStorage.token}`
+                }
+              });
+              console.log(data);
+            } catch (error) {
+              console.log(error);
+            }
+        }
     
 
     if(!open)
@@ -31,18 +50,18 @@ return (
           <div className='flex gap-2'>
             <label>
                 <p className='font-medium'>Start date</p>
-                <input type="text"  className=' border-[1px] border-black-200' onChange={e => setStartDate(e.target.value)} />
+                <input type="text"  className=' border-[1px] border-black-200' onChange={e => setStarttime(e.target.value)} />
             </label>
             <label>
                 <p className='font-medium'>End date</p>
-                <input className=' border-[1px] border-black-200' type="text" onChange={e => setEndDate(e.target.value)} />
+                <input className=' border-[1px] border-black-200' type="text" onChange={e => setEndtime(e.target.value)} />
             </label>
           </div>
           <label>
               <p className='font-medium'>Timezone</p>
               <input className=' border-[1px] border-black-200' type="text" onChange={e => setTimezone(e.target.value)}/>
           </label>
-          <button className='bg-cyan' type="button">Create election</button>
+          <button className='bg-cyan' type="button" onClick={createElection}>Create election</button>
       </form> 
      </div>
     </div>
