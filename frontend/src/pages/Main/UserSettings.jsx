@@ -3,6 +3,7 @@ import MainHeader from '../../components/MainHeader';
 import axios from '../../api/axios';
 import ConfirmModal from '../../components/ConfirmModal';
 import ErrorModal from '../../components/ErrorModal';
+import SuccessModal from '../../components/SuccessModal';
 import { useNavigate } from 'react-router-dom';
 
 const UserSettings = () => {
@@ -17,6 +18,7 @@ const UserSettings = () => {
   const [confirm, setConfirm] = useState();
   const [error, setError] = useState('');
   const [errorModal, setErrorModal] = useState(false);
+  const [successModal, setSuccessModal] = useState(false);
   const [openConfirmModal, setOpenConfirmModal] = useState(false);
 
   const saveInfo = async() => {
@@ -92,6 +94,7 @@ const logout = () => {
     <div>
       <ConfirmModal open={openConfirmModal} closeModal={closeModal} />
       <ErrorModal open={errorModal} error={error} closeError={() => setErrorModal(false)} />
+      <SuccessModal open={successModal} closeError={() => setSuccessModal(false)} />
       <MainHeader title={'Account Settings'} empty={true} />
       <form className='lg:w-[600px] w-[400px] flex flex-col gap-5 lg:px-28 md:px-10 px-4'>
           <h1 className='text-[28px] font-semibold text-purple-100'>Account Info</h1>
