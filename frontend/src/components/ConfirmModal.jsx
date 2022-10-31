@@ -1,9 +1,9 @@
 import React from 'react';
 import {HiOutlineXMark} from 'react-icons/hi2';
 
-const ConfirmModal = (props) => {      
+const ConfirmModal = ({open, closeModal}) => {      
 
-    if(!props.open)
+    if(!open)
     return null;
 
 return (
@@ -12,7 +12,7 @@ return (
          <HiOutlineXMark className='fixed top-2 left-2 text-[30px] hover:bg-black-100/20 rounded-full duration-200 p-1' />
          <h1 className='font-semibold text-[22px] text-center'>Are you sure you want to delete your account?</h1>
          <div className='flex justify-evenly w-full mt-8'>
-             <button>Cancel</button>
+             <button type='button' onClick={closeModal} >Cancel</button>
              <button className='bg-red'>Delete</button>
          </div>
      </div>

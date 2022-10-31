@@ -68,9 +68,15 @@ const openModal = () => {
   document.body.style.overflow = 'hidden';
 }
 
+const closeModal = () => {
+  setOpenConfirmModal(false);
+  document.body.style.overflow = 'unset';
+
+}
+
   return (
     <div>
-      <ConfirmModal open={openConfirmModal} />
+      <ConfirmModal open={openConfirmModal} closeModal={closeModal} />
       <MainHeader title={'Account Settings'} empty={true} />
       <form className='lg:w-[600px] w-[400px] flex flex-col gap-5 lg:px-28 md:px-10 px-4'>
           <h1 className='text-[28px] font-semibold text-purple-100'>Account Info</h1>
