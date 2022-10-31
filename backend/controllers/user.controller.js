@@ -52,7 +52,7 @@ const createElection = async(req, res) => {
 
 const viewElectionsAsAdmin = (req, res) => {
     const {id} = req.params;
-    Election.find({admin_id: id}, (err, elections) => {
+    Election.find({admin: id}, (err, elections) => {
         if(err) 
         return res.status(404).json("No Elections");
         res.status(200).json(elections);
@@ -63,8 +63,6 @@ const viewElectionsAsModerator = (req, res) => {
     const {id} = req.params;
     Election.find({moderators: {"$in": [id]}}, (err, elections) => {
         if(err) 
-        return res.status(404).json("No Elections");
-        if(elections.length==0)
         return res.status(404).json("No Elections");
         res.status(200).json(elections);
     });
@@ -108,6 +106,8 @@ const changePassword = async (req, res) => {
         res.status(200).json("Password updated successfully");
     });
 }
+
+
 
 const viewElectionAsAdmin = (req, res) => {
     const {user_id, election_id} = req.params;
