@@ -107,7 +107,29 @@ const changePassword = async (req, res) => {
     });
 }
 
-
+const deleteAccount = (req, res) => {
+    const {id} = req.body;
+    Election.deleteMany({ admin: id }, function (err) {
+        if(err) console.log(err);
+        console.log("Successful deletion");
+      });
+    Election.find({moderators: {"$in": [id]}}, (err, elections) => {
+        if(err)
+        return res.status(400).json("Invalid request");
+        elections.forEach((election) => {
+            const index = election.moderators.indexOf(id);
+            console.log("index", index);
+            election.moderators.splice(index, 1); 
+            election.save();
+        })
+    })
+    
+    User.findByIdAndDelete(id, (err) => {
+        if(err)
+        return res.status(400).json("Invalid request");
+    });
+    return res.status(200).json('User deleted successfully');
+}
 
 const viewElectionAsAdmin = (req, res) => {
     const {user_id, election_id} = req.params;
@@ -510,6 +532,7 @@ module.exports = {
     viewElectionsAsModerator,
     editAccount,
     changePassword,
+    deleteAccount,
     viewElectionAsAdmin,
     viewElectionAsModerator,
     addModerator,

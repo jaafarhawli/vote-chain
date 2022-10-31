@@ -1,6 +1,6 @@
 const {Router} = require('express');
 const {getUser, createElection, viewElectionsAsAdmin, viewElectionsAsModerator, editAccount, changePassword, viewElectionAsAdmin,
-viewElectionAsModerator, addModerator, removeModerator, addParty, removeParty, addCandidate, removeCandidate, addVoter, removeVoter, searchModerator, searchParty, searchCandidate, searchVoter, viewModerators, viewParties, viewCandidates, viewVoters, editElection, removeElection, uploadCandidateImage} = require('../controllers/user.controller');
+viewElectionAsModerator, addModerator, removeModerator, addParty, removeParty, addCandidate, removeCandidate, addVoter, removeVoter, searchModerator, searchParty, searchCandidate, searchVoter, viewModerators, viewParties, viewCandidates, viewVoters, editElection, removeElection, uploadCandidateImage, deleteAccount} = require('../controllers/user.controller');
 const authMiddleware = require('../middlewares/auth.middleware');
 const imageMiddleware = require('../middlewares/image.middleware');
 const router = Router();
@@ -11,6 +11,7 @@ router.get('/elections/:id', authMiddleware, viewElectionsAsAdmin);
 router.get('/elections/moderator/:id', authMiddleware, viewElectionsAsModerator);
 router.put('/account', authMiddleware, editAccount);
 router.put('/password', authMiddleware, changePassword);
+router.delete('/account', authMiddleware, deleteAccount);
 router.get('/election/:user_id/:election_id', authMiddleware, viewElectionAsAdmin);
 router.get('/election/moderator/:user_id/:election_id', authMiddleware, viewElectionAsModerator);
 router.post('/moderator', authMiddleware, addModerator);
