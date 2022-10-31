@@ -25,7 +25,7 @@ const viewElection = (id) => {
 if(admin_elections?.length===0) 
 return (
     <div>
-        <MainHeader empty={true} />
+        <MainHeader title={'Your Elections'} empty={true} />
         <div className='flex flex-col w-full text-center items-center gap-1 mt-20'>
             <h1 className='text-[24px] font-semibold text-black-200'>No Elections</h1>
             <p className='w-[220px]'>You don’t have any elections, create one now!</p>
@@ -36,7 +36,7 @@ return (
 
   return (
     <div>
-      <MainHeader empty={false} />
+      <MainHeader empty={false} title={'Your Elections'} />
       <div className=' grid md:grid-cols-2 gap-4 lg:px-28 md:px-10 px-4 mt-8'>
       {admin_elections?.map((election) => (
           <div className='px-4 py-8 bg-purple-100/75 rounded-lg text-white' onClick={() => viewElection(election._id)} key={election._id}>
