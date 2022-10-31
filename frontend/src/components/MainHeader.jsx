@@ -1,6 +1,6 @@
 import React from 'react';
 import logo from '../assets/VOTE CHAIN-logo-white-horizantal.png';
-
+import curve from '../assets/main-curve.svg';
 
 const MainHeader = () => {
   return (
@@ -12,7 +12,7 @@ const MainHeader = () => {
         </div>
         <h1 className='text-white text-[28px] md:text-[32px] lg:text-[36px] font-bold mt-8'>Your Elections</h1>
       </div>
-      
+      <div className='aspect-960/200 w-full  bg-no-repeat bg-cover bg-center md:[100px] h-[60px]' style={{backgroundImage: `url("${curve}")`}}></div>
     </div>
   );
 }
