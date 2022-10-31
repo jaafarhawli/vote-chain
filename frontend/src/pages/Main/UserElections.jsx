@@ -8,8 +8,16 @@ const UserElections = () => {
 
   const navigate = useNavigate();
 
-  const {data} = useQuery(["admin"], async () => {
+  const {data: admin_elections} = useQuery(["admin"], async () => {
     return axios.get(`user/elections/${localStorage.id}`, {
+                headers: {
+                  Authorization: `bearer ${localStorage.token}`
+                }
+              }).then((res) => res.data);
+})
+  
+const {data: moderator_elections} = useQuery(["moderator"], async () => {
+    return axios.get(`user/elections/moderator/${localStorage.id}`, {
                 headers: {
                   Authorization: `bearer ${localStorage.token}`
                 }
