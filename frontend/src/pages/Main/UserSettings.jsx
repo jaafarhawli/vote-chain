@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import MainHeader from '../../components/MainHeader';
 import axios from '../../api/axios';
+import ConfirmModal from '../../components/ConfirmModal';
 
 const UserSettings = () => {
 
@@ -11,6 +12,7 @@ const UserSettings = () => {
   const [password, setPassword] = useState();
   const [confirm, setConfirm] = useState();
   const [error, setError] = useState('');
+  const [openConfirmModal, setOpenConfirmModal] = useState(false);
 
   const saveInfo = async() => {
     const form = {
@@ -97,6 +99,7 @@ const changePassword = async() => {
           <button type='button' className=' bg-cyan' onClick={changePassword}>Save changes</button>
           <button className='bg-red'>Delete Account</button>
         </form>
+        <ConfirmModal open={openConfirmModal} />
     </div>
   );
 }
