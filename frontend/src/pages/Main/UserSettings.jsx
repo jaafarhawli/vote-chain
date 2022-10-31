@@ -34,6 +34,32 @@ const UserSettings = () => {
       console.log(error);
     }
 }
+  
+const changePassword = async() => {
+
+    if(confirm!==password) {
+        setError('Passwords didnt match');
+        return;
+    }
+
+    const form = {
+        id: localStorage.id,
+        old_password: oldPassword,
+        password: password,
+    }
+    try {
+      const updatedPassword = await axios.put('user/password', form, {
+        headers: {
+          Authorization: `bearer ${localStorage.token}`
+        }
+      });
+ 
+      console.log(updatedPassword);
+    } catch (error) {
+      setError(error.message);
+      console.log(error);
+    }
+}
 
   return (
     <div>
@@ -52,7 +78,7 @@ const UserSettings = () => {
               <p className='font-medium'>Email</p>
               <input type="email" className=' border-[1px] border-black-200' defaultValue={localStorage.email}  onChange={e => setEmail(e.target.value)}/>
           </label>
-          <button type='button' onClick={saveInfo}>Save changes</button>
+          <button type='button' className=' bg-cyan' onClick={saveInfo}>Save changes</button>
         </form>
         <form className='my-12 lg:w-[600px] w-[400px] flex flex-col gap-5 lg:px-28 md:px-10 px-4'>
           <h1 className='text-[28px] font-semibold text-purple-100'>Change Password</h1>
@@ -68,7 +94,7 @@ const UserSettings = () => {
                 <p className='font-medium'>Confirm New Password</p>
                 <input type="password" className=' border-[1px] border-black-200' onChange={e => setConfirm(e.target.value)}/>
             </label>
-          <button>Save changes</button>
+          <button type='button' className=' bg-cyan' onClick={changePassword}>Save changes</button>
           <button className='bg-red'>Delete Account</button>
         </form>
     </div>
