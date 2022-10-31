@@ -33,7 +33,7 @@ const viewElection = (id) => {
 if(admin_elections?.length===0 && moderator_elections?.length===0) 
 return (
     <div>
-        <MainHeader />
+        <MainHeader empty={true} />
         <div className='flex flex-col w-full text-center items-center gap-1 mt-20'>
             <h1 className='text-[24px] font-semibold text-black-200'>No Elections</h1>
             <p className='w-[220px]'>You don’t have any elections, create one now!</p>
@@ -44,10 +44,10 @@ return (
 
   return (
     <div>
-      <MainHeader />
+      <MainHeader empty={false} />
       <div className=' grid md:grid-cols-2 gap-4 lg:px-28 md:px-10 px-4 mt-8'>
       {admin_elections?.map((election) => (
-          <div className='p-4 bg-purple-100 rounded-lg text-white' onClick={() => viewElection(election._id)} key={election._id}>
+          <div className='px-4 py-8 bg-purple-100/75 rounded-lg text-white' onClick={() => viewElection(election._id)} key={election._id}>
               <h2 className='font-semibold text-[20px]'>{election.title}</h2>
               <div className='flex flex-col lg:w-full lg:flex-row mt-2 lg:gap-2'>
                 <div className='flex-1'>
