@@ -24,6 +24,12 @@ const {data: moderator_elections} = useQuery(["moderator"], async () => {
               }).then((res) => res.data);
 })
 
+const viewElection = (id) => {
+    localStorage.setItem('election_id', id);
+    console.log(id);
+    navigate('admin/election')
+}
+
 if(admin_elections?.length===0 && moderator_elections?.length===0) 
 return (
     <div>
@@ -41,7 +47,7 @@ return (
       <MainHeader />
       <div className=' grid md:grid-cols-2 gap-4 lg:px-28 md:px-10 px-4 mt-8'>
       {admin_elections?.map((election) => (
-          <div className='p-4 bg-purple-100 rounded-lg text-white'>
+          <div className='p-4 bg-purple-100 rounded-lg text-white' onClick={() => viewElection(election._id)} key={election._id}>
               <h2 className='font-semibold text-[20px]'>{election.title}</h2>
               <div className='flex flex-col lg:w-full lg:flex-row mt-2 lg:gap-2'>
                 <div className='flex-1'>
