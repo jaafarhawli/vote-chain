@@ -14,15 +14,15 @@ const UserSettings = () => {
           <h1 className='text-[28px] font-semibold text-purple-100'>Account Info</h1>
             <label>
                 <p className='font-medium'>First Name</p>
-                <input type="text" className=' border-[1px] border-black-200' onChange={e => setFirstname(e.target.value)}/>
+                <input type="text" className=' border-[1px] border-black-200' value={localStorage.firstname} onChange={e => setFirstname(e.target.value)}/>
             </label>
             <label>
                 <p className='font-medium'>Last Name</p>
-                <input type="text" className=' border-[1px] border-black-200' onChange={e => setLastname(e.target.value)}/>
+                <input type="text" className=' border-[1px] border-black-200' value={localStorage.lastname}  onChange={e => setLastname(e.target.value)}/>
             </label>
           <label>
               <p className='font-medium'>Email</p>
-              <input type="email" className=' border-[1px] border-black-200' onChange={e => setEmail(e.target.value)}/>
+              <input type="email" className=' border-[1px] border-black-200' value={localStorage.email}  onChange={e => setEmail(e.target.value)}/>
           </label>
           <button>Save changes</button>
         </form>
