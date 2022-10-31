@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route} from "react-router-dom";
 import Landing from './pages/Landing';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Main from './pages/Main';
 
 function App() {
 
@@ -16,7 +17,7 @@ function App() {
 					<Route path='/' element={<Landing />} />
 					<Route path='/login' element={<Login />} />
 					<Route path='/register' element={<Register />} />
-					{/* <Route path='/main/*' element={<MainPage />} /> */}
+					<Route path='/main/*' element={<Main />} />
 				</Routes>
     	</BrowserRouter>
 	</QueryClientProvider>
