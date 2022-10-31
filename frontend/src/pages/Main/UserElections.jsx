@@ -19,7 +19,6 @@ const UserElections = () => {
 
 const viewElection = (id) => {
     localStorage.setItem('election_id', id);
-    console.log(id);
     navigate('admin/election')
 }
 

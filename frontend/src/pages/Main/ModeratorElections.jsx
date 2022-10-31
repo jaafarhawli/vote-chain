@@ -16,6 +16,11 @@ const ModeratorElections = () => {
                   }).then((res) => res.data);
     })
 
+    const viewElection = (id) => {
+        localStorage.setItem('election_id', id);
+        navigate('moderator/election')
+    }
+
     if(moderator_elections?.length===0) 
     return (
         <div>
