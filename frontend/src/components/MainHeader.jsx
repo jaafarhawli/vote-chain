@@ -17,7 +17,7 @@ const MainHeader = (props) => {
             <div className='flex gap-3 text-white font-semibold items-center'>
                 <h2 className='hover:bg-purple-300/50 duration-150 p-2 rounded-lg select-none cursor-pointer' onClick={() => navigate('/main')}>Admin</h2>
                 <h2 className='hover:bg-purple-300/50 duration-150 p-2 rounded-lg select-none cursor-pointer' onClick={() => navigate('/main/moderator')}>Moderator</h2>
-                <button className=''>{localStorage.firstname} {localStorage.lastname}</button>
+                <button onClick={() => navigate('/main/settings')}>{localStorage.firstname} {localStorage.lastname}</button>
             </div>
         </div>
         <h1 className='text-white text-[28px] md:text-[32px] lg:text-[36px] font-bold mt-8'>{props.title}</h1>
@@ -35,7 +35,7 @@ const MainHeader = (props) => {
             <div className='flex gap-3 text-white font-semibold items-center'>
                 <h2 className='hover:bg-purple-300/50 duration-150 p-2 rounded-lg select-none cursor-pointer' onClick={() => navigate('/main')}>Admin</h2>
                 <h2 className='hover:bg-purple-300/50 duration-150 p-2 rounded-lg select-none cursor-pointer' onClick={() => navigate('/main/moderator')}>Moderator</h2>
-                <button className=''>{localStorage.firstname} {localStorage.lastname}</button>
+                <button onClick={() => navigate('/main/settings')}>{localStorage.firstname} {localStorage.lastname}</button>
             </div>
         </div>
         <div className='flex justify-between w-full items-center mt-8'>
