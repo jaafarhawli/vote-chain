@@ -14,7 +14,7 @@ const ConfirmModal = ({open, closeModal}) => {
         }
         
         try {
-            const data = await axios.post('user/account', form, {
+            await axios.post('user/account', form, {
                 headers: {
                   Authorization: `bearer ${localStorage.token}`
                 }

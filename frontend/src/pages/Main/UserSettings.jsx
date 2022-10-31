@@ -2,8 +2,11 @@ import React, {useState} from 'react';
 import MainHeader from '../../components/MainHeader';
 import axios from '../../api/axios';
 import ConfirmModal from '../../components/ConfirmModal';
+import { useNavigate } from 'react-router-dom';
 
 const UserSettings = () => {
+
+  const navigate = useNavigate();
 
   const [firstname, setFirstname] = useState(localStorage.firstname);
   const [lastname, setLastname] = useState(localStorage.lastname);
@@ -74,6 +77,11 @@ const closeModal = () => {
 
 }
 
+const logout = () => {
+  localStorage.clear();      
+  navigate('/');
+}
+
   return (
     <div>
       <ConfirmModal open={openConfirmModal} closeModal={closeModal} />
@@ -109,7 +117,10 @@ const closeModal = () => {
                 <input type="password" className=' border-[1px] border-black-200' onChange={e => setConfirm(e.target.value)}/>
             </label>
           <button type='button' className=' bg-cyan' onClick={changePassword}>Save changes</button>
-          <button type='button' className='bg-red'  onClick={openModal} >Delete Account</button>
+          <div className='flex w-full gap-2'>
+            <button type='button' className='bg-red flex-1'  onClick={logout} >Log out</button>
+            <button type='button' className='bg-red flex-1'  onClick={openModal} >Delete Account</button>
+          </div>
         </form>
         
     </div>
