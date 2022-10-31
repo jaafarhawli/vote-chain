@@ -12,7 +12,7 @@ const UserSettings = () => {
   const [password, setPassword] = useState();
   const [confirm, setConfirm] = useState();
   const [error, setError] = useState('');
-  const [openConfirmModal, setOpenConfirmModal] = useState(false);
+  const [openConfirmModal, setOpenConfirmModal] = useState(true);
 
   const saveInfo = async() => {
     const form = {
@@ -65,6 +65,7 @@ const changePassword = async() => {
 
   return (
     <div>
+      <ConfirmModal open={openConfirmModal} />
       <MainHeader title={'Account Settings'} empty={true} />
       <form className='lg:w-[600px] w-[400px] flex flex-col gap-5 lg:px-28 md:px-10 px-4'>
           <h1 className='text-[28px] font-semibold text-purple-100'>Account Info</h1>
@@ -99,7 +100,7 @@ const changePassword = async() => {
           <button type='button' className=' bg-cyan' onClick={changePassword}>Save changes</button>
           <button className='bg-red'>Delete Account</button>
         </form>
-        <ConfirmModal open={openConfirmModal} />
+        
     </div>
   );
 }
