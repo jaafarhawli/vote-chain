@@ -39,7 +39,21 @@ return (
   return (
     <div>
       <MainHeader />
-      
+      <div className=' grid md:grid-cols-2 gap-4 lg:px-28 md:px-10 px-4 mt-8'>
+      {admin_elections?.map((election) => (
+          <div className='p-4 bg-purple-100 rounded-lg text-white'>
+              <h2 className='font-semibold text-[20px]'>{election.title}</h2>
+              <div className='flex flex-col lg:w-full lg:flex-row mt-2 lg:gap-2'>
+                <div className='flex-1'>
+                    <p className='text-[13px]'><span className=' font-semibold'>Starts on</span> {election.start_time}</p>
+                </div>
+                <div className='flex-1'>
+                    <p className='text-[13px]'><span className=' font-semibold '>Ends on</span> {election.end_time}</p>
+                </div>
+              </div>
+          </div>
+     ))}
+      </div>
     </div>
   );
 }
