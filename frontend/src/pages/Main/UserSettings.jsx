@@ -16,7 +16,7 @@ const UserSettings = () => {
   const [password, setPassword] = useState();
   const [confirm, setConfirm] = useState();
   const [error, setError] = useState('');
-  const [errorModal, setErrorModal] = useState(true);
+  const [errorModal, setErrorModal] = useState(false);
   const [openConfirmModal, setOpenConfirmModal] = useState(false);
 
   const saveInfo = async() => {
@@ -47,6 +47,7 @@ const changePassword = async() => {
 
     if(confirm!==password) {
         setError('Passwords didnt match');
+        setErrorModal(true);
         return;
     }
 
@@ -86,10 +87,11 @@ const logout = () => {
   navigate('/');
 }
 
+
   return (
     <div>
       <ConfirmModal open={openConfirmModal} closeModal={closeModal} />
-      <ErrorModal open={errorModal} error={error} closeModal={closeError} />
+      <ErrorModal open={errorModal} error={error} closeError={() => setErrorModal(false)} />
       <MainHeader title={'Account Settings'} empty={true} />
       <form className='lg:w-[600px] w-[400px] flex flex-col gap-5 lg:px-28 md:px-10 px-4'>
           <h1 className='text-[28px] font-semibold text-purple-100'>Account Info</h1>
