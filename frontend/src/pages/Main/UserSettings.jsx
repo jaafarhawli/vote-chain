@@ -29,7 +29,7 @@ const UserSettings = () => {
         email: email,
     }
     try {
-      const accountInfo = await axios.put('user/account', form, {
+      await axios.put('user/account', form, {
         headers: {
           Authorization: `bearer ${localStorage.token}`
         }
@@ -37,7 +37,7 @@ const UserSettings = () => {
       localStorage.setItem('firstname', firstname);
       localStorage.setItem('lastname', lastname);
       localStorage.setItem('email', email);
-      console.log(accountInfo);
+      setSuccessModal(true);
     } catch (error) {
       setError(error.message);
       setErrorModal(true);
@@ -59,13 +59,14 @@ const changePassword = async() => {
         password: password,
     }
     try {
-      const updatedPassword = await axios.put('user/password', form, {
+      await axios.put('user/password', form, {
         headers: {
           Authorization: `bearer ${localStorage.token}`
         }
       });
  
-      console.log(updatedPassword);
+      setSuccessModal(true);
+
     } catch (error) {
       setError(error.message);
       setErrorModal(true);
@@ -94,7 +95,7 @@ const logout = () => {
     <div>
       <ConfirmModal open={openConfirmModal} closeModal={closeModal} />
       <ErrorModal open={errorModal} error={error} closeError={() => setErrorModal(false)} />
-      <SuccessModal open={successModal} closeError={() => setSuccessModal(false)} />
+      <SuccessModal open={successModal} closeSuccess={() => setSuccessModal(false)} />
       <MainHeader title={'Account Settings'} empty={true} />
       <form className='lg:w-[600px] w-[400px] flex flex-col gap-5 lg:px-28 md:px-10 px-4'>
           <h1 className='text-[28px] font-semibold text-purple-100'>Account Info</h1>

@@ -34,7 +34,8 @@ module.exports = {
         300: '#3D3C3C'
       },
       'white': '#FFFFFF',
-      'red': '#FF3636'
+      'red': '#FF3636',
+      'green': '#1dc198'
     }
   },
   plugins: [],
