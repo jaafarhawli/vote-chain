@@ -4,6 +4,8 @@ import axios from '../api/axios';
 import logo from '../assets/VOTE CHAIN-logo-black.png';
 import ErrorModal from './ErrorModal';
 import {DateTimePickerComponent} from '@syncfusion/ej2-react-calendars';
+import TimezonePicker from 'react-bootstrap-timezone-picker';
+import 'react-bootstrap-timezone-picker/dist/react-bootstrap-timezone-picker.min.css';
 
 const CreateElection = ({open, closeModal}) => {
 
@@ -16,7 +18,7 @@ const CreateElection = ({open, closeModal}) => {
     const date = new Date().toLocaleString();
 
     const createElection = async () => {
-        
+    
         if(((endtime - starttime)/36e5) < 24) {
             setError("Your election should be 24 hours at least");
             setErrorModal(true);
@@ -44,6 +46,9 @@ const CreateElection = ({open, closeModal}) => {
               console.log(error);
             }
         
+    }
+    const handleChange = (value) => {
+        setTimezone(value);
     }
 
     if(!open)
@@ -74,7 +79,13 @@ return (
           </div>
           <label>
               <p className='font-medium'>Timezone</p>
-              <input className=' border-[1px] border-black-200' type="text" onChange={e => setTimezone(e.target.value)}/>
+              <TimezonePicker
+                  
+                  placeholder   = "Select timezone..."
+                  onChange={handleChange}
+                  className='w-full'
+                />
+             
           </label>
           <button className='bg-cyan' type="button" onClick={createElection}>Create election</button>
       </form> 
