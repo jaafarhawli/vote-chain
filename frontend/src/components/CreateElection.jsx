@@ -3,6 +3,7 @@ import {HiOutlineXMark} from 'react-icons/hi2';
 import axios from '../api/axios';
 import logo from '../assets/VOTE CHAIN-logo-black.png';
 import ErrorModal from './ErrorModal';
+import {DateTimePickerComponent} from '@syncfusion/ej2-react-calendars';
 
 const CreateElection = ({open, closeModal}) => {
 
@@ -12,8 +13,16 @@ const CreateElection = ({open, closeModal}) => {
     const [timezone, setTimezone] = useState();
     const [errorModal, setErrorModal] = useState(false);
     const [error, setError] = useState('');
+    const date = new Date().toLocaleString();
 
     const createElection = async () => {
+        
+        if(((endtime - starttime)/36e5) < 24) {
+            setError("Your election should be 24 hours at least");
+            setErrorModal(true);
+            return;
+        }
+
         const form = {
             admin_id: localStorage.id,
             title: title,
@@ -28,14 +37,14 @@ const CreateElection = ({open, closeModal}) => {
                   Authorization: `bearer ${localStorage.token}`
                 }
               });
-              {closeModal()};
+              closeModal();
             } catch (error) {
                 setError(error.message);
                 setErrorModal(true);
               console.log(error);
             }
-        }
-    
+        
+    }
 
     if(!open)
     return null;
@@ -56,11 +65,11 @@ return (
           <div className='flex gap-2'>
             <label>
                 <p className='font-medium'>Start date</p>
-                <input type="text"  className=' border-[1px] border-black-200' onChange={e => setStarttime(e.target.value)} />
+                <DateTimePickerComponent min={date} format="yyyy-mm-dd HH:mm" onChange={e => setStarttime(e.target.value)}></DateTimePickerComponent>
             </label>
             <label>
                 <p className='font-medium'>End date</p>
-                <input className=' border-[1px] border-black-200' type="text" onChange={e => setEndtime(e.target.value)} />
+                <DateTimePickerComponent min={date} format="yyyy-mm-dd HH:mm" onChange={e => setEndtime(e.target.value)} ></DateTimePickerComponent>
             </label>
           </div>
           <label>
@@ -73,5 +82,6 @@ return (
     </div>
   );
 }
+
 
 export default CreateElection;
