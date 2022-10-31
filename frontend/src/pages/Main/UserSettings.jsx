@@ -12,7 +12,7 @@ const UserSettings = () => {
   const [password, setPassword] = useState();
   const [confirm, setConfirm] = useState();
   const [error, setError] = useState('');
-  const [openConfirmModal, setOpenConfirmModal] = useState(true);
+  const [openConfirmModal, setOpenConfirmModal] = useState(false);
 
   const saveInfo = async() => {
     const form = {
@@ -63,6 +63,11 @@ const changePassword = async() => {
     }
 }
 
+const openModal = () => {
+  setOpenConfirmModal(true);
+  document.body.style.overflow = 'hidden';
+}
+
   return (
     <div>
       <ConfirmModal open={openConfirmModal} />
@@ -98,7 +103,7 @@ const changePassword = async() => {
                 <input type="password" className=' border-[1px] border-black-200' onChange={e => setConfirm(e.target.value)}/>
             </label>
           <button type='button' className=' bg-cyan' onClick={changePassword}>Save changes</button>
-          <button className='bg-red'>Delete Account</button>
+          <button type='button' className='bg-red'  onClick={openModal} >Delete Account</button>
         </form>
         
     </div>
