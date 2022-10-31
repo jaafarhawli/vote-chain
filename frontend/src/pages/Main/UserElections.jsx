@@ -16,13 +16,6 @@ const UserElections = () => {
               }).then((res) => res.data);
 })
   
-const {data: moderator_elections} = useQuery(["moderator"], async () => {
-    return axios.get(`user/elections/moderator/${localStorage.id}`, {
-                headers: {
-                  Authorization: `bearer ${localStorage.token}`
-                }
-              }).then((res) => res.data);
-})
 
 const viewElection = (id) => {
     localStorage.setItem('election_id', id);
@@ -30,7 +23,7 @@ const viewElection = (id) => {
     navigate('admin/election')
 }
 
-if(admin_elections?.length===0 && moderator_elections?.length===0) 
+if(admin_elections?.length===0) 
 return (
     <div>
         <MainHeader empty={true} />
