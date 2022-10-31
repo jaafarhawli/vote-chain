@@ -6,6 +6,10 @@ const UserSettings = () => {
   const [firstname, setFirstname] = useState();
   const [lastname, setLastname] = useState();
   const [email, setEmail] = useState();
+  const [oldPassword, setOldPassword] = useState();
+  const [password, setPassword] = useState();
+  const [confirm, setConfirm] = useState();
+  const [error, setError] = useState('');
 
   return (
     <div>
@@ -30,11 +34,15 @@ const UserSettings = () => {
           <h1 className='text-[28px] font-semibold text-purple-100'>Change Password</h1>
             <label>
                 <p className='font-medium'>Old Password</p>
-                <input type="password" className=' border-[1px] border-black-200' onChange={e => setFirstname(e.target.value)}/>
+                <input type="password" className=' border-[1px] border-black-200' onChange={e => setOldPassword(e.target.value)}/>
             </label>
             <label>
                 <p className='font-medium'>New Password</p>
-                <input type="text" className=' border-[1px] border-black-200' onChange={e => setLastname(e.target.value)}/>
+                <input type="password" className=' border-[1px] border-black-200' onChange={e => setPassword(e.target.value)}/>
+            </label>
+            <label>
+                <p className='font-medium'>Confirm New Password</p>
+                <input type="password" className=' border-[1px] border-black-200' onChange={e => setConfirm(e.target.value)}/>
             </label>
           <button>Save changes</button>
           <button className='bg-red'>Delete Account</button>
