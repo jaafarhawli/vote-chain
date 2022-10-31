@@ -1,12 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useQuery} from '@tanstack/react-query';
 import axios from '../../api/axios';
 import { useNavigate } from 'react-router-dom';
 import MainHeader from '../../components/MainHeader';
+import CreateElection from '../../components/CreateElection';
 
 const UserElections = () => {
 
   const navigate = useNavigate();
+
+  const [electionModal, setElectionModal] = useState(false);
 
   const {data: admin_elections} = useQuery(["admin"], async () => {
     return axios.get(`user/elections/${localStorage.id}`, {
@@ -25,6 +28,7 @@ const viewElection = (id) => {
 if(admin_elections?.length===0) 
 return (
     <div>
+      <CreateElection open={electionModal} closeModal={() => setElectionModal(false)} />
         <MainHeader title={'Your Elections'} empty={true} />
         <div className='flex flex-col w-full text-center items-center gap-1 mt-20'>
             <h1 className='text-[24px] font-semibold text-black-200'>No Elections</h1>
@@ -36,6 +40,7 @@ return (
 
   return (
     <div>
+      <CreateElection open={electionModal} closeModal={() => setElectionModal(false)} />
       <MainHeader empty={false} title={'Your Elections'} />
       <div className=' grid md:grid-cols-2 gap-4 lg:px-28 md:px-10 px-4 mt-8'>
       {admin_elections?.map((election) => (
