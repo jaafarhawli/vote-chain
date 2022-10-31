@@ -1,11 +1,16 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {HiOutlineXMark} from 'react-icons/hi2';
 import axios from '../api/axios';
 import logo from '../assets/VOTE CHAIN-logo-black.png';
 
 const CreateElection = ({open, closeModal}) => {
 
- 
+    const [title, setTitle] = useState();
+    const [startdate, setStartDate] = useState();
+    const [enddate, setEndDate] = useState();
+    const [timezone, setTimezone] = useState();
+
+    
     
 
     if(!open)
@@ -21,21 +26,21 @@ return (
       <form className='w-4/5 flex flex-col gap-5 '>
           <label>
               <p className='font-medium'>Election title</p>
-              <input className=' border-[1px] border-black-200' type="text" />
+              <input className=' border-[1px] border-black-200' type="text" onChange={e => setTitle(e.target.value)} />
           </label>
           <div className='flex gap-2'>
             <label>
                 <p className='font-medium'>Start date</p>
-                <input type="text"  className=' border-[1px] border-black-200' />
+                <input type="text"  className=' border-[1px] border-black-200' onChange={e => setStartDate(e.target.value)} />
             </label>
             <label>
                 <p className='font-medium'>End date</p>
-                <input className=' border-[1px] border-black-200' type="text"/>
+                <input className=' border-[1px] border-black-200' type="text" onChange={e => setEndDate(e.target.value)} />
             </label>
           </div>
           <label>
               <p className='font-medium'>Timezone</p>
-              <input className=' border-[1px] border-black-200' type="text"/>
+              <input className=' border-[1px] border-black-200' type="text" onChange={e => setTimezone(e.target.value)}/>
           </label>
           <button className='bg-cyan' type="button">Create election</button>
       </form> 
