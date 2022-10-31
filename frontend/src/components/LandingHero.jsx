@@ -28,7 +28,7 @@ const LandingHero = () => {
         <img src={landingsm} alt="talents" className="w-[45%] md:hidden hidden sm:flex mt-5" />
         <img src={landinglg} alt="talents" className="w-[45%] hidden md:flex mt-5" />
       </div>
-      <img src={curve} alt='/' className='w-full invisible max-h-[100px]' />
+      <img src={curve} alt='/' className='w-full invisible max-h-[110px]' />
     </div>
   );
 }
