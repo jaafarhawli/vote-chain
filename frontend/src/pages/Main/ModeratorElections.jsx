@@ -25,7 +25,28 @@ const ModeratorElections = () => {
                 <p className='w-[220px]'>You're not assigned as moderator to any election'</p>
             </div>
         </div>
-    )
+    );
+
+    return (
+        <div>
+          <MainHeader empty={false} />
+          <div className=' grid md:grid-cols-2 gap-4 lg:px-28 md:px-10 px-4 mt-8'>
+          {moderator_elections?.map((election) => (
+              <div className='px-4 py-8 bg-purple-100/75 rounded-lg text-white' onClick={() => viewElection(election._id)} key={election._id}>
+                  <h2 className='font-semibold text-[20px]'>{election.title}</h2>
+                  <div className='flex flex-col lg:w-full lg:flex-row mt-2 lg:gap-2'>
+                    <div className='flex-1'>
+                        <p className='text-[13px]'><span className=' font-semibold'>Starts on</span> {election.start_time}</p>
+                    </div>
+                    <div className='flex-1'>
+                        <p className='text-[13px]'><span className=' font-semibold '>Ends on</span> {election.end_time}</p>
+                    </div>
+                  </div>
+              </div>
+         ))}
+          </div>
+        </div>
+      );
 }
 
 export default ModeratorElections;
