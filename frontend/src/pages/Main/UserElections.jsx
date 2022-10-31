@@ -24,7 +24,17 @@ const {data: moderator_elections} = useQuery(["moderator"], async () => {
               }).then((res) => res.data);
 })
 
-
+if(admin_elections?.length===0 && moderator_elections?.length===0) 
+return (
+    <div>
+        <MainHeader />
+        <div className='flex flex-col w-full text-center items-center gap-1 mt-20'>
+            <h1 className='text-[24px] font-semibold text-black-200'>No Elections</h1>
+            <p className='w-[220px]'>You don’t have any elections, create one now!</p>
+            <button className='mt-6'>Create a new election</button>
+        </div>
+    </div>
+)
 
   return (
     <div>
