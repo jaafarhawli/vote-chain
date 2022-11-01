@@ -83,7 +83,7 @@ return (
                   
                   placeholder   = "Select timezone..."
                   onChange={handleChange}
-                  className='w-full'
+                  className='timezone w-full'
                 />
              
           </label>

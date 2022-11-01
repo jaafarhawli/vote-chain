@@ -30,10 +30,15 @@ const openModal = () => {
   document.body.style.overflow = 'hidden';
 }
 
+const closeModal = () => {
+  setElectionModal(false)
+  document.body.style.overflow = 'unset';
+}
+
 if(admin_elections?.length===0) 
 return (
     <div>
-      <CreateElection open={electionModal} closeModal={() => setElectionModal(false)} />
+      <CreateElection open={electionModal} closeModal={closeModal} />
         <MainHeader title={'Your Elections'} empty={true} open={openModal} />
         <div className='flex flex-col w-full text-center items-center gap-1 mt-20'>
             <h1 className='text-[24px] font-semibold text-black-200'>No Elections</h1>
@@ -45,7 +50,7 @@ return (
 
   return (
     <div>
-      <CreateElection open={electionModal} closeModal={() => setElectionModal(false)} />
+      <CreateElection open={electionModal} closeModal={closeModal} />
       <MainHeader empty={false} title={'Your Elections'} open={openModal} />
       <div className=' grid md:grid-cols-2 gap-4 lg:px-28 md:px-10 px-4 mt-8'>
       {admin_elections?.map((election) => (
