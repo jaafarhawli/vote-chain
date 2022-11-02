@@ -3,10 +3,24 @@ import {useQuery} from '@tanstack/react-query';
 import axios from '../../api/axios';
 import AddButton from '../../components/AddButton';
 import {HiOutlineXMark} from 'react-icons/hi2';
+import AddPartyModal from '../../components/AddPartyModal';
 
 const AdminParties = () => {
 
     const [search, setSearch] = useState('');
+    const [partyModal, setPartyModal] = useState(false);
+    const [refetch, setRefetch] = useState(true);
+
+    const closeModal = () => {
+        setPartyModal(false)
+        document.body.style.overflow = 'unset';
+      }
+    
+      const openModal = () => {
+        setPartyModal(true);
+        document.body.style.overflow = 'hidden';
+      }
+
 
     const {data} = useQuery([], async () => {
         return axios.get(`user/parties/${localStorage.election_id}`, {
@@ -19,6 +33,7 @@ const AdminParties = () => {
     if(data?.length === 0)
     return (
         <>
+        <AddPartyModal open={partyModal} closeModal={closeModal}  refetch={() => setRefetch(!refetch)} />
         <div className='pl-[330px] pt-[150px] pr-6'>
             <h1 className='text-[28px] font-bold'>Parties</h1>
             <div className='flex flex-col w-full items-center gap-4 mt-[150px]'>
@@ -26,7 +41,7 @@ const AdminParties = () => {
                     <h2 className='text-[24px] font-semibold text-black-200'>No Parties</h2>
                     <p className='text-[18px] w-64 mt-1'>You don’t have any party, add one now!</p>
                 </div>
-                <AddButton text={"Add party"} />
+                <AddButton text={"Add party"} click={openModal} />
             </div>
         </div>
         </>
@@ -35,10 +50,11 @@ const AdminParties = () => {
 
   return (
     <>
+    <AddPartyModal open={partyModal} closeModal={closeModal}  refetch={() => setRefetch(!refetch)} />
     <div className='pl-[330px] pt-[150px] pr-6'>
         <div className='flex justify-between items-center w-full'>
           <h1 className='text-[28px] font-bold'>Parties</h1>
-          <AddButton text={"Add Moderator"} />
+          <AddButton text={"Add Moderator"}  click={openModal} />
         </div>
             <input type="search" className='border-2 border-[#dddddd] w-1/3 rounded-md mt-4' placeholder='Search moderator by email' onChange={e => setSearch(e.target.value)} />
         <table className='mt-8'>
@@ -53,8 +69,7 @@ const AdminParties = () => {
                     <td>{party.name}</td>
                     <HiOutlineXMark className='absolute right-2 top-2 text-[25px] hover:text-red duration-150' />
                 </tr>
-     ))}
-                
+     ))}     
             </tbody>
         </table>
     </div>
