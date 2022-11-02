@@ -1,9 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useQuery} from '@tanstack/react-query';
 import axios from '../../api/axios';
 import AddButton from '../../components/AddButton';
+import {HiOutlineXMark} from 'react-icons/hi2';
 
 const AdminParties = () => {
+
+    const [search, setSearch] = useState('');
 
     const {data} = useQuery([], async () => {
         return axios.get(`user/parties/${localStorage.election_id}`, {
@@ -31,9 +34,31 @@ const AdminParties = () => {
 
 
   return (
-    <div>
-      
+    <>
+    <div className='pl-[330px] pt-[150px] pr-6'>
+        <div className='flex justify-between items-center w-full'>
+          <h1 className='text-[28px] font-bold'>Parties</h1>
+          <AddButton text={"Add Moderator"} />
+        </div>
+            <input type="search" className='border-2 border-[#dddddd] w-1/3 rounded-md mt-4' placeholder='Search moderator by email' onChange={e => setSearch(e.target.value)} />
+        <table className='mt-8'>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody>
+            {data?.map((party) => (
+                <tr className='relative' key={party.name}>
+                    <td>{party.name}</td>
+                    <HiOutlineXMark className='absolute right-2 top-2 text-[25px] hover:text-red duration-150' />
+                </tr>
+     ))}
+                
+            </tbody>
+        </table>
     </div>
+    </>
   );
 }
 
