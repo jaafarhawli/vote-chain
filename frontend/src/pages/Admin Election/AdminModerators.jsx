@@ -1,8 +1,7 @@
-import React, {useState} from 'react';
+import React, {useState, useMemo} from 'react';
 import {useQuery} from '@tanstack/react-query';
 import axios from '../../api/axios';
 import AddButton from '../../components/AddButton';
-import {AiOutlineSearch} from 'react-icons/ai';
 import {HiOutlineXMark} from 'react-icons/hi2';
 import AddModerator from '../../components/AddModerator';
 import ConfirmModal from '../../components/ConfirmModal';
@@ -12,6 +11,7 @@ const AdminModerators = () => {
     const [moderatorModal, setModeratorModal] = useState(false);
     const [refetch, setRefetch] = useState(true);
     const [confirmModal, setConfirmModal] = useState(false);
+    const [search, setSearch] = useState('');
 
     const closeModal = () => {
         setModeratorModal(false)
@@ -30,6 +30,12 @@ const {data} = useQuery([refetch], async () => {
                     }
                   }).then((res) => res.data);
     })
+
+    const filteredData = useMemo(() => {
+        return data?.filter(row => {
+          return row.email.toLowerCase().includes(search.toLowerCase())
+        })
+      }, [data, search])
 
 
     const openModal = () => {
@@ -91,10 +97,7 @@ const {data} = useQuery([refetch], async () => {
           <h1 className='text-[28px] font-bold'>Moderators</h1>
           <AddButton text={"Add Moderator"} click={openModal} />
         </div>
-        <div className='flex gap-2 items-center mt-4'>
-            <input type="text" className='border-2 border-[#dddddd] w-1/3 rounded-md' placeholder='Search moderator by email' />
-            <AiOutlineSearch className='text-black-200 p-2 border-[#dddddd] border-2 w-[40px] h-[40px] rounded-lg' />
-        </div>
+            <input type="search" className='border-2 border-[#dddddd] w-1/3 rounded-md mt-4' placeholder='Search moderator by email' onChange={e => setSearch(e.target.value)} />
         <table className='mt-8'>
             <thead>
                 <tr>
@@ -103,7 +106,7 @@ const {data} = useQuery([refetch], async () => {
                 </tr>
             </thead>
             <tbody>
-            {data?.map((moderator) => (
+            {filteredData?.map((moderator) => (
                 <tr className='relative' key={moderator.email}>
                     <td>{moderator.first_name} {moderator.last_name}</td>
                     <td>{moderator.email}</td>
