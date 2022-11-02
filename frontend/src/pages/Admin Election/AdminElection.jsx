@@ -6,6 +6,7 @@ import AdminPanel from '../../components/AdminPanel';
 import AdminTitle from '../../components/AdminTitle';
 import AdminDashboard from './AdminDashboard';
 import AdminModerators from './AdminModerators';
+import AdminParties from './AdminParties';
 
 const AdminElection = () => {
 
@@ -29,6 +30,7 @@ const AdminElection = () => {
       <Routes>
           <Route path='/dashboard' element={<AdminDashboard />} />
           <Route path='/moderators' element={<AdminModerators />} />
+          <Route path='/parties' element={<AdminParties />} />
       </Routes>
     </div>
   );

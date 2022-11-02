@@ -33,7 +33,7 @@ const {data} = useQuery([refetch], async () => {
 
     const filteredData = useMemo(() => {
         return data?.filter(row => {
-          return row.email.toLowerCase().includes(search.toLowerCase())
+          return row?.email.toLowerCase().includes(search.toLowerCase())
         })
       }, [data, search])
 
