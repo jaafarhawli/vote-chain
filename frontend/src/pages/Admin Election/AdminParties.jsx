@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useMemo} from 'react';
 import {useQuery} from '@tanstack/react-query';
 import axios from '../../api/axios';
 import AddButton from '../../components/AddButton';
@@ -31,6 +31,12 @@ const AdminParties = () => {
                     }
                   }).then((res) => res.data);
     })
+
+    const filteredData = useMemo(() => {
+        return data?.filter(row => {
+          return row?.name?.toLowerCase().includes(search.toLowerCase())
+        })
+      }, [data, search])
 
     const closeConfirm = () => {
         setConfirmModal(false)
@@ -78,6 +84,8 @@ const openConfirmModal = (id) => {
         </>
     );
 
+    
+
 
   return (
     <>
@@ -96,7 +104,7 @@ const openConfirmModal = (id) => {
                 </tr>
             </thead>
             <tbody>
-            {data?.map((party) => (
+            {filteredData?.map((party) => (
                 <tr className='relative' key={party.name}>
                     <td className='w-full'>{party.name}</td>
                     <HiOutlineXMark className='absolute right-2 top-2 text-[25px] hover:text-red duration-150' onClick={() => openConfirmModal(party._id)} />
