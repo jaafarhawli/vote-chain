@@ -1,5 +1,5 @@
 import React from 'react';
-import banner from '../assets/voting.png';
+import banner from '../../assets/voting.png';
 import {MdBallot} from 'react-icons/md';
 import {AiOutlineUsergroupAdd} from 'react-icons/ai';
 import {FaUserShield} from 'react-icons/fa';

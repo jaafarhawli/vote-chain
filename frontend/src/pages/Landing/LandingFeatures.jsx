@@ -1,5 +1,5 @@
 import React from 'react';
-import curve from '../assets/feature-curve.svg';
+import curve from '../../assets/feature-curve.svg';
 import {BiCheckShield} from 'react-icons/bi';
 import {MdEmail} from 'react-icons/md';
 import {ImStatsBars} from 'react-icons/im';

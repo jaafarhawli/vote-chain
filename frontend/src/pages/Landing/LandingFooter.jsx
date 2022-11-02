@@ -1,5 +1,5 @@
 import React from 'react';
-import curve from '../assets/footer.svg';
+import curve from '../../assets/footer.svg';
 import {SiGmail} from 'react-icons/si';
 import {FaFacebookSquare} from 'react-icons/fa';
 import {BsInstagram} from 'react-icons/bs';
