@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import MainHeader from '../../components/MainHeader';
 import axios from '../../api/axios';
-import ConfirmModal from '../../components/ConfirmModal';
-import ErrorModal from '../../components/ErrorModal';
-import SuccessModal from '../../components/SuccessModal';
+import ConfirmModal from '../../components/Modals/ConfirmModal';
+import ErrorModal from '../../components/Modals/ErrorModal';
+import SuccessModal from '../../components/Modals/SuccessModal';
 import { useNavigate } from 'react-router-dom';
 
 const UserSettings = () => {

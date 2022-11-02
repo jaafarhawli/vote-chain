@@ -1,24 +1,24 @@
 import React, {useState} from 'react';
 import {HiOutlineXMark} from 'react-icons/hi2';
-import axios from '../api/axios';
-import logo from '../assets/VOTE CHAIN-logo-black.png';
+import axios from '../../api/axios';
+import logo from '../../assets/VOTE CHAIN-logo-black.png';
 import ErrorModal from './ErrorModal';
 
-const AddPartyModal = ({open, closeModal, refetch}) => {
+const AddModerator = ({open, closeModal, refetch}) => {
 
-    const [name, setName] = useState();
+    const [email, setEmail] = useState();
     const [errorModal, setErrorModal] = useState(false);
     const [error, setError] = useState('');
 
-    const addParty = async () => {
+    const addModerator = async () => {
 
         const form = {
-            name: name,
+            email: email,
             election_id: localStorage.election_id
         }
         
         try {
-             await axios.post('user/party', form, {
+             await axios.post('user/moderator', form, {
                 headers: {
                   Authorization: `bearer ${localStorage.token}`
                 }
@@ -43,17 +43,17 @@ const AddPartyModal = ({open, closeModal, refetch}) => {
          <HiOutlineXMark className='fixed top-2 left-2 text-[30px] hover:bg-black-100/20 rounded-full duration-200 p-1' onClick={closeModal} />
          <img src={logo} alt="logo" className='w-[180px]' />
       <div className='bg-black-100 h-[2px] w-[180px]'></div>  
-      <h1 className='my-4 text-2xl font-semibold text-purple-100'>Add Party</h1>  
+      <h1 className='my-4 text-2xl font-semibold text-purple-100'>Add Moderator</h1>  
       <form className='w-4/5 flex flex-col gap-5 '>
           <label>
-              <p className='font-medium'>Party Name</p>
-              <input className=' border-[1px] border-black-200' type="text" onChange={e => setName(e.target.value)} />
+              <p className='font-medium'>Moderator Email</p>
+              <input className=' border-[1px] border-black-200' type="text" onChange={e => setEmail(e.target.value)} />
           </label>
-          <button className='bg-cyan' type="button" onClick={addParty}>Add</button>
+          <button className='bg-cyan' type="button" onClick={addModerator}>Add</button>
       </form> 
      </div>
     </div>
   );
 }
 
-export default AddPartyModal;
+export default AddModerator;

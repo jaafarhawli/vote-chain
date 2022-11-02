@@ -3,8 +3,8 @@ import {useQuery} from '@tanstack/react-query';
 import axios from '../../api/axios';
 import AddButton from '../../components/AddButton';
 import {HiOutlineXMark} from 'react-icons/hi2';
-import AddPartyModal from '../../components/AddPartyModal';
-import ConfirmModal from '../../components/ConfirmModal';
+import AddPartyModal from '../../components/Modals/AddPartyModal';
+import ConfirmModal from '../../components/Modals/ConfirmModal';
 
 const AdminParties = () => {
 
