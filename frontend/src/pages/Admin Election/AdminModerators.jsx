@@ -1,8 +1,23 @@
 import React from 'react';
+import {useQuery} from '@tanstack/react-query';
+import axios from '../../api/axios';
 import AddButton from '../../components/AddButton';
 import {AiOutlineSearch} from 'react-icons/ai';
 
 const AdminModerators = () => {
+
+
+    
+const {data} = useQuery(["moderators"], async () => {
+        return axios.get(`user/moderators/${localStorage.election_id}`, {
+                    headers: {
+                      Authorization: `bearer ${localStorage.token}`
+                    }
+                  }).then((res) => res.data);
+    })
+
+    
+
   return (
     <div className='pl-[330px] pt-[150px] pr-6'>
         <div className='flex justify-between items-center w-full'>
