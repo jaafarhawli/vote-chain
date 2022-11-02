@@ -3,6 +3,7 @@ import {useQuery} from '@tanstack/react-query';
 import axios from '../../api/axios';
 import AddButton from '../../components/AddButton';
 import {AiOutlineSearch} from 'react-icons/ai';
+import {HiOutlineXMark} from 'react-icons/hi2';
 
 const AdminModerators = () => {
 
@@ -48,7 +49,13 @@ const {data} = useQuery(["moderators"], async () => {
                 </tr>
             </thead>
             <tbody>
-                
+            {data?.map((moderator) => (
+                <tr className='relative'>
+                    <td>{moderator.first_name} {moderator.last_name}</td>
+                    <td>{moderator.email}</td>
+                    <HiOutlineXMark className='absolute right-2 top-2 text-[25px] hover:text-red duration-150' />
+                </tr>
+     ))}
                 
             </tbody>
         </table>
