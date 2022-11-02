@@ -38,8 +38,8 @@ const {data} = useQuery(["moderators"], async () => {
           <AddButton text={"Add Moderator"} />
         </div>
         <div className='flex gap-2 items-center mt-4'>
-            <input type="text" className='border-2 border-black-200 w-1/3 rounded-md' placeholder='Search moderator by email' />
-            <AiOutlineSearch className='text-black-200 p-2 border-black-200 border-2 w-[40px] h-[40px] rounded-lg' />
+            <input type="text" className='border-2 border-[#dddddd] w-1/3 rounded-md' placeholder='Search moderator by email' />
+            <AiOutlineSearch className='text-black-200 p-2 border-[#dddddd] border-2 w-[40px] h-[40px] rounded-lg' />
         </div>
         <table className='mt-8'>
             <thead>

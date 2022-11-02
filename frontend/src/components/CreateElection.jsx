@@ -7,7 +7,7 @@ import {DateTimePickerComponent} from '@syncfusion/ej2-react-calendars';
 import TimezonePicker from 'react-bootstrap-timezone-picker';
 import 'react-bootstrap-timezone-picker/dist/react-bootstrap-timezone-picker.min.css';
 
-const CreateElection = ({open, closeModal}) => {
+const CreateElection = ({open, closeModal, refetch}) => {
 
     const [title, setTitle] = useState();
     const [starttime, setStarttime] = useState();
@@ -39,6 +39,7 @@ const CreateElection = ({open, closeModal}) => {
                   Authorization: `bearer ${localStorage.token}`
                 }
               });
+              refetch();
               closeModal();
             } catch (error) {
                 setError(error.message);

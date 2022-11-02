@@ -10,8 +10,9 @@ const UserElections = () => {
   const navigate = useNavigate();
 
   const [electionModal, setElectionModal] = useState(false);
+  const [refetch, setRefetch] = useState(true);
 
-  const {data: admin_elections} = useQuery(["admin"], async () => {
+  const {data: admin_elections} = useQuery([refetch], async () => {
     return axios.get(`user/elections/${localStorage.id}`, {
                 headers: {
                   Authorization: `bearer ${localStorage.token}`
@@ -50,9 +51,9 @@ return (
 
   return (
     <div>
-      <CreateElection open={electionModal} closeModal={closeModal} />
+      <CreateElection open={electionModal} closeModal={closeModal} refetch={() => setRefetch(!refetch)} />
       <MainHeader empty={false} title={'Your Elections'} open={openModal} />
-      <div className=' grid md:grid-cols-2 gap-4 lg:px-28 md:px-10 px-4 mt-8'>
+      <div className=' grid md:grid-cols-2 gap-4 lg:px-28 md:px-10 px-4 my-8'>
       {admin_elections?.map((election) => (
           <div className='px-4 py-8 bg-purple-100/75 rounded-lg text-white' onClick={() => viewElection(election._id)} key={election._id}>
               <h2 className='font-semibold text-[20px]'>{election.title}</h2>
