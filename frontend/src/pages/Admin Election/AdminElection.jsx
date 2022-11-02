@@ -19,6 +19,7 @@ const AdminElection = () => {
     localStorage.setItem('election_title', data?.title);
     localStorage.setItem('start_time', data?.start_time);
     localStorage.setItem('end_time', data?.end_time);
+    localStorage.setItem('election_code', data?.code);
 
   return (
     <div>

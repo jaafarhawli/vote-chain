@@ -13,31 +13,31 @@ const AdminPanel = () => {
       <img src={logo} alt="" className='w-3/5 self-center pt-8' />
       <h1 className='self-center text-white bg-purple-300/20 w-3/5 text-center mt-6 py-1 font-semibold select-none'>Admin</h1>
       <ul className='flex flex-col w-full mt-6'>
-        <NavLink to='dashboard' className='flex items-center gap-3 text-white/60 text-xl w-full hover:bg-purple-300/40 duration-200 py-4 pl-4' activeclassname='active'>
+        <NavLink to='dashboard' className='flex items-center gap-3 text-white/60 text-xl w-full hover:bg-purple-300/40 duration-200 py-4 pl-4 font-semibold' activeclassname='active'>
             <RiDashboardFill />
             Dashboard
         </NavLink>
-        <NavLink to='moderators' className='flex items-center gap-3 text-white/60 text-xl w-full hover:bg-purple-300/40 duration-200 py-4 pl-4' activeclassname='active'>
+        <NavLink to='moderators' className='flex items-center gap-3 text-white/60 text-xl w-full hover:bg-purple-300/40 duration-200 py-4 pl-4 font-semibold' activeclassname='active'>
             <FaUserCog />
             Moderators
         </NavLink>
-        <NavLink to='parties' className='flex items-center gap-3 text-white/60 text-xl w-full hover:bg-purple-300/40 duration-200 py-4 pl-4' activeclassname='active'>
+        <NavLink to='parties' className='flex items-center gap-3 text-white/60 text-xl w-full hover:bg-purple-300/40 duration-200 py-4 pl-4 font-semibold' activeclassname='active'>
             <HiUserGroup />
             Parties
         </NavLink>
-        <NavLink to='candidates' className='flex items-center gap-3 text-white/60 text-xl w-full hover:bg-purple-300/40 duration-200 py-4 pl-4' activeclassname='active'>
+        <NavLink to='candidates' className='flex items-center gap-3 text-white/60 text-xl w-full hover:bg-purple-300/40 duration-200 py-4 pl-4 font-semibold' activeclassname='active'>
             <FaUserTie />
             Candidates
         </NavLink>
-        <NavLink to='voters' className='flex items-center gap-3 text-white/60 text-xl w-full hover:bg-purple-300/40 duration-200 py-4 pl-4' activeclassname='active'>
+        <NavLink to='voters' className='flex items-center gap-3 text-white/60 text-xl w-full hover:bg-purple-300/40 duration-200 py-4 pl-4 font-semibold' activeclassname='active'>
             <FaUser />
             Voters
         </NavLink>
-        <NavLink to='settings' className='flex items-center gap-3 text-white/60 text-xl w-full hover:bg-purple-300/40 duration-200 py-4 pl-4' activeclassname='active'>
+        <NavLink to='settings' className='flex items-center gap-3 text-white/60 text-xl w-full hover:bg-purple-300/40 duration-200 py-4 pl-4 font-semibold' activeclassname='active'>
             <MdSettings />
             Settings
         </NavLink>
-        <NavLink to='launch' className='flex items-center gap-3 text-white/60 text-xl w-full hover:bg-purple-300/40 duration-200 py-4 pl-4' activeclassname='active'>
+        <NavLink to='launch' className='flex items-center gap-3 text-white/60 text-xl w-full hover:bg-purple-300/40 duration-200 py-4 pl-4 font-semibold' activeclassname='active'>
             <TbCloudUpload />
             Launch
         </NavLink>
