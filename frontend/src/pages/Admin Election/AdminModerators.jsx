@@ -45,7 +45,24 @@ const {data} = useQuery([refetch], async () => {
 
       
       
-      
+      const deleteModerator = async () => {
+        const form = {
+            moderator_id: localStorage.moderator_id,
+            election_id: localStorage.election_id 
+        }
+        
+        try {
+            await axios.post('user/moderator/remove', form, {
+                headers: {
+                  Authorization: `bearer ${localStorage.token}`
+                }
+              });
+              setRefetch(!refetch)
+                 closeConfirm()
+            } catch (error) {
+              console.log(error);
+            }
+        }
       
 
     if(data?.length === 0)
@@ -67,7 +84,7 @@ const {data} = useQuery([refetch], async () => {
 
   return (
         <>
-        <ConfirmModal  open={confirmModal} closeModal={closeConfirm}  text={"Are you sure you want to delete this moderator?"} />
+        <ConfirmModal  open={confirmModal} closeModal={closeConfirm} click={deleteModerator} text={"Are you sure you want to delete this moderator?"} />
         <AddModerator open={moderatorModal} closeModal={closeModal} refetch={() => setRefetch(!refetch)} />
     <div className='pl-[330px] pt-[150px] pr-6'>
         <div className='flex justify-between items-center w-full'>
