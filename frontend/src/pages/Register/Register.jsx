@@ -1,6 +1,6 @@
 import React from 'react';
-import RegisterForm from '../components/RegisterForm';
-import banner from '../assets/banner.png';
+import RegisterForm from './RegisterForm';
+import banner from '../../assets/banner.png';
 
 const Register = () => {
   return (
