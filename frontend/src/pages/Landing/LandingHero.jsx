@@ -4,7 +4,7 @@ import logo from '../../assets/VOTE CHAIN-logo-white-horizantal.png';
 import landingsm from '../../assets/landing-sm.svg';
 import landinglg from '../../assets/landing-lg.svg';
 import curve from '../../assets/backgroundcurve.svg';
-import AddButton from '../../components/Reusable/AddButton';
+import AddButton from '../../components/AddButton';
 
 
 const LandingHero = () => {

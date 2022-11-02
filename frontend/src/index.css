@@ -12,7 +12,7 @@
 @tailwind utilities;
 
 @layer base {
-	button {
+	.button {
 		@apply rounded-[10px] p-4 text-white font-bold bg-cyan max-h-10 flex justify-center items-center min-w-[90px] uppercase hover:bg-cyan/80 ease-in duration-150 active:scale-95 select-none
 	}
 	input {
