@@ -2,12 +2,38 @@ import React, {useState} from 'react';
 import {HiOutlineXMark} from 'react-icons/hi2';
 import axios from '../api/axios';
 import logo from '../assets/VOTE CHAIN-logo-black.png';
+import ErrorModal from './ErrorModal';
 
 const AddModerator = ({open, closeModal}) => {
 
     const [email, setEmail] = useState();
+    const [errorModal, setErrorModal] = useState(false);
+    const [error, setError] = useState('');
 
-    
+    const addModerator = async () => {
+
+        const form = {
+            email: email,
+            election_id: localStorage.election_id
+        }
+        
+        try {
+             await axios.post('user/moderator', form, {
+                headers: {
+                  Authorization: `bearer ${localStorage.token}`
+                }
+              });
+              closeModal();
+            } catch (error) {
+                setError(error.message);
+                setErrorModal(true);
+              console.log(error);
+            }
+        
+    }
+
+    if(!open)
+    return null;
 
   return (
     <div className='bg-black-100/50 fixed w-full h-full z-10 '>
@@ -22,7 +48,7 @@ const AddModerator = ({open, closeModal}) => {
               <p className='font-medium'>Moderator Email</p>
               <input className=' border-[1px] border-black-200' type="text" onChange={e => setEmail(e.target.value)} />
           </label>
-          <button className='bg-cyan' type="button" onClick={createElection}>Add</button>
+          <button className='bg-cyan' type="button" onClick={addModerator}>Add</button>
       </form> 
      </div>
     </div>
