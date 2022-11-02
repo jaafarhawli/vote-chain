@@ -69,6 +69,8 @@ const {data} = useQuery([refetch], async () => {
               console.log(error);
             }
         }
+
+        
       
 
     if(data?.length === 0)

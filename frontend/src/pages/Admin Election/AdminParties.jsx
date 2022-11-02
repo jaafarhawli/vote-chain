@@ -38,14 +38,33 @@ const AdminParties = () => {
       }
 const openConfirmModal = (id) => {
         setConfirmModal(true);
-        localStorage.setItem('moderator_id', id)
+        localStorage.setItem('party_id', id)
         document.body.style.overflow = 'hidden';
       }
+
+      const deleteParty = async () => {
+        const form = {
+            party_id: localStorage.party_id,
+            election_id: localStorage.election_id 
+        }
+        
+        try {
+            await axios.post('user/party/remove', form, {
+                headers: {
+                  Authorization: `bearer ${localStorage.token}`
+                }
+              });
+              setRefetch(!refetch)
+                 closeConfirm()
+            } catch (error) {
+              console.log(error);
+            }
+        }
 
     if(data?.length === 0)
     return (
         <>
-        <AddPartyModal open={partyModal} closeModal={closeModal}  refetch={() => setRefetch(!refetch)} />
+        <AddPartyModal open={partyModal} closeModal={closeModal}    refetch={() => setRefetch(!refetch)} />
         <div className='pl-[330px] pt-[150px] pr-6'>
             <h1 className='text-[28px] font-bold'>Parties</h1>
             <div className='flex flex-col w-full items-center gap-4 mt-[150px]'>
@@ -62,7 +81,7 @@ const openConfirmModal = (id) => {
 
   return (
     <>
-    <ConfirmModal  open={confirmModal} closeModal={closeConfirm}  text={"Are you sure you want to delete this party?"} />
+    <ConfirmModal  open={confirmModal} closeModal={closeConfirm} click={deleteParty} text={"Are you sure you want to delete this party?"} />
     <AddPartyModal open={partyModal} closeModal={closeModal}  refetch={() => setRefetch(!refetch)} />
     <div className='pl-[330px] pt-[150px] pr-6'>
         <div className='flex justify-between items-center w-full'>
