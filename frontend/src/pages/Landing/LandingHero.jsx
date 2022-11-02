@@ -4,7 +4,8 @@ import logo from '../../assets/VOTE CHAIN-logo-white-horizantal.png';
 import landingsm from '../../assets/landing-sm.svg';
 import landinglg from '../../assets/landing-lg.svg';
 import curve from '../../assets/backgroundcurve.svg';
-import AddButton from '../../components/AddButton';
+import AddButton from '../../components/Reusable/AddButton';
+import Button from '../../components/Reusable/Button';
 
 
 const LandingHero = () => {
@@ -16,8 +17,8 @@ const LandingHero = () => {
       <div className='flex w-full pt-4 items-center justify-between lg:px-28 md:px-10 px-4'>
         <img src={logo} alt="logo" className='w-48' />
         <div className='flex gap-4'>
-            <button className='border-cyan border-2 bg-opacity-0 hover:bg-cyan' onClick={() => navigate('/login')}>Login</button>
-            <button onClick={() => navigate('/register')}>Register</button>
+            <Button class={'border-cyan border-2 bg-opacity-0 hover:bg-cyan'} onClick={() => navigate('/login')}>Login</Button>
+            <Button onClick={() => navigate('/register')}>Register</Button>
         </div>
       </div>
       <div className='flex h-full flex-1 lg:pl-28 md:pl-10 pl-4 sm:justify-between justify-center'>
