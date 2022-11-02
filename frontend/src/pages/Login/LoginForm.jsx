@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
-import logo from '../assets/VOTE CHAIN-logo-black.png';
-import axios from '../api/axios';
+import logo from '../../assets/VOTE CHAIN-logo-black.png';
+import axios from '../../api/axios';
 import jwt_decode from "jwt-decode";
 
 const LoginForm = () => {

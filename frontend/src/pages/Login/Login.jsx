@@ -1,6 +1,6 @@
 import React from 'react';
-import LoginForm from '../components/LoginForm';
-import banner from '../assets/banner.png';
+import LoginForm from './LoginForm';
+import banner from '../../assets/banner.png';
 
 const Login = () => {
   return (
