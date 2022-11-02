@@ -10,6 +10,29 @@ const AddPartyModal = ({open, closeModal, refetch}) => {
     const [errorModal, setErrorModal] = useState(false);
     const [error, setError] = useState('');
 
+    const addParty = async () => {
+
+        const form = {
+            name: name,
+            election_id: localStorage.election_id
+        }
+        
+        try {
+             await axios.post('user/party', form, {
+                headers: {
+                  Authorization: `bearer ${localStorage.token}`
+                }
+              });
+              refetch();
+              closeModal();
+            } catch (error) {
+                setError(error.message);
+                setErrorModal(true);
+              console.log(error);
+            }
+        
+    }
+
     if(!open)
     return null;
 
