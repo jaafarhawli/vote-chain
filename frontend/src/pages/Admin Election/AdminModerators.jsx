@@ -16,7 +16,19 @@ const {data} = useQuery(["moderators"], async () => {
                   }).then((res) => res.data);
     })
 
-    
+    if(data?.length === 0)
+    return (
+        <div className='pl-[330px] pt-[150px] pr-6'>
+            <h1 className='text-[28px] font-bold'>Moderators</h1>
+            <div className='flex flex-col w-full items-center gap-4 mt-[150px]'>
+                <div className='text-center'>
+                    <h2 className='text-[24px] font-semibold text-black-200'>No Moderators</h2>
+                    <p className='text-[18px] w-64 mt-1'>You don’t have any moderators, add one now!</p>
+                </div>
+                <AddButton text={"Add moderator"} />
+            </div>
+        </div>
+    );
 
   return (
     <div className='pl-[330px] pt-[150px] pr-6'>
