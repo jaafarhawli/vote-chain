@@ -1,7 +1,7 @@
 import React, {useState, useMemo} from 'react';
 import {useQuery} from '@tanstack/react-query';
 import axios from '../../api/axios';
-import AddButton from '../../components/AddButton';
+import AddButton from '../../components/Reusable/AddButton';
 import {HiOutlineXMark} from 'react-icons/hi2';
 import AddPartyModal from '../../components/Modals/AddPartyModal';
 import ConfirmModal from '../../components/Modals/ConfirmModal';

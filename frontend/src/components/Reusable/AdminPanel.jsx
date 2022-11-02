@@ -1,6 +1,6 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
-import logo from '../assets/VOTE CHAIN-logo-white-horizantal.png';
+import logo from '../../assets/VOTE CHAIN-logo-white-horizantal.png';
 import {RiDashboardFill} from 'react-icons/ri';
 import {HiUserGroup} from 'react-icons/hi';
 import {FaUserTie, FaUserCog, FaUser} from 'react-icons/fa';
