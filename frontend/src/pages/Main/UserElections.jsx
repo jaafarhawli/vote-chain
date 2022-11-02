@@ -22,7 +22,7 @@ const UserElections = () => {
 
 const viewElection = (id) => {
     localStorage.setItem('election_id', id);
-    navigate('admin/election')
+    navigate('admin/election/dashboard')
 }
 
 const openModal = () => {

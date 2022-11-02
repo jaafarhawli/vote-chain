@@ -33,3 +33,8 @@
 	border: 1px solid #777777 !important;
 }
 
+.active {
+	background-color: rgb(235, 235, 255, 0.5);
+	border-right: 7px solid #00b7ff;
+	color: white;
+}
