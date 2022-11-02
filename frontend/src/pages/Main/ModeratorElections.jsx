@@ -2,7 +2,7 @@ import React from 'react';
 import {useQuery} from '@tanstack/react-query';
 import axios from '../../api/axios';
 import { useNavigate } from 'react-router-dom';
-import MainHeader from '../../components/MainHeader';
+import MainHeader from './MainHeader';
 
 const ModeratorElections = () => {
 

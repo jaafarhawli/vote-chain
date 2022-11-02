@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import {HiOutlineXMark} from 'react-icons/hi2';
-import axios from '../api/axios';
-import logo from '../assets/VOTE CHAIN-logo-black.png';
-import ErrorModal from './Modals/ErrorModal';
+import axios from '../../api/axios';
+import logo from '../../assets/VOTE CHAIN-logo-black.png';
+import ErrorModal from './ErrorModal';
 import {DateTimePickerComponent} from '@syncfusion/ej2-react-calendars';
 import TimezonePicker from 'react-bootstrap-timezone-picker';
 import 'react-bootstrap-timezone-picker/dist/react-bootstrap-timezone-picker.min.css';

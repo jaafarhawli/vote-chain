@@ -1,8 +1,8 @@
 import React from 'react';
-import logo from '../assets/VOTE CHAIN-logo-white-horizantal.png';
-import curve from '../assets/main-curve.svg';
+import logo from '../../assets/VOTE CHAIN-logo-white-horizantal.png';
+import curve from '../../assets/main-curve.svg';
 import { useNavigate } from 'react-router-dom';
-import AddButton from './AddButton';
+import AddButton from '../../components/AddButton';
 
 const MainHeader = ({title, empty, open}) => {
 

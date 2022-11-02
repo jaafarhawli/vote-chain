@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import MainHeader from '../../components/MainHeader';
+import MainHeader from './MainHeader';
 import axios from '../../api/axios';
 import ConfirmModal from '../../components/Modals/ConfirmModal';
 import ErrorModal from '../../components/Modals/ErrorModal';

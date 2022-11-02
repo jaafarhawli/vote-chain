@@ -2,8 +2,8 @@ import React, {useState} from 'react';
 import {useQuery} from '@tanstack/react-query';
 import axios from '../../api/axios';
 import { useNavigate } from 'react-router-dom';
-import MainHeader from '../../components/MainHeader';
-import CreateElection from '../../components/CreateElection';
+import MainHeader from './MainHeader';
+import CreateElection from '../../components/Modals/CreateElection';
 
 const UserElections = () => {
 
