@@ -4,7 +4,7 @@ import axios from '../api/axios';
 import logo from '../assets/VOTE CHAIN-logo-black.png';
 import ErrorModal from './ErrorModal';
 
-const AddModerator = ({open, closeModal}) => {
+const AddModerator = ({open, closeModal, refetch}) => {
 
     const [email, setEmail] = useState();
     const [errorModal, setErrorModal] = useState(false);
@@ -23,6 +23,7 @@ const AddModerator = ({open, closeModal}) => {
                   Authorization: `bearer ${localStorage.token}`
                 }
               });
+              refetch();
               closeModal();
             } catch (error) {
                 setError(error.message);

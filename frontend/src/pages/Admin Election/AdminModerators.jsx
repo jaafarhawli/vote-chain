@@ -9,13 +9,14 @@ import AddModerator from '../../components/AddModerator';
 const AdminModerators = () => {
 
     const [moderatorModal, setModeratorModal] = useState(false);
+    const [refetch, setRefetch] = useState(true);
 
     const closeModal = () => {
         setModeratorModal(false)
         document.body.style.overflow = 'unset';
       }
     
-const {data} = useQuery([closeModal], async () => {
+const {data} = useQuery([refetch], async () => {
         return axios.get(`user/moderators/${localStorage.election_id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
@@ -34,7 +35,7 @@ const {data} = useQuery([closeModal], async () => {
     if(data?.length === 0)
     return (
         <div className='pl-[330px] pt-[150px] pr-6'>
-            <AddModerator open={moderatorModal} closeModal={closeModal} />
+            <AddModerator open={moderatorModal} closeModal={closeModal} refetch={() => setRefetch(!refetch)} />
             <h1 className='text-[28px] font-bold'>Moderators</h1>
             <div className='flex flex-col w-full items-center gap-4 mt-[150px]'>
                 <div className='text-center'>
@@ -48,7 +49,7 @@ const {data} = useQuery([closeModal], async () => {
 
   return (
         <>
-        <AddModerator open={moderatorModal} closeModal={closeModal} />
+        <AddModerator open={moderatorModal} closeModal={closeModal} refetch={() => setRefetch(!refetch)} />
     <div className='pl-[330px] pt-[150px] pr-6'>
         <div className='flex justify-between items-center w-full'>
           <h1 className='text-[28px] font-bold'>Moderators</h1>
