@@ -5,6 +5,7 @@ import {Route, Routes} from 'react-router-dom';
 import AdminPanel from '../../components/AdminPanel';
 import AdminTitle from '../../components/AdminTitle';
 import AdminDashboard from './AdminDashboard';
+import AdminModerators from './AdminModerators';
 
 const AdminElection = () => {
 
@@ -27,6 +28,7 @@ const AdminElection = () => {
       <AdminTitle />
       <Routes>
           <Route path='/dashboard' element={<AdminDashboard />} />
+          <Route path='/moderators' element={<AdminModerators />} />
       </Routes>
     </div>
   );
