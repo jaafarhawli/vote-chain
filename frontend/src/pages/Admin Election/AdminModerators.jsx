@@ -13,6 +13,18 @@ const AdminModerators = () => {
             <input type="text" className='border-2 border-black-200 w-1/3 rounded-md' placeholder='Search moderator by email' />
             <AiOutlineSearch className='text-black-200 p-2 border-black-200 border-2 w-[40px] h-[40px] rounded-lg' />
         </div>
+        <table className='mt-8'>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+                
+            </tbody>
+        </table>
     </div>
   );
 }

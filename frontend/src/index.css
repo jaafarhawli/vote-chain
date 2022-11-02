@@ -2,6 +2,7 @@
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+	font-family: arial, sans-serif;
 }
 
 @import url('https://cdn.syncfusion.com/ej2/material.css');
@@ -12,7 +13,7 @@
 
 @layer base {
 	button {
-		@apply rounded-[10px] p-4 text-white font-medium bg-cyan max-h-10 flex justify-center items-center min-w-[90px] uppercase hover:bg-white hover:text-black-100 ease-in duration-150 active:scale-95 select-none
+		@apply rounded-[10px] p-4 text-white font-bold bg-cyan max-h-10 flex justify-center items-center min-w-[90px] uppercase hover:bg-white hover:text-black-100 ease-in duration-150 active:scale-95 select-none
 	}
 	input {
 		@apply w-full h-[40px] rounded-sm p-4 text-[16px] outline-none
@@ -37,4 +38,18 @@
 	background-color: rgb(235, 235, 255, 0.5);
 	border-right: 7px solid #00b7ff;
 	color: white;
+}
+
+table {  
+    border-collapse: collapse;
+    width: 100%;
+}
+td,
+th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+tr:nth-child(even) {
+    background-color: #dddddd;
 }
