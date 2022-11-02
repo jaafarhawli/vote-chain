@@ -91,9 +91,28 @@ const logout = () => {
 }
 
 
+const deleteAccount = async () => {
+  const form = {
+      id: localStorage.id
+  }
+  
+  try {
+      await axios.post('user/account', form, {
+          headers: {
+            Authorization: `bearer ${localStorage.token}`
+          }
+        });
+        localStorage.clear(); 
+        document.body.style.overflow = 'unset';
+        navigate('/');
+      } catch (error) {
+        console.log(error);
+      }
+  }
+
   return (
     <div>
-      <ConfirmModal open={openConfirmModal} closeModal={closeModal} />
+      <ConfirmModal open={openConfirmModal} closeModal={closeModal} click={deleteAccount} text={"Are you sure you want to delete your account?"} />
       <ErrorModal open={errorModal} error={error} closeError={() => setErrorModal(false)} />
       <SuccessModal open={successModal} closeSuccess={() => setSuccessModal(false)} />
       <MainHeader title={'Account Settings'} empty={true} />

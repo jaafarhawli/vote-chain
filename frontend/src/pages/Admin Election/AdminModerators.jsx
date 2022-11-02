@@ -5,14 +5,21 @@ import AddButton from '../../components/AddButton';
 import {AiOutlineSearch} from 'react-icons/ai';
 import {HiOutlineXMark} from 'react-icons/hi2';
 import AddModerator from '../../components/AddModerator';
+import ConfirmModal from '../../components/ConfirmModal';
 
 const AdminModerators = () => {
 
     const [moderatorModal, setModeratorModal] = useState(false);
     const [refetch, setRefetch] = useState(true);
+    const [confirmModal, setConfirmModal] = useState(false);
 
     const closeModal = () => {
         setModeratorModal(false)
+        document.body.style.overflow = 'unset';
+      }
+    
+      const closeConfirm = () => {
+        setConfirmModal(false)
         document.body.style.overflow = 'unset';
       }
     
@@ -29,13 +36,22 @@ const {data} = useQuery([refetch], async () => {
         setModeratorModal(true);
         document.body.style.overflow = 'hidden';
       }
+    
+      const openConfirmModal = (id) => {
+        setConfirmModal(true);
+        localStorage.setItem('moderator_id', id)
+        document.body.style.overflow = 'hidden';
+      }
+
+      
+      
       
       
 
     if(data?.length === 0)
     return (
         <>
-        <AddModerator open={moderatorModal} closeModal={closeModal} refetch={() => setRefetch(!refetch)} />
+        <AddModerator open={moderatorModal} closeModal={closeModal}  refetch={() => setRefetch(!refetch)} />
         <div className='pl-[330px] pt-[150px] pr-6'>
             <h1 className='text-[28px] font-bold'>Moderators</h1>
             <div className='flex flex-col w-full items-center gap-4 mt-[150px]'>
@@ -51,6 +67,7 @@ const {data} = useQuery([refetch], async () => {
 
   return (
         <>
+        <ConfirmModal  open={confirmModal} closeModal={closeConfirm}  text={"Are you sure you want to delete this moderator?"} />
         <AddModerator open={moderatorModal} closeModal={closeModal} refetch={() => setRefetch(!refetch)} />
     <div className='pl-[330px] pt-[150px] pr-6'>
         <div className='flex justify-between items-center w-full'>
@@ -73,7 +90,7 @@ const {data} = useQuery([refetch], async () => {
                 <tr className='relative' key={moderator.email}>
                     <td>{moderator.first_name} {moderator.last_name}</td>
                     <td>{moderator.email}</td>
-                    <HiOutlineXMark className='absolute right-2 top-2 text-[25px] hover:text-red duration-150' />
+                    <HiOutlineXMark className='absolute right-2 top-2 text-[25px] hover:text-red duration-150' onClick={() => openConfirmModal(moderator._id)} />
                 </tr>
      ))}
                 
