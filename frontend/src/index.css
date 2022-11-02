@@ -13,7 +13,7 @@
 
 @layer base {
 	button {
-		@apply rounded-[10px] p-4 text-white font-bold bg-cyan max-h-10 flex justify-center items-center min-w-[90px] uppercase hover:bg-white hover:text-black-100 ease-in duration-150 active:scale-95 select-none
+		@apply rounded-[10px] p-4 text-white font-bold bg-cyan max-h-10 flex justify-center items-center min-w-[90px] uppercase hover:bg-cyan/80 ease-in duration-150 active:scale-95 select-none
 	}
 	input {
 		@apply w-full h-[40px] rounded-sm p-4 text-[16px] outline-none

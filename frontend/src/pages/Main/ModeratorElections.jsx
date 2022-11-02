@@ -34,7 +34,7 @@ const ModeratorElections = () => {
 
     return (
         <div>
-          <MainHeader empty={false} title={'Moderator Elections'} />
+          <MainHeader empty={true} title={'Moderator Elections'} />
           <div className=' grid md:grid-cols-2 gap-4 lg:px-28 md:px-10 px-4 mt-8'>
           {moderator_elections?.map((election) => (
               <div className='px-4 py-8 bg-purple-100/75 rounded-lg text-white' onClick={() => viewElection(election._id)} key={election._id}>

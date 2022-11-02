@@ -38,7 +38,7 @@ return (
          <h1 className='font-semibold text-[22px] text-center'>Are you sure you want to delete your account?</h1>
          <div className='flex justify-evenly w-full mt-8'>
              <button type='button' onClick={closeModal} className='bg-cyan' >Cancel</button>
-             <button type='button' className='bg-red' onClick={deleteAccount}>Delete</button>
+             <button type='button' className='bg-red hover:bg-red/80' onClick={deleteAccount}>Delete</button>
          </div>
      </div>
     </div>

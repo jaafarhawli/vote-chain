@@ -129,8 +129,8 @@ const logout = () => {
             </label>
           <button type='button' className=' bg-cyan' onClick={changePassword}>Save changes</button>
           <div className='flex w-full gap-2'>
-            <button type='button' className='bg-red flex-1'  onClick={logout} >Log out</button>
-            <button type='button' className='bg-red flex-1'  onClick={openModal} >Delete Account</button>
+            <button type='button' className='bg-red flex-1 hover:bg-red/80'  onClick={logout} >Log out</button>
+            <button type='button' className='bg-red flex-1 hover:bg-red/80'  onClick={openModal} >Delete Account</button>
           </div>
         </form>
         
