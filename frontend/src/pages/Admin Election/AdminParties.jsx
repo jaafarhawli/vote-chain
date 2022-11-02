@@ -4,12 +4,14 @@ import axios from '../../api/axios';
 import AddButton from '../../components/AddButton';
 import {HiOutlineXMark} from 'react-icons/hi2';
 import AddPartyModal from '../../components/AddPartyModal';
+import ConfirmModal from '../../components/ConfirmModal';
 
 const AdminParties = () => {
 
     const [search, setSearch] = useState('');
     const [partyModal, setPartyModal] = useState(false);
     const [refetch, setRefetch] = useState(true);
+    const [confirmModal, setConfirmModal] = useState(false);
 
     const closeModal = () => {
         setPartyModal(false)
@@ -22,13 +24,23 @@ const AdminParties = () => {
       }
 
 
-    const {data} = useQuery([], async () => {
+    const {data} = useQuery([refetch], async () => {
         return axios.get(`user/parties/${localStorage.election_id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
                     }
                   }).then((res) => res.data);
     })
+
+    const closeConfirm = () => {
+        setConfirmModal(false)
+        document.body.style.overflow = 'unset';
+      }
+const openConfirmModal = (id) => {
+        setConfirmModal(true);
+        localStorage.setItem('moderator_id', id)
+        document.body.style.overflow = 'hidden';
+      }
 
     if(data?.length === 0)
     return (
@@ -50,6 +62,7 @@ const AdminParties = () => {
 
   return (
     <>
+    <ConfirmModal  open={confirmModal} closeModal={closeConfirm}  text={"Are you sure you want to delete this party?"} />
     <AddPartyModal open={partyModal} closeModal={closeModal}  refetch={() => setRefetch(!refetch)} />
     <div className='pl-[330px] pt-[150px] pr-6'>
         <div className='flex justify-between items-center w-full'>
@@ -66,8 +79,8 @@ const AdminParties = () => {
             <tbody>
             {data?.map((party) => (
                 <tr className='relative' key={party.name}>
-                    <td>{party.name}</td>
-                    <HiOutlineXMark className='absolute right-2 top-2 text-[25px] hover:text-red duration-150' />
+                    <td className='w-full'>{party.name}</td>
+                    <HiOutlineXMark className='absolute right-2 top-2 text-[25px] hover:text-red duration-150' onClick={() => openConfirmModal(party._id)} />
                 </tr>
      ))}     
             </tbody>
