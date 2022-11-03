@@ -13,6 +13,7 @@ const AdminParties = () => {
     const [partyModal, setPartyModal] = useState(false);
     const [refetch, setRefetch] = useState(true);
     const [confirmModal, setConfirmModal] = useState(false);
+    const [candidateModal, setCandidateModal] = useState(false);
 
     const closeModal = () => {
         setPartyModal(false)
@@ -45,9 +46,21 @@ const AdminParties = () => {
       }
 const openConfirmModal = (id) => {
         setConfirmModal(true);
-        localStorage.setItem('party_id', id)
+        localStorage.setItem('party_id', id);
         document.body.style.overflow = 'hidden';
       }
+
+      const openCandidateModal = (id) => {
+        setCandidateModal(true);
+        localStorage.setItem('party_id', id);
+        document.body.style.overflow = 'hidden';
+      }
+
+      const closeCandidateModal = () => {
+        setCandidateModal(false)
+        document.body.style.overflow = 'unset';
+      }
+      
 
       const deleteParty = async () => {
         const form = {
@@ -92,7 +105,7 @@ const openConfirmModal = (id) => {
           <Button onClick={openModal} add={true}>Add Party</Button>
         </div>
             <input type="search" className='border-2 border-[#dddddd] w-1/3 rounded-md mt-4' placeholder='Search moderator by email' onChange={e => setSearch(e.target.value)} />
-            <Table data={filteredData} party={true} remove={(id) => openConfirmModal(id)} />
+            <Table data={filteredData} party={true} remove={(id) => openConfirmModal(id)} addCandidate={(id) => openCandidateModal(id)} />
     </div>
     </>
   );
