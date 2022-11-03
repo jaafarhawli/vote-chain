@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import MainHeader from './MainHeader';
 import axios from '../../api/axios';
 import ConfirmModal from '../../components/Modals/ConfirmModal';
@@ -20,6 +20,8 @@ const UserSettings = () => {
   const [isError, setIsError] = useState(false);
   const [successModal, setSuccessModal] = useState(false);
   const [openConfirmModal, setOpenConfirmModal] = useState(false);
+  const [disabled, setDisabled] = useState(true);
+  const [save, setSave] = useState(false);
 
   const saveInfo = async() => {
     const form = {
@@ -37,6 +39,7 @@ const UserSettings = () => {
       localStorage.setItem('firstname', firstname);
       localStorage.setItem('lastname', lastname);
       localStorage.setItem('email', email);
+      setSave(!save);
       setIsError(false);
       setMessage('Account updated successfully');
       setSuccessModal(true);
@@ -95,6 +98,20 @@ const deleteAccount = async () => {
       }
   }
 
+  useEffect(() => {
+    if (firstname===localStorage.firstname && lastname===localStorage.lastname && email===localStorage.email)
+    setDisabled(true);
+    if(firstname==='' || lastname==='' || email==='')
+    setDisabled(true);
+    if(firstname!==localStorage.firstname && firstname!=='')
+    setDisabled(false);
+    if(lastname!==localStorage.lastname && lastname!=='')
+    setDisabled(false);
+    if(email!==localStorage.email && email!=='')
+    setDisabled(false);
+
+  }, [firstname, lastname, email, save]);
+
   return (
     <div>
       <ConfirmModal open={openConfirmModal} closeModal={closeModal} click={deleteAccount} text={"Are you sure you want to delete your account?"} />
@@ -106,7 +123,7 @@ const deleteAccount = async () => {
             <FormInput type="text" onChange={e => setFirstname(e.target.value)} defaultValue={localStorage.firstname}>First Name</FormInput>
             <FormInput type="text" defaultValue={localStorage.lastname}  onChange={e => setLastname(e.target.value)}>Last Name</FormInput>
             <FormInput type="text" defaultValue={localStorage.email}  onChange={e => setEmail(e.target.value)}>Email</FormInput>
-          <Button className=' bg-cyan' onClick={saveInfo}>Save changes</Button>
+          <Button className=' bg-cyan' onClick={saveInfo} disabled={disabled} >Save changes</Button>
           <p className='font-semibold text-purple-100 hover:underline select-none cursor-pointer mb-4' onClick={openPassword} >Change Password?</p>
           <Button className='bg-red flex-1 hover:bg-red/80'  onClick={openModal} >Delete Account</Button>
           <Button className='bg-red flex-1 hover:bg-red/80'  onClick={logout} >Log out</Button>

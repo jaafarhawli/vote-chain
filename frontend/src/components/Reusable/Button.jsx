@@ -13,7 +13,7 @@ const Button = (props) => {
       );
 
   return (
-    <button type={props.submit? 'submit' : 'button'} className={`button ${props.className}`} onClick={props.onClick} >{props.children}</button>
+    <button type={props.submit? 'submit' : 'button'} className={`button ${props.className}`} onClick={props.onClick} disabled={props.disabled} >{props.children}</button>
   );
 }
 
