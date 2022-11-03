@@ -1,9 +1,9 @@
 import React from 'react';
 import {Route, Routes} from 'react-router-dom';
-import AdminElection from '../Admin Election/AdminElection';
-import ModeratorElections from './ModeratorElections';
-import UserElections from './UserElections';
-import UserSettings from './UserSettings';
+import AdminElection from './AdminElection';
+import ModeratorElections from '../pages/Main/ModeratorElections';
+import UserElections from '../pages/Main/UserElections';
+import UserSettings from '../pages/Main/UserSettings';
 
 const Main = () => {
   return (

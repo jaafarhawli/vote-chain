@@ -1,12 +1,12 @@
 import React from 'react';
 import {useQuery} from '@tanstack/react-query';
-import axios from '../../api/axios';
+import axios from '../api/axios';
 import {Route, Routes} from 'react-router-dom';
-import AdminPanel from '../../components/Reusable/AdminPanel';
-import AdminTitle from '../../components/Reusable/AdminTitle';
-import AdminDashboard from './AdminDashboard';
-import AdminModerators from './AdminModerators';
-import AdminParties from './AdminParties';
+import AdminPanel from '../components/Reusable/AdminPanel';
+import AdminTitle from '../components/Reusable/AdminTitle';
+import AdminDashboard from '../pages/Admin Election/AdminDashboard';
+import AdminModerators from '../pages/Admin Election/AdminModerators';
+import AdminParties from '../pages/Admin Election/AdminParties';
 
 const AdminElection = () => {
 
