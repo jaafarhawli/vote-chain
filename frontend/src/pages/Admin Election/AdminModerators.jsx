@@ -2,10 +2,10 @@ import React, {useState, useMemo} from 'react';
 import {useQuery} from '@tanstack/react-query';
 import axios from '../../api/axios';
 import Button from '../../components/Reusable/Button';
-import {HiOutlineXMark} from 'react-icons/hi2';
 import AddModerator from '../../components/Modals/AddModerator';
 import ConfirmModal from '../../components/Modals/ConfirmModal';
 import EmptyState from '../../components/Reusable/EmptyState';
+import Table from '../../components/Reusable/Table';
 
 const AdminModerators = () => {
 
@@ -95,24 +95,7 @@ const {data} = useQuery([refetch], async () => {
           <Button onClick={openModal} add={true}>Add Moderator</Button>
         </div>
             <input type="search" className='border-2 border-[#dddddd] w-1/3 rounded-md mt-4' placeholder='Search moderator by email' onChange={e => setSearch(e.target.value)} />
-        <table className='mt-8'>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                </tr>
-            </thead>
-            <tbody>
-            {filteredData?.map((moderator) => (
-                <tr className='relative' key={moderator.email}>
-                    <td>{moderator.first_name} {moderator.last_name}</td>
-                    <td>{moderator.email}</td>
-                    <HiOutlineXMark className='absolute right-2 top-2 text-[25px] hover:text-red duration-150' onClick={() => openConfirmModal(moderator._id)} />
-                </tr>
-     ))}
-                
-            </tbody>
-        </table>
+        <Table data={filteredData} moderator={true} remove={(id) => openConfirmModal(id)} />
     </div>
     </>
   );
