@@ -5,7 +5,9 @@ import logo from '../../assets/VOTE CHAIN-logo-black.png';
 import Button from '../Reusable/Button';
 import FormInput from '../Reusable/FormInput';
 import SuccessModal from './SuccessModal';
-import {IoMdImage} from 'react-icons/io'
+import {IoMdImage} from 'react-icons/io';
+import { ToastContainer, toast} from 'react-toastify';
+
 
 const AddCandidate = ({open, closeModal}) => {
 
@@ -53,7 +55,8 @@ const AddCandidate = ({open, closeModal}) => {
               }
               setIsError(false);
               setError("Candidate added");
-              setErrorModal(true);
+              toast("Candidate added");
+              closeModal();
             } catch (error) {
                 setError(error.message);
                 setIsError(true);
@@ -71,10 +74,11 @@ const AddCandidate = ({open, closeModal}) => {
   
       if(!open)
       return null;
-  
+
     return (
       <div className='bg-black-100/50 fixed w-full h-full z-10 '>
-          <SuccessModal open={errorModal} message={error} error={isError} closeError={() => setErrorModal(false)} />
+       
+          <SuccessModal open={errorModal} message={error} error={isError} closeSuccess={() => setErrorModal(false)} />
        <div className=' fixed top-[50%] left-1/2 -translate-x-1/2 -translate-y-1/2 md:w-2/3 w-4/5 max-w-[500px] flex flex-col bg-white shadow-xl items-center z-10 rounded-lg px-8 py-14 '>
            <HiOutlineXMark className='fixed top-2 left-2 text-[30px] hover:bg-black-100/20 rounded-full duration-200 p-1' onClick={closeModal} />
            <img src={logo} alt="logo" className='w-[180px]' />
@@ -87,6 +91,7 @@ const AddCandidate = ({open, closeModal}) => {
             <Button className='bg-cyan' onClick={addCandidate}>Add</Button>
         </form> 
        </div>
+       <ToastContainer autoClose={1000} hideProgressBar={true} position="bottom-center" />
       </div>
     );
 }
