@@ -27,7 +27,7 @@ const Table = (props) => {
             {props.data?.map((party) => (
                 <tr className='relative' key={party.name}>
                     <td className='w-full'>{party.name}</td>
-                    <HiOutlineXMark className='absolute right-2 top-2 text-[25px] hover:text-red duration-150' onClick={props.remove} />
+                    <HiOutlineXMark className='absolute right-2 top-2 text-[25px] hover:text-red duration-150' onClick={() => props.remove(party._id)} />
                 </tr>
      ))}     
             </tbody>

@@ -2,10 +2,10 @@ import React, {useState, useMemo} from 'react';
 import {useQuery} from '@tanstack/react-query';
 import axios from '../../api/axios';
 import Button from '../../components/Reusable/Button';
-import {HiOutlineXMark} from 'react-icons/hi2';
 import AddPartyModal from '../../components/Modals/AddPartyModal';
 import ConfirmModal from '../../components/Modals/ConfirmModal';
 import EmptyState from '../../components/Reusable/EmptyState';
+import Table from '../../components/Reusable/Table';
 
 const AdminParties = () => {
 
@@ -92,21 +92,7 @@ const openConfirmModal = (id) => {
           <Button onClick={openModal} add={true}>Add Party</Button>
         </div>
             <input type="search" className='border-2 border-[#dddddd] w-1/3 rounded-md mt-4' placeholder='Search moderator by email' onChange={e => setSearch(e.target.value)} />
-        <table className='mt-8'>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                </tr>
-            </thead>
-            <tbody>
-            {filteredData?.map((party) => (
-                <tr className='relative' key={party.name}>
-                    <td className='w-full'>{party.name}</td>
-                    <HiOutlineXMark className='absolute right-2 top-2 text-[25px] hover:text-red duration-150' onClick={() => openConfirmModal(party._id)} />
-                </tr>
-     ))}     
-            </tbody>
-        </table>
+            <Table data={filteredData} party={true} remove={(id) => openConfirmModal(id)} />
     </div>
     </>
   );
