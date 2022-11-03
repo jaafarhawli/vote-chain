@@ -6,8 +6,6 @@ import Button from '../Reusable/Button';
 import FormInput from '../Reusable/FormInput';
 import SuccessModal from './SuccessModal';
 import {IoMdImage} from 'react-icons/io';
-import { ToastContainer, toast} from 'react-toastify';
-
 
 const AddCandidate = ({open, closeModal}) => {
 
@@ -55,8 +53,7 @@ const AddCandidate = ({open, closeModal}) => {
               }
               setIsError(false);
               setError("Candidate added");
-              toast("Candidate added");
-              closeModal();
+              setErrorModal(true);
             } catch (error) {
                 setError(error.message);
                 setIsError(true);
@@ -91,7 +88,6 @@ const AddCandidate = ({open, closeModal}) => {
             <Button className='bg-cyan' onClick={addCandidate}>Add</Button>
         </form> 
        </div>
-       <ToastContainer autoClose={1000} hideProgressBar={true} position="bottom-center" />
       </div>
     );
 }
