@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {HiOutlineXMark} from 'react-icons/hi2';
 import axios from '../../api/axios';
 import logo from '../../assets/VOTE CHAIN-logo-black.png';
@@ -8,12 +8,13 @@ import FormInput from '../Reusable/FormInput';
 
 const ChangePassword = ({open, closeModal}) => {
 
-    const [oldPassword, setOldPassword] = useState();
-    const [password, setPassword] = useState();
-    const [confirm, setConfirm] = useState();
+    const [oldPassword, setOldPassword] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirm, setConfirm] = useState('');
     const [message, setMessage] = useState('');
     const [isError, setIsError] = useState(false);
     const [successModal, setSuccessModal] = useState(false);
+    const [disabled, setDisabled] = useState();
 
     const changePassword = async() => {
 
@@ -47,6 +48,13 @@ const ChangePassword = ({open, closeModal}) => {
         }
     }
 
+    useEffect(() => {
+      if(oldPassword<8 || password.length<8 || confirm.length<8)
+      setDisabled(true)
+      else
+      setDisabled(false)
+    }, [oldPassword, password, confirm]);
+
     if(!open)
     return null;
 
@@ -62,7 +70,7 @@ const ChangePassword = ({open, closeModal}) => {
             <FormInput type="password" onChange={e => setOldPassword(e.target.value)}>Old Password</FormInput>
             <FormInput type="password" onChange={e => setPassword(e.target.value)}>New Password</FormInput>
             <FormInput type="password" onChange={e => setConfirm(e.target.value)}>Confirm New Password</FormInput>
-            <Button className=' bg-cyan' onClick={changePassword}>Save changes</Button>
+            <Button className=' bg-cyan' onClick={changePassword} disabled={disabled}>Save changes</Button>
       </form> 
      </div>
     </div>
