@@ -4,7 +4,6 @@ import logo from '../../assets/VOTE CHAIN-logo-white-horizantal.png';
 import landingsm from '../../assets/landing-sm.svg';
 import landinglg from '../../assets/landing-lg.svg';
 import curve from '../../assets/backgroundcurve.svg';
-import AddButton from '../../components/Reusable/AddButton';
 import Button from '../../components/Reusable/Button';
 
 
@@ -25,7 +24,7 @@ const LandingHero = () => {
         <div className='flex flex-col justify-center sm:items-start items-center text-center sm:text-left'>
             <h1 className='text-4xl text-white md:text-5xl lg:text-6xl pt-12 md:pt-8'><span className='text-purple-100 font-semibold'>Blockchain-based</span><br/>online voting system </h1>
             <p className='text-white pt-6'>Create and launch your election securely<br/>from your own device</p>
-            <AddButton class={'mt-6 max-w-[300px] gap-2'} click={() => navigate('/login')}>Create a new election</AddButton>
+            <Button className={'mt-6 max-w-[300px] gap-2'} onClick={() => navigate('/login')} add={true} >Create a new election</Button>
         </div>
         <img src={landingsm} alt="talents" className="w-[45%] md:hidden hidden sm:flex mt-5" />
         <img src={landinglg} alt="talents" className="w-[45%] hidden md:flex mt-5" />
