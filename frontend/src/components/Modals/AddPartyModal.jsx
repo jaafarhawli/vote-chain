@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {HiOutlineXMark} from 'react-icons/hi2';
 import axios from '../../api/axios';
 import logo from '../../assets/VOTE CHAIN-logo-black.png';
@@ -8,9 +8,10 @@ import SuccessModal from './SuccessModal';
 
 const AddPartyModal = ({open, closeModal, refetch}) => {
 
-    const [name, setName] = useState();
+    const [name, setName] = useState('');
     const [errorModal, setErrorModal] = useState(false);
     const [error, setError] = useState('');
+    const [disabled, setDisabled] = useState(true);
 
     const addParty = async () => {
 
@@ -35,6 +36,13 @@ const AddPartyModal = ({open, closeModal, refetch}) => {
         
     }
 
+    useEffect(() => {
+      if(name==='')
+      setDisabled(true)
+      else
+      setDisabled(false)
+    }, [name]);
+
     if(!open)
     return null;
 
@@ -48,7 +56,7 @@ const AddPartyModal = ({open, closeModal, refetch}) => {
       <h1 className='my-4 text-2xl font-semibold text-purple-100'>Add Party</h1>  
       <form className='w-4/5 flex flex-col gap-5 '>
           <FormInput type="text" onChange={e => setName(e.target.value)}>Party Name</FormInput>
-          <Button className='bg-cyan' onClick={addParty}>Add</Button>
+          <Button className='bg-cyan' onClick={addParty} disabled={disabled} >Add</Button>
       </form> 
      </div>
     </div>
