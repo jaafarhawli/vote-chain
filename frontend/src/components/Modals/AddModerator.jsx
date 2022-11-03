@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {HiOutlineXMark} from 'react-icons/hi2';
 import axios from '../../api/axios';
 import logo from '../../assets/VOTE CHAIN-logo-black.png';
@@ -8,9 +8,10 @@ import SuccessModal from './SuccessModal';
 
 const AddModerator = ({open, closeModal, refetch}) => {
 
-    const [email, setEmail] = useState();
+    const [email, setEmail] = useState('');
     const [errorModal, setErrorModal] = useState(false);
     const [error, setError] = useState('');
+    const [disabled, setDisabled] = useState(true);
 
     const addModerator = async () => {
 
@@ -31,9 +32,15 @@ const AddModerator = ({open, closeModal, refetch}) => {
                 setError(error.message);
                 setErrorModal(true);
               console.log(error);
-            }
-        
+            }  
     }
+
+    useEffect(() => {
+      if(email==='')
+      setDisabled(true)
+      else
+      setDisabled(false)
+    }, [email]);
 
     if(!open)
     return null;
@@ -48,7 +55,7 @@ const AddModerator = ({open, closeModal, refetch}) => {
       <h1 className='my-4 text-2xl font-semibold text-purple-100'>Add Moderator</h1>  
       <form className='w-4/5 flex flex-col gap-5 '>
           <FormInput type="text" onChange={e => setEmail(e.target.value)}>Moderator Email</FormInput>
-          <Button className='bg-cyan' onClick={addModerator}>Add</Button>
+          <Button className='bg-cyan' onClick={addModerator} disabled={disabled} >Add</Button>
       </form> 
      </div>
     </div>
