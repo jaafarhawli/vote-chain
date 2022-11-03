@@ -9,7 +9,7 @@ const ModeratorElections = () => {
 
     const navigate = useNavigate();
 
-    const {data: moderator_elections} = useQuery(["moderator"], async () => {
+    const {data: moderator_elections} = useQuery([], async () => {
         return axios.get(`user/elections/moderator/${localStorage.id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`

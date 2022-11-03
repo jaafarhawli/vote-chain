@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import MainHeader from './MainHeader';
 import CreateElection from '../../components/Modals/CreateElection';
 import ElectionCard from '../../components/Reusable/ElectionCard';
+import EmptyState from '../../components/Reusable/EmptyState';
 
 const UserElections = () => {
 
@@ -42,11 +43,7 @@ return (
     <div>
       <CreateElection open={electionModal} closeModal={closeModal} refetch={() => setRefetch(!refetch)} />
         <MainHeader title={'Your Elections'} empty={true} open={openModal} />
-        <div className='flex flex-col w-full text-center items-center gap-1 mt-20'>
-            <h1 className='text-[24px] font-semibold text-black-200'>No Elections</h1>
-            <p className='w-[220px]'>You don’t have any elections, create one now!</p>
-            <button className='mt-6' onClick={openModal}>Create a new election</button>
-        </div>
+        <EmptyState title={'No Elections'} button={'Create a new election'} onClick={openModal} >You don’t have any elections, create one now!</EmptyState>
     </div>
 )
 
