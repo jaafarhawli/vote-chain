@@ -1,7 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 const AdminCandidate = () => {
-  return (
+    
+    const [search, setSearch] = useState('');
+    
+    return (
     <div className='pl-[330px] pt-[150px] pr-6'>
         <div className='flex justify-between items-center w-full'>
           <h1 className='text-[28px] font-bold'>Parties</h1>
