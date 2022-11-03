@@ -2,12 +2,12 @@ import React, {useState} from 'react';
 import {HiOutlineXMark} from 'react-icons/hi2';
 import axios from '../../api/axios';
 import logo from '../../assets/VOTE CHAIN-logo-black.png';
-import ErrorModal from './ErrorModal';
 import {DateTimePickerComponent} from '@syncfusion/ej2-react-calendars';
 import TimezonePicker from 'react-bootstrap-timezone-picker';
 import 'react-bootstrap-timezone-picker/dist/react-bootstrap-timezone-picker.min.css';
 import Button from '../Reusable/Button';
 import FormInput from '../Reusable/FormInput';
+import SuccessModal from './SuccessModal';
 
 const CreateElection = ({open, closeModal, refetch}) => {
 
@@ -59,7 +59,7 @@ const CreateElection = ({open, closeModal, refetch}) => {
 
 return (
     <div className='bg-black-100/50 fixed w-full h-full z-10 '>
-        <ErrorModal open={errorModal} error={error} closeError={() => setErrorModal(false)} />
+        <SuccessModal open={errorModal} message={error} error={true} closeError={() => setErrorModal(false)} />
      <div className=' fixed top-[50%] left-1/2 -translate-x-1/2 -translate-y-1/2 md:w-2/3 w-4/5 max-w-[500px] flex flex-col bg-white shadow-xl items-center z-10 rounded-lg px-8 py-14 '>
          <HiOutlineXMark className='fixed top-2 left-2 text-[30px] hover:bg-black-100/20 rounded-full duration-200 p-1' onClick={closeModal} />
          <img src={logo} alt="logo" className='w-[180px]' />
