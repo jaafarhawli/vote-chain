@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import MainHeader from './MainHeader';
 import axios from '../../api/axios';
 import ConfirmModal from '../../components/Modals/ConfirmModal';
-import ErrorModal from '../../components/Modals/ErrorModal';
 import SuccessModal from '../../components/Modals/SuccessModal';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Reusable/Button';
@@ -18,7 +17,7 @@ const UserSettings = () => {
   const [email, setEmail] = useState(localStorage.email);
   const [error, setError] = useState('');
   const [passwordModal, setPasswordModal] = useState(false);
-  const [errorModal, setErrorModal] = useState(false);
+  const [isError, setIsError] = useState(false);
   const [successModal, setSuccessModal] = useState(false);
   const [openConfirmModal, setOpenConfirmModal] = useState(false);
 
@@ -38,42 +37,16 @@ const UserSettings = () => {
       localStorage.setItem('firstname', firstname);
       localStorage.setItem('lastname', lastname);
       localStorage.setItem('email', email);
+      setIsError(false);
       setSuccessModal(true);
     } catch (error) {
       setError(error.message);
-      setErrorModal(true);
+      setIsError(true);
+      setSuccessModal(true);
       console.log(error);
     }
 }
   
-// const changePassword = async() => {
-
-//     if(confirm!==password) {
-//         setError('Passwords didnt match');
-//         setErrorModal(true);
-//         return;
-//     }
-
-//     const form = {
-//         id: localStorage.id,
-//         old_password: oldPassword,
-//         password: password,
-//     }
-//     try {
-//       await axios.put('user/password', form, {
-//         headers: {
-//           Authorization: `bearer ${localStorage.token}`
-//         }
-//       });
- 
-//       setSuccessModal(true);
-
-//     } catch (error) {
-//       setError(error.message);
-//       setErrorModal(true);
-//       console.log(error);
-//     }
-// }
 
 const openModal = () => {
   setOpenConfirmModal(true);
@@ -124,8 +97,7 @@ const deleteAccount = async () => {
   return (
     <div>
       <ConfirmModal open={openConfirmModal} closeModal={closeModal} click={deleteAccount} text={"Are you sure you want to delete your account?"} />
-      <ErrorModal open={errorModal} error={error} closeError={() => setErrorModal(false)} />
-      <SuccessModal open={successModal} closeSuccess={() => setSuccessModal(false)} />
+      <SuccessModal open={successModal} errorMessage={error} error={isError} closeSuccess={() => setSuccessModal(false)} />
       <ChangePassword open={passwordModal} closeModal={closePassword} />
       <MainHeader title={'Account Settings'} empty={true} />
       <form className='lg:w-[600px] w-[400px] flex flex-col gap-5 lg:px-28 md:px-10 px-4'>
