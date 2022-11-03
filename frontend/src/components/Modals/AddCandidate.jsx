@@ -1,10 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useRef} from 'react';
 import {HiOutlineXMark} from 'react-icons/hi2';
 import axios from '../../api/axios';
 import logo from '../../assets/VOTE CHAIN-logo-black.png';
 import Button from '../Reusable/Button';
 import FormInput from '../Reusable/FormInput';
 import SuccessModal from './SuccessModal';
+import {IoMdImage} from 'react-icons/io'
 
 const AddCandidate = ({open, closeModal}) => {
 
@@ -12,6 +13,7 @@ const AddCandidate = ({open, closeModal}) => {
     const [errorModal, setErrorModal] = useState(false);
     const [error, setError] = useState('');
     const [image, setImage] = useState();
+    const imageRef = useRef(null);
     
     const addCandidate = async () => {
 
@@ -57,6 +59,11 @@ const AddCandidate = ({open, closeModal}) => {
            }
     }
 
+    const handleClick = event => {
+        imageRef.current.click();
+        setImage(event.current.files[0]);
+      };
+
   
       if(!open)
       return null;
@@ -70,8 +77,8 @@ const AddCandidate = ({open, closeModal}) => {
         <div className='bg-black-100 h-[2px] w-[180px]'></div>  
         <h1 className='my-4 text-2xl font-semibold text-purple-100'>Add Candidate To Party</h1>  
         <form className='w-4/5 flex flex-col gap-5 '>
-            <input type="file" onChange={e => setImage(e.target.files[0])} />
-            <Button onClick={uploadImage}>Upload</Button>
+            <input type="file" onChange={e => setImage(e.target.files[0])} className='hidden' ref={imageRef} />
+            <IoMdImage className='self-center text-[100px] bg-black-100/20 text-white p-4 rounded-full hover:bg-black-100/30 duration-150' onClick={handleClick} />
             <FormInput type="text" onChange={e => setName(e.target.value)}>Candidate Name</FormInput>
             <Button className='bg-cyan' onClick={addCandidate}>Add</Button>
         </form> 
