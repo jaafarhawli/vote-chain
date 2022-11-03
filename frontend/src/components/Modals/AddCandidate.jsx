@@ -12,6 +12,27 @@ const AddCandidate = ({open, closeModal}) => {
     const [errorModal, setErrorModal] = useState(false);
     const [error, setError] = useState('');
 
+    const addCandidate = async () => {
+
+        const form = {
+            name: name,
+            party_id: localStorage.party_id
+        }
+        
+        try {
+             await axios.post('user/candidate', form, {
+                headers: {
+                  Authorization: `bearer ${localStorage.token}`
+                }
+              });
+              closeModal();
+            } catch (error) {
+                setError(error.message);
+                setErrorModal(true);
+              console.log(error);
+            }
+        
+    }
   
       if(!open)
       return null;
