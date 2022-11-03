@@ -5,6 +5,7 @@ import AddButton from '../../components/Reusable/AddButton';
 import {HiOutlineXMark} from 'react-icons/hi2';
 import AddPartyModal from '../../components/Modals/AddPartyModal';
 import ConfirmModal from '../../components/Modals/ConfirmModal';
+import EmptyState from '../../components/Reusable/EmptyState';
 
 const AdminParties = () => {
 
@@ -73,13 +74,7 @@ const openConfirmModal = (id) => {
         <AddPartyModal open={partyModal} closeModal={closeModal}    refetch={() => setRefetch(!refetch)} />
         <div className='pl-[330px] pt-[150px] pr-6'>
             <h1 className='text-[28px] font-bold'>Parties</h1>
-            <div className='flex flex-col w-full items-center gap-4 mt-[150px]'>
-                <div className='text-center'>
-                    <h2 className='text-[24px] font-semibold text-black-200'>No Parties</h2>
-                    <p className='text-[18px] w-64 mt-1'>You don’t have any party, add one now!</p>
-                </div>
-                <AddButton text={"Add party"} click={openModal} />
-            </div>
+            <EmptyState title={'No Parties'} button={'Add party'} onClick={openModal} >You don’t have any parties, add one now!</EmptyState>
         </div>
         </>
     );

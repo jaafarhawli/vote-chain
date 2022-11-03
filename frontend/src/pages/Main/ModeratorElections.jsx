@@ -4,6 +4,7 @@ import axios from '../../api/axios';
 import { useNavigate } from 'react-router-dom';
 import MainHeader from './MainHeader';
 import ElectionCard from '../../components/Reusable/ElectionCard';
+import EmptyState from '../../components/Reusable/EmptyState';
 
 const ModeratorElections = () => {
 
@@ -26,10 +27,7 @@ const ModeratorElections = () => {
     return (
         <div>
             <MainHeader empty={true} title={'Moderator Elections'} />
-            <div className='flex flex-col w-full text-center items-center gap-1 mt-20'>
-                <h1 className='text-[24px] font-semibold text-black-200'>No Elections</h1>
-                <p className='w-[220px]'>You're not assigned as moderator to any election</p>
-            </div>
+            <EmptyState title={'No Elections'} >You're not assigned as moderator to any election</EmptyState>
         </div>
     );
 

@@ -5,6 +5,7 @@ import AddButton from '../../components/Reusable/AddButton';
 import {HiOutlineXMark} from 'react-icons/hi2';
 import AddModerator from '../../components/Modals/AddModerator';
 import ConfirmModal from '../../components/Modals/ConfirmModal';
+import EmptyState from '../../components/Reusable/EmptyState';
 
 const AdminModerators = () => {
 
@@ -79,13 +80,7 @@ const {data} = useQuery([refetch], async () => {
         <AddModerator open={moderatorModal} closeModal={closeModal}  refetch={() => setRefetch(!refetch)} />
         <div className='pl-[330px] pt-[150px] pr-6'>
             <h1 className='text-[28px] font-bold'>Moderators</h1>
-            <div className='flex flex-col w-full items-center gap-4 mt-[150px]'>
-                <div className='text-center'>
-                    <h2 className='text-[24px] font-semibold text-black-200'>No Moderators</h2>
-                    <p className='text-[18px] w-64 mt-1'>You don’t have any moderators, add one now!</p>
-                </div>
-                <AddButton text={"Add moderator"} click={openModal} />
-            </div>
+            <EmptyState title={'No Moderators'} button={'Add moderator'} onClick={openModal} >You don’t have any moderators, add one now!</EmptyState>
         </div>
         </>
     );
