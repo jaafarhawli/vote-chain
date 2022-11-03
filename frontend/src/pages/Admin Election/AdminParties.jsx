@@ -6,6 +6,7 @@ import AddPartyModal from '../../components/Modals/AddPartyModal';
 import ConfirmModal from '../../components/Modals/ConfirmModal';
 import EmptyState from '../../components/Reusable/EmptyState';
 import Table from '../../components/Reusable/Table';
+import AddCandidate from '../../components/Modals/AddCandidate';
 
 const AdminParties = () => {
 
@@ -99,6 +100,7 @@ const openConfirmModal = (id) => {
     <>
     <ConfirmModal  open={confirmModal} closeModal={closeConfirm} click={deleteParty} text={"Are you sure you want to delete this party?"} />
     <AddPartyModal open={partyModal} closeModal={closeModal}  refetch={() => setRefetch(!refetch)} />
+    <AddCandidate open={candidateModal} closeModal={closeCandidateModal} />
     <div className='pl-[330px] pt-[150px] pr-6'>
         <div className='flex justify-between items-center w-full'>
           <h1 className='text-[28px] font-bold'>Parties</h1>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {HiOutlineXMark} from 'react-icons/hi2';
 import axios from '../../api/axios';
 import logo from '../../assets/VOTE CHAIN-logo-black.png';
@@ -11,7 +11,8 @@ const AddCandidate = ({open, closeModal}) => {
     const [name, setName] = useState('');
     const [errorModal, setErrorModal] = useState(false);
     const [error, setError] = useState('');
-
+    const [image, setImage] = useState();
+    
     const addCandidate = async () => {
 
         const form = {
@@ -20,11 +21,12 @@ const AddCandidate = ({open, closeModal}) => {
         }
         
         try {
-             await axios.post('user/candidate', form, {
+             const data = await axios.post('user/candidate', form, {
                 headers: {
                   Authorization: `bearer ${localStorage.token}`
                 }
               });
+              localStorage.setItem('candidate_id', data.data._id)
               closeModal();
             } catch (error) {
                 setError(error.message);
@@ -33,6 +35,28 @@ const AddCandidate = ({open, closeModal}) => {
             }
         
     }
+
+    const uploadImage = async () => {
+        const formData = new FormData();
+
+        formData.append('candidate_id',localStorage.candidate_id);
+        formData.append('party_id', localStorage.party_id);
+        formData.append('candidateImg',image, image.name);
+        
+        try {
+            const data = await axios.post('user/image', formData, {
+               headers: {
+                 Authorization: `bearer ${localStorage.token}`
+               }
+             });
+             console.log(data);
+           } catch (error) {
+               setError(error.message);
+               setErrorModal(true);
+             console.log(error);
+           }
+    }
+
   
       if(!open)
       return null;
@@ -46,6 +70,8 @@ const AddCandidate = ({open, closeModal}) => {
         <div className='bg-black-100 h-[2px] w-[180px]'></div>  
         <h1 className='my-4 text-2xl font-semibold text-purple-100'>Add Candidate To Party</h1>  
         <form className='w-4/5 flex flex-col gap-5 '>
+            <input type="file" onChange={e => setImage(e.target.files[0])} />
+            <Button onClick={uploadImage}>Upload</Button>
             <FormInput type="text" onChange={e => setName(e.target.value)}>Candidate Name</FormInput>
             <Button className='bg-cyan' onClick={addCandidate}>Add</Button>
         </form> 
