@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/VOTE CHAIN-logo-black.png';
 import axios from '../../api/axios';
 import Button from '../../components/Reusable/Button';
+import FormInput from '../../components/Reusable/FormInput';
 
 const RegisterForm = () => {
 
@@ -49,27 +50,12 @@ const RegisterForm = () => {
       <h1 className='text-red pb-2'>{error}</h1>
       <form className='w-4/5 flex flex-col gap-5 '>
           <div className='flex gap-2'>
-            <label>
-                <p className='font-medium'>First Name</p>
-                <input type="text" onChange={e => setFirstname(e.target.value)}/>
-            </label>
-            <label>
-                <p className='font-medium'>Last Name</p>
-                <input type="text" onChange={e => setLastname(e.target.value)}/>
-            </label>
+            <FormInput type="text" className='border-0' onChange={e => setFirstname(e.target.value)}>First Name</FormInput> 
+            <FormInput type="text" className='border-0' onChange={e => setLastname(e.target.value)}>Last Name</FormInput> 
           </div>
-          <label>
-              <p className='font-medium'>Email</p>
-              <input type="email" onChange={e => setEmail(e.target.value)}/>
-          </label>
-          <label>
-              <p className='font-medium'>Password</p>
-              <input type="password" onChange={e => setPassword(e.target.value)}/>
-          </label>
-          <label>
-              <p className='font-medium'>Confirm Password</p>
-              <input type="password" onChange={e => setConfirm(e.target.value)}/>
-          </label>
+          <FormInput type="email" className='border-0' onChange={e => setEmail(e.target.value)}>Email</FormInput> 
+          <FormInput type="password" className='border-0' onChange={e => setPassword(e.target.value)}>Password</FormInput> 
+          <FormInput type="password" className='border-0' onChange={e => setConfirm(e.target.value)}>Confirm Password</FormInput> 
           <Button className='bg-cyan' onClick={handleSubmit} >Get Started</Button>
       </form> 
       <p className='mt-4 text-[16px]'>Already have an account? <span className='font-semibold text-purple-100 select-none hover:underline' onClick={() => navigate('/login')}>Log in</span></p>

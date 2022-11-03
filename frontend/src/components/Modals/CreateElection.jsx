@@ -7,6 +7,7 @@ import {DateTimePickerComponent} from '@syncfusion/ej2-react-calendars';
 import TimezonePicker from 'react-bootstrap-timezone-picker';
 import 'react-bootstrap-timezone-picker/dist/react-bootstrap-timezone-picker.min.css';
 import Button from '../Reusable/Button';
+import FormInput from '../Reusable/FormInput';
 
 const CreateElection = ({open, closeModal, refetch}) => {
 
@@ -65,10 +66,7 @@ return (
       <div className='bg-black-100 h-[2px] w-[180px]'></div>  
       <h1 className='my-4 text-2xl font-semibold text-purple-100'>New Election</h1>  
       <form className='w-4/5 flex flex-col gap-5 '>
-          <label>
-              <p className='font-medium'>Election title</p>
-              <input className=' border-[1px] border-black-200' type="text" onChange={e => setTitle(e.target.value)} />
-          </label>
+          <FormInput type="text" onChange={e => setTitle(e.target.value)}>Election title</FormInput>          
           <div className='flex gap-2'>
             <label>
                 <p className='font-medium'>Start date</p>

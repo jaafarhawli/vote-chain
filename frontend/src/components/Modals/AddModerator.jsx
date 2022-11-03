@@ -4,6 +4,7 @@ import axios from '../../api/axios';
 import logo from '../../assets/VOTE CHAIN-logo-black.png';
 import Button from '../Reusable/Button';
 import ErrorModal from './ErrorModal';
+import FormInput from '../Reusable/FormInput';
 
 const AddModerator = ({open, closeModal, refetch}) => {
 
@@ -46,10 +47,7 @@ const AddModerator = ({open, closeModal, refetch}) => {
       <div className='bg-black-100 h-[2px] w-[180px]'></div>  
       <h1 className='my-4 text-2xl font-semibold text-purple-100'>Add Moderator</h1>  
       <form className='w-4/5 flex flex-col gap-5 '>
-          <label>
-              <p className='font-medium'>Moderator Email</p>
-              <input className=' border-[1px] border-black-200' type="text" onChange={e => setEmail(e.target.value)} />
-          </label>
+          <FormInput type="text" onChange={e => setEmail(e.target.value)}>Moderator Email</FormInput>
           <Button className='bg-cyan' onClick={addModerator}>Add</Button>
       </form> 
      </div>

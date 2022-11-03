@@ -4,6 +4,7 @@ import logo from '../../assets/VOTE CHAIN-logo-black.png';
 import axios from '../../api/axios';
 import jwt_decode from "jwt-decode";
 import Button from '../../components/Reusable/Button';
+import FormInput from '../../components/Reusable/FormInput';
 
 const LoginForm = () => {
 
@@ -51,14 +52,8 @@ const LoginForm = () => {
       <h1 className='my-4 text-2xl font-semibold text-purple-100'>Welcome!</h1>  
       <h1 className={error? 'text-red ' : 'hidden'}>Invalid Credentials</h1>
       <form className='w-4/5 flex flex-col gap-5 '>
-          <label>
-              <p className='font-medium'>Email</p>
-              <input type="email" onChange={e => setEmail(e.target.value)}/>
-          </label>
-          <label>
-              <p className='font-medium'>Password</p>
-              <input type="password" onChange={e => setPassword(e.target.value)}/>
-          </label>
+          <FormInput type="email" className='border-0' onChange={e => setEmail(e.target.value)}>Email</FormInput>          
+          <FormInput type="password" className='border-0' onChange={e => setPassword(e.target.value)}>Password</FormInput>                
           <Button className='bg-cyan' onClick={handleSubmit}>Login</Button>
       </form> 
       <p className='mt-4 text-[16px]'>New to Vote Chain? <span className='font-semibold text-purple-100 select-none hover:underline' onClick={() => navigate('/register')}>Sign up</span></p>
