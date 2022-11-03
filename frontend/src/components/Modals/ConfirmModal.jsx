@@ -1,5 +1,6 @@
 import React from 'react';
 import {HiOutlineXMark} from 'react-icons/hi2';
+import Button from '../Reusable/Button';
 
 const ConfirmModal = ({open, closeModal, click, text}) => {     
 
@@ -12,8 +13,8 @@ return (
          <HiOutlineXMark className='fixed top-2 left-2 text-[30px] hover:bg-black-100/20 rounded-full duration-200 p-1' onClick={closeModal} />
          <h1 className='font-semibold text-[22px] text-center'>{text}</h1>
          <div className='flex justify-evenly w-full mt-8'>
-             <button type='button' onClick={closeModal} className='bg-cyan' >Cancel</button>
-             <button type='button' className='bg-red hover:bg-red/80' onClick={click}>Delete</button>
+             <Button onClick={closeModal} className='bg-cyan' >Cancel</Button>
+             <Button className='bg-red hover:bg-red/80' onClick={click}>Delete</Button>
          </div>
      </div>
     </div>

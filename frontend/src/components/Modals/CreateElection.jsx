@@ -6,6 +6,7 @@ import ErrorModal from './ErrorModal';
 import {DateTimePickerComponent} from '@syncfusion/ej2-react-calendars';
 import TimezonePicker from 'react-bootstrap-timezone-picker';
 import 'react-bootstrap-timezone-picker/dist/react-bootstrap-timezone-picker.min.css';
+import Button from '../Reusable/Button';
 
 const CreateElection = ({open, closeModal, refetch}) => {
 
@@ -88,7 +89,7 @@ return (
                 />
              
           </label>
-          <button className='bg-cyan' type="button" onClick={createElection}>Create election</button>
+          <Button className='bg-cyan' onClick={createElection}>Create election</Button>
       </form> 
      </div>
     </div>

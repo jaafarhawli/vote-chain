@@ -3,6 +3,7 @@ import logo from '../../assets/VOTE CHAIN-logo-white-horizantal.png';
 import curve from '../../assets/main-curve.svg';
 import { useNavigate } from 'react-router-dom';
 import AddButton from '../../components/Reusable/AddButton';
+import Button from '../../components/Reusable/Button';
 
 const MainHeader = ({title, empty, open}) => {
 
@@ -17,7 +18,7 @@ const MainHeader = ({title, empty, open}) => {
             <div className='flex gap-3 text-white font-semibold items-center'>
                 <h2 className='hover:bg-purple-300/50 duration-150 p-2 rounded-lg select-none cursor-pointer' onClick={() => navigate('/main')}>Admin</h2>
                 <h2 className='hover:bg-purple-300/50 duration-150 p-2 rounded-lg select-none cursor-pointer' onClick={() => navigate('/main/moderator')}>Moderator</h2>
-                <button onClick={() => navigate('/main/settings')}>{localStorage.firstname} {localStorage.lastname}</button>
+                <Button onClick={() => navigate('/main/settings')}>{localStorage.firstname} {localStorage.lastname}</Button>
             </div>
         </div>
         <h1 className='text-white text-[28px] md:text-[32px] lg:text-[36px] font-bold mt-8'>{title}</h1>
@@ -35,7 +36,7 @@ const MainHeader = ({title, empty, open}) => {
             <div className='flex gap-3 text-white font-semibold items-center'>
                 <h2 className='hover:bg-purple-300/50 duration-150 p-2 rounded-lg select-none cursor-pointer' onClick={() => navigate('/main')}>Admin</h2>
                 <h2 className='hover:bg-purple-300/50 duration-150 p-2 rounded-lg select-none cursor-pointer' onClick={() => navigate('/main/moderator')}>Moderator</h2>
-                <button onClick={() => navigate('/main/settings')}>{localStorage.firstname} {localStorage.lastname}</button>
+                <Button onClick={() => navigate('/main/settings')}>{localStorage.firstname} {localStorage.lastname}</Button>
             </div>
         </div>
         <div className='flex justify-between w-full items-center mt-8'>

@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {HiOutlineXMark} from 'react-icons/hi2';
 import axios from '../../api/axios';
 import logo from '../../assets/VOTE CHAIN-logo-black.png';
+import Button from '../Reusable/Button';
 import ErrorModal from './ErrorModal';
 
 const AddPartyModal = ({open, closeModal, refetch}) => {
@@ -49,7 +50,7 @@ const AddPartyModal = ({open, closeModal, refetch}) => {
               <p className='font-medium'>Party Name</p>
               <input className=' border-[1px] border-black-200' type="text" onChange={e => setName(e.target.value)} />
           </label>
-          <button className='bg-cyan' type="button" onClick={addParty}>Add</button>
+          <Button className='bg-cyan' onClick={addParty}>Add</Button>
       </form> 
      </div>
     </div>

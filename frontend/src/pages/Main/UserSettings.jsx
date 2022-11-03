@@ -5,6 +5,7 @@ import ConfirmModal from '../../components/Modals/ConfirmModal';
 import ErrorModal from '../../components/Modals/ErrorModal';
 import SuccessModal from '../../components/Modals/SuccessModal';
 import { useNavigate } from 'react-router-dom';
+import Button from '../../components/Reusable/Button';
 
 const UserSettings = () => {
 
@@ -130,7 +131,7 @@ const deleteAccount = async () => {
               <p className='font-medium'>Email</p>
               <input type="email" className=' border-[1px] border-black-200' defaultValue={localStorage.email}  onChange={e => setEmail(e.target.value)}/>
           </label>
-          <button type='button' className=' bg-cyan' onClick={saveInfo}>Save changes</button>
+          <Button className=' bg-cyan' onClick={saveInfo}>Save changes</Button>
         </form>
         <form className='my-12 lg:w-[600px] w-[400px] flex flex-col gap-5 lg:px-28 md:px-10 px-4'>
           <h1 className='text-[28px] font-semibold text-purple-100'>Change Password</h1>
@@ -146,10 +147,10 @@ const deleteAccount = async () => {
                 <p className='font-medium'>Confirm New Password</p>
                 <input type="password" className=' border-[1px] border-black-200' onChange={e => setConfirm(e.target.value)}/>
             </label>
-          <button type='button' className=' bg-cyan' onClick={changePassword}>Save changes</button>
+          <Button className=' bg-cyan' onClick={changePassword}>Save changes</Button>
           <div className='flex w-full gap-2'>
-            <button type='button' className='bg-red flex-1 hover:bg-red/80'  onClick={logout} >Log out</button>
-            <button type='button' className='bg-red flex-1 hover:bg-red/80'  onClick={openModal} >Delete Account</button>
+            <Button className='bg-red flex-1 hover:bg-red/80'  onClick={logout} >Log out</Button>
+            <Button className='bg-red flex-1 hover:bg-red/80'  onClick={openModal} >Delete Account</Button>
           </div>
         </form>
         

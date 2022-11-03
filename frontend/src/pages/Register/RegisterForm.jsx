@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/VOTE CHAIN-logo-black.png';
 import axios from '../../api/axios';
+import Button from '../../components/Reusable/Button';
 
 const RegisterForm = () => {
 
@@ -69,7 +70,7 @@ const RegisterForm = () => {
               <p className='font-medium'>Confirm Password</p>
               <input type="password" onChange={e => setConfirm(e.target.value)}/>
           </label>
-          <button className='bg-cyan' type="button" onClick={handleSubmit} >Get Started</button>
+          <Button className='bg-cyan' onClick={handleSubmit} >Get Started</Button>
       </form> 
       <p className='mt-4 text-[16px]'>Already have an account? <span className='font-semibold text-purple-100 select-none hover:underline' onClick={() => navigate('/login')}>Log in</span></p>
     </div>

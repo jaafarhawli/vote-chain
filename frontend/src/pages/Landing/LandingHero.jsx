@@ -17,7 +17,7 @@ const LandingHero = () => {
       <div className='flex w-full pt-4 items-center justify-between lg:px-28 md:px-10 px-4'>
         <img src={logo} alt="logo" className='w-48' />
         <div className='flex gap-4'>
-            <Button class={'border-cyan border-2 bg-opacity-0 hover:bg-cyan'} onClick={() => navigate('/login')}>Login</Button>
+            <Button className={'border-cyan border-2 bg-opacity-0 hover:bg-cyan'} onClick={() => navigate('/login')}>Login</Button>
             <Button onClick={() => navigate('/register')}>Register</Button>
         </div>
       </div>

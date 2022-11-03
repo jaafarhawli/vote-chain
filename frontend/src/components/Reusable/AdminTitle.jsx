@@ -1,6 +1,7 @@
 import React from 'react';
 import {AiFillHome} from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
+import Button from './Button';
 
 const AdminTitle = () => {
 
@@ -22,7 +23,7 @@ const AdminTitle = () => {
         </div>
         <div className='flex gap-8 items-center'>
             <AiFillHome className='text-white text-[30px] hover:text-white/80 duration-150' onClick={() => navigate('/main')} />
-            <button className='bg-white/20 px-6 py-6' onClick={() => navigate('/main/settings')}>{localStorage.firstname} {localStorage.lastname}</button>
+            <Button className='bg-white/20 px-6 py-6' onClick={() => navigate('/main/settings')}>{localStorage.firstname} {localStorage.lastname}</Button>
         </div>
       </div>
     </div>

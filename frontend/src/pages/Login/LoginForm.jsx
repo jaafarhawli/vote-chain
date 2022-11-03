@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/VOTE CHAIN-logo-black.png';
 import axios from '../../api/axios';
 import jwt_decode from "jwt-decode";
+import Button from '../../components/Reusable/Button';
 
 const LoginForm = () => {
 
@@ -58,7 +59,7 @@ const LoginForm = () => {
               <p className='font-medium'>Password</p>
               <input type="password" onChange={e => setPassword(e.target.value)}/>
           </label>
-          <button className='bg-cyan' type="button" onClick={handleSubmit}>Login</button>
+          <Button className='bg-cyan' onClick={handleSubmit}>Login</Button>
       </form> 
       <p className='mt-4 text-[16px]'>New to Vote Chain? <span className='font-semibold text-purple-100 select-none hover:underline' onClick={() => navigate('/register')}>Sign up</span></p>
     </div>
