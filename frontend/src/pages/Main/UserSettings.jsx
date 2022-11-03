@@ -6,6 +6,7 @@ import ErrorModal from '../../components/Modals/ErrorModal';
 import SuccessModal from '../../components/Modals/SuccessModal';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Reusable/Button';
+import FormInput from '../../components/Reusable/FormInput';
 
 const UserSettings = () => {
 
@@ -111,6 +112,8 @@ const deleteAccount = async () => {
       }
   }
 
+  console.log(firstname);
+
   return (
     <div>
       <ConfirmModal open={openConfirmModal} closeModal={closeModal} click={deleteAccount} text={"Are you sure you want to delete your account?"} />
@@ -119,10 +122,7 @@ const deleteAccount = async () => {
       <MainHeader title={'Account Settings'} empty={true} />
       <form className='lg:w-[600px] w-[400px] flex flex-col gap-5 lg:px-28 md:px-10 px-4'>
           <h1 className='text-[28px] font-semibold text-purple-100'>Account Info</h1>
-            <label>
-                <p className='font-medium'>First Name</p>
-                <input type="text" className=' border-[1px] border-black-200' defaultValue={localStorage.firstname} onChange={e => setFirstname(e.target.value)}/>
-            </label>
+            <FormInput type="text" className=' border-[1px] border-black-200' onChange={e => setFirstname(e.target.value)} defaultValue={localStorage.firstname}>First Name</FormInput>
             <label>
                 <p className='font-medium'>Last Name</p>
                 <input type="text" className=' border-[1px] border-black-200' defaultValue={localStorage.lastname}  onChange={e => setLastname(e.target.value)}/>
