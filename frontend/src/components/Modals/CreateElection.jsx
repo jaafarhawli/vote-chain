@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {HiOutlineXMark} from 'react-icons/hi2';
 import axios from '../../api/axios';
 import logo from '../../assets/VOTE CHAIN-logo-black.png';
@@ -11,13 +11,15 @@ import SuccessModal from './SuccessModal';
 
 const CreateElection = ({open, closeModal, refetch}) => {
 
-    const [title, setTitle] = useState();
-    const [starttime, setStarttime] = useState();
-    const [endtime, setEndtime] = useState();
-    const [timezone, setTimezone] = useState();
+    const [title, setTitle] = useState('');
+    const [starttime, setStarttime] = useState('');
+    const [endtime, setEndtime] = useState('');
+    const [timezone, setTimezone] = useState('');
     const [errorModal, setErrorModal] = useState(false);
     const [error, setError] = useState('');
+    const [disabled, setDisabled] = useState(true);
     const date = new Date().toLocaleString();
+
 
     const createElection = async () => {
     
@@ -54,6 +56,13 @@ const CreateElection = ({open, closeModal, refetch}) => {
         setTimezone(value);
     }
 
+    useEffect(() => {
+        if(title==='' || starttime==='' || endtime==='' || timezone==='')
+        setDisabled(true)
+        else
+        setDisabled(false)
+      }, [title, starttime, endtime, timezone]);
+
     if(!open)
     return null;
 
@@ -87,7 +96,7 @@ return (
                 />
              
           </label>
-          <Button className='bg-cyan' onClick={createElection}>Create election</Button>
+          <Button className='bg-cyan' onClick={createElection} disabled={disabled} >Create election</Button>
       </form> 
      </div>
     </div>
