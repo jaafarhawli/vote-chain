@@ -7,6 +7,7 @@ import SuccessModal from '../../components/Modals/SuccessModal';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Reusable/Button';
 import FormInput from '../../components/Reusable/FormInput';
+import ChangePassword from '../../components/Modals/ChangePassword';
 
 const UserSettings = () => {
 
@@ -15,10 +16,8 @@ const UserSettings = () => {
   const [firstname, setFirstname] = useState(localStorage.firstname);
   const [lastname, setLastname] = useState(localStorage.lastname);
   const [email, setEmail] = useState(localStorage.email);
-  const [oldPassword, setOldPassword] = useState();
-  const [password, setPassword] = useState();
-  const [confirm, setConfirm] = useState();
   const [error, setError] = useState('');
+  const [passwordModal, setPasswordModal] = useState(false);
   const [errorModal, setErrorModal] = useState(false);
   const [successModal, setSuccessModal] = useState(false);
   const [openConfirmModal, setOpenConfirmModal] = useState(false);
@@ -47,34 +46,34 @@ const UserSettings = () => {
     }
 }
   
-const changePassword = async() => {
+// const changePassword = async() => {
 
-    if(confirm!==password) {
-        setError('Passwords didnt match');
-        setErrorModal(true);
-        return;
-    }
+//     if(confirm!==password) {
+//         setError('Passwords didnt match');
+//         setErrorModal(true);
+//         return;
+//     }
 
-    const form = {
-        id: localStorage.id,
-        old_password: oldPassword,
-        password: password,
-    }
-    try {
-      await axios.put('user/password', form, {
-        headers: {
-          Authorization: `bearer ${localStorage.token}`
-        }
-      });
+//     const form = {
+//         id: localStorage.id,
+//         old_password: oldPassword,
+//         password: password,
+//     }
+//     try {
+//       await axios.put('user/password', form, {
+//         headers: {
+//           Authorization: `bearer ${localStorage.token}`
+//         }
+//       });
  
-      setSuccessModal(true);
+//       setSuccessModal(true);
 
-    } catch (error) {
-      setError(error.message);
-      setErrorModal(true);
-      console.log(error);
-    }
-}
+//     } catch (error) {
+//       setError(error.message);
+//       setErrorModal(true);
+//       console.log(error);
+//     }
+// }
 
 const openModal = () => {
   setOpenConfirmModal(true);
@@ -90,6 +89,16 @@ const closeModal = () => {
 const logout = () => {
   localStorage.clear();      
   navigate('/');
+}
+
+const closePassword = () => {
+  setPasswordModal(false);
+  document.body.style.overflow = 'unset';
+}
+
+const openPassword = () => {
+  setPasswordModal(true);
+  document.body.style.overflow = 'hidden';
 }
 
 
@@ -117,6 +126,7 @@ const deleteAccount = async () => {
       <ConfirmModal open={openConfirmModal} closeModal={closeModal} click={deleteAccount} text={"Are you sure you want to delete your account?"} />
       <ErrorModal open={errorModal} error={error} closeError={() => setErrorModal(false)} />
       <SuccessModal open={successModal} closeSuccess={() => setSuccessModal(false)} />
+      <ChangePassword open={passwordModal} closeModal={closePassword} />
       <MainHeader title={'Account Settings'} empty={true} />
       <form className='lg:w-[600px] w-[400px] flex flex-col gap-5 lg:px-28 md:px-10 px-4'>
           <h1 className='text-[28px] font-semibold text-purple-100'>Account Info</h1>
@@ -124,18 +134,10 @@ const deleteAccount = async () => {
             <FormInput type="text" defaultValue={localStorage.lastname}  onChange={e => setLastname(e.target.value)}>Last Name</FormInput>
             <FormInput type="text" defaultValue={localStorage.email}  onChange={e => setEmail(e.target.value)}>Email</FormInput>
           <Button className=' bg-cyan' onClick={saveInfo}>Save changes</Button>
-        </form>
-        <form className='my-12 lg:w-[600px] w-[400px] flex flex-col gap-5 lg:px-28 md:px-10 px-4'>
-          <h1 className='text-[28px] font-semibold text-purple-100'>Change Password</h1>
-            <FormInput type="password" onChange={e => setOldPassword(e.target.value)}>Old Password</FormInput>
-            <FormInput type="password" onChange={e => setPassword(e.target.value)}>New Password</FormInput>
-            <FormInput type="password" onChange={e => setConfirm(e.target.value)}>Confirm New Password</FormInput>
-          <Button className=' bg-cyan' onClick={changePassword}>Save changes</Button>
-          <div className='flex w-full gap-2'>
-            <Button className='bg-red flex-1 hover:bg-red/80'  onClick={logout} >Log out</Button>
-            <Button className='bg-red flex-1 hover:bg-red/80'  onClick={openModal} >Delete Account</Button>
-          </div>
-        </form>      
+          <p className='font-semibold text-purple-100 hover:underline select-none cursor-pointer mb-4' onClick={openPassword} >Change Password?</p>
+          <Button className='bg-red flex-1 hover:bg-red/80'  onClick={openModal} >Delete Account</Button>
+          <Button className='bg-red flex-1 hover:bg-red/80'  onClick={logout} >Log out</Button>
+        </form>   
     </div>
   );
 }

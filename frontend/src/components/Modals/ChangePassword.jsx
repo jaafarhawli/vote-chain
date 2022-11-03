@@ -56,7 +56,7 @@ const ChangePassword = ({open, closeModal}) => {
          <HiOutlineXMark className='fixed top-2 left-2 text-[30px] hover:bg-black-100/20 rounded-full duration-200 p-1' onClick={closeModal} />
          <img src={logo} alt="logo" className='w-[180px]' />
       <div className='bg-black-100 h-[2px] w-[180px]'></div>  
-      <h1 className='my-4 text-2xl font-semibold text-purple-100'>Add Moderator</h1>  
+      <h1 className='my-4 text-2xl font-semibold text-purple-100'>Change Password</h1>  
       <form className='w-4/5 flex flex-col gap-5 '>
             <FormInput type="password" onChange={e => setOldPassword(e.target.value)}>Old Password</FormInput>
             <FormInput type="password" onChange={e => setPassword(e.target.value)}>New Password</FormInput>
