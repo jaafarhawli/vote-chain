@@ -15,7 +15,7 @@ const UserSettings = () => {
   const [firstname, setFirstname] = useState(localStorage.firstname);
   const [lastname, setLastname] = useState(localStorage.lastname);
   const [email, setEmail] = useState(localStorage.email);
-  const [error, setError] = useState('');
+  const [message, setMessage] = useState('');
   const [passwordModal, setPasswordModal] = useState(false);
   const [isError, setIsError] = useState(false);
   const [successModal, setSuccessModal] = useState(false);
@@ -38,9 +38,10 @@ const UserSettings = () => {
       localStorage.setItem('lastname', lastname);
       localStorage.setItem('email', email);
       setIsError(false);
+      setMessage('Account updated successfully');
       setSuccessModal(true);
     } catch (error) {
-      setError(error.message);
+      setMessage(error.message);
       setIsError(true);
       setSuccessModal(true);
       console.log(error);
@@ -97,7 +98,7 @@ const deleteAccount = async () => {
   return (
     <div>
       <ConfirmModal open={openConfirmModal} closeModal={closeModal} click={deleteAccount} text={"Are you sure you want to delete your account?"} />
-      <SuccessModal open={successModal} errorMessage={error} error={isError} closeSuccess={() => setSuccessModal(false)} />
+      <SuccessModal open={successModal} message={message} error={isError} closeSuccess={() => setSuccessModal(false)} />
       <ChangePassword open={passwordModal} closeModal={closePassword} />
       <MainHeader title={'Account Settings'} empty={true} />
       <form className='lg:w-[600px] w-[400px] flex flex-col gap-5 lg:px-28 md:px-10 px-4'>
