@@ -6,7 +6,7 @@ const AddButton = (props) => {
     <div>
       <button className={`button ${props.class}`} onClick={props.click}>
           <div className='flex items-center gap-1 justify-center'>
-              {props.text} <FaRegPlusSquare className='text-[18px]' />          
+              {props.children} <FaRegPlusSquare className='text-[18px]' />          
           </div>
           </button>
     </div>

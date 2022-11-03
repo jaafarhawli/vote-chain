@@ -97,7 +97,7 @@ const {data} = useQuery([refetch], async () => {
     <div className='pl-[330px] pt-[150px] pr-6'>
         <div className='flex justify-between items-center w-full'>
           <h1 className='text-[28px] font-bold'>Moderators</h1>
-          <AddButton text={"Add Moderator"} click={openModal} />
+          <AddButton click={openModal}>Add Moderator</AddButton>
         </div>
             <input type="search" className='border-2 border-[#dddddd] w-1/3 rounded-md mt-4' placeholder='Search moderator by email' onChange={e => setSearch(e.target.value)} />
         <table className='mt-8'>
