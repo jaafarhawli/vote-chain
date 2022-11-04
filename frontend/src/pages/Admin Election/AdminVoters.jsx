@@ -22,7 +22,7 @@ const AdminVoters = () => {
       document.body.style.overflow = 'hidden';
     }
 
-    const {data} = useQuery([], async () => {
+    const {data} = useQuery([refetch], async () => {
         return axios.get(`user/voters/${localStorage.election_id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`

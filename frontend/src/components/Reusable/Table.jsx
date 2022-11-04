@@ -8,10 +8,17 @@ const Table = (props) => {
             <thead>
                 <tr>
                     <th>Name</th>
-                    {props.moderator && <th>Email</th>}
+                    {props.moderator? <th>Email</th>
+                    :
+                    props.voter? 
+                    <>
+                    <th>Email</th>
+                    <th>ID</th>
+                    </> : null
+                    }
                 </tr>
             </thead>
-            {props.moderator &&
+            {props.moderator ?
             <tbody>
             {props.data?.map((moderator) => (
                 <tr className='relative' key={moderator.email}>
@@ -21,8 +28,9 @@ const Table = (props) => {
                 </tr>
      ))}
                 
-            </tbody>}
-            {props.party && 
+            </tbody>
+            :
+            props.party ?
             <tbody>
             {props.data?.map((party) => (
                 <tr className='relative' key={party.name} onClick={() => props.addCandidate(party._id)}>
@@ -32,6 +40,19 @@ const Table = (props) => {
                 </tr>
      ))}     
             </tbody>
+            :
+            props.voter? 
+            <tbody>
+            {props.data?.map((voter) => (
+                <tr className='relative' key={voter.name} onClick={() => props.addCandidate(voter._id)}>
+                    <td>{voter.name}</td>
+                    <td>{voter.email}</td>
+                    <td>{voter.voter_id}</td>
+                    <HiOutlineXMark className='absolute right-2 top-2 text-[25px] hover:text-red duration-150' onClick={() => props.remove(voter._id)} />
+                </tr>
+     ))}     
+            </tbody>
+            : null
             }
     </table>
   );
