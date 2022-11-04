@@ -36,7 +36,7 @@ const AdminElection = () => {
           <Route path='/parties' element={<AdminParties />} />
           <Route path='/candidates' element={<AdminCandidate />} />
           <Route path='/voters' element={<AdminVoters />} />
-          <Route path='/settingd' element={<AdminSettings />} />
+          <Route path='/settings' element={<AdminSettings />} />
       </Routes>
     </div>
   );
