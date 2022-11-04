@@ -3,6 +3,8 @@ import Button from '../Reusable/Button';
 import SuccessModal from './SuccessModal';
 import FormInput from '../Reusable/FormInput';
 import {HiOutlineXMark} from 'react-icons/hi2';
+import axios from '../../api/axios';
+import logo from '../../assets/VOTE CHAIN-logo-black.png';
 
 const AddVoter = ({open, closeModal, refetch}) => {
 
