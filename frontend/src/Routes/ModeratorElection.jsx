@@ -2,7 +2,7 @@ import React from 'react';
 import {useQuery} from '@tanstack/react-query';
 import axios from '../api/axios';
 import {Route, Routes} from 'react-router-dom';
-import AdminPanel from '../components/Reusable/AdminPanel';
+import Panel from '../components/Reusable/Panel';
 import AdminTitle from '../components/Reusable/AdminTitle';
 import AdminDashboard from '../pages/Admin Election/AdminDashboard';
 import AdminVoters from '../pages/Admin Election/AdminVoters';
@@ -25,7 +25,7 @@ const ModeratorElection = () => {
 
   return (
     <div>
-      <AdminPanel />
+      <Panel />
       <AdminTitle />
       <Routes>
           <Route path='/dashboard' element={<AdminDashboard />} />

@@ -7,7 +7,7 @@ import {FaUserTie, FaUserCog, FaUser} from 'react-icons/fa';
 import {MdSettings} from 'react-icons/md';
 import {TbCloudUpload} from 'react-icons/tb';
 
-const AdminPanel = (props) => {
+const Panel = (props) => {
   return (
     <div className='fixed top-0 left-0 w-[300px] h-full bg-purple-500 flex flex-col'>
       <img src={logo} alt="" className='w-3/5 self-center pt-8' />
@@ -53,4 +53,4 @@ const AdminPanel = (props) => {
   );
 }
 
-export default AdminPanel;
+export default Panel;
