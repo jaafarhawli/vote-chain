@@ -3,10 +3,12 @@ import {useQuery} from '@tanstack/react-query';
 import axios from '../../api/axios';
 import CandidateCard from '../../components/Reusable/CandidateCard';
 import EmptyState from '../../components/Reusable/EmptyState';
+import ConfirmModal from '../../components/Modals/ConfirmModal';
 
 const AdminCandidate = () => {
     
     const [search, setSearch] = useState('');
+    const [confirmModal, setConfirmModal] = useState(false);
     
     const {data} = useQuery([], async () => {
         return axios.get(`user/candidates/${localStorage.election_id}`, {
@@ -22,8 +24,41 @@ const AdminCandidate = () => {
       })
     }, [data, search])
 
+    const closeConfirm = () => {
+      setConfirmModal(false)
+      document.body.style.overflow = 'unset';
+    }
     
-    console.log(data);
+    const openConfirmModal = (id, party) => {
+      localStorage.setItem('candidate_id', id);
+      localStorage.setItem('party_id', party);
+      
+      setConfirmModal(true);
+      document.body.style.overflow = 'hidden';
+    }
+
+    const deleteCandidate = async () => {
+      const form = {
+          candidate_id: localStorage.candidate_id,
+          party_id: localStorage.party_id 
+      }
+      console.log(localStorage.candidate_id);
+      
+      try {
+          await axios.post('user/candidate/remove', form, {
+              headers: {
+                Authorization: `bearer ${localStorage.token}`
+              }
+            });
+            closeConfirm()
+          } catch (error) {
+            console.log(error);
+          }
+      }
+
+      console.log(data);
+
+
     return (
       <>
       {data?.length===0 ? <>
@@ -32,6 +67,8 @@ const AdminCandidate = () => {
             <EmptyState title={'No Candidates'}>You don’t have any candidates</EmptyState>
         </div>
         </> : 
+        <>
+        <ConfirmModal  open={confirmModal} closeModal={closeConfirm} click={deleteCandidate} text={"Are you sure you want to delete this candidate?"} />
         <div className='pl-[330px] pt-[150px] pr-6'>
         <div className='flex justify-between items-center w-full'>
           <h1 className='text-[28px] font-bold'>Candidates</h1>
@@ -40,10 +77,11 @@ const AdminCandidate = () => {
             {filteredData?.length===0 ? <EmptyState title={'No Candidates'}>You don’t have any candidates</EmptyState> : null}
         <div className='grid grid-cols-4 gap-4 justify-between my-8'>
             {filteredData?.map(candidate => (
-                <CandidateCard name={candidate.name} party={candidate.party} image={candidate.image} />
+                <CandidateCard name={candidate.name} party={candidate.party} image={candidate.image} id={candidate.id} party_id={candidate.party_id} remove={(id, party) => openConfirmModal(id, party)} />
             ))}
         </div>
     </div>
+    </>
       }
   </>
   );
