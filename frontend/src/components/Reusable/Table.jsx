@@ -44,7 +44,7 @@ const Table = (props) => {
             props.voter? 
             <tbody>
             {props.data?.map((voter) => (
-                <tr className='relative' key={voter.name} onClick={() => props.addCandidate(voter._id)}>
+                <tr className='relative' key={voter.name}>
                     <td>{voter.name}</td>
                     <td>{voter.email}</td>
                     <td>{voter.voter_id}</td>

@@ -35,8 +35,23 @@ const AdminVoters = () => {
       document.body.style.overflow = 'unset';
     }
 
-    const deleteVoter = () => {
-        console.log('delete');
+    const deleteVoter = async () => {
+        const form = {
+            voter_id: localStorage.voter_id,
+            election_id: localStorage.election_id 
+        }
+        
+        try {
+            await axios.post('user/voter/remove', form, {
+                headers: {
+                  Authorization: `bearer ${localStorage.token}`
+                }
+              });
+              setRefetch(!refetch)
+              closeConfirm()
+            } catch (error) {
+              console.log(error);
+            }
     }
 
     const {data} = useQuery([refetch], async () => {
