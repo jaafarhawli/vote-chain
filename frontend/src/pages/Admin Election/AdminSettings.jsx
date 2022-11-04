@@ -1,12 +1,9 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Button from '../../components/Reusable/Button';
 import {DateTimePickerComponent} from '@syncfusion/ej2-react-calendars';
 import TimezonePicker from 'react-bootstrap-timezone-picker';
 import 'react-bootstrap-timezone-picker/dist/react-bootstrap-timezone-picker.min.css';
 import FormInput from '../../components/Reusable/FormInput';
-
-
-
 
 const AdminSettings = () => {
 
@@ -23,26 +20,33 @@ const AdminSettings = () => {
         setTimezone(value);
     }
 
+    useEffect(() => {
+        if(title==='' || starttime==='' || endtime==='' || timezone==='')
+        setDisabled(true)
+        else
+        setDisabled(false)
+      }, [title, starttime, endtime, timezone]);
+
   return (
-    <div className='pl-[330px] pt-[150px] pr-6'>
+    <div className='pl-[330px] pt-[150px] pr-6 flex flex-col'>
         <div className='flex justify-between items-center w-full'>
           <h1 className='text-[28px] font-bold'>Settings</h1>
           <Button className='bg-red'>Delete Election</Button>
         </div>
-        <form className='w-4/5 flex flex-col gap-5 '>
+        <form className='w-[400px] flex flex-col gap-5 mt-12'>
           <FormInput type="text" onChange={e => setTitle(e.target.value)}>Election title</FormInput>          
           <div className='flex gap-2'>
             <label>
-                <p className='font-medium'>Start date</p>
+                <p className='font-semibold'>Start date</p>
                 <DateTimePickerComponent min={date} format="yyyy-mm-dd HH:mm" onChange={e => setStarttime(e.target.value)}></DateTimePickerComponent>
             </label>
             <label>
-                <p className='font-medium'>End date</p>
+                <p className='font-semibold'>End date</p>
                 <DateTimePickerComponent min={date} format="yyyy-mm-dd HH:mm" onChange={e => setEndtime(e.target.value)} ></DateTimePickerComponent>
             </label>
           </div>
           <label>
-              <p className='font-medium'>Timezone</p>
+              <p className='font-semibold'>Timezone</p>
               <TimezonePicker
                   
                   placeholder   = "Select timezone..."
@@ -51,7 +55,7 @@ const AdminSettings = () => {
                 />
              
           </label>
-          <Button className='bg-cyan'>Save Changes</Button>
+          <Button className='bg-cyan' disabled={disabled} >Save Changes</Button>
       </form> 
     </div>
   );
