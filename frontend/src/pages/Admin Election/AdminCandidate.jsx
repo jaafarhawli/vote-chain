@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {useQuery} from '@tanstack/react-query';
 import axios from '../../api/axios';
 import CandidateCard from '../../components/Reusable/CandidateCard';
+import EmptyState from '../../components/Reusable/EmptyState';
 
 const AdminCandidate = () => {
     
@@ -18,12 +19,18 @@ const AdminCandidate = () => {
     console.log(data);
     
     return (
-    <div className='pl-[330px] pt-[150px] pr-6'>
+      <>
+      {data?.length===0 ? <>
+        <div className='pl-[330px] pt-[150px] pr-6'>
+            <h1 className='text-[28px] font-bold'>Candidates</h1>
+            <EmptyState title={'No Candidates'}>You don’t have any candidates</EmptyState>
+        </div>
+        </> : 
+        <div className='pl-[330px] pt-[150px] pr-6'>
         <div className='flex justify-between items-center w-full'>
           <h1 className='text-[28px] font-bold'>Candidates</h1>
         </div>
-        {/* <img src={'localHost:8000/public/6363c46c3ccec4e0b2488b89/1667482732518-dw3k3-txcauhe0g.jpg'} alt="" className='w-[200px] h-[200px]' /> */}
-            <input type="search" className='border-2 border-[#dddddd] w-1/3 rounded-md mt-4' placeholder='Search moderator by email' onChange={e => setSearch(e.target.value)} />
+            <input type="search" className='border-2 border-[#dddddd] w-1/3 rounded-md mt-4' placeholder='Search candidate by name' onChange={e => setSearch(e.target.value)} />
         <div className='grid grid-cols-4 gap-4 justify-between my-8'>
             {data?.map(party => (
                 party?.candidates?.map((candidate) => (
@@ -32,6 +39,9 @@ const AdminCandidate = () => {
             ))}
         </div>
     </div>
+      }
+
+  </>
   );
 }
 
