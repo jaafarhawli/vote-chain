@@ -23,7 +23,7 @@ const VoteMain = () => {
             <h1 className='text-4xl text-purple-100 font-bold md:text-5xl lg:text-6xl pt-12 md:pt-8'>{localStorage.election_title}</h1>
             <p className='text-white pt-6 max-w-[400px]'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta eum odit quam quis! Aspernatur, laudantium nam facere eum ut et autem cum natus ex voluptates eligendi magnam, quia vero iste?</p>
             <div className='flex gap-4 mt-6'>
-                <Button onClick={() => navigate('/login')} >Vote now</Button>              
+                <Button onClick={() => navigate('select')} >Vote now</Button>              
                 <Button className={'border-cyan border-2 bg-opacity-0 hover:bg-cyan'} >Check Results</Button>
             </div> 
         </div>
