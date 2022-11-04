@@ -12,6 +12,7 @@ const VoteMain = () => {
   const navigate = useNavigate();
 
   return (
+    <>
     <div className='hero flex flex-col bg-no-repeat bg-center bg-cover bg-purple-300 w-full' >
       <div className='flex w-full pt-4 items-center justify-between lg:px-28 md:px-10 px-4'>
         <img src={logo} alt="logo" className='w-48' />
@@ -30,6 +31,16 @@ const VoteMain = () => {
       </div>
       <img src={curve} alt='/' className='w-full invisible max-h-[110px]' />
     </div>
+    <div className='flex flex-col justify-center items-center w-full h-[300px] bg-gradient-to-b from-purple-300 to-purple-400'>
+        <h1 className='text-[30px] font-bold mb-8'>Time Left For Election</h1>
+        <div className='flex gap-8'>
+            <div className='w-[90px] h-[90px] bg-purple-100'></div>
+            <div className='w-[90px] h-[90px] bg-purple-100'></div>
+            <div className='w-[90px] h-[90px] bg-purple-100'></div>
+            <div className='w-[90px] h-[90px] bg-purple-100'></div>
+        </div>
+    </div>
+    </>
   );
 }
 
