@@ -136,8 +136,7 @@ const AdminSettings = () => {
                   placeholder   = "Select timezone..."
                   onChange={handleChange}
                   className='timezone w-full'
-                />
-             
+                />           
           </label>
           <Button className='bg-cyan' disabled={disabled} onClick={saveInfo} >Save Changes</Button>
       </form> 

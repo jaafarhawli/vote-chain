@@ -10,6 +10,7 @@ import AdminParties from '../pages/Admin Election/AdminParties';
 import AdminCandidate from '../pages/Admin Election/AdminCandidate';
 import AdminVoters from '../pages/Admin Election/AdminVoters';
 import AdminSettings from '../pages/Admin Election/AdminSettings';
+import AdminLaunch from '../pages/Admin Election/AdminLaunch';
 
 const AdminElection = () => {
 
@@ -37,6 +38,7 @@ const AdminElection = () => {
           <Route path='/candidates' element={<AdminCandidate />} />
           <Route path='/voters' element={<AdminVoters />} />
           <Route path='/settings' element={<AdminSettings />} />
+          <Route path='/launch' element={<AdminLaunch />} />
       </Routes>
     </div>
   );
