@@ -7,10 +7,10 @@ import FormInput from '../../components/Reusable/FormInput';
 
 const AdminSettings = () => {
 
-    const [title, setTitle] = useState('');
-    const [starttime, setStarttime] = useState('');
-    const [endtime, setEndtime] = useState('');
-    const [timezone, setTimezone] = useState('');
+    const [title, setTitle] = useState(localStorage.election_title);
+    const [starttime, setStarttime] = useState(localStorage.election_start);
+    const [endtime, setEndtime] = useState(localStorage.election_end);
+    const [timezone, setTimezone] = useState(localStorage.election_timezone);
     const [errorModal, setErrorModal] = useState(false);
     const [error, setError] = useState('');
     const [disabled, setDisabled] = useState(true);
@@ -21,10 +21,18 @@ const AdminSettings = () => {
     }
 
     useEffect(() => {
-        if(title==='' || starttime==='' || endtime==='' || timezone==='')
+        if (title===localStorage.election_title && timezone===localStorage.election_timezone && starttime===localStorage.election_start && endtime===localStorage.election_end)
+        setDisabled(true);
+        if(title==='' || timezone==='')
         setDisabled(true)
-        else
-        setDisabled(false)
+        if(title!==localStorage.election_title && title!=='')
+        setDisabled(false);
+        if(starttime!==localStorage.election_start && starttime!=='')
+        setDisabled(false);
+        if(endtime!==localStorage.election_end && endtime!=='')
+        setDisabled(false);
+        if(timezone!==localStorage.election_timezone && timezone!=='')
+        setDisabled(false);
       }, [title, starttime, endtime, timezone]);
 
   return (
