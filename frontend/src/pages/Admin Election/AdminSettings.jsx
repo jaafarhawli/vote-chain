@@ -5,6 +5,7 @@ import TimezonePicker from 'react-bootstrap-timezone-picker';
 import 'react-bootstrap-timezone-picker/dist/react-bootstrap-timezone-picker.min.css';
 import FormInput from '../../components/Reusable/FormInput';
 import axios from '../../api/axios';
+import SuccessModal from '../../components/Modals/SuccessModal';
 
 const AdminSettings = () => {
 
@@ -12,13 +13,22 @@ const AdminSettings = () => {
     const [starttime, setStarttime] = useState(localStorage.election_start);
     const [endtime, setEndtime] = useState(localStorage.election_end);
     const [timezone, setTimezone] = useState(localStorage.election_timezone);
-    const [errorModal, setErrorModal] = useState(false);
-    const [error, setError] = useState('');
+    const [successModal, setSuccessModal] = useState(false);
+    const [error, setError] = useState(true);
+    const [message, setMessage] = useState('');
     const [disabled, setDisabled] = useState(true);
     const [save, setSave] = useState(false);
     const date = new Date().toLocaleString();
 
     const saveInfo = async() => {
+
+        if(((endtime - starttime)/36e5) < 24) {
+            setMessage("Your election should be 24 hours at least");
+            setError(true);
+            setSuccessModal(true);
+            return;
+        }
+
         const form = {
             id: localStorage.election_id,
             title: title,
@@ -36,8 +46,14 @@ const AdminSettings = () => {
           localStorage.setItem('election_start', starttime);
           localStorage.setItem('election_end', endtime);
           localStorage.setItem('election_timezone', timezone);
+          setError(false);
+          setMessage('Election updated succussfully');
+          setSuccessModal(true);
           setSave(!save);
         } catch (error) {
+            setError(true);
+            setMessage(error.message);
+            setSuccessModal(true);
           console.log(error);
         }
     }
@@ -62,6 +78,12 @@ const AdminSettings = () => {
       }, [title, starttime, endtime, timezone, save]);
 
   return (
+      <>
+       <SuccessModal open={successModal} message={message} error={error} closeSuccess={() => 
+       {
+           setSuccessModal(false);
+           document.body.style.overflow = 'unset';
+        }} />
     <div className='pl-[330px] pt-[150px] pr-6 flex flex-col'>
         <div className='flex justify-between items-center w-full'>
           <h1 className='text-[28px] font-bold'>Settings</h1>
@@ -92,6 +114,7 @@ const AdminSettings = () => {
           <Button className='bg-cyan' disabled={disabled} onClick={saveInfo} >Save Changes</Button>
       </form> 
     </div>
+    </>
   );
 }
 
