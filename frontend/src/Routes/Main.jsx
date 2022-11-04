@@ -4,6 +4,7 @@ import AdminElection from './AdminElection';
 import ModeratorElections from '../pages/Main/ModeratorElections';
 import UserElections from '../pages/Main/UserElections';
 import UserSettings from '../pages/Main/UserSettings';
+import ModeratorElection from './ModeratorElection';
 
 const Main = () => {
   return (
@@ -13,6 +14,7 @@ const Main = () => {
             <Route path='/moderator' element={<ModeratorElections />} />
             <Route path='/settings' element={<UserSettings />} />
             <Route path='/admin/election/*' element={<AdminElection />} />
+            <Route path='/moderator/election/*' element={<ModeratorElection />} />
         </Routes>
     </div>
   );
