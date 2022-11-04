@@ -15,7 +15,7 @@ const MainHeader = ({title, empty, open}) => {
             <img src={logo} alt="" className='w-36' />
             <div className='flex gap-3 text-white font-semibold items-center'>
                 <h2 className='hover:bg-purple-300/50 duration-150 p-2 rounded-lg select-none cursor-pointer' onClick={() => navigate('/main')}>Admin</h2>
-                <h2 className='hover:bg-purple-300/50 duration-150 p-2 rounded-lg select-none cursor-pointer' onClick={() => navigate('/main/moderator')}>Moderator</h2>
+                <h2 className='hover:bg-purple-300/50 duration-150 p-2 rounded-lg select-none cursor-pointer' onClick={() => navigate('/main/moderate')}>Moderator</h2>
                 <Button onClick={() => navigate('/main/settings')}>{localStorage.firstname} {localStorage.lastname}</Button>
             </div>
         </div>

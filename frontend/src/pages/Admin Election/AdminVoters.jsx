@@ -7,7 +7,7 @@ import Table from '../../components/Reusable/Table';
 import AddVoter from '../../components/Modals/AddVoter';
 import ConfirmModal from '../../components/Modals/ConfirmModal';
 
-const AdminVoters = () => {
+const AdminVoters = (props) => {
 
     const [search, setSearch] = useState('');
     const [voterModal, setVoterModal] = useState(false);
@@ -90,6 +90,9 @@ const AdminVoters = () => {
         </div>
         <input type="search" className='border-2 border-[#dddddd] w-1/3 rounded-md mt-4' placeholder='Search voter by email' onChange={e => setSearch(e.target.value)} />
         {filteredData?.length===0 ? <EmptyState title={'No Voters'}>You don’t have any voters</EmptyState> : 
+        props.admin ? 
+        <Table admin={true} data={filteredData} voter={true} remove={(id) => openConfirmModal(id)} />
+        :
         <Table data={filteredData} voter={true} remove={(id) => openConfirmModal(id)} />
         }
     </div>

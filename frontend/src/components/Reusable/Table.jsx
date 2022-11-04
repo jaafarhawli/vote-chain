@@ -48,8 +48,11 @@ const Table = (props) => {
                     <td>{voter.name}</td>
                     <td>{voter.email}</td>
                     <td>{voter.voter_id}</td>
-                    <HiOutlineXMark className='absolute right-2 top-2 text-[25px] hover:text-red duration-150' onClick={() => props.remove(voter._id)} />
-                </tr>
+                    {props.admin ?
+                    <HiOutlineXMark className='absolute right-2 top-2 text-[25px] hover:text-red duration-150' onClick={() => 
+                    props.remove(voter._id)} />
+                    : null}
+                    </tr>
      ))}     
             </tbody>
             : null

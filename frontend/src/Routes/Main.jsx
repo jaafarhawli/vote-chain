@@ -11,7 +11,7 @@ const Main = () => {
     <div>
         <Routes>
             <Route path='/' element={<UserElections />} />
-            <Route path='/moderator' element={<ModeratorElections />} />
+            <Route path='/moderate' element={<ModeratorElections />} />
             <Route path='/settings' element={<UserSettings />} />
             <Route path='/admin/election/*' element={<AdminElection />} />
             <Route path='/moderator/election/*' element={<ModeratorElection />} />

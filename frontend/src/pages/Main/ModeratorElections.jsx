@@ -10,7 +10,7 @@ const ModeratorElections = () => {
 
     const navigate = useNavigate();
 
-    const {data: moderator_elections} = useQuery([], async () => {
+    const {data} = useQuery(["moderator"], async () => {
         return axios.get(`user/elections/moderator/${localStorage.id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
@@ -23,10 +23,10 @@ const ModeratorElections = () => {
       localStorage.setItem('election_start', start_time);
       localStorage.setItem('election_end', end_time);
       localStorage.setItem('election_timezone', timezone);
-      navigate('election/dashboard')
+      navigate('/main/moderator/election/dashboard')
     }
 
-    if(moderator_elections?.length===0) 
+    if(data?.length===0) 
     return (
         <div>
             <MainHeader empty={true} title={'Moderator Elections'} />
@@ -38,7 +38,7 @@ const ModeratorElections = () => {
         <div>
           <MainHeader empty={true} title={'Moderator Elections'} />
           <div className=' grid md:grid-cols-2 gap-4 lg:px-28 md:px-10 px-4 mt-8'>
-          {moderator_elections?.map((election) => (
+          {data?.map((election) => (
               <ElectionCard onClick={() => viewElection(election._id, election.timezone, election.start_time, election.end_time)} id={election._id} title={election.title} start_time={election.start_time} end_time={election.end_time} />
          ))}
           </div>
