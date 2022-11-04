@@ -34,7 +34,7 @@ const AdminSettings = () => {
           <Button className='bg-red'>Delete Election</Button>
         </div>
         <form className='w-[400px] flex flex-col gap-5 mt-12'>
-          <FormInput type="text" onChange={e => setTitle(e.target.value)}>Election title</FormInput>          
+          <FormInput type="text" onChange={e => setTitle(e.target.value)} defaultValue={localStorage.election_title} >Election title</FormInput>          
           <div className='flex gap-2'>
             <label>
                 <p className='font-semibold'>Start date</p>
@@ -48,7 +48,7 @@ const AdminSettings = () => {
           <label>
               <p className='font-semibold'>Timezone</p>
               <TimezonePicker
-                  
+                  defaultValue = {localStorage.election_timezone}
                   placeholder   = "Select timezone..."
                   onChange={handleChange}
                   className='timezone w-full'
