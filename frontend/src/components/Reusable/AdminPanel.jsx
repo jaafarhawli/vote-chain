@@ -7,7 +7,7 @@ import {FaUserTie, FaUserCog, FaUser} from 'react-icons/fa';
 import {MdSettings} from 'react-icons/md';
 import {TbCloudUpload} from 'react-icons/tb';
 
-const AdminPanel = () => {
+const AdminPanel = (props) => {
   return (
     <div className='fixed top-0 left-0 w-[300px] h-full bg-purple-500 flex flex-col'>
       <img src={logo} alt="" className='w-3/5 self-center pt-8' />
@@ -17,6 +17,9 @@ const AdminPanel = () => {
             <RiDashboardFill />
             Dashboard
         </NavLink>
+        
+        {props.admin ?
+        <>
         <NavLink to='moderators' className='flex items-center gap-3 text-white/60 text-xl w-full hover:bg-purple-300/40 duration-200 py-4 pl-4 font-semibold' activeclassname='active'>
             <FaUserCog />
             Moderators
@@ -29,10 +32,13 @@ const AdminPanel = () => {
             <FaUserTie />
             Candidates
         </NavLink>
+        </> : null }    
         <NavLink to='voters' className='flex items-center gap-3 text-white/60 text-xl w-full hover:bg-purple-300/40 duration-200 py-4 pl-4 font-semibold' activeclassname='active'>
             <FaUser />
             Voters
         </NavLink>
+        {props.admin ? 
+        <>
         <NavLink to='settings' className='flex items-center gap-3 text-white/60 text-xl w-full hover:bg-purple-300/40 duration-200 py-4 pl-4 font-semibold' activeclassname='active'>
             <MdSettings />
             Settings
@@ -41,6 +47,7 @@ const AdminPanel = () => {
             <TbCloudUpload />
             Launch
         </NavLink>
+        </> : null}
       </ul>
     </div>
   );

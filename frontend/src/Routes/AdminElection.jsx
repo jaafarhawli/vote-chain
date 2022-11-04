@@ -29,7 +29,7 @@ const AdminElection = () => {
 
   return (
     <div>
-      <AdminPanel />
+      <AdminPanel admin={true} />
       <AdminTitle />
       <Routes>
           <Route path='/dashboard' element={<AdminDashboard />} />
