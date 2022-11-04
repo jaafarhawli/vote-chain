@@ -6,6 +6,7 @@ import 'react-bootstrap-timezone-picker/dist/react-bootstrap-timezone-picker.min
 import FormInput from '../../components/Reusable/FormInput';
 import axios from '../../api/axios';
 import SuccessModal from '../../components/Modals/SuccessModal';
+import ConfirmModal from '../../components/Modals/ConfirmModal';
 
 const AdminSettings = () => {
 
@@ -18,6 +19,7 @@ const AdminSettings = () => {
     const [message, setMessage] = useState('');
     const [disabled, setDisabled] = useState(true);
     const [save, setSave] = useState(false);
+    const [confirmModal, setConfirmModal] = useState(false);
     const date = new Date().toLocaleString();
 
     const saveInfo = async() => {
@@ -58,6 +60,15 @@ const AdminSettings = () => {
         }
     }
 
+    const deleteElection = async () => {
+        console.log('delete');
+    }
+
+    const closeConfirm = () => {
+        setConfirmModal(false);
+        document.body.style.overflow = 'unset';
+    }
+
     const handleChange = (value) => {
         setTimezone(value);
     }
@@ -79,6 +90,7 @@ const AdminSettings = () => {
 
   return (
       <>
+      <ConfirmModal  open={confirmModal} closeModal={closeConfirm} click={deleteElection} text={"Are you sure you want to delete this election?"} />
        <SuccessModal open={successModal} message={message} error={error} closeSuccess={() => 
        {
            setSuccessModal(false);
@@ -87,7 +99,7 @@ const AdminSettings = () => {
     <div className='pl-[330px] pt-[150px] pr-6 flex flex-col'>
         <div className='flex justify-between items-center w-full'>
           <h1 className='text-[28px] font-bold'>Settings</h1>
-          <Button className='bg-red'>Delete Election</Button>
+          <Button className='bg-red' onClick={() => setConfirmModal(true)}>Delete Election</Button>
         </div>
         <form className='w-[400px] flex flex-col gap-5 mt-12'>
           <FormInput type="text" onChange={e => setTitle(e.target.value)} defaultValue={localStorage.election_title} >Election title</FormInput>          
