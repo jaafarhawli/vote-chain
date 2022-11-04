@@ -26,22 +26,34 @@ const VoteLoginForm = () => {
         const token = data.data;
         const decoded = jwt_decode(token);
         localStorage.setItem('token', token);
+        try {
+            const user = await axios.get(`voter/${decoded.voter_id}`, {
+              headers: {
+                Authorization: `bearer ${localStorage.token}`
+              }
+            });
+            localStorage.setItem('voter_id', user.data._id);
+            localStorage.setItem('voter_email', user.data.email);
+            localStorage.setItem('election_id', user.data.election_id);
+            localStorage.setItem('voted', user.data.voted);
             try {
-              const election = await axios.get(`voter/election/${decoded.email}/${decoded.election_id}`, {
-                headers: {
-                  Authorization: `bearer ${localStorage.token}`
-                }
-              });
-              console.log(election);
-              localStorage.setItem('election_id', election.data._id);
-              localStorage.setItem('election_start', election.data.start_time);
-              localStorage.setItem('election_end', election.data.end_time);
-              localStorage.setItem('election_title', election.data.title);
-              console.log(localStorage.election_title)
-              navigate('/vote/main');
-            } catch (error) {
-              console.log(error);
-            }
+                const election = await axios.get(`voter/election/${localStorage.voter_email}/${localStorage.election_id}`, {
+                  headers: {
+                    Authorization: `bearer ${localStorage.token}`
+                  }
+                });
+                localStorage.setItem('election_id', election.data._id);
+                localStorage.setItem('election_start', election.data.start_time);
+                localStorage.setItem('election_end', election.data.end_time);
+                localStorage.setItem('election_title', election.data.title);
+                navigate('/vote/main');
+              } catch (error) {
+                console.log(error);
+              }
+          } catch (error) {
+            console.log(error);
+          }
+            
     }
     catch (error) {
         setError(true);
