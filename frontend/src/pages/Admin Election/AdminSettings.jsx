@@ -7,6 +7,7 @@ import FormInput from '../../components/Reusable/FormInput';
 import axios from '../../api/axios';
 import SuccessModal from '../../components/Modals/SuccessModal';
 import ConfirmModal from '../../components/Modals/ConfirmModal';
+import { useNavigate } from 'react-router-dom';
 
 const AdminSettings = () => {
 
@@ -21,6 +22,8 @@ const AdminSettings = () => {
     const [save, setSave] = useState(false);
     const [confirmModal, setConfirmModal] = useState(false);
     const date = new Date().toLocaleString();
+
+    const navigate = useNavigate();
 
     const saveInfo = async() => {
 
@@ -61,7 +64,20 @@ const AdminSettings = () => {
     }
 
     const deleteElection = async () => {
-        console.log('delete');
+        const form = {
+            election_id: localStorage.election_id 
+        }
+        
+        try {
+            await axios.post('user/election/delete', form, {
+                headers: {
+                  Authorization: `bearer ${localStorage.token}`
+                }
+              });
+              navigate('/main');
+            } catch (error) {
+              console.log(error);
+            }
     }
 
     const closeConfirm = () => {
