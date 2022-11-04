@@ -5,6 +5,7 @@ import Landing from './pages/Landing/Landing';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import Main from './Routes/Main';
+import Vote from './Routes/Vote';
 
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
 					<Route path='/login' element={<Login />} />
 					<Route path='/register' element={<Register />} />
 					<Route path='/main/*' element={<Main />} />
+					<Route path='/vote/*' element={<Vote />} />
 				</Routes>
     	</BrowserRouter>
 	</QueryClientProvider>
