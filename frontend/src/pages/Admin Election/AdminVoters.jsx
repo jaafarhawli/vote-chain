@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useMemo} from 'react';
 import {useQuery} from '@tanstack/react-query';
 import axios from '../../api/axios';
 import EmptyState from '../../components/Reusable/EmptyState';
@@ -30,6 +30,12 @@ const AdminVoters = () => {
                   }).then((res) => res.data);
     })
 
+    const filteredData = useMemo(() => {
+        return data?.filter(row => {
+          return row?.email?.toLowerCase().includes(search.toLowerCase())
+        })
+      }, [data, search])
+
 
   return (
     <>
@@ -46,11 +52,13 @@ const AdminVoters = () => {
     <AddVoter open={voterModal} closeModal={closeModal}  refetch={() => setRefetch(!refetch)} />
     <div className='pl-[330px] pt-[150px] pr-6'>
         <div className='flex justify-between items-center w-full'>
-          <h1 className='text-[28px] font-bold'>Parties</h1>
-          <Button add={true} onClick={openModal} >Add Party</Button>
+          <h1 className='text-[28px] font-bold'>Voters</h1>
+          <Button add={true} onClick={openModal} >Add Voter</Button>
         </div>
-        <input type="search" className='border-2 border-[#dddddd] w-1/3 rounded-md mt-4' placeholder='Search moderator by email' onChange={e => setSearch(e.target.value)} />
-        <Table data={data} voter={true} />
+        <input type="search" className='border-2 border-[#dddddd] w-1/3 rounded-md mt-4' placeholder='Search voter by email' onChange={e => setSearch(e.target.value)} />
+        {filteredData?.length===0 ? <EmptyState title={'No Voters'}>You don’t have any voters</EmptyState> : 
+        <Table data={filteredData} voter={true} />
+        }
     </div>
     </>
     }     
