@@ -1,8 +1,18 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Button from '../../components/Reusable/Button';
+import ConfirmModal from '../../components/Modals/ConfirmModal';
 
 const AdminLaunch = () => {
+
+    const [confirmModal, setConfirmModal] = useState(false);
+
+    const closeConfirm = () => {
+        setConfirmModal(false);
+    }
+
   return (
+    <>
+    <ConfirmModal  open={confirmModal} closeModal={closeConfirm} text={"Are you sure you want to launch this election?"} />
     <div className='items-center pl-[330px] pt-[150px] pr-6 flex flex-col'>
         <h1 className='text-[28px] font-bold'>Launch Election</h1>
         <div className='my-8'>
@@ -17,9 +27,9 @@ const AdminLaunch = () => {
                 </ul>
             </div>
         </div>
-            <Button className='mt-4'>Launch</Button>
-        
+        <Button className='mt-4' onClick={() => setConfirmModal(true)}>Launch</Button>      
     </div>
+    </>
   );
 }
 
