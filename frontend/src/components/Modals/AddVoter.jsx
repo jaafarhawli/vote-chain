@@ -12,6 +12,28 @@ const AddVoter = ({open, closeModal, refetch}) => {
     const [success, setSuccess] = useState('');
     const [disabled, setDisabled] = useState(true);
 
+    const addVoter = async () => {
+
+        const form = {
+            name: name,
+            email: email,
+            election_id: localStorage.election_id
+        }     
+        try {
+             await axios.post('user/voter', form, {
+                headers: {
+                  Authorization: `bearer ${localStorage.token}`
+                }
+              });
+              refetch();
+              closeModal();
+            } catch (error) {
+                setSuccess(error.message);
+                setSuccessModal(true);
+                console.log(error);
+            }   
+    }
+
     useEffect(() => {
         if(name==='' || email==='')
         setDisabled(true)
