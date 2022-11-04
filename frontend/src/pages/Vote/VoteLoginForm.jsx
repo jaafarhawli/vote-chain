@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/VOTE CHAIN-logo-black.png';
 import Button from '../../components/Reusable/Button';
 import FormInput from '../../components/Reusable/FormInput';
+import axios from '../../api/axios';
+import jwt_decode from "jwt-decode";
 
 const VoteLoginForm = () => {
 
@@ -12,6 +14,25 @@ const VoteLoginForm = () => {
   const [id, setId] = useState('');
   const [key, setKey] = useState('');
   const [error, setError] = useState(false);
+
+  const handleSubmit = async () => {
+    const form = {
+        election_code: code,
+        voter_id: id,
+        voter_key: key
+    };
+    try {
+        const data = await axios.post('auth/login/voter', form);
+        const token = data.data;
+        const decoded = jwt_decode(token);
+        localStorage.setItem('email', decoded.email);
+        navigate('/vote/main');
+    }
+    catch (error) {
+        setError(true);
+        console.log(error);
+    }
+  }
 
   return (
     <div className='bg-gradient-to-br from-white/70 to-white/30 w-[450px]  rounded-xl flex flex-col items-center p-6 pb-10 backdrop-blur-2xl shadow-2xl before:absolute before:bg-white/[15%] before:inset-0 before:rotate-[-5deg] before:-z-[1] before:rounded-xl'>
@@ -23,7 +44,7 @@ const VoteLoginForm = () => {
           <FormInput type="text" className='border-0' onChange={e => setCode(e.target.value)}>Election Code</FormInput>          
           <FormInput type="text" className='border-0' onChange={e => setId(e.target.value)}>ID</FormInput>          
           <FormInput type="text" className='border-0' onChange={e => setKey(e.target.value)}>Key</FormInput>                
-          <Button className='bg-cyan'>Login</Button>
+          <Button className='bg-cyan' onClick={handleSubmit}>Login</Button>
       </form> 
     </div>
   );
