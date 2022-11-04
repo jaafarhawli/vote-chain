@@ -4,6 +4,7 @@ import {DateTimePickerComponent} from '@syncfusion/ej2-react-calendars';
 import TimezonePicker from 'react-bootstrap-timezone-picker';
 import 'react-bootstrap-timezone-picker/dist/react-bootstrap-timezone-picker.min.css';
 import FormInput from '../../components/Reusable/FormInput';
+import axios from '../../api/axios';
 
 const AdminSettings = () => {
 
@@ -14,7 +15,32 @@ const AdminSettings = () => {
     const [errorModal, setErrorModal] = useState(false);
     const [error, setError] = useState('');
     const [disabled, setDisabled] = useState(true);
+    const [save, setSave] = useState(false);
     const date = new Date().toLocaleString();
+
+    const saveInfo = async() => {
+        const form = {
+            id: localStorage.election_id,
+            title: title,
+            start_time: starttime,
+            end_time: endtime,
+            timezone: timezone
+        }
+        try {
+          await axios.put('user/election', form, {
+            headers: {
+              Authorization: `bearer ${localStorage.token}`
+            }
+          });
+          localStorage.setItem('election_title', title);
+          localStorage.setItem('election_start', starttime);
+          localStorage.setItem('election_end', endtime);
+          localStorage.setItem('election_timezone', timezone);
+          setSave(!save);
+        } catch (error) {
+          console.log(error);
+        }
+    }
 
     const handleChange = (value) => {
         setTimezone(value);
@@ -33,7 +59,7 @@ const AdminSettings = () => {
         setDisabled(false);
         if(timezone!==localStorage.election_timezone && timezone!=='')
         setDisabled(false);
-      }, [title, starttime, endtime, timezone]);
+      }, [title, starttime, endtime, timezone, save]);
 
   return (
     <div className='pl-[330px] pt-[150px] pr-6 flex flex-col'>
@@ -63,7 +89,7 @@ const AdminSettings = () => {
                 />
              
           </label>
-          <Button className='bg-cyan' disabled={disabled} >Save Changes</Button>
+          <Button className='bg-cyan' disabled={disabled} onClick={saveInfo} >Save Changes</Button>
       </form> 
     </div>
   );
