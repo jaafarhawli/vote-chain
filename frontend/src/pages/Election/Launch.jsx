@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import Button from '../../components/Reusable/Button';
 import ConfirmModal from '../../components/Modals/ConfirmModal';
 
-const AdminLaunch = () => {
+const Launch = () => {
 
     const [confirmModal, setConfirmModal] = useState(false);
 
@@ -33,4 +33,4 @@ const AdminLaunch = () => {
   );
 }
 
-export default AdminLaunch;
+export default Launch;

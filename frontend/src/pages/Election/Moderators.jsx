@@ -7,7 +7,7 @@ import ConfirmModal from '../../components/Modals/ConfirmModal';
 import EmptyState from '../../components/Reusable/EmptyState';
 import Table from '../../components/Reusable/Table';
 
-const AdminModerators = () => {
+const Moderators = () => {
 
     const [moderatorModal, setModeratorModal] = useState(false);
     const [refetch, setRefetch] = useState(true);
@@ -101,4 +101,4 @@ const {data} = useQuery([refetch], async () => {
   );
 }
 
-export default AdminModerators;
+export default Moderators;

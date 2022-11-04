@@ -7,7 +7,7 @@ import Table from '../../components/Reusable/Table';
 import AddVoter from '../../components/Modals/AddVoter';
 import ConfirmModal from '../../components/Modals/ConfirmModal';
 
-const AdminVoters = (props) => {
+const Voters = (props) => {
 
     const [search, setSearch] = useState('');
     const [voterModal, setVoterModal] = useState(false);
@@ -102,4 +102,4 @@ const AdminVoters = (props) => {
   );
 }
 
-export default AdminVoters;
+export default Voters;

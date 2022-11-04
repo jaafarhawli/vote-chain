@@ -3,7 +3,7 @@ import {TbCopy} from 'react-icons/tb';
 import { ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const AdminDashboard = () => {
+const Dashboard = () => {
 
     const copyTextToClipboard = async (text) => {
         if ('clipboard' in navigator) {
@@ -32,4 +32,4 @@ const AdminDashboard = () => {
   );
 }
 
-export default AdminDashboard;
+export default Dashboard;

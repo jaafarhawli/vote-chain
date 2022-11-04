@@ -8,7 +8,7 @@ import EmptyState from '../../components/Reusable/EmptyState';
 import Table from '../../components/Reusable/Table';
 import AddCandidate from '../../components/Modals/AddCandidate';
 
-const AdminParties = () => {
+const Parties = () => {
 
     const [search, setSearch] = useState('');
     const [partyModal, setPartyModal] = useState(false);
@@ -113,4 +113,4 @@ const openConfirmModal = (id) => {
   );
 }
 
-export default AdminParties;
+export default Parties;

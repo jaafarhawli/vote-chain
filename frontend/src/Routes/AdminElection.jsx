@@ -3,14 +3,14 @@ import {useQuery} from '@tanstack/react-query';
 import axios from '../api/axios';
 import {Route, Routes} from 'react-router-dom';
 import Panel from '../components/Reusable/Panel';
-import AdminDashboard from '../pages/Admin Election/AdminDashboard';
-import AdminModerators from '../pages/Admin Election/AdminModerators';
-import AdminParties from '../pages/Admin Election/AdminParties';
-import AdminCandidate from '../pages/Admin Election/AdminCandidate';
-import AdminVoters from '../pages/Admin Election/AdminVoters';
-import AdminSettings from '../pages/Admin Election/AdminSettings';
-import AdminLaunch from '../pages/Admin Election/AdminLaunch';
 import ElectionTitle from '../components/Reusable/ElectionTitle';
+import Dashboard from '../pages/Election/Dashboard';
+import Moderators from '../pages/Election/Moderators';
+import Parties from '../pages/Election/Parties';
+import Candidates from '../pages/Election/Candidates';
+import Voters from '../pages/Election/Voters';
+import Settings from '../pages/Election/Settings';
+import Launch from '../pages/Election/Launch';
 
 const AdminElection = () => {
 
@@ -32,13 +32,13 @@ const AdminElection = () => {
       <Panel admin={true} />
       <ElectionTitle />
       <Routes>
-          <Route path='/dashboard' element={<AdminDashboard />} />
-          <Route path='/moderators' element={<AdminModerators />} />
-          <Route path='/parties' element={<AdminParties />} />
-          <Route path='/candidates' element={<AdminCandidate />} />
-          <Route path='/voters' element={<AdminVoters admin={true} />} />
-          <Route path='/settings' element={<AdminSettings />} />
-          <Route path='/launch' element={<AdminLaunch />} />
+          <Route path='/dashboard' element={<Dashboard />} />
+          <Route path='/moderators' element={<Moderators />} />
+          <Route path='/parties' element={<Parties />} />
+          <Route path='/candidates' element={<Candidates />} />
+          <Route path='/voters' element={<Voters admin={true} />} />
+          <Route path='/settings' element={<Settings />} />
+          <Route path='/launch' element={<Launch />} />
       </Routes>
     </div>
   );

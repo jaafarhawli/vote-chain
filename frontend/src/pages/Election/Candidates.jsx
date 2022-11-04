@@ -5,7 +5,7 @@ import CandidateCard from '../../components/Reusable/CandidateCard';
 import EmptyState from '../../components/Reusable/EmptyState';
 import ConfirmModal from '../../components/Modals/ConfirmModal';
 
-const AdminCandidate = () => {
+const Candidates = () => {
     
     const [search, setSearch] = useState('');
     const [confirmModal, setConfirmModal] = useState(false);
@@ -87,4 +87,4 @@ const AdminCandidate = () => {
   );
 }
 
-export default AdminCandidate;
+export default Candidates;

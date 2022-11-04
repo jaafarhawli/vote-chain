@@ -9,7 +9,7 @@ import SuccessModal from '../../components/Modals/SuccessModal';
 import ConfirmModal from '../../components/Modals/ConfirmModal';
 import { useNavigate } from 'react-router-dom';
 
-const AdminSettings = () => {
+const Settings = () => {
 
     const [title, setTitle] = useState(localStorage.election_title);
     const [starttime, setStarttime] = useState(localStorage.election_start);
@@ -145,4 +145,4 @@ const AdminSettings = () => {
   );
 }
 
-export default AdminSettings;
+export default Settings;
