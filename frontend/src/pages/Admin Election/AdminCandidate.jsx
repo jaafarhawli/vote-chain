@@ -7,17 +7,17 @@ import EmptyState from '../../components/Reusable/EmptyState';
 const AdminCandidate = () => {
     
     const [search, setSearch] = useState('');
-
+    
     const {data} = useQuery([], async () => {
-        return axios.get(`user/parties/${localStorage.election_id}`, {
+        return axios.get(`user/candidates/${localStorage.election_id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
                     }
                   }).then((res) => res.data);
     })
 
-    console.log(data);
     
+    console.log(data);
     return (
       <>
       {data?.length===0 ? <>
@@ -32,15 +32,12 @@ const AdminCandidate = () => {
         </div>
             <input type="search" className='border-2 border-[#dddddd] w-1/3 rounded-md mt-4' placeholder='Search candidate by name' onChange={e => setSearch(e.target.value)} />
         <div className='grid grid-cols-4 gap-4 justify-between my-8'>
-            {data?.map(party => (
-                party?.candidates?.map((candidate) => (
-                    <CandidateCard name={candidate.name} party={party.name} image={candidate.picture_url} />
-                ))
+            {data?.map(candidate => (
+                <CandidateCard name={candidate.name} party={candidate.party} image={candidate.image} />
             ))}
         </div>
     </div>
       }
-
   </>
   );
 }
