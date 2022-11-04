@@ -8,7 +8,7 @@ const AdminTitle = () => {
     const navigate = useNavigate();
   
     return (
-    <div className='fixed pl-[300px] w-full'>
+    <div className='fixed pl-[300px] w-full z-[10]'>
       <div className='w-full bg-purple-100 py-6 flex justify-between px-8 items-center'>
         <div className='text-white w-3/5 flex flex-col justify-center'>
         <h2 className='font-semibold text-[26px]'>{localStorage.election_title}</h2>
