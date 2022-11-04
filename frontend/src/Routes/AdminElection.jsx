@@ -3,7 +3,6 @@ import {useQuery} from '@tanstack/react-query';
 import axios from '../api/axios';
 import {Route, Routes} from 'react-router-dom';
 import Panel from '../components/Reusable/Panel';
-import AdminTitle from '../components/Reusable/AdminTitle';
 import AdminDashboard from '../pages/Admin Election/AdminDashboard';
 import AdminModerators from '../pages/Admin Election/AdminModerators';
 import AdminParties from '../pages/Admin Election/AdminParties';
@@ -11,6 +10,7 @@ import AdminCandidate from '../pages/Admin Election/AdminCandidate';
 import AdminVoters from '../pages/Admin Election/AdminVoters';
 import AdminSettings from '../pages/Admin Election/AdminSettings';
 import AdminLaunch from '../pages/Admin Election/AdminLaunch';
+import ElectionTitle from '../components/Reusable/ElectionTitle';
 
 const AdminElection = () => {
 
@@ -30,7 +30,7 @@ const AdminElection = () => {
   return (
     <div>
       <Panel admin={true} />
-      <AdminTitle />
+      <ElectionTitle />
       <Routes>
           <Route path='/dashboard' element={<AdminDashboard />} />
           <Route path='/moderators' element={<AdminModerators />} />

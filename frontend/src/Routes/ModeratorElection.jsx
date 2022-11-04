@@ -3,9 +3,9 @@ import {useQuery} from '@tanstack/react-query';
 import axios from '../api/axios';
 import {Route, Routes} from 'react-router-dom';
 import Panel from '../components/Reusable/Panel';
-import AdminTitle from '../components/Reusable/AdminTitle';
 import AdminDashboard from '../pages/Admin Election/AdminDashboard';
 import AdminVoters from '../pages/Admin Election/AdminVoters';
+import ElectionTitle from '../components/Reusable/ElectionTitle';
 
 
 const ModeratorElection = () => {
@@ -26,7 +26,7 @@ const ModeratorElection = () => {
   return (
     <div>
       <Panel />
-      <AdminTitle />
+      <ElectionTitle />
       <Routes>
           <Route path='/dashboard' element={<AdminDashboard />} />
           <Route path='/voters' element={<AdminVoters />} />

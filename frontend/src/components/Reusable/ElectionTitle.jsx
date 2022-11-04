@@ -3,7 +3,7 @@ import {AiFillHome} from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 import Button from './Button';
 
-const AdminTitle = () => {
+const ElectionTitle = () => {
 
     const navigate = useNavigate();
   
@@ -30,4 +30,4 @@ const AdminTitle = () => {
   );
 }
 
-export default AdminTitle;
+export default ElectionTitle;
