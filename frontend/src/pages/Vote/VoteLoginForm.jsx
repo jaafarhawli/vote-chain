@@ -25,8 +25,23 @@ const VoteLoginForm = () => {
         const data = await axios.post('auth/login/voter', form);
         const token = data.data;
         const decoded = jwt_decode(token);
-        localStorage.setItem('email', decoded.email);
-        navigate('/vote/main');
+        localStorage.setItem('token', token);
+            try {
+              const election = await axios.get(`voter/election/${decoded.email}/${decoded.election_id}`, {
+                headers: {
+                  Authorization: `bearer ${localStorage.token}`
+                }
+              });
+              console.log(election);
+              localStorage.setItem('election_id', election.data._id);
+              localStorage.setItem('election_start', election.data.start_time);
+              localStorage.setItem('election_end', election.data.end_time);
+              localStorage.setItem('election_title', election.data.title);
+              console.log(localStorage.election_title)
+              navigate('/vote/main');
+            } catch (error) {
+              console.log(error);
+            }
     }
     catch (error) {
         setError(true);
