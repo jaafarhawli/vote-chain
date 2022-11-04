@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/VOTE CHAIN-logo-black.png';
 import Button from '../../components/Reusable/Button';
@@ -71,7 +71,7 @@ const VoteLoginForm = () => {
           <FormInput type="text" className='border-0' onChange={e => setCode(e.target.value)}>Election Code</FormInput>          
           <FormInput type="text" className='border-0' onChange={e => setId(e.target.value)}>ID</FormInput>          
           <FormInput type="text" className='border-0' onChange={e => setKey(e.target.value)}>Key</FormInput>                
-          <Button className='bg-cyan' onClick={handleSubmit}>Login</Button>
+          <Button className='bg-cyan' onClick={handleSubmit}>Join</Button>
       </form> 
     </div>
   );
