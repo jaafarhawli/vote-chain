@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import ElectionCard from '../../components/Reusable/ElectionCard';
 import VoteHeader from './VoteHeader';
 import axios from '../../api/axios';
@@ -13,6 +13,7 @@ const VoteSelect = () => {
     const [selectedCandidate, setSelectedCandidate] = useState('');
     const [selectedPartyName, setSelectedPartyName] = useState('');
     const [selectedCandidateName, setSelectedCandidateName] = useState('');
+    const [disabled, setDisabled] = useState(true);
 
     const {data} = useQuery([], async () => {
         return axios.get(`user/parties/${localStorage.election_id}`, {
@@ -33,6 +34,13 @@ const VoteSelect = () => {
         setSelectedCandidate(id);
         setSelectedCandidateName(candidate_name);
     }
+
+    useEffect(() => {
+      if(selectedCandidate !== '' && selectedParty !== '')
+      setDisabled(false);
+      else
+      setDisabled(true);
+    }, [selectedCandidate, selectedParty]);
    
 
   return (
@@ -66,7 +74,7 @@ const VoteSelect = () => {
                 <p className='flex-1 text-[24px] font-bold text-white'>{selectedCandidateName}</p>
             </div>
           </div>
-        <Button>Submit vote</Button>
+        <Button disabled={disabled}>Submit vote</Button>
       </div>
     </div>
   );
