@@ -5,6 +5,7 @@ import axios from '../../api/axios';
 import {useQuery} from '@tanstack/react-query';
 import CandidateCard from '../../components/Reusable/CandidateCard';
 import Button from '../../components/Reusable/Button';
+import { useNavigate } from 'react-router-dom';
 
 const VoteSelect = () => {
 
@@ -14,6 +15,8 @@ const VoteSelect = () => {
     const [selectedPartyName, setSelectedPartyName] = useState('');
     const [selectedCandidateName, setSelectedCandidateName] = useState('');
     const [disabled, setDisabled] = useState(true);
+
+    const navigate = useNavigate();
 
     const {data} = useQuery([], async () => {
         return axios.get(`user/parties/${localStorage.election_id}`, {
@@ -27,12 +30,29 @@ const VoteSelect = () => {
         setCandidates(data);
         setSelectedParty(party_id);
         setSelectedPartyName(party_name);
-        console.log(data);
     }
 
     const selectCandidate = (id, candidate_name) => {
         setSelectedCandidate(id);
         setSelectedCandidateName(candidate_name);
+    }
+
+    const handleSubmit = async () => {
+        const form = {
+            id: localStorage.voter_id,
+            party_id: selectedParty,
+            candidate_id: selectedCandidate
+        }     
+        try {
+             await axios.post('voter/vote', form, {
+                headers: {
+                  Authorization: `bearer ${localStorage.token}`
+                }
+              });
+              navigate('/vote/main/results');
+            } catch (error) {
+                console.log(error);
+            }  
     }
 
     useEffect(() => {
@@ -60,8 +80,8 @@ const VoteSelect = () => {
         <div className='grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-4 w-full justify-between my-8'>
             {candidates?.map(candidate => (
                 selectedCandidate===candidate._id ?
-                <CandidateCard name={candidate.name} image={candidate.picture_url} id={candidate._id} party_id={candidate.party_id} vote={true} selected={true} /> :
-                <CandidateCard name={candidate.name} image={candidate.picture_url} id={candidate._id} party_id={candidate.party_id} vote={true} select={() => selectCandidate(candidate._id, candidate.name)} /> 
+                <CandidateCard name={candidate.name} image={candidate.picture_url} id={candidate._id} party_id={candidate.party_id} vote={true} selected={true} key={candidate._id} /> :
+                <CandidateCard name={candidate.name} image={candidate.picture_url} id={candidate._id} party_id={candidate.party_id} vote={true} select={() => selectCandidate(candidate._id, candidate.name)} key={candidate._id} /> 
             ))}
         </div>
       </div>
@@ -74,7 +94,7 @@ const VoteSelect = () => {
                 <p className='flex-1 text-[24px] font-bold text-white'>{selectedCandidateName}</p>
             </div>
           </div>
-        <Button disabled={disabled}>Submit vote</Button>
+        <Button disabled={disabled} onClick={handleSubmit}>Submit vote</Button>
       </div>
     </div>
   );
