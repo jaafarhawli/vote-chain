@@ -58,12 +58,12 @@ const VoteSelect = () => {
         </div>
       </div>
       </>
-      <div className='w-full h-[100px] bg-purple-100 flex'>
-          <div>
-            <p>You have selected</p>
-            <div className='flex'>
-                <p>{selectedPartyName}</p>
-                <p>{selectedCandidateName}</p>
+      <div className='w-full h-[100px] bg-purple-100 flex justify-between lg:px-28 md:px-10 px-4 items-center'>
+          <div className='w-2/3'>
+            <p className='text-white text-[20px]'>You have selected</p>
+            <div className='flex w-full'>
+                <p className='flex-1 text-[24px] font-bold text-white'>{selectedPartyName}</p>
+                <p className='flex-1 text-[24px] font-bold text-white'>{selectedCandidateName}</p>
             </div>
           </div>
         <Button>Submit vote</Button>
