@@ -8,7 +8,7 @@ const ElectionCard = (props) => {
   return (
     <>
     {props.party? 
-    <div className={`px-4 py-8 bg-purple-100/75 rounded-lg text-white ${props.className}`} onClick={props.onClick} key={props.id}>
+    <div className={`px-4 flex items-center py-6 bg-purple-100/75 rounded-lg text-white ${props.className}`} onClick={props.onClick}>
         <h2 className='font-semibold text-[20px]'>{props.title}</h2>
         <div className='flex flex-col lg:w-full lg:flex-row mt-2 lg:gap-2'>
       </div>

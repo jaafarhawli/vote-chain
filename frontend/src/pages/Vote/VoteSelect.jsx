@@ -1,10 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import ElectionCard from '../../components/Reusable/ElectionCard';
 import VoteHeader from './VoteHeader';
 import axios from '../../api/axios';
 import {useQuery} from '@tanstack/react-query';
 
 const VoteSelect = () => {
+
+    const [candidates, setCandidates] = useState([]);
+    const [selectedParty, setSelectedParty] = useState('');
 
     const {data} = useQuery([], async () => {
         return axios.get(`user/parties/${localStorage.election_id}`, {
@@ -14,7 +17,11 @@ const VoteSelect = () => {
                   }).then((res) => res.data);
     })
 
-    console.log(data);
+    const showCandidates = async (data, party_name) => {
+        setCandidates(data);
+        setSelectedParty(party_name);
+    }
+   
 
   return (
     <div>
@@ -24,7 +31,9 @@ const VoteSelect = () => {
         <h2 className='mt-8 text-[24px] font-bold'>Choose your party</h2>
         <div className='grid grid-cols-2 mt-4 gap-4'>
          {data?.map((party) => (
-             <ElectionCard title={party.name} party={true} />
+             selectedParty===party.name ? 
+             <ElectionCard className='border-[6px] border-cyan' title={party.name} party={true} onClick={() => showCandidates(party.candidates, party.name)} key={party._id} /> :
+             <ElectionCard title={party.name} party={true} onClick={() => showCandidates(party.candidates, party.name)} key={party._id} /> 
         ))}
         </div>
       </div>
