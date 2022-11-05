@@ -22,7 +22,11 @@ const VoteSelect = () => {
       <div className='lg:px-28 md:px-10 px-4'>
         <ElectionCard id={localStorage.election_id} title={localStorage.election_title} start_time={localStorage.election_start} end_time={localStorage.election_end} className='!bg-black-300 mt-4' title_size='text-[28px]' date_size='!text-[15px]' />
         <h2 className='mt-8 text-[24px] font-bold'>Choose your party</h2>
-        
+        <div className='grid grid-cols-2 mt-4 gap-4'>
+         {data?.map((party) => (
+             <ElectionCard title={party.name} party={true} />
+        ))}
+        </div>
       </div>
     </div>
   );
