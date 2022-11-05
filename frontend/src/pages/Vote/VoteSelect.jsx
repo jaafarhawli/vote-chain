@@ -6,7 +6,7 @@ import {useQuery} from '@tanstack/react-query';
 
 const VoteSelect = () => {
 
-    const {data} = useQuery(['parties'], async () => {
+    const {data} = useQuery([], async () => {
         return axios.get(`user/parties/${localStorage.election_id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
@@ -21,6 +21,8 @@ const VoteSelect = () => {
       <VoteHeader />
       <div className='lg:px-28 md:px-10 px-4'>
         <ElectionCard id={localStorage.election_id} title={localStorage.election_title} start_time={localStorage.election_start} end_time={localStorage.election_end} className='!bg-black-300 mt-4' title_size='text-[28px]' date_size='!text-[15px]' />
+        <h2 className='mt-8 text-[24px] font-bold'>Choose your party</h2>
+        
       </div>
     </div>
   );
