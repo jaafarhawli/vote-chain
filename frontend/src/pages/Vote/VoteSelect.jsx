@@ -49,6 +49,8 @@ const VoteSelect = () => {
                   Authorization: `bearer ${localStorage.token}`
                 }
               });
+              localStorage.setItem('candidate', selectedCandidateName);
+              localStorage.setItem('party', selectedPartyName);
               navigate('/vote/main/results');
             } catch (error) {
                 console.log(error);
@@ -66,7 +68,7 @@ const VoteSelect = () => {
   return (
     <div className=' min-h-screen flex flex-col justify-between'>
         <>
-      <VoteHeader />
+      <VoteHeader>Voting is live now!</VoteHeader>
       <div className='lg:px-28 md:px-10 px-4'>
         <ElectionCard id={localStorage.election_id} title={localStorage.election_title} start_time={localStorage.election_start} end_time={localStorage.election_end} className='!bg-black-300 mt-4' title_size='text-[28px]' date_size='!text-[15px]' />
         <h2 className='mt-8 text-[24px] font-bold'>Choose your party</h2>

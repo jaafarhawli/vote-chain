@@ -4,6 +4,7 @@ import VoteLanding from '../pages/Vote/VoteLanding';
 import VoteLogin from '../pages/Vote/VoteLogin';
 import VoteMain from '../pages/Vote/VoteMain';
 import VoteSelect from '../pages/Vote/VoteSelect';
+import VoteResults from '../pages/Vote/VoteResults';
 
 const Vote = () => {
   return (
@@ -13,6 +14,7 @@ const Vote = () => {
             <Route path='/login' element={<VoteLogin />} />         
             <Route path='/main' element={<VoteMain />} />         
             <Route path='/main/select' element={<VoteSelect />} />         
+            <Route path='/main/results' element={<VoteResults />} />         
       </Routes>
     </div>
   );
