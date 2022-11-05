@@ -3,6 +3,7 @@ import ElectionCard from '../../components/Reusable/ElectionCard';
 import VoteHeader from './VoteHeader';
 import axios from '../../api/axios';
 import {useQuery} from '@tanstack/react-query';
+import CandidateCard from '../../components/Reusable/CandidateCard';
 
 const VoteSelect = () => {
 
@@ -20,6 +21,7 @@ const VoteSelect = () => {
     const showCandidates = async (data, party_name) => {
         setCandidates(data);
         setSelectedParty(party_name);
+        console.log(data);
     }
    
 
@@ -35,6 +37,11 @@ const VoteSelect = () => {
              <ElectionCard className='border-[6px] border-cyan' title={party.name} party={true} onClick={() => showCandidates(party.candidates, party.name)} key={party._id} /> :
              <ElectionCard title={party.name} party={true} onClick={() => showCandidates(party.candidates, party.name)} key={party._id} /> 
         ))}
+        </div>
+        <div className='grid grid-cols-4 gap-4 justify-between my-8'>
+            {candidates?.map(candidate => (
+                <CandidateCard name={candidate.name} image={candidate.picture_url} id={candidate._id} party_id={candidate.party_id} />
+            ))}
         </div>
       </div>
     </div>
