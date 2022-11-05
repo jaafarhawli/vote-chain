@@ -9,6 +9,7 @@ const VoteSelect = () => {
 
     const [candidates, setCandidates] = useState([]);
     const [selectedParty, setSelectedParty] = useState('');
+    const [selectedCandidate, setSelectedCandidate] = useState('');
 
     const {data} = useQuery([], async () => {
         return axios.get(`user/parties/${localStorage.election_id}`, {
@@ -18,10 +19,14 @@ const VoteSelect = () => {
                   }).then((res) => res.data);
     })
 
-    const showCandidates = async (data, party_name) => {
+    const showCandidates = async (data, party_id) => {
         setCandidates(data);
-        setSelectedParty(party_name);
+        setSelectedParty(party_id);
         console.log(data);
+    }
+
+    const selectCandidate = (id) => {
+        setSelectedCandidate(id);
     }
    
 
@@ -33,14 +38,16 @@ const VoteSelect = () => {
         <h2 className='mt-8 text-[24px] font-bold'>Choose your party</h2>
         <div className='grid grid-cols-2 mt-4 gap-4'>
          {data?.map((party) => (
-             selectedParty===party.name ? 
-             <ElectionCard className='border-[6px] border-cyan' title={party.name} party={true} onClick={() => showCandidates(party.candidates, party.name)} key={party._id} /> :
-             <ElectionCard title={party.name} party={true} onClick={() => showCandidates(party.candidates, party.name)} key={party._id} /> 
+             selectedParty===party._id ? 
+             <ElectionCard className='border-[6px] border-cyan !bg-purple-100' title={party.name} party={true} onClick={() => showCandidates(party.candidates, party._id)} key={party._id} /> :
+             <ElectionCard title={party.name} party={true} onClick={() => showCandidates(party.candidates, party._id)} key={party._id} /> 
         ))}
         </div>
-        <div className='grid grid-cols-4 gap-4 justify-between my-8'>
+        <div className='grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-4 w-full justify-between my-8'>
             {candidates?.map(candidate => (
-                <CandidateCard name={candidate.name} image={candidate.picture_url} id={candidate._id} party_id={candidate.party_id} />
+                selectedCandidate===candidate._id ?
+                <CandidateCard name={candidate.name} image={candidate.picture_url} id={candidate._id} party_id={candidate.party_id} vote={true} select={() => selectCandidate(candidate._id)} selected={true} /> :
+                <CandidateCard name={candidate.name} image={candidate.picture_url} id={candidate._id} party_id={candidate.party_id} vote={true} select={() => selectCandidate(candidate._id)} /> 
             ))}
         </div>
       </div>
