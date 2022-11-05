@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import Button from '../../components/Reusable/Button';
-import {DateTimePickerComponent} from '@syncfusion/ej2-react-calendars';
 import TimezonePicker from 'react-bootstrap-timezone-picker';
 import 'react-bootstrap-timezone-picker/dist/react-bootstrap-timezone-picker.min.css';
 import FormInput from '../../components/Reusable/FormInput';
@@ -8,6 +7,9 @@ import axios from '../../api/axios';
 import SuccessModal from '../../components/Modals/SuccessModal';
 import ConfirmModal from '../../components/Modals/ConfirmModal';
 import { useNavigate } from 'react-router-dom';
+import "flatpickr/dist/themes/material_green.css";
+import Flatpickr from "react-flatpickr";
+require("flatpickr/dist/themes/material_blue.css");
 
 const Settings = () => {
 
@@ -21,18 +23,11 @@ const Settings = () => {
     const [disabled, setDisabled] = useState(true);
     const [save, setSave] = useState(false);
     const [confirmModal, setConfirmModal] = useState(false);
-    const date = new Date().toLocaleString();
+    const date = new Date();
 
     const navigate = useNavigate();
 
     const saveInfo = async() => {
-
-        if(((endtime - starttime)/36e5) < 24) {
-            setMessage("Your election should be 24 hours at least");
-            setError(true);
-            setSuccessModal(true);
-            return;
-        }
 
         const form = {
             id: localStorage.election_id,
@@ -51,6 +46,8 @@ const Settings = () => {
           localStorage.setItem('election_start', starttime);
           localStorage.setItem('election_end', endtime);
           localStorage.setItem('election_timezone', timezone);
+          setStarttime(localStorage.election_start);
+          setEndtime(localStorage.election_end);
           setError(false);
           setMessage('Election updated succussfully');
           setSuccessModal(true);
@@ -89,6 +86,7 @@ const Settings = () => {
         setTimezone(value);
     }
 
+
     useEffect(() => {
         if (title===localStorage.election_title && timezone===localStorage.election_timezone && starttime===localStorage.election_start && endtime===localStorage.election_end)
         setDisabled(true);
@@ -122,11 +120,25 @@ const Settings = () => {
           <div className='flex gap-2'>
             <label>
                 <p className='font-semibold'>Start date</p>
-                <DateTimePickerComponent min={date} format="yyyy-mm-dd HH:mm" onChange={e => setStarttime(e.target.value)}></DateTimePickerComponent>
+                <Flatpickr
+                  data-enable-time
+                  options={{ minDate: date }}
+                  value={starttime}
+                  onChange={dateStr => 
+                    setStarttime(dateStr)
+                }
+                />
             </label>
             <label>
                 <p className='font-semibold'>End date</p>
-                <DateTimePickerComponent min={date} format="yyyy-mm-dd HH:mm" onChange={e => setEndtime(e.target.value)} ></DateTimePickerComponent>
+                <Flatpickr
+                  data-enable-time
+                  options={{ minDate: date }}
+                  value={endtime}
+                  onChange={dateStr => 
+                    setEndtime(dateStr)
+                }
+                />
             </label>
           </div>
           <label>

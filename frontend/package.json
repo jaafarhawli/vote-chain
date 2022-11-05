@@ -13,6 +13,7 @@
     "react": "^18.2.0",
     "react-bootstrap-timezone-picker": "^2.0.1",
     "react-dom": "^18.2.0",
+    "react-flatpickr": "^3.10.13",
     "react-icons": "^4.6.0",
     "react-router-dom": "^6.4.2",
     "react-scripts": "5.0.1",

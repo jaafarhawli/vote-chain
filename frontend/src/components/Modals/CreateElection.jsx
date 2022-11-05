@@ -2,12 +2,14 @@ import React, {useState, useEffect} from 'react';
 import {HiOutlineXMark} from 'react-icons/hi2';
 import axios from '../../api/axios';
 import logo from '../../assets/VOTE CHAIN-logo-black.png';
-import {DateTimePickerComponent} from '@syncfusion/ej2-react-calendars';
 import TimezonePicker from 'react-bootstrap-timezone-picker';
 import 'react-bootstrap-timezone-picker/dist/react-bootstrap-timezone-picker.min.css';
 import Button from '../Reusable/Button';
 import FormInput from '../Reusable/FormInput';
 import SuccessModal from './SuccessModal';
+import "flatpickr/dist/themes/material_green.css";
+import Flatpickr from "react-flatpickr";
+require("flatpickr/dist/themes/material_blue.css");
 
 const CreateElection = ({open, closeModal, refetch}) => {
 
@@ -18,8 +20,7 @@ const CreateElection = ({open, closeModal, refetch}) => {
     const [errorModal, setErrorModal] = useState(false);
     const [error, setError] = useState('');
     const [disabled, setDisabled] = useState(true);
-    const date = new Date().toLocaleString();
-
+    const date = new Date()
 
     const createElection = async () => {
     
@@ -79,13 +80,28 @@ return (
           <div className='flex gap-2'>
             <label>
                 <p className='font-medium'>Start date</p>
-                <DateTimePickerComponent min={date} format="yyyy-mm-dd HH:mm" onChange={e => setStarttime(e.target.value)}></DateTimePickerComponent>
+                <Flatpickr
+                  data-enable-time
+                  options={{ minDate: date }}
+                  value={starttime}
+                  onChange={dateStr => 
+                    setStarttime(dateStr)
+                }
+                />
             </label>
             <label>
                 <p className='font-medium'>End date</p>
-                <DateTimePickerComponent min={date} format="yyyy-mm-dd HH:mm" onChange={e => setEndtime(e.target.value)} ></DateTimePickerComponent>
+                <Flatpickr
+                  data-enable-time
+                  options={{ minDate: date }}
+                  value={endtime}
+                  onChange={dateStr => 
+                    setEndtime(dateStr)
+                }
+                />
             </label>
           </div>
+          
           <label>
               <p className='font-medium'>Timezone</p>
               <TimezonePicker
