@@ -1,8 +1,21 @@
 import React from 'react';
 import ElectionCard from '../../components/Reusable/ElectionCard';
 import VoteHeader from './VoteHeader';
+import axios from '../../api/axios';
+import {useQuery} from '@tanstack/react-query';
 
 const VoteSelect = () => {
+
+    const {data} = useQuery(['parties'], async () => {
+        return axios.get(`user/parties/${localStorage.election_id}`, {
+                    headers: {
+                      Authorization: `bearer ${localStorage.token}`
+                    }
+                  }).then((res) => res.data);
+    })
+
+    console.log(data);
+
   return (
     <div>
       <VoteHeader />

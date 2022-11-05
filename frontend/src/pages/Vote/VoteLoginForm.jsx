@@ -31,7 +31,7 @@ const VoteLoginForm = () => {
               headers: {
                 Authorization: `bearer ${localStorage.token}`
               }
-            });
+            });           
             localStorage.setItem('voter_id', user.data._id);
             localStorage.setItem('voter_email', user.data.email);
             localStorage.setItem('election_id', user.data.election_id);
@@ -41,7 +41,7 @@ const VoteLoginForm = () => {
                   headers: {
                     Authorization: `bearer ${localStorage.token}`
                   }
-                });
+                });             
                 localStorage.setItem('election_id', election.data._id);
                 localStorage.setItem('election_start', election.data.start_time);
                 localStorage.setItem('election_end', election.data.end_time);
@@ -50,7 +50,7 @@ const VoteLoginForm = () => {
               } catch (error) {
                 console.log(error);
               }
-          } catch (error) {
+          } catch (error) {             
             console.log(error);
           }
             
