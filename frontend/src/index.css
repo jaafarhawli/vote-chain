@@ -1,13 +1,56 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: arial, sans-serif;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+@import url('https://cdn.syncfusion.com/ej2/material.css');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+	.button {
+		@apply rounded-[10px] p-4 text-white font-bold bg-cyan max-h-10 flex justify-center items-center min-w-[90px] uppercase hover:bg-cyan/80 ease-in duration-150 active:scale-95 select-none disabled:bg-black-200 disabled:active:scale-100
+	}
+	input {
+		@apply w-full h-[40px] rounded-sm p-4 text-[16px] outline-none border-[1px] border-black-200
+	}
+}
+
+.hero {
+	background-image: url("assets/backgroundcurve.svg");
+}
+
+@media (max-width: 640px) {
+	.hero {
+	  background-image: url("assets/backgroundcurve-sm.svg");
+	}
+  }
+
+.timezone {
+	border: 1px solid #777777 !important;
+}
+
+.active {
+	background-color: rgb(235, 235, 255, 0.5);
+	border-right: 7px solid #00b7ff;
+	color: white;
+}
+
+table {  
+    border-collapse: collapse;
+    width: 100%;
+}
+td,
+th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+	
+}
+tr:nth-child(even) {
+    background-color: #D3DCFF;
 }
