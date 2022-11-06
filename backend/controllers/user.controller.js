@@ -18,7 +18,7 @@ const getUser = async (req, res) => {
 })};
 
 const createElection = async(req, res) => {
-    const {admin_id, title, start_time, end_time, timezone} = req.body;
+    const {admin_id, title, start_time, end_time} = req.body;
     let election_code = Math.random().toString(36).substring(2,7);
     let code = Election.findOne({code: election_code});
 
@@ -32,7 +32,6 @@ const createElection = async(req, res) => {
         election.title = title;
         election.start_time = start_time;
         election.end_time = end_time;
-        election.timezone = timezone;
         election.code = election_code;
         election.admin = admin_id;
         await election.save();
