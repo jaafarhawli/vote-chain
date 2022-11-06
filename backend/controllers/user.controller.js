@@ -477,6 +477,22 @@ const uploadCandidateImage = (req, res, next) => {
     })
 }
 
+const launchElection = async (req, res) => {
+    const {id} = req.body
+
+    Election.findById(id, async (err) => {
+        if(err) 
+        return res.status(400).json("Invalid input");
+        Election.findByIdAndUpdate(id,{
+            launched: true
+        }, async (err) => {
+            if(err)
+            return res.status(400).json("Invalid input");
+            res.status(200).json("Election updated successfully");
+        });
+    }); 
+} 
+
 module.exports = {
     getUser,
     createElection,
@@ -501,5 +517,6 @@ module.exports = {
     viewVoters,
     editElection,
     removeElection,
-    uploadCandidateImage
+    uploadCandidateImage,
+    launchElection
 }
