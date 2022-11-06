@@ -32,3 +32,7 @@ const createElection = async(req, res) => {
         })
     }
 }
+
+module.exports = {
+    createElection
+}
