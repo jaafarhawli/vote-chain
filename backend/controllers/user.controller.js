@@ -505,6 +505,34 @@ const viewNotifications = async (req, res) => {
     })
 }
 
+const acceptRequest = async (req, res) => {
+    const {user_id, election_id} = req.body;
+    User.findById(user_id, async (err, user) => {
+        if(err) 
+        return res.status(404).json("User not found");
+        if(!user)
+        return res.status(404).json("User not found");
+        if(user.elections.includes(election_id))
+        return res.status(400).json("Invalid request");
+        Election.findById(election_id, async (err, election) => {
+            if(err) 
+            return res.status(404).json("Election not found");
+            if(election.moderators.includes(user_id))
+            return res.status(400).json("You are already a moderator to this election");
+            user.moderator_for.push(election_id);
+            await user.save();
+
+            election.moderators.push(user._id);
+            await election.save();
+
+            await User.updateOne({"_id": user_id}, {"$pull": {
+                "notifications": {"election_id": election_id}
+            }})
+            res.status(200).json({message: "Request accepted"});
+    });
+});
+}
+
 
 
 module.exports = {
@@ -533,5 +561,6 @@ module.exports = {
     removeElection,
     uploadCandidateImage,
     launchElection,
-    viewNotifications
+    viewNotifications, 
+    acceptRequest
 }

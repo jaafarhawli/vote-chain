@@ -28,7 +28,10 @@ const userSchema = new mongoose.Schema({
         user_email: {
             type: mongoose.Schema.Types.ObjectId, ref: 'User'
         },
-        election_title: String
+        election_id: {
+            type: mongoose.Schema.Types.ObjectId, ref: 'Election'
+        },
+        election_title: String, 
     }],
 
     elections: [{
