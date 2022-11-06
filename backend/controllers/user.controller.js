@@ -174,54 +174,6 @@ const removeModerator = async (req, res) => {
     res.status(200).json("Moderator removed successfully");
 }
 
-const addVoter = async (req, res)=>{
-    const {email, name, election_id} = req.body;
-     
-    const validate = validator.validate(email); 
-    if(!validate)
-    return res.status(400).json("Invalid input");
-
-    const election = await Election.findById(election_id);
-    if(election.voters.includes(email)) {
-        return res.status(400).json("Voter is already in the election");
-    }
-
-    let voter_id = Math.random().toString().slice(2,11);
-    let id_exists = Election.findOne({voter_id: voter_id});
-    while(id_exists.length==1) {
-        voter_id = Math.random().toString().slice(2,11);
-        id_exists = Election.findOne({voter_id: voter_id});
-    }
-
-    let voter_key = Math.random().toString(36).substring(2,11);
-    let key_exists = Election.findOne({voter_key: voter_key});
-    while(key_exists.length==1) {
-        voter_key = Math.random().toString(36).substring(2,11);
-        key_exists = Election.find({key_exists: voter_key});
-    }
-    
-    try{
-        const voter = new Voter();
-        voter.email = email;
-        voter.name = name;
-        voter.voter_id = voter_id;
-        voter.voter_key = voter_key;
-        voter.election_id = election_id;
-        voter.voted = 0;
-        await voter.save();
-
-        election.voters.push(voter.email);
-        await election.save();
-
-        res.status(200).json({voter});
-
-    }catch(err){
-        res.status(400).json({
-            message: err.message
-        })
-    }
-}
-
 const removeVoter = async (req, res) => {
     const {voter_id, election_id} = req.body;
     Voter.findById(voter_id, async (err, voter) => {
@@ -319,7 +271,6 @@ module.exports = {
     viewElectionAsModerator,
     addModerator,
     removeModerator,
-    addVoter,
     removeVoter,
     viewModerators,
     viewVoters,

@@ -1,6 +1,6 @@
 const {Router} = require('express');
 const {getUser, viewElectionsAsAdmin, viewElectionsAsModerator, editAccount, changePassword, viewElectionAsAdmin,
-viewElectionAsModerator, addModerator, removeModerator, addVoter, removeVoter, viewModerators, viewCandidates, viewVoters, deleteAccount, viewNotifications, acceptRequest, rejectRequest} = require('../controllers/user.controller');
+viewElectionAsModerator, addModerator, removeModerator, removeVoter, viewModerators, viewCandidates, viewVoters, deleteAccount, viewNotifications, acceptRequest, rejectRequest} = require('../controllers/user.controller');
 const authMiddleware = require('../middlewares/auth.middleware');
 const adminMiddleware = require('../middlewares/admin.middleware');
 const launchedMiddleware = require('../middlewares/launched.middleware');
@@ -17,7 +17,6 @@ router.get('/election/moderator/:user_id/:election_id', authMiddleware, viewElec
 router.post('/moderator', authMiddleware, adminMiddleware, addModerator);
 router.post('/moderator/remove', authMiddleware, adminMiddleware, removeModerator);
 router.post('/account', authMiddleware, deleteAccount);
-router.post('/voter', authMiddleware, launchedMiddleware, addVoter);
 router.post('/voter/remove', authMiddleware, adminMiddleware, launchedMiddleware, removeVoter);
 router.get('/moderators/:election_id', authMiddleware, viewModerators);
 router.get('/voters/:election_id', authMiddleware, viewVoters);
