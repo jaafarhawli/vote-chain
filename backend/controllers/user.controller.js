@@ -496,6 +496,15 @@ const launchElection = async (req, res) => {
     }); 
 } 
 
+const viewNotifications = async (req, res) => {
+    const {user_id} = req.params;
+    User.findById(user_id, async (err, user) => {
+        if(err)
+        return res.status(404).json({message:"Election not founnd"}); 
+        return res.status(200).json({data: user.notifications});
+    })
+}
+
 
 
 module.exports = {
@@ -523,5 +532,6 @@ module.exports = {
     editElection,
     removeElection,
     uploadCandidateImage,
-    launchElection
+    launchElection,
+    viewNotifications
 }

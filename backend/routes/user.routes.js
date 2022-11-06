@@ -1,6 +1,6 @@
 const {Router} = require('express');
 const {getUser, createElection, viewElectionsAsAdmin, viewElectionsAsModerator, editAccount, changePassword, viewElectionAsAdmin,
-viewElectionAsModerator, addModerator, removeModerator, addParty, removeParty, addCandidate, removeCandidate, addVoter, removeVoter, viewModerators, viewParties, viewCandidates, viewVoters, editElection, removeElection, uploadCandidateImage, deleteAccount, launchElection} = require('../controllers/user.controller');
+viewElectionAsModerator, addModerator, removeModerator, addParty, removeParty, addCandidate, removeCandidate, addVoter, removeVoter, viewModerators, viewParties, viewCandidates, viewVoters, editElection, removeElection, uploadCandidateImage, deleteAccount, launchElection, viewNotifications} = require('../controllers/user.controller');
 const authMiddleware = require('../middlewares/auth.middleware');
 const imageMiddleware = require('../middlewares/image.middleware');
 const adminMiddleware = require('../middlewares/admin.middleware');
@@ -32,5 +32,6 @@ router.put('/election', authMiddleware, adminMiddleware, launchedMiddleware, edi
 router.post('/election/delete', authMiddleware, adminMiddleware, launchedMiddleware, removeElection);
 router.post('/image', imageMiddleware.single('candidateImg'), uploadCandidateImage);
 router.put('/election/launch', authMiddleware, adminMiddleware, launchedMiddleware, launchElection);
+router.get('/notifications/:user_id', authMiddleware, viewNotifications);
 
 module.exports = router;
