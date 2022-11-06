@@ -1,12 +1,10 @@
 const {Router} = require('express');
-const {getUser, viewElectionsAsAdmin, viewElectionsAsModerator, editAccount, changePassword, viewElectionAsAdmin,
+const {getUser, viewElectionsAsModerator, editAccount, changePassword, viewElectionAsAdmin,
 viewElectionAsModerator, deleteAccount, viewNotifications, acceptRequest, rejectRequest} = require('../controllers/user.controller');
 const authMiddleware = require('../middlewares/auth.middleware');
 const router = Router();
 
 router.get('/:email', authMiddleware, getUser);
-
-router.get('/elections/:id', authMiddleware, viewElectionsAsAdmin);
 router.get('/elections/moderator/:id', authMiddleware, viewElectionsAsModerator);
 router.put('/account', authMiddleware, editAccount);
 router.put('/password', authMiddleware, changePassword);
