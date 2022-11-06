@@ -26,7 +26,7 @@ const userSchema = new mongoose.Schema({
 
     notifications: [{
         user_email: {
-            type: mongoose.Schema.Types.ObjectId, ref: 'User'
+            type: String
         },
         election_id: {
             type: mongoose.Schema.Types.ObjectId, ref: 'Election'

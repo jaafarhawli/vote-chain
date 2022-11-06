@@ -163,7 +163,7 @@ const viewElectionAsModerator = (req, res) => {
 }
 
 const addModerator = async (req, res) => {
-    const {email, election_id} = req.body;
+    const {email, election_id, sender_email} = req.body;
     User.findOne({email: email}, async (err, user) => {
         if(err) 
         return res.status(404).json("User not found");
@@ -176,12 +176,14 @@ const addModerator = async (req, res) => {
             return res.status(404).json("Election not found");
             if(election.moderators.includes(user._id))
             return res.status(400).json("This user is already a moderator to your election");
-            user.moderator_for.push(election_id);
+            user.notifications.push({
+                user_email: sender_email,
+                election_id: election_id,
+                election_title: election.title
+            });
             await user.save();
 
-            election.moderators.push(user._id);
-            await election.save();
-            res.status(200).json(user);
+            res.status(200).json({message: "Request sent successfully"});
     });
 });
 }
