@@ -17,7 +17,6 @@ router.get('/election/moderator/:user_id/:election_id', authMiddleware, viewElec
 router.post('/moderator', authMiddleware, adminMiddleware, addModerator);
 router.post('/moderator/remove', authMiddleware, adminMiddleware, removeModerator);
 router.post('/account', authMiddleware, deleteAccount);
-router.post('/voter/remove', authMiddleware, adminMiddleware, launchedMiddleware, removeVoter);
 router.get('/moderators/:election_id', authMiddleware, viewModerators);
 router.get('/voters/:election_id', authMiddleware, viewVoters);
 router.get('/notifications/:user_id', authMiddleware, viewNotifications);

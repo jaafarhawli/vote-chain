@@ -94,10 +94,30 @@ const addVoter = async (req, res)=>{
     }
 }
 
+const removeVoter = async (req, res) => {
+    const {voter_id, election_id} = req.body;
+    Voter.findById(voter_id, async (err, voter) => {
+        if(err)
+        return res.status(400).json("Invalid input");
+        Election.findById(election_id, (err, election) => {
+            if(err)
+            return res.status(404).json("Election not found");
+            const index = election.voters.indexOf(voter.email);
+            election.voters.splice(index, 1); 
+            election.save();
+        })  })  
+    Voter.findByIdAndRemove(voter_id, async (err) => {
+        if(err)
+        return res.status(400).json("Invalid input");
+    });
+    res.status(200).json("Voter removed successfully");
+}
+
 
 module.exports = {
     getVoter,
     viewElectionAsVoter,
     vote,
-    addVoter
+    addVoter, 
+    removeVoter
 }

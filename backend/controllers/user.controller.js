@@ -174,25 +174,6 @@ const removeModerator = async (req, res) => {
     res.status(200).json("Moderator removed successfully");
 }
 
-const removeVoter = async (req, res) => {
-    const {voter_id, election_id} = req.body;
-    Voter.findById(voter_id, async (err, voter) => {
-        if(err)
-        return res.status(400).json("Invalid input");
-        Election.findById(election_id, (err, election) => {
-            if(err)
-            return res.status(404).json("Election not found");
-            const index = election.voters.indexOf(voter.email);
-            election.voters.splice(index, 1); 
-            election.save();
-        })  })  
-    Voter.findByIdAndRemove(voter_id, async (err) => {
-        if(err)
-        return res.status(400).json("Invalid input");
-    });
-    res.status(200).json("Voter removed successfully");
-}
-
 const viewModerators = async (req, res) => {
     const {election_id} = req.params;
     User.find({moderator_for: {"$in": [election_id]}}, async (err, moderators) => {
@@ -271,7 +252,6 @@ module.exports = {
     viewElectionAsModerator,
     addModerator,
     removeModerator,
-    removeVoter,
     viewModerators,
     viewVoters,
     viewNotifications, 
