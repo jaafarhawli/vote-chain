@@ -341,24 +341,6 @@ const removeVoter = async (req, res) => {
     res.status(200).json("Voter removed successfully");
 }
 
-const searchModerator = async (req, res) => {
-    const {election_id, moderator_email} = req.params;
-    Election.findById(election_id, async(err, election) => {
-        if(err)
-        return res.status(404).json("Election not found");
-        User.findOne({email:moderator_email}, async(err, moderator) => {
-            if(err)
-            return res.status(404).json("Moderator is not found");
-            if(!moderator)
-            return res.status(404).json("Moderator is not found");
-            if(!election.moderators.includes(moderator._id))
-            return res.status(404).json("Moderator is not found");
-            return res.status(200).json(moderator);
-        });
-        return res.status(200).json(parties);
-    })
-}
-
 const viewModerators = async (req, res) => {
     const {election_id} = req.params;
     User.find({moderator_for: {"$in": [election_id]}}, async (err, moderators) => {
