@@ -4,6 +4,7 @@ viewElectionAsModerator, addModerator, removeModerator, addParty, removeParty, a
 const authMiddleware = require('../middlewares/auth.middleware');
 const imageMiddleware = require('../middlewares/image.middleware');
 const adminMiddleware = require('../middlewares/admin.middleware');
+const launchedMiddleware = require('../middlewares/launched.middleware');
 const router = Router();
 
 router.get('/:email', authMiddleware, getUser);
@@ -14,23 +15,23 @@ router.put('/account', authMiddleware, editAccount);
 router.put('/password', authMiddleware, changePassword);
 router.get('/election/:user_id/:election_id', authMiddleware, viewElectionAsAdmin);
 router.get('/election/moderator/:user_id/:election_id', authMiddleware, viewElectionAsModerator);
-router.post('/moderator', authMiddleware, addModerator);
-router.post('/moderator/remove', authMiddleware, removeModerator);
-router.post('/party', authMiddleware, addParty);
-router.post('/party/remove', authMiddleware, removeParty);
+router.post('/moderator', authMiddleware, adminMiddleware, addModerator);
+router.post('/moderator/remove', authMiddleware, adminMiddleware, removeModerator);
+router.post('/party', authMiddleware, adminMiddleware, addParty);
+router.post('/party/remove', authMiddleware, adminMiddleware, removeParty);
 router.post('/account', authMiddleware, deleteAccount);
-router.post('/candidate', authMiddleware, addCandidate);
-router.post('/candidate/remove', authMiddleware, removeCandidate);
+router.post('/candidate', authMiddleware, adminMiddleware, addCandidate);
+router.post('/candidate/remove', authMiddleware, adminMiddleware, removeCandidate);
 router.post('/voter', authMiddleware, addVoter);
-router.post('/voter/remove', authMiddleware, removeVoter);
+router.post('/voter/remove', authMiddleware, adminMiddleware, removeVoter);
 router.get('/moderators/:election_id', authMiddleware, viewModerators);
 router.get('/parties/:election_id', authMiddleware, viewParties);
 router.get('/candidates/:election_id', authMiddleware, viewCandidates);
 router.get('/voters/:election_id', authMiddleware, viewVoters);
-router.put('/election', authMiddleware, editElection);
-router.post('/election/delete', authMiddleware, removeElection);
+router.put('/election', authMiddleware, adminMiddleware, editElection);
+router.post('/election/delete', authMiddleware, adminMiddleware, removeElection);
 router.post('/image', imageMiddleware.single('candidateImg'), uploadCandidateImage);
-router.put('/election/launch', authMiddleware, adminMiddleware, launchElection);
+router.put('/election/launch', authMiddleware, adminMiddleware, launchedMiddleware, launchElection);
 
 
 
