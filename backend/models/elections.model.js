@@ -19,6 +19,14 @@ const electionsSchema = new mongoose.Schema({
     code: {
         type: String
     },
+    
+    description: {
+        type: String
+    },
+    
+    launched: {
+        type: Boolean
+    },
 
     admin: {
         type: mongoose.Schema.Types.ObjectId, ref: 'User'
