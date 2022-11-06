@@ -174,18 +174,6 @@ const removeModerator = async (req, res) => {
     res.status(200).json("Moderator removed successfully");
 }
 
-const removeCandidate = async (req, res) => {
-    const {candidate_id, party_id} = req.body;
-    try {
-    await Party.updateOne({"_id": party_id}, {"$pull": {
-        "candidates": {"_id": candidate_id}
-    }})
-    return res.status(200).json("Candidate removed successfully");
-    } catch (err) {
-        return res.status(500).json({ err });
-    }
-}
-
 const addVoter = async (req, res)=>{
     const {email, name, election_id} = req.body;
      
@@ -381,7 +369,6 @@ module.exports = {
     viewElectionAsModerator,
     addModerator,
     removeModerator,
-    removeCandidate,
     addVoter,
     removeVoter,
     viewModerators,
