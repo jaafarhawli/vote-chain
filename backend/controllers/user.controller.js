@@ -407,6 +407,7 @@ const editElection = async (req, res) => {
             title: data.title,
             start_time: data.start_time,
             end_time: data.end_time,
+            description: data.description
         }, async (err) => {
             if(err)
             return res.status(400).json("Invalid input");
