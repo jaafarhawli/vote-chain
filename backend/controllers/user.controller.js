@@ -261,7 +261,7 @@ const addCandidate = async (req, res) => {
         }
         party.candidates.push(candidate);
         party.save();
-        res.status(200).json("Candidate added successfully");
+        res.status(200).json(party.candidates[party.candidates.length-1]);    
     });
 }
 
@@ -461,7 +461,7 @@ const uploadCandidateImage = (req, res, next) => {
         res.status(404).json("Party not found");
         party.candidates.forEach((candidate)=> {
             if(candidate._id == candidate_id) {
-                candidate.picture_url = url + `/public/${candidate_id}` + req.file.filename;
+                candidate.picture_url = url + `/public/${candidate_id}/` + req.file.filename;
             }
         })
         party.save().then(result => {
