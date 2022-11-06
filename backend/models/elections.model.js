@@ -15,11 +15,6 @@ const electionsSchema = new mongoose.Schema({
         type: Date,
         required: 'End time is required',
     },
-    
-    timezone: {
-        type: String,
-        required: 'Time zone is required',
-    },
 
     code: {
         type: String
