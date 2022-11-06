@@ -6,9 +6,9 @@ const launchedMiddleware = require('../middlewares/launched.middleware');
 const imageMiddleware = require('../middlewares/image.middleware');
 const router = Router();
 
-router.post('/candidate', authMiddleware, adminMiddleware, launchedMiddleware, addCandidate);
-router.post('/candidate/remove', authMiddleware, adminMiddleware, launchedMiddleware, removeCandidate);
-router.get('/candidates/:election_id', authMiddleware, viewCandidates);
+router.post('/', authMiddleware, adminMiddleware, launchedMiddleware, addCandidate);
+router.post('/remove', authMiddleware, adminMiddleware, launchedMiddleware, removeCandidate);
+router.get('/:election_id', authMiddleware, viewCandidates);
 router.post('/image', imageMiddleware.single('candidateImg'), uploadCandidateImage);
 
 module.exports = router;
