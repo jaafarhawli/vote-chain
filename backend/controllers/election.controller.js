@@ -1,4 +1,6 @@
 const Election = require('../models/elections.model');
+const User = require('../models/users.model');
+const Party = require('../models/parties.model');
 
 const createElection = async(req, res) => {
     const {admin_id, title, start_time, end_time} = req.body;
