@@ -11,7 +11,7 @@ router.post('/delete', authMiddleware, adminMiddleware, launchedMiddleware, remo
 router.put('/launch', authMiddleware, adminMiddleware, launchedMiddleware, launchElection);
 router.get('/elections/:id', authMiddleware, viewElectionsAsAdmin);
 router.get('/elections/moderator/:id', authMiddleware, viewElectionsAsModerator);
-router.get('/election/:user_id/:election_id', authMiddleware, viewElectionAsAdmin);
-router.get('/election/moderator/:user_id/:election_id', authMiddleware, viewElectionAsModerator);
+router.get('/:user_id/:election_id', authMiddleware, viewElectionAsAdmin);
+router.get('/moderator/:user_id/:election_id', authMiddleware, viewElectionAsModerator);
 
 module.exports = router;
