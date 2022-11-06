@@ -128,15 +128,6 @@ const viewElectionAsModerator = (req, res) => {
     });
 }
 
-const viewModerators = async (req, res) => {
-    const {election_id} = req.params;
-    User.find({moderator_for: {"$in": [election_id]}}, async (err, moderators) => {
-        if(err)
-        return res.status(404).json("Election not founnd"); 
-        return res.status(200).json(moderators);
-    })
-}
-
 const viewNotifications = async (req, res) => {
     const {user_id} = req.params;
     User.findById(user_id, async (err, user) => {
@@ -195,7 +186,6 @@ module.exports = {
     deleteAccount,
     viewElectionAsAdmin,
     viewElectionAsModerator,
-    viewModerators,
     viewNotifications, 
     acceptRequest,
     rejectRequest

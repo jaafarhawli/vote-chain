@@ -15,7 +15,6 @@ router.put('/password', authMiddleware, changePassword);
 router.get('/election/:user_id/:election_id', authMiddleware, viewElectionAsAdmin);
 router.get('/election/moderator/:user_id/:election_id', authMiddleware, viewElectionAsModerator);
 router.post('/account', authMiddleware, deleteAccount);
-router.get('/moderators/:election_id', authMiddleware, viewModerators);
 router.get('/notifications/:user_id', authMiddleware, viewNotifications);
 router.post('/notifications/accept', authMiddleware, acceptRequest);
 router.post('/notifications/reject', authMiddleware, rejectRequest);
