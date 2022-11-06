@@ -58,8 +58,33 @@ const viewCandidates = async (req, res) => {
     })
 }
 
+const uploadCandidateImage = (req, res, next) => {
+    const {candidate_id, party_id} = req.body;
+    const url = req.protocol + '://' + req.get('host')
+    Party.findById(party_id, async (err, party) => {
+        if(err)
+        res.status(404).json("Party not found");
+        party.candidates.forEach((candidate)=> {
+            if(candidate._id == candidate_id) {
+                candidate.picture_url = url + `/public/${candidate_id}/` + req.file.filename;
+            }
+        })
+        party.save().then(result => {
+        res.status(201).json({
+            message: "Image uploaded successfully!",    
+        })
+    }).catch(err => {
+        console.log(err),
+            res.status(500).json({
+                error: err
+            });
+    })
+    })
+}
+
 module.exports = {
     addCandidate, 
     removeCandidate,
-    viewCandidates
+    viewCandidates,
+    uploadCandidateImage
 }
