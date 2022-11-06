@@ -34,6 +34,7 @@ const createElection = async(req, res) => {
         election.end_time = end_time;
         election.code = election_code;
         election.admin = admin_id;
+        election.launched = false;
         await election.save();
 
         const admin = await User.findById(admin_id);
