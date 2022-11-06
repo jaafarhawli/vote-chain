@@ -21,7 +21,6 @@ router.post('/account', authMiddleware, deleteAccount);
 router.post('/voter', authMiddleware, launchedMiddleware, addVoter);
 router.post('/voter/remove', authMiddleware, adminMiddleware, launchedMiddleware, removeVoter);
 router.get('/moderators/:election_id', authMiddleware, viewModerators);
-router.get('/candidates/:election_id', authMiddleware, viewCandidates);
 router.get('/voters/:election_id', authMiddleware, viewVoters);
 router.post('/image', imageMiddleware.single('candidateImg'), uploadCandidateImage);
 router.get('/notifications/:user_id', authMiddleware, viewNotifications);

@@ -32,7 +32,34 @@ const removeCandidate = async (req, res) => {
     }
 }
 
+const viewCandidates = async (req, res) => {
+    const {election_id} = req.params;
+    Party.find({election: election_id}, async (err, parties) => {
+        if(err)
+        return res.status(404).json("Election not founnd"); 
+        const candidates = [];
+        let data = {};
+            parties.forEach((party) => {
+                party.candidates.forEach((candidate) => {
+                    data.party = party.name;
+                    data.name= candidate.name;
+                    data.image = candidate.picture_url;
+                    data._id = candidate._id;
+                    candidates.push({
+                        "party": party.name,
+                        "party_id":party._id,
+                        "name": candidate.name,
+                        "image": candidate.picture_url,
+                        "id": candidate._id,
+                    });
+                })
+            })
+            return res.status(200).json(candidates);
+    })
+}
+
 module.exports = {
     addCandidate, 
-    removeCandidate
+    removeCandidate,
+    viewCandidates
 }
