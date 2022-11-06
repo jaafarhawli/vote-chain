@@ -70,10 +70,10 @@ const VoteMain = () => {
     <div className='flex flex-col justify-center items-center w-full h-[300px] bg-gradient-to-b from-purple-300 to-purple-400'>
         <h1 className='text-[34px] font-bold mb-8'>Time Left For Election</h1>
         <div className='flex gap-8'>
-            <Timer>{timerDays}</Timer>
-            <Timer>{timerHours}</Timer>
-            <Timer>{timerMinutes}</Timer>
-            <Timer>{timerSeconds}</Timer>
+            <Timer type={"Days"}>{timerDays}</Timer>
+            <Timer type={"Hours"}>{timerHours}</Timer>
+            <Timer type={"Minutes"}>{timerMinutes}</Timer>
+            <Timer type={"Seconds"}>{timerSeconds}</Timer>
         </div>
     </div>
     <LandingFooter />
