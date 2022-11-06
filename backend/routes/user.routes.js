@@ -3,6 +3,7 @@ const {getUser, createElection, viewElectionsAsAdmin, viewElectionsAsModerator, 
 viewElectionAsModerator, addModerator, removeModerator, addParty, removeParty, addCandidate, removeCandidate, addVoter, removeVoter, viewModerators, viewParties, viewCandidates, viewVoters, editElection, removeElection, uploadCandidateImage, deleteAccount, launchElection} = require('../controllers/user.controller');
 const authMiddleware = require('../middlewares/auth.middleware');
 const imageMiddleware = require('../middlewares/image.middleware');
+const adminMiddleware = require('../middlewares/admin.middleware');
 const router = Router();
 
 router.get('/:email', authMiddleware, getUser);
@@ -29,7 +30,7 @@ router.get('/voters/:election_id', authMiddleware, viewVoters);
 router.put('/election', authMiddleware, editElection);
 router.post('/election/delete', authMiddleware, removeElection);
 router.post('/image', imageMiddleware.single('candidateImg'), uploadCandidateImage);
-router.put('/election/launch', authMiddleware, launchElection);
+router.put('/election/launch', authMiddleware, adminMiddleware, launchElection);
 
 
 
