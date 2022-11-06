@@ -113,11 +113,21 @@ const removeVoter = async (req, res) => {
     res.status(200).json("Voter removed successfully");
 }
 
+const viewVoters = async (req, res) => {
+    const {election_id} = req.params;
+    Voter.find({election_id: election_id}, async (err, voters) => {
+        if(err)
+        return res.status(404).json("Election not founnd"); 
+        return res.status(200).json(voters);
+    })
+}
+
 
 module.exports = {
     getVoter,
     viewElectionAsVoter,
     vote,
     addVoter, 
-    removeVoter
+    removeVoter,
+    viewVoters
 }
