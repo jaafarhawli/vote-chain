@@ -17,19 +17,19 @@ router.get('/election/:user_id/:election_id', authMiddleware, viewElectionAsAdmi
 router.get('/election/moderator/:user_id/:election_id', authMiddleware, viewElectionAsModerator);
 router.post('/moderator', authMiddleware, adminMiddleware, addModerator);
 router.post('/moderator/remove', authMiddleware, adminMiddleware, removeModerator);
-router.post('/party', authMiddleware, adminMiddleware, addParty);
-router.post('/party/remove', authMiddleware, adminMiddleware, removeParty);
+router.post('/party', authMiddleware, adminMiddleware, launchedMiddleware, addParty);
+router.post('/party/remove', authMiddleware, adminMiddleware, launchedMiddleware, removeParty);
 router.post('/account', authMiddleware, deleteAccount);
-router.post('/candidate', authMiddleware, adminMiddleware, addCandidate);
-router.post('/candidate/remove', authMiddleware, adminMiddleware, removeCandidate);
-router.post('/voter', authMiddleware, addVoter);
-router.post('/voter/remove', authMiddleware, adminMiddleware, removeVoter);
+router.post('/candidate', authMiddleware, adminMiddleware, launchedMiddleware, addCandidate);
+router.post('/candidate/remove', authMiddleware, adminMiddleware, launchedMiddleware, removeCandidate);
+router.post('/voter', authMiddleware, launchedMiddleware, addVoter);
+router.post('/voter/remove', authMiddleware, adminMiddleware, launchedMiddleware, removeVoter);
 router.get('/moderators/:election_id', authMiddleware, viewModerators);
 router.get('/parties/:election_id', authMiddleware, viewParties);
 router.get('/candidates/:election_id', authMiddleware, viewCandidates);
 router.get('/voters/:election_id', authMiddleware, viewVoters);
-router.put('/election', authMiddleware, adminMiddleware, editElection);
-router.post('/election/delete', authMiddleware, adminMiddleware, removeElection);
+router.put('/election', authMiddleware, adminMiddleware, launchedMiddleware, editElection);
+router.post('/election/delete', authMiddleware, adminMiddleware, launchedMiddleware, removeElection);
 router.post('/image', imageMiddleware.single('candidateImg'), uploadCandidateImage);
 router.put('/election/launch', authMiddleware, adminMiddleware, launchedMiddleware, launchElection);
 
