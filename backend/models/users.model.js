@@ -24,6 +24,13 @@ const userSchema = new mongoose.Schema({
         select: false
     },
 
+    notifications: [{
+        user_email: {
+            type: mongoose.Schema.Types.ObjectId, ref: 'User'
+        },
+        election_title: String
+    }],
+
     elections: [{
         type: mongoose.Schema.Types.ObjectId, ref: 'Election'
     }],
