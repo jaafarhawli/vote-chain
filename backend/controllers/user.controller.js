@@ -366,45 +366,6 @@ const viewVoters = async (req, res) => {
     })
 }
 
-
-
-const removeElection = (req, res) => {
-    const {election_id} = req.body;
-    Election.findByIdAndRemove(election_id, (err) => {
-        if(err)
-        return res.status(400).json("Invalid input");
-        Voter.deleteMany({ election_id: election_id }, function (err) {
-            if(err) console.log(err);
-            console.log("Successful deletion");
-          });
-        Party.deleteMany({ election: election_id }, function (err) {
-            if(err) console.log(err);
-            console.log("Successful deletion");
-          });
-        User.findOne({elections: {"$in": [election_id]}}, (err, user) => {
-            if(err)
-            console.log("Election not found");
-    
-            User.find({moderator_for: {"$in": [election_id]}}, (err, users) => {
-                if(err)
-                console.log("Election not found");
-                if(users.length==0)
-                return res.status(200).json("Election removed successfully");
-                const index = user.elections.indexOf(election_id);
-                user.elections.splice(index, 1); 
-                user.save();
-                users.forEach((user) => {
-                    const index = user.moderator_for.indexOf(election_id);
-                    console.log("index", index);
-                    user.moderator_for.splice(index, 1); 
-                    user.save();
-                })
-                return res.status(200).json("Election removed successfully");
-            })
-        })
-    });
-}
-
 const uploadCandidateImage = (req, res, next) => {
     const {candidate_id, party_id} = req.body;
     const url = req.protocol + '://' + req.get('host')
@@ -518,7 +479,6 @@ module.exports = {
     viewParties,
     viewCandidates,
     viewVoters,
-    removeElection,
     uploadCandidateImage,
     launchElection,
     viewNotifications, 
