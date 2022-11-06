@@ -6,6 +6,7 @@ import landinglg from '../../assets/landing-lg.svg';
 import curve from '../../assets/backgroundcurve.svg';
 import Button from '../../components/Reusable/Button';
 import LandingFooter from '../Landing/LandingFooter';
+import Timer from '../../components/Reusable/Timer';
 
 
 const VoteMain = () => {
@@ -69,10 +70,10 @@ const VoteMain = () => {
     <div className='flex flex-col justify-center items-center w-full h-[300px] bg-gradient-to-b from-purple-300 to-purple-400'>
         <h1 className='text-[34px] font-bold mb-8'>Time Left For Election</h1>
         <div className='flex gap-8'>
-            <div className='w-[90px] h-[90px] bg-purple-100 flex justify-center items-center text-white text-[40px]'>{timerDays}</div>
-            <div className='w-[90px] h-[90px] bg-purple-100 flex justify-center items-center text-white text-[40px]'>{timerHours}</div>
-            <div className='w-[90px] h-[90px] bg-purple-100 flex justify-center items-center text-white text-[40px]'>{timerMinutes}</div>
-            <div className='w-[90px] h-[90px] bg-purple-100 flex justify-center items-center text-white text-[40px]'>{timerSeconds}</div>
+            <Timer>{timerDays}</Timer>
+            <Timer>{timerHours}</Timer>
+            <Timer>{timerMinutes}</Timer>
+            <Timer>{timerSeconds}</Timer>
         </div>
     </div>
     <LandingFooter />
