@@ -46,27 +46,8 @@ const vote = async (req, res) => {
     return res.status(200).json("Voted Successfully");
 }
 
-const viewParties = async (req, res) => {
-    const {election_id} = req.params;
-    Party.find({election: election_id}, async (err, parties) => {
-        if(err)
-        return res.status(404).json("Election not founnd"); 
-        return res.status(200).json(parties);
-    })
-}
-
-const viewCandidates = async (req, res) => {
-    const {party_id} = req.params;
-    const party = await Party.findById(party_id).select();
-    if(!party)
-    return res.status(404).json("Party not found");
-    return res.status(200).json(party.candidates); 
-}
-
 module.exports = {
     getVoter,
     viewElectionAsVoter,
     vote,
-    viewParties,
-    viewCandidates
 }
