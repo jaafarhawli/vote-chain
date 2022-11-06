@@ -369,29 +369,6 @@ const searchParty = async (req, res) => {
     })
 }
 
-const searchCandidate = async (req, res) => {
-    const {election_id, candidate_name} = req.params;
-    const regex = new RegExp("^" + candidate_name + "$", "i");
-    Election.findById(election_id, async(err) => {
-        if(err)
-        return res.status(404).json("Election not found");
-        Party.find({election:election_id}, async(err, party) => {
-            if(err)
-            return res.status(404).json("No candidates found");
-            if(!party)
-            return res.status(404).json("No candidates found");
-            const candidates = [];
-            party.forEach((party) => {
-                party.candidates.forEach((candidate) => {
-                    if(candidate.name.match(regex))
-                    candidates.push(candidate);
-                })
-            })
-            return res.status(200).json(candidates);
-        });
-    })
-}
-
 const viewModerators = async (req, res) => {
     const {election_id} = req.params;
     User.find({moderator_for: {"$in": [election_id]}}, async (err, moderators) => {
