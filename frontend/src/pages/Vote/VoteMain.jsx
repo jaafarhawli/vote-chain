@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/VOTE CHAIN-logo-white-horizantal.png';
 import landingsm from '../../assets/landing-sm.svg';
@@ -11,6 +11,40 @@ import LandingFooter from '../Landing/LandingFooter';
 const VoteMain = () => {
 
   const navigate = useNavigate();
+
+  const [timerDays, setTimerDays] = useState();
+  const [timerHours, setTimerHours] = useState();
+  const [timerMinutes, setTimerMinutes] = useState();
+  const [timerSeconds, setTimerSeconds] = useState();
+
+  const startTimer = () => {
+    const startDate = new Date(localStorage.election_start).getTime();
+
+    let interval = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = startDate - now;
+      
+      const days = Math.floor(distance / (24 * 60 * 60 * 1000));
+      const hours = Math.floor(distance % (24 * 60 * 60 * 1000) / (60 * 60 * 1000));
+      const minutes = Math.floor(distance % (60 * 60 * 1000) / (60 * 1000));
+      const seconds = Math.floor(distance % (60 * 1000) / 1000);
+
+      if(distance<0)
+      clearInterval(interval.current);
+      else {
+        setTimerDays(days)
+        setTimerHours(hours)
+        setTimerMinutes(minutes)
+        setTimerSeconds(seconds)
+      }
+    })
+  }
+ 
+
+  useEffect(() => {
+    startTimer();
+  });
+
 
   return (
     <>
@@ -35,10 +69,10 @@ const VoteMain = () => {
     <div className='flex flex-col justify-center items-center w-full h-[300px] bg-gradient-to-b from-purple-300 to-purple-400'>
         <h1 className='text-[34px] font-bold mb-8'>Time Left For Election</h1>
         <div className='flex gap-8'>
-            <div className='w-[90px] h-[90px] bg-purple-100'></div>
-            <div className='w-[90px] h-[90px] bg-purple-100'></div>
-            <div className='w-[90px] h-[90px] bg-purple-100'></div>
-            <div className='w-[90px] h-[90px] bg-purple-100'></div>
+            <div className='w-[90px] h-[90px] bg-purple-100 flex justify-center items-center text-white text-[40px]'>{timerDays}</div>
+            <div className='w-[90px] h-[90px] bg-purple-100 flex justify-center items-center text-white text-[40px]'>{timerHours}</div>
+            <div className='w-[90px] h-[90px] bg-purple-100 flex justify-center items-center text-white text-[40px]'>{timerMinutes}</div>
+            <div className='w-[90px] h-[90px] bg-purple-100 flex justify-center items-center text-white text-[40px]'>{timerSeconds}</div>
         </div>
     </div>
     <LandingFooter />
