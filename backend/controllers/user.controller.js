@@ -400,10 +400,10 @@ const viewVoters = async (req, res) => {
 const editElection = async (req, res) => {
     const {id, ...data} = req.body
 
-    Election.findById(id, async (err) => {
+    Election.findById(election_id, async (err) => {
         if(err) 
         return res.status(400).json("Invalid input");
-        Election.findByIdAndUpdate(id,{
+        Election.findByIdAndUpdate(election_id,{
             title: data.title,
             start_time: data.start_time,
             end_time: data.end_time,
