@@ -28,6 +28,22 @@ const Settings = () => {
     const navigate = useNavigate();
 
     const saveInfo = async() => {
+      const startdate = new Date(starttime);
+      const enddate = new Date(endtime);
+
+      if((enddate - startdate) < 0) {
+        setError(true);
+        setMessage("Your election end time should be ahead of the start time");
+        setSuccessModal(true);
+        return;
+      }
+      
+      if(((enddate - startdate)/36e5) < 24) {
+        setError(true);
+        setMessage("Your election should be 24 hours at least");
+        setSuccessModal(true);
+        return;
+      }
 
         const form = {
             id: localStorage.election_id,
