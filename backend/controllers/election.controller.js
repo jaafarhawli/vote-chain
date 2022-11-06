@@ -1,0 +1,1 @@
+const Election = require('../models/elections.model');

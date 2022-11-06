@@ -547,8 +547,6 @@ const rejectRequest = async (req, res) => {
     }
 }
 
-
-
 module.exports = {
     getUser,
     createElection,
