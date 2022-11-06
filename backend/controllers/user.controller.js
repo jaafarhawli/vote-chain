@@ -533,6 +533,18 @@ const acceptRequest = async (req, res) => {
 });
 }
 
+const rejectRequest = async (req, res) => {
+    const {user_id, election_id} = req.body;
+    try {
+    await User.updateOne({"_id": user_id}, {"$pull": {
+        "notifications": {"election_id": election_id}
+    }})
+    return res.status(200).json({message: "Request rejected"});
+    } catch (err) {
+        return res.status(500).json({ err });
+    }
+}
+
 
 
 module.exports = {
@@ -562,5 +574,6 @@ module.exports = {
     uploadCandidateImage,
     launchElection,
     viewNotifications, 
-    acceptRequest
+    acceptRequest,
+    rejectRequest
 }
