@@ -280,15 +280,6 @@ const viewModerators = async (req, res) => {
     })
 }
 
-const viewParties = async (req, res) => {
-    const {election_id} = req.params;
-    Party.find({election: election_id}, async (err, parties) => {
-        if(err)
-        return res.status(404).json("Election not founnd"); 
-        return res.status(200).json(parties);
-    })
-}
-
 const viewCandidates = async (req, res) => {
     const {election_id} = req.params;
     Party.find({election: election_id}, async (err, parties) => {
@@ -413,7 +404,6 @@ module.exports = {
     addVoter,
     removeVoter,
     viewModerators,
-    viewParties,
     viewCandidates,
     viewVoters,
     uploadCandidateImage,
