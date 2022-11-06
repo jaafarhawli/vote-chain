@@ -3,7 +3,6 @@ const Election = require('../models/elections.model');
 const Voter = require('../models/voters.model');
 const Party = require('../models/parties.model');
 const bcrypt = require('bcrypt');
-var validator = require("email-validator");
 
 const getUser = async (req, res) => {
     const {email} = req.params;

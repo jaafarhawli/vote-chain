@@ -1,6 +1,7 @@
 const Election = require('../models/elections.model');
 const Voter = require('../models/voters.model');
 const Party = require('../models/parties.model');
+var validator = require("email-validator");
 
 const getVoter = async (req, res) => {
     const {voter_id} = req.params;
