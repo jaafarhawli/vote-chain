@@ -24,6 +24,9 @@ app.use('/party', partyRoutes);
 const candidateRoutes = require('./routes/candidate.routes');
 app.use('/candidate', candidateRoutes);
 
+const moderatorRoutes = require('./routes/moderator.routes');
+app.use('/moderator', moderatorRoutes);
+
 app.listen(process.env.PORT, (err)=>{
     if(err) throw err;
     console.log(`server running on port ${process.env.PORT}`);

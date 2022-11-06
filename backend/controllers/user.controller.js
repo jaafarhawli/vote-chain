@@ -214,7 +214,6 @@ module.exports = {
     deleteAccount,
     viewElectionAsAdmin,
     viewElectionAsModerator,
-    addModerator,
     removeModerator,
     viewModerators,
     viewNotifications, 
