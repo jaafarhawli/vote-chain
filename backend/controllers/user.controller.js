@@ -359,16 +359,6 @@ const searchModerator = async (req, res) => {
     })
 }
 
-const searchParty = async (req, res) => {
-    const {election_id, party_name} = req.params;
-    Election.findById(election_id, async(err) => {
-        if(err)
-        return res.status(404).json("Election not found");
-        const parties = await Party.find({$and:[{election: election_id},{name: {$regex: party_name, $options: 'i'}}]});
-        return res.status(200).json(parties);
-    })
-}
-
 const viewModerators = async (req, res) => {
     const {election_id} = req.params;
     User.find({moderator_for: {"$in": [election_id]}}, async (err, moderators) => {
