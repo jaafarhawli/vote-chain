@@ -3,8 +3,8 @@ const multer = require('multer');
 
 const storage = multer.diskStorage({
     destination: async (req, file, cb) => {
-        const {party_id} = req.body;
-        let DIR = `./public/${party_id}`;
+        const {candidate_id} = req.body;
+        let DIR = `./public/${candidate_id}`;
         if (!fs.existsSync(DIR)){
             fs.mkdirSync(DIR);
         }
