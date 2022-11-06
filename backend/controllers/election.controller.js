@@ -120,11 +120,21 @@ const viewElectionsAsAdmin = (req, res) => {
     });
 }
 
+const viewElectionsAsModerator = (req, res) => {
+    const {id} = req.params;
+    Election.find({moderators: {"$in": [id]}}, (err, elections) => {
+        if(err) 
+        return res.status(404).json("No Elections");
+        res.status(200).json(elections);
+    });
+}
+
 module.exports = {
     createElection, 
     editElection,
     removeElection,
     launchElection,
-    viewElectionsAsAdmin
+    viewElectionsAsAdmin,
+    viewElectionsAsModerator
 
 }

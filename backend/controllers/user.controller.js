@@ -14,15 +14,6 @@ const getUser = async (req, res) => {
     } 
 })};
 
-const viewElectionsAsModerator = (req, res) => {
-    const {id} = req.params;
-    Election.find({moderators: {"$in": [id]}}, (err, elections) => {
-        if(err) 
-        return res.status(404).json("No Elections");
-        res.status(200).json(elections);
-    });
-}
-
 const editAccount = async (req, res) => {
     const {id, ...data} = req.body
 
@@ -168,7 +159,6 @@ const rejectRequest = async (req, res) => {
 
 module.exports = {
     getUser,
-    viewElectionsAsModerator,
     editAccount,
     changePassword,
     deleteAccount,
