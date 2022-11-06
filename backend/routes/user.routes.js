@@ -1,6 +1,6 @@
 const {Router} = require('express');
 const {getUser, viewElectionsAsAdmin, viewElectionsAsModerator, editAccount, changePassword, viewElectionAsAdmin,
-viewElectionAsModerator, addModerator, removeModerator, addParty, removeParty, addCandidate, removeCandidate, addVoter, removeVoter, viewModerators, viewParties, viewCandidates, viewVoters, uploadCandidateImage, deleteAccount, viewNotifications, acceptRequest, rejectRequest} = require('../controllers/user.controller');
+viewElectionAsModerator, addModerator, removeModerator, removeParty, addCandidate, removeCandidate, addVoter, removeVoter, viewModerators, viewParties, viewCandidates, viewVoters, uploadCandidateImage, deleteAccount, viewNotifications, acceptRequest, rejectRequest} = require('../controllers/user.controller');
 const authMiddleware = require('../middlewares/auth.middleware');
 const imageMiddleware = require('../middlewares/image.middleware');
 const adminMiddleware = require('../middlewares/admin.middleware');
@@ -17,7 +17,6 @@ router.get('/election/:user_id/:election_id', authMiddleware, viewElectionAsAdmi
 router.get('/election/moderator/:user_id/:election_id', authMiddleware, viewElectionAsModerator);
 router.post('/moderator', authMiddleware, adminMiddleware, addModerator);
 router.post('/moderator/remove', authMiddleware, adminMiddleware, removeModerator);
-router.post('/party', authMiddleware, adminMiddleware, launchedMiddleware, addParty);
 router.post('/party/remove', authMiddleware, adminMiddleware, launchedMiddleware, removeParty);
 router.post('/account', authMiddleware, deleteAccount);
 router.post('/candidate', authMiddleware, adminMiddleware, launchedMiddleware, addCandidate);
