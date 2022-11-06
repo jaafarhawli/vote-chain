@@ -15,9 +15,11 @@ const viewElectionAsVoter = async (req, res) => {
     const {email, election_id} = req.params;
     const election = await Election.findById(election_id).select("-admin -moderators");
     if(!election)
-    return res.status(404).json("Election not found");
+    return res.status(404).json({message:"Election not found"});
     if(!election.voters.includes(email))
-    return res.status(401).json("Unauthorized");
+    return res.status(401).json({message:"Unauthorized"});
+    if(election.launched===true)
+    return res.status(400).json({message:"Election is not launched yet"});
     res.status(200).json(election);
 }
 
