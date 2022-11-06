@@ -129,12 +129,23 @@ const viewElectionsAsModerator = (req, res) => {
     });
 }
 
+const viewElectionAsAdmin = (req, res) => {
+    const {user_id, election_id} = req.params;
+    Election.findById(election_id, (err, election) => {
+        if(err) 
+        return res.status(404).json("Election not found");
+        if(election.admin!=user_id)
+        return res.status(401).json("Unauthorized");
+        res.status(200).json(election);
+    });
+}
+
 module.exports = {
     createElection, 
     editElection,
     removeElection,
     launchElection,
     viewElectionsAsAdmin,
-    viewElectionsAsModerator
-
+    viewElectionsAsModerator,
+    viewElectionAsAdmin
 }
