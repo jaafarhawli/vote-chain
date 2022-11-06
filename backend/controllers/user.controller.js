@@ -478,17 +478,20 @@ const uploadCandidateImage = (req, res, next) => {
 }
 
 const launchElection = async (req, res) => {
-    const {user_id} = req.body
+    const {election_id} = req.body
 
-    Election.findById(user_id, async (err) => {
+    Election.findById(election_id, async (err, election) => {
         if(err) 
         return res.status(400).json({message:"Invalid input"});
-        Election.findByIdAndUpdate(user_id,{
+        const date =  new Date();
+        if(date>election.start_time)
+        return res.status(400).json({message:"Election has passed it's start time before being launched"});
+        Election.findByIdAndUpdate(election_id,{
             launched: true
         }, async (err) => {
             if(err)
             return res.status(400).json("Invalid input");
-            res.status(200).json({message:"Election updated successfully"});
+            res.status(200).json({message:"Election launched successfully"});
         });
     }); 
 } 

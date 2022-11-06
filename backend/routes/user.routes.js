@@ -33,6 +33,4 @@ router.post('/election/delete', authMiddleware, adminMiddleware, launchedMiddlew
 router.post('/image', imageMiddleware.single('candidateImg'), uploadCandidateImage);
 router.put('/election/launch', authMiddleware, adminMiddleware, launchedMiddleware, launchElection);
 
-
-
 module.exports = router;
