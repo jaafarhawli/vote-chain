@@ -140,6 +140,26 @@ const viewElectionAsAdmin = (req, res) => {
     });
 }
 
+const viewElectionAsModerator = (req, res) => {
+    const {user_id, election_id} = req.params;
+    Election.findById(election_id, (err, election) => {
+        if(err) 
+        return res.status(404).json("Election not found");
+        if(!election.moderators.includes(user_id))
+        return res.status(401).json("Unauthorized");
+        const result = {
+            id: election._id,
+            code: election.code,
+            title: election.title,
+            start_time: election.start_time,
+            end_time: election.end_time,
+            timezone: election.timezone,
+            voters: election.voters
+        }
+        res.status(200).json(result);
+    });
+}
+
 module.exports = {
     createElection, 
     editElection,
@@ -147,5 +167,6 @@ module.exports = {
     launchElection,
     viewElectionsAsAdmin,
     viewElectionsAsModerator,
-    viewElectionAsAdmin
+    viewElectionAsAdmin,
+    viewElectionAsModerator
 }
