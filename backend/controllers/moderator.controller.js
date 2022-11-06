@@ -1,6 +1,5 @@
-const Party = require('../models/parties.model');
-const Election = require('../models/elections.model');
 const User = require('../models/users.model');
+const Election = require('../models/elections.model');
 
 const addModerator = async (req, res) => {
     const {email, election_id, sender_email} = req.body;
