@@ -1,0 +1,1 @@
+const Party = require('../models/parties.model');
