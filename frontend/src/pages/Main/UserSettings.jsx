@@ -44,10 +44,10 @@ const UserSettings = () => {
       setMessage('Account updated successfully');
       setSuccessModal(true);
     } catch (error) {
-      setMessage(error.message);
+      setMessage(error.response.data.message);
       setIsError(true);
       setSuccessModal(true);
-      console.log(error);
+      console.log(error.response.data.message);
     }
 }
   
@@ -83,7 +83,7 @@ const deleteAccount = async () => {
   const form = {
       id: localStorage.id
   }
-  
+
   try {
       await axios.post('user/account', form, {
           headers: {
@@ -94,7 +94,7 @@ const deleteAccount = async () => {
         document.body.style.overflow = 'unset';
         navigate('/');
       } catch (error) {
-        console.log(error);
+        console.log(error.response.data.message);
       }
   }
 
