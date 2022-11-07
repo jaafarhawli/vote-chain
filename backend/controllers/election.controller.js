@@ -134,8 +134,8 @@ const viewElectionsAsAdmin = (req, res) => {
     const {id} = req.params;
     Election.find({admin: id}, (err, elections) => {
         if(err) 
-        return res.status(404).json("No Elections");
-        res.status(200).json(elections);
+        return res.status(404).json({message:"No Elections"});
+        res.status(200).json({data: elections});
     });
 }
 
@@ -143,8 +143,8 @@ const viewElectionsAsModerator = (req, res) => {
     const {id} = req.params;
     Election.find({moderators: {"$in": [id]}}, (err, elections) => {
         if(err) 
-        return res.status(404).json("No Elections");
-        res.status(200).json(elections);
+        return res.status(404).json({message:"No Elections"});
+        res.status(200).json({data: elections});
     });
 }
 
@@ -152,10 +152,10 @@ const viewElectionAsAdmin = (req, res) => {
     const {user_id, election_id} = req.params;
     Election.findById(election_id, (err, election) => {
         if(err) 
-        return res.status(404).json("Election not found");
+        return res.status(404).json({message:"Election not found"});
         if(election.admin!=user_id)
-        return res.status(401).json("Unauthorized");
-        res.status(200).json(election);
+        return res.status(401).json({message:"Unauthorized"});
+        res.status(200).json({data: election});
     });
 }
 
@@ -163,9 +163,9 @@ const viewElectionAsModerator = (req, res) => {
     const {user_id, election_id} = req.params;
     Election.findById(election_id, (err, election) => {
         if(err) 
-        return res.status(404).json("Election not found");
+        return res.status(404).json({message:"Election not found"});
         if(!election.moderators.includes(user_id))
-        return res.status(401).json("Unauthorized");
+        return res.status(401).json({message:"Unauthorized"});
         const result = {
             id: election._id,
             code: election.code,
@@ -175,7 +175,7 @@ const viewElectionAsModerator = (req, res) => {
             timezone: election.timezone,
             voters: election.voters
         }
-        res.status(200).json(result);
+        res.status(200).json({data: result});
     });
 }
 
