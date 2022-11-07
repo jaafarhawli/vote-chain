@@ -5,12 +5,22 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Reusable/Button';
 import {IoIosNotifications} from 'react-icons/io';
+import {useQuery} from '@tanstack/react-query';
+import axios from '../../api/axios';
  
 const MainHeader = ({title, empty, open}) => {
 
     const navigate = useNavigate();
 
-    const [showNotifications, setShowNotifications] = useState(false);    
+    const [showNotifications, setShowNotifications] = useState(false);   
+    
+    const {data} = useQuery([], async () => {
+      return axios.get(`user/notifications/${localStorage.id}`, {
+                  headers: {
+                    Authorization: `bearer ${localStorage.token}`
+                  }
+                }).then((res) => res.data.data);
+    })
 
     return (
     <div>
