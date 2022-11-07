@@ -18,10 +18,10 @@ router.post('/delete', authMiddleware, adminMiddleware, launchedMiddleware, remo
 router.put('/launch', authMiddleware, adminMiddleware, launchedMiddleware, launchElection);
 
 // View elections as admin
-router.get('/elections/:id', authMiddleware, viewElectionsAsAdmin);
+router.get('/:id', authMiddleware, viewElectionsAsAdmin);
 
 // View elections as moderator
-router.get('/elections/moderator/:id', authMiddleware, viewElectionsAsModerator);
+router.get('/moderator/:id', authMiddleware, viewElectionsAsModerator);
 
 // View election as admin
 router.get('/:user_id/:election_id', authMiddleware, viewElectionAsAdmin);
