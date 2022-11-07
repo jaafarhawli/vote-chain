@@ -48,7 +48,7 @@ const createElection = async(req, res) => {
 }
 
 const editElection = async (req, res) => {
-    const {id, ...data} = req.body
+    const {election_id, ...data} = req.body
 
     if(data.end_time-data.start_time<0)
     return res.status(400).json({
