@@ -1,7 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import Button from '../../components/Reusable/Button';
-import TimezonePicker from 'react-bootstrap-timezone-picker';
-import 'react-bootstrap-timezone-picker/dist/react-bootstrap-timezone-picker.min.css';
 import FormInput from '../../components/Reusable/FormInput';
 import axios from '../../api/axios';
 import SuccessModal from '../../components/Modals/SuccessModal';
@@ -16,7 +14,6 @@ const Settings = () => {
     const [title, setTitle] = useState(localStorage.election_title);
     const [starttime, setStarttime] = useState(localStorage.election_start);
     const [endtime, setEndtime] = useState(localStorage.election_end);
-    const [timezone, setTimezone] = useState(localStorage.election_timezone);
     const [successModal, setSuccessModal] = useState(false);
     const [error, setError] = useState(true);
     const [message, setMessage] = useState('');
@@ -51,7 +48,6 @@ const Settings = () => {
             title: title,
             start_time: starttime,
             end_time: endtime,
-            timezone: timezone
         }
         try {
           await axios.put('election', form, {
@@ -62,7 +58,6 @@ const Settings = () => {
           localStorage.setItem('election_title', title);
           localStorage.setItem('election_start', starttime);
           localStorage.setItem('election_end', endtime);
-          localStorage.setItem('election_timezone', timezone);
           setStarttime(localStorage.election_start);
           setEndtime(localStorage.election_end);
           setError(false);
@@ -100,15 +95,10 @@ const Settings = () => {
         document.body.style.overflow = 'unset';
     }
 
-    const handleChange = (value) => {
-        setTimezone(value);
-    }
-
-
     useEffect(() => {
-        if (title===localStorage.election_title && timezone===localStorage.election_timezone && starttime===localStorage.election_start && endtime===localStorage.election_end)
+        if (title===localStorage.election_title && starttime===localStorage.election_start && endtime===localStorage.election_end)
         setDisabled(true);
-        if(title==='' || timezone==='')
+        if(title==='')
         setDisabled(true)
         if(title!==localStorage.election_title && title!=='')
         setDisabled(false);
@@ -116,9 +106,7 @@ const Settings = () => {
         setDisabled(false);
         if(endtime!==localStorage.election_end && endtime!=='')
         setDisabled(false);
-        if(timezone!==localStorage.election_timezone && timezone!=='')
-        setDisabled(false);
-      }, [title, starttime, endtime, timezone, save]);
+      }, [title, starttime, endtime, save]);
 
   return (
       <>
@@ -159,15 +147,6 @@ const Settings = () => {
                 />
             </label>
           </div>
-          <label>
-              <p className='font-semibold'>Timezone</p>
-              <TimezonePicker
-                  defaultValue = {localStorage.election_timezone}
-                  placeholder   = "Select timezone..."
-                  onChange={handleChange}
-                  className='timezone w-full'
-                />           
-          </label>
           <Button className='bg-cyan' disabled={disabled} onClick={saveInfo} >Save Changes</Button>
       </form> 
     </div>
