@@ -1,4 +1,4 @@
-const {viewElectionAsModeratorResult, removeElectionFromUsers, updateElection, newElection} = require('../utils/election.utils');
+const {viewElectionAsModeratorResult, removeElectionFromUsers, updateElection, newElection, setLaunch} = require('../utils/election.utils');
 
 const User = require('../models/users.model');
 const Election = require('../models/elections.model');
@@ -103,14 +103,7 @@ const launchElection = async (req, res) => {
     }
     if(candidates===0)
     return res.status(400).json({message:"Add candidates before launching your election"});
-
-    Election.findByIdAndUpdate(election_id,{
-        launched: true
-    }, async (err) => {
-        if(err)
-        return res.status(400).json("Invalid input");
-        res.status(200).json({message:"Election launched successfully"});
-    });
+    setLaunch(election_id);
 } 
 
 const viewElectionsAsAdmin = (req, res) => {

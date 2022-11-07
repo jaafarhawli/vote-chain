@@ -61,6 +61,16 @@ const newElection = async (title, start_time, end_time, election_code, admin_id)
     }
 }
 
+const setLaunch = (id) => {
+    Election.findByIdAndUpdate(id,{
+        launched: true
+    }, async (err) => {
+        if(err)
+        return res.status(400).json("Invalid input");
+        res.status(200).json({message:"Election launched successfully"});
+    });
+}
+
 
 
 
@@ -68,5 +78,6 @@ module.exports = {
     viewElectionAsModeratorResult,
     removeElectionFromUsers,
     updateElection,
-    newElection
+    newElection,
+    setLaunch
 }
