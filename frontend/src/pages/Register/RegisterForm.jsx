@@ -30,7 +30,6 @@ const RegisterForm = () => {
       }
       try {
         const signup = await axios.post('auth/signup/user', form);
-        console.log(signup.data.user._id);
         localStorage.setItem('firstname', firstname);
         localStorage.setItem('lastname', lastname);
         localStorage.setItem('email', email);
