@@ -13,6 +13,16 @@ const createElection = async(req, res) => {
         code = Election.find({code: election_code});
     }
 
+    if(end_time-start_time<0)
+    return res.status(400).json({
+        message: "Election end time should be ahead of start time"
+    })
+    
+    if(end_time-start_time<24)
+    return res.status(400).json({
+        message: "Election should be 24 hours atleast"
+    })
+
     try{
         const election = new Election();
         election.title = title;
@@ -27,7 +37,7 @@ const createElection = async(req, res) => {
         admin.elections.push(election._id);
         await admin.save();
 
-        res.status(200).json(election);
+        res.status(200).json({data: election});
 
     }catch(err){
         res.status(400).json({
