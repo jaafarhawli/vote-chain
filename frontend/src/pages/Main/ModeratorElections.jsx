@@ -11,11 +11,11 @@ const ModeratorElections = () => {
     const navigate = useNavigate();
 
     const {data} = useQuery(["moderator"], async () => {
-        return axios.get(`user/elections/moderator/${localStorage.id}`, {
+        return axios.get(`election/moderator/${localStorage.id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
                     }
-                  }).then((res) => res.data);
+                  }).then((res) => res.data.data);
     })
 
     const viewElection = (id, timezone, start_time, end_time) => {
