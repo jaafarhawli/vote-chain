@@ -7,6 +7,7 @@ import Button from '../../components/Reusable/Button';
 import {IoIosNotifications} from 'react-icons/io';
 import {useQuery} from '@tanstack/react-query';
 import axios from '../../api/axios';
+import {VscWorkspaceTrusted, VscWorkspaceUntrusted} from 'react-icons/vsc';
  
 const MainHeader = ({title, empty, open}) => {
 
@@ -22,6 +23,8 @@ const MainHeader = ({title, empty, open}) => {
                 }).then((res) => res.data.data);
     })
 
+    console.log(data)
+
     return (
     <div>
       <div className='flex flex-col lg:px-28 md:px-10 px-4 bg-gradient-to-b from-black-100 to-black-200 w-full pt-6'>
@@ -30,7 +33,25 @@ const MainHeader = ({title, empty, open}) => {
             <div className='flex gap-3 text-white font-semibold items-center'>
                 <h2 className='hover:bg-purple-300/50 duration-150 p-2 rounded-lg select-none cursor-pointer' onClick={() => navigate('/main')}>Admin</h2>
                 <h2 className='hover:bg-purple-300/50 duration-150 p-2 rounded-lg select-none cursor-pointer' onClick={() => navigate('/main/moderate')}>Moderator</h2>
-                <IoIosNotifications className='text-[28px] hover:text-cyan duration-150' onClick={() => setShowNotifications(true)} />
+                <div className='relative'>
+                  <IoIosNotifications className='text-[28px] hover:text-cyan duration-150' onClick={() => setShowNotifications(true)} />
+                  <div className='absolute right-0 w-[400px] h-[500px] bg-purple-300 rounded-xl p-4'>
+                    <h1 className='text-black-100 text-[20px]'>Notifications</h1>
+                    <div className='w-full bg-black-100 h-[1px]'></div>
+                    <div className='grid grid-cols-1 gap-2'>
+                    {data?.map((notification) => (
+                      <div className='border-b-[1px] pb-2 border-black-100' key={notification._id}>
+                        <p className='text-black-100 my-2 font-normal'>{notification.user_email} wants to add you as a moderator to his election "{notification.election_title}</p>
+                        <div className='flex gap-4'>
+                          <VscWorkspaceTrusted className='text-green text-[24px] hover:text-black-100 duration-150' />
+                          <VscWorkspaceUntrusted className='text-red text-[24px] hover:text-black-100 duration-150' />
+                        </div>
+                      </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
                 <Button onClick={() => navigate('/main/settings')}>{localStorage.firstname} {localStorage.lastname}</Button>
             </div>
         </div>
