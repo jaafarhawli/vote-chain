@@ -6,7 +6,7 @@ const addParty = async (req, res) => {
 
     Election.findById(election_id, (err) => {
         if(err)
-        return res.status(404).json("Election not found");});
+        return res.status(404).json({message:"Election not found"});});
 
         try{
             const party = new Party();
@@ -18,7 +18,7 @@ const addParty = async (req, res) => {
             election.parties.push(party._id);
             await election.save();
     
-            res.status(200).json(party);
+            res.status(200).json({data: party});
     
         }catch(err){
             res.status(400).json({
@@ -31,24 +31,24 @@ const removeParty = async (req, res) => {
     const {party_id, election_id} = req.body;
     Party.findByIdAndRemove(party_id, async (err) => {
         if(err)
-        return res.status(400).json("Invalid input");
+        return res.status(400).json({message:"Invalid input"});
     });
     Election.findById(election_id, (err, election) => {
         if(err)
-        return res.status(404).json("Election not found");
+        return res.status(404).json({message:"Election not found"});
         const index = election.parties.indexOf(election_id);
         election.parties.splice(index, 1); 
         election.save();
     })
-    res.status(200).json("Party removed successfully");
+    res.status(200).json({message:"Party removed successfully"});
 }
 
 const viewParties = async (req, res) => {
     const {election_id} = req.params;
     Party.find({election: election_id}, async (err, parties) => {
         if(err)
-        return res.status(404).json("Election not founnd"); 
-        return res.status(200).json(parties);
+        return res.status(404).json({message:"Election not founnd"}); 
+        return res.status(200).json({data: parties});
     })
 }
 
