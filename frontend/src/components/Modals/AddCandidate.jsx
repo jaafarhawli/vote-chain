@@ -32,7 +32,7 @@ const AddCandidate = ({open, closeModal}) => {
                 }
               });
 
-              localStorage.setItem('candidate_id', data.data._id);
+              localStorage.setItem('candidate_id', data.data.data._id);
               if(image) {
                 const formData = new FormData();
 

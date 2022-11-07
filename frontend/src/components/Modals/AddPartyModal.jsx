@@ -17,11 +17,12 @@ const AddPartyModal = ({open, closeModal, refetch}) => {
 
         const form = {
             name: name,
-            election_id: localStorage.election_id
+            election_id: localStorage.election_id,
+            user_id: localStorage.id
         }
         
         try {
-             await axios.post('user/party', form, {
+             await axios.post('party', form, {
                 headers: {
                   Authorization: `bearer ${localStorage.token}`
                 }
@@ -29,9 +30,9 @@ const AddPartyModal = ({open, closeModal, refetch}) => {
               refetch();
               closeModal();
             } catch (error) {
-                setError(error.message);
+                setError(error.response.data.message);
                 setErrorModal(true);
-              console.log(error);
+              console.log(error.response.data.message);
             }
         
     }
