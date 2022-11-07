@@ -59,6 +59,7 @@ const addVoter = async (req, res)=>{
         return res.status(400).json({message:"Voter is already in the election"});
     }
 
+    // Generate a unique voter id for the voter
     let voter_id = Math.random().toString().slice(2,11);
     let id_exists = Election.findOne({voter_id: voter_id});
     while(id_exists.length==1) {
@@ -66,6 +67,7 @@ const addVoter = async (req, res)=>{
         id_exists = Election.findOne({voter_id: voter_id});
     }
 
+    // Generate a unique voter key for the voter
     let voter_key = Math.random().toString(36).substring(2,11);
     let key_exists = Election.findOne({voter_key: voter_key});
     while(key_exists.length==1) {

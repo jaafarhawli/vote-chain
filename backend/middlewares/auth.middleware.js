@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/users.model');
 
+// Check if user token is valid
 const authMiddleware = async (req, res, next) => {
     if(!req.headers.authorization)
     return res.status(401).json({message: "Unauthorized"})

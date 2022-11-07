@@ -36,23 +36,18 @@ const viewCandidates = async (req, res) => {
         if(err)
         return res.status(404).json({message:"Election not founnd"}); 
         const candidates = [];
-        let data = {};
-            parties.forEach((party) => {
-                party.candidates.forEach((candidate) => {
-                    data.party = party.name;
-                    data.name= candidate.name;
-                    data.image = candidate.picture_url;
-                    data._id = candidate._id;
-                    candidates.push({
-                        "party": party.name,
-                        "party_id":party._id,
-                        "name": candidate.name,
-                        "image": candidate.picture_url,
-                        "id": candidate._id,
-                    });
-                })
+        parties.forEach((party) => {
+            party.candidates.forEach((candidate) => {
+                candidates.push({
+                    "party": party.name,
+                    "party_id":party._id,
+                    "name": candidate.name,
+                    "image": candidate.picture_url,
+                    "id": candidate._id,
+                });
             })
-            return res.status(200).json({data: candidates});
+        })
+        return res.status(200).json({data: candidates});
     })
 }
 

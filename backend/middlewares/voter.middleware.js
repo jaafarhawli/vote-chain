@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const Voter = require('../models/voters.model');
 
+// Check if voter token is valid
 const voterMiddleware = async (req, res, next) => {
     if(!req.headers.authorization)
     return res.status(401).json({message: "Unauthorized"})

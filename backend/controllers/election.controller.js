@@ -8,6 +8,7 @@ const createElection = async(req, res) => {
     let election_code = Math.random().toString(36).substring(2,7);
     let code = Election.findOne({code: election_code});
 
+    // Generate a unique random code for the election
     while(code.length==1) {
         election_code = Math.random().toString(36).substring(2,7);
         code = Election.find({code: election_code});
@@ -77,21 +78,25 @@ const editElection = async (req, res) => {
 
 const removeElection = (req, res) => {
     const {election_id} = req.body;
+    // Remove election from elections collection
     Election.findByIdAndRemove(election_id, (err) => {
         if(err)
         return res.status(400).json({ err });
+        // Remove all voters belonging to the election
         Voter.deleteMany({ election_id: election_id }, function (err) {
             if(err) 
             return res.status(400).json({ err });
           });
+        // Remove all parties belonging to the election
         Party.deleteMany({ election: election_id }, function (err) {
             if(err) 
             return res.status(400).json({ err });
           });
+        // Remove the election from it's admin election list
         User.findOne({elections: {"$in": [election_id]}}, (err, user) => {
             if(err)
             return res.status(400).json({ err });
-    
+            // Remove the election from it's users' moderator_for election list
             User.find({moderator_for: {"$in": [election_id]}}, (err, users) => {
                 if(err)
                 return res.status(400).json({ err });

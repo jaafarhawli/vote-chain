@@ -1,5 +1,6 @@
 const Election = require('../models/elections.model');
 
+// Check if the user is admin to the election
 const adminMiddleware = async (req, res, next) => {
     const {election_id, user_id} = req.body;
     Election.findById(election_id, (err, election) => {

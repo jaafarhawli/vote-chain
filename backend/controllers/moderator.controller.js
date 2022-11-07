@@ -8,11 +8,15 @@ const addModerator = async (req, res) => {
         return res.status(404).json({message:"User not found"});
         if(!user)
         return res.status(404).json({message:"User not found"});
+        
+        // Check if the user is adding himself as moderator to his election
         if(user.elections.includes(election_id))
         return res.status(400).json({message:"Invalid request"});
         Election.findById(election_id, async (err, election) => {
             if(err) 
             return res.status(404).json({message:"Election not found"});
+            
+            // Check if the user is already a moderator to this election
             if(election.moderators.includes(user._id))
             return res.status(400).json({message:"This user is already a moderator to your election"});
             user.notifications.push({
