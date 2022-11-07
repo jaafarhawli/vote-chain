@@ -1,12 +1,16 @@
 import React from 'react';
 import logo from '../../assets/VOTE CHAIN-logo-white-horizantal.png';
 import curve from '../../assets/main-curve.svg';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Reusable/Button';
-
+import {IoIosNotifications} from 'react-icons/io';
+ 
 const MainHeader = ({title, empty, open}) => {
 
     const navigate = useNavigate();
+
+    const [showNotifications, setShowNotifications] = useState(false);    
 
     return (
     <div>
@@ -16,6 +20,7 @@ const MainHeader = ({title, empty, open}) => {
             <div className='flex gap-3 text-white font-semibold items-center'>
                 <h2 className='hover:bg-purple-300/50 duration-150 p-2 rounded-lg select-none cursor-pointer' onClick={() => navigate('/main')}>Admin</h2>
                 <h2 className='hover:bg-purple-300/50 duration-150 p-2 rounded-lg select-none cursor-pointer' onClick={() => navigate('/main/moderate')}>Moderator</h2>
+                <IoIosNotifications className='text-[28px] hover:text-cyan duration-150' onClick={() => setShowNotifications(true)} />
                 <Button onClick={() => navigate('/main/settings')}>{localStorage.firstname} {localStorage.lastname}</Button>
             </div>
         </div>
