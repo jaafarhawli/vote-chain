@@ -17,11 +17,13 @@ const AddModerator = ({open, closeModal, refetch}) => {
 
         const form = {
             email: email,
-            election_id: localStorage.election_id
+            election_id: localStorage.election_id,
+            sender_email: localStorage.email,
+            user_id: localStorage.id
         }
         
         try {
-             await axios.post('user/moderator', form, {
+             await axios.post('moderator', form, {
                 headers: {
                   Authorization: `bearer ${localStorage.token}`
                 }
@@ -29,9 +31,9 @@ const AddModerator = ({open, closeModal, refetch}) => {
               refetch();
               closeModal();
             } catch (error) {
-                setError(error.message);
+                setError(error.response.data.message);
                 setErrorModal(true);
-              console.log(error);
+              console.log(error.response.data.message);
             }  
     }
 
