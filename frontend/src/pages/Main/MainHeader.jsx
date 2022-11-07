@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import logo from '../../assets/VOTE CHAIN-logo-white-horizantal.png';
 import curve from '../../assets/main-curve.svg';
 import { useNavigate } from 'react-router-dom';
@@ -13,8 +13,9 @@ const MainHeader = ({title, empty, open}) => {
     const navigate = useNavigate();
 
     const [showNotifications, setShowNotifications] = useState(false);   
+    const [refetch, setRefetch] = useState(false);   
     
-    const {data} = useQuery([], async () => {
+    const {data} = useQuery([refetch], async () => {
       return axios.get(`user/notifications/${localStorage.id}`, {
                   headers: {
                     Authorization: `bearer ${localStorage.token}`
@@ -33,7 +34,22 @@ const MainHeader = ({title, empty, open}) => {
       }
     }
 
-   
+    const acceptRequest = async (election_id) => {
+      const form = {
+        user_id: localStorage.id,
+        election_id: election_id
+     }   
+      try {
+           await axios.post('user/notifications/accept', form, {
+              headers: {
+                Authorization: `bearer ${localStorage.token}`
+              }
+            });
+            setRefetch(!refetch)
+          } catch (error) {
+            console.log(error.response.data.message);
+          }  
+    }  
 
     return (
     <div>
@@ -55,7 +71,7 @@ const MainHeader = ({title, empty, open}) => {
                       <div className='border-b-[1px] pb-2 border-black-100' key={notification._id}>
                         <p className='text-black-100 my-2 font-normal'>{notification.user_email} wants to add you as a moderator to his election "{notification.election_title}</p>
                         <div className='flex gap-4'>
-                          <VscWorkspaceTrusted className='text-green text-[24px] hover:text-black-100 duration-150' />
+                          <VscWorkspaceTrusted className='text-green text-[24px] hover:text-black-100 duration-150' onClick={() => acceptRequest(notification.election_id)} />
                           <VscWorkspaceUntrusted className='text-red text-[24px] hover:text-black-100 duration-150' />
                         </div>
                       </div>
@@ -67,8 +83,6 @@ const MainHeader = ({title, empty, open}) => {
                   null
                   }
                 </div>
-                
-
                 <Button onClick={() => navigate('/main/settings')}>{localStorage.firstname} {localStorage.lastname}</Button>
             </div>
         </div>
