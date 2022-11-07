@@ -32,32 +32,32 @@ const VoteLoginForm = () => {
                 Authorization: `bearer ${localStorage.token}`
               }
             });           
-            localStorage.setItem('voter_id', user.data._id);
-            localStorage.setItem('voter_email', user.data.email);
-            localStorage.setItem('election_id', user.data.election_id);
-            localStorage.setItem('voted', user.data.voted);
+            localStorage.setItem('voter_id', user.data.data._id);
+            localStorage.setItem('voter_email', user.data.data.email);
+            localStorage.setItem('election_id', user.data.data.election_id);
+            localStorage.setItem('voted', user.data.data.voted);
             try {
                 const election = await axios.get(`voter/election/${localStorage.voter_email}/${localStorage.election_id}`, {
                   headers: {
                     Authorization: `bearer ${localStorage.token}`
                   }
-                });             
-                localStorage.setItem('election_id', election.data._id);
-                localStorage.setItem('election_start', election.data.start_time);
-                localStorage.setItem('election_end', election.data.end_time);
-                localStorage.setItem('election_title', election.data.title);
+                });           
+                localStorage.setItem('election_id', election.data.data._id);
+                localStorage.setItem('election_start', election.data.data.start_time);
+                localStorage.setItem('election_end', election.data.data.end_time);
+                localStorage.setItem('election_title', election.data.data.title);
                 navigate('/vote/main');
               } catch (error) {
-                console.log(error);
+                console.log(error.response.data.message);
               }
           } catch (error) {             
-            console.log(error);
+            console.log(error.response.data.message);
           }
             
     }
     catch (error) {
         setError(true);
-        console.log(error);
+        console.log(error.response.data.message);
     }
   }
 
