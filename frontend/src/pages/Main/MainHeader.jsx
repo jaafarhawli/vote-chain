@@ -50,6 +50,23 @@ const MainHeader = ({title, empty, open}) => {
             console.log(error.response.data.message);
           }  
     }  
+    
+    const rejectRequest = async (election_id) => {
+      const form = {
+        user_id: localStorage.id,
+        election_id: election_id
+     }   
+      try {
+           await axios.post('user/notifications/reject', form, {
+              headers: {
+                Authorization: `bearer ${localStorage.token}`
+              }
+            });
+            setRefetch(!refetch)
+          } catch (error) {
+            console.log(error.response.data.message);
+          }  
+    }  
 
     return (
     <div>
@@ -72,7 +89,7 @@ const MainHeader = ({title, empty, open}) => {
                         <p className='text-black-100 my-2 font-normal'>{notification.user_email} wants to add you as a moderator to his election "{notification.election_title}</p>
                         <div className='flex gap-4'>
                           <VscWorkspaceTrusted className='text-green text-[24px] hover:text-black-100 duration-150' onClick={() => acceptRequest(notification.election_id)} />
-                          <VscWorkspaceUntrusted className='text-red text-[24px] hover:text-black-100 duration-150' />
+                          <VscWorkspaceUntrusted className='text-red text-[24px] hover:text-black-100 duration-150' onClick={() => rejectRequest(notification.election_id)} />
                         </div>
                       </div>
                       ))}
