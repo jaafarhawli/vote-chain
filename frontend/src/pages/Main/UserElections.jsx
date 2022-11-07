@@ -15,13 +15,12 @@ const UserElections = () => {
   const [refetch, setRefetch] = useState(true);
 
   const {data: admin_elections} = useQuery([refetch], async () => {
-    return axios.get(`user/elections/${localStorage.id}`, {
+    return axios.get(`election/${localStorage.id}`, {
                 headers: {
                   Authorization: `bearer ${localStorage.token}`
                 }
-              }).then((res) => res.data);
+              }).then((res) => res.data.data);
 })
-  
 
 const viewElection = (id, timezone, start_time, end_time) => {
     localStorage.setItem('election_id', id);
