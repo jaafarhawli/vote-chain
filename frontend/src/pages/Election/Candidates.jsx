@@ -78,7 +78,7 @@ const Candidates = () => {
             {filteredData?.length===0 ? <EmptyState title={'No Candidates'}>You don’t have any candidates</EmptyState> : null}
         <div className='grid grid-cols-4 gap-4 justify-between my-8'>
             {filteredData?.map(candidate => (
-                <CandidateCard name={candidate.name} party={candidate.party} image={candidate.image} id={candidate.id} party_id={candidate.party_id} remove={(id, party) => openConfirmModal(id, party)} />
+                <CandidateCard name={candidate.name} party={candidate.party} image={candidate.image} id={candidate.id} party_id={candidate.party_id} remove={(id, party) => openConfirmModal(id, party)} key={candidate.id} />
             ))}
         </div>
     </div>

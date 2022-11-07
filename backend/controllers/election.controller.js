@@ -120,35 +120,33 @@ const removeElection = (req, res) => {
 const launchElection = async (req, res) => {
     const {election_id} = req.body
 
-    Election.findById(election_id, async (err, election) => {
-        if(err) 
-        return res.status(400).json({message:"Invalid input"});
-        const date =  new Date();
-        if(date>election.start_time)
-        return res.status(400).json({message:"Election has passed it's start time before being launched"});
+    const election = await Election.findById(election_id).populate({
+        path: "parties",
+      });
 
-        if(election.voters.length===0)
-        return res.status(400).json({message:"Add voters before launching your election"});
-        
-        if(election.parties.length===0)
-        return res.status(400).json({message:"Add parties before launching your election"});
-        
-        let candidates = 0
-        for(const party of election.parties) {
-            const data = await Party.findById(party)
-            candidates+=data.candidates.length;
-        }
-        if(candidates===0)
-        return res.status(400).json({message:"Add candidates before launching your election"});
+    const date =  new Date();
+    if(date>election.start_time)
+    return res.status(400).json({message:"Election has passed it's start time before being launched"});
+    if(election.voters.length===0)
+    return res.status(400).json({message:"Add voters before launching your election"});
+    
+    if(election.parties.length===0)
+    return res.status(400).json({message:"Add parties before launching your election"});
+    
+    let candidates = 0
+    for(const party of election.parties) {
+        candidates+=party.candidates.length;
+    }
+    if(candidates===0)
+    return res.status(400).json({message:"Add candidates before launching your election"});
 
-        Election.findByIdAndUpdate(election_id,{
-            launched: true
-        }, async (err) => {
-            if(err)
-            return res.status(400).json("Invalid input");
-            res.status(200).json({message:"Election launched successfully"});
-        });
-    }); 
+    Election.findByIdAndUpdate(election_id,{
+        launched: true
+    }, async (err) => {
+        if(err)
+        return res.status(400).json("Invalid input");
+        res.status(200).json({message:"Election launched successfully"});
+    });
 } 
 
 const viewElectionsAsAdmin = (req, res) => {

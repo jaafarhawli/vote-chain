@@ -62,8 +62,6 @@ const Settings = () => {
           localStorage.setItem('election_start', starttime);
           localStorage.setItem('election_end', endtime);
           localStorage.setItem('election_description', description);
-          setStarttime(localStorage.election_start);
-          setEndtime(localStorage.election_end);
           setError(false);
           setMessage('Election updated succussfully');
           setSuccessModal(true);
@@ -135,7 +133,7 @@ const Settings = () => {
                 <Flatpickr
                   data-enable-time
                   options={{ minDate: date }}
-                  value={starttime}
+                  value={localStorage.start_time}
                   onChange={dateStr => 
                     setStarttime(dateStr)
                 }
@@ -146,7 +144,7 @@ const Settings = () => {
                 <Flatpickr
                   data-enable-time
                   options={{ minDate: date }}
-                  value={endtime}
+                  value={localStorage.end_time}
                   onChange={dateStr => 
                     setEndtime(dateStr)
                 }
