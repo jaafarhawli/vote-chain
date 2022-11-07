@@ -11,11 +11,11 @@ const Candidates = () => {
     const [confirmModal, setConfirmModal] = useState(false);
     
     const {data} = useQuery([], async () => {
-        return axios.get(`user/candidates/${localStorage.election_id}`, {
+        return axios.get(`candidate/${localStorage.election_id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
                     }
-                  }).then((res) => res.data);
+                  }).then((res) => res.data.data);
     })
 
     const filteredData = useMemo(() => {
@@ -40,24 +40,23 @@ const Candidates = () => {
     const deleteCandidate = async () => {
       const form = {
           candidate_id: localStorage.candidate_id,
-          party_id: localStorage.party_id 
+          party_id: localStorage.party_id,
+          election_id: localStorage.election_id,
+          user_id: localStorage.id 
       }
       console.log(localStorage.candidate_id);
       
       try {
-          await axios.post('user/candidate/remove', form, {
+          await axios.post('candidate/remove', form, {
               headers: {
                 Authorization: `bearer ${localStorage.token}`
               }
             });
             closeConfirm()
           } catch (error) {
-            console.log(error);
+            console.log(error.response.data.message);
           }
       }
-
-      console.log(data);
-
 
     return (
       <>
