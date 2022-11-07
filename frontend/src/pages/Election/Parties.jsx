@@ -15,6 +15,8 @@ const Parties = () => {
     const [refetch, setRefetch] = useState(true);
     const [confirmModal, setConfirmModal] = useState(false);
     const [candidateModal, setCandidateModal] = useState(false);
+    const launched = localStorage.election_launched==="true";
+
 
     const closeModal = () => {
         setPartyModal(false)
@@ -89,7 +91,7 @@ const Parties = () => {
         <AddPartyModal open={partyModal} closeModal={closeModal}    refetch={() => setRefetch(!refetch)} />
         <div className='pl-[330px] pt-[150px] pr-6'>
             <h1 className='text-[28px] font-bold'>Parties</h1>
-            <EmptyState title={'No Parties'} button={'Add party'} onClick={openModal} >You don’t have any parties, add one now!</EmptyState>
+            <EmptyState title={'No Parties'} button={'Add party'} disabled={launched} onClick={openModal} >You don’t have any parties, add one now!</EmptyState>
         </div>
         </>
     );
@@ -103,7 +105,7 @@ const Parties = () => {
     <div className='pl-[330px] pt-[150px] pr-6'>
         <div className='flex justify-between items-center w-full'>
           <h1 className='text-[28px] font-bold'>Parties</h1>
-          <Button onClick={openModal} add={true}>Add Party</Button>
+          <Button onClick={openModal} add={true} disabled={launched}>Add Party</Button>
         </div>
             <input type="search" className='border-2 border-[#dddddd] w-1/3 rounded-md mt-4' placeholder='Search moderator by email' onChange={e => setSearch(e.target.value)} />
             <Table data={filteredData} party={true} remove={(id) => openConfirmModal(id)} addCandidate={(id) => openCandidateModal(id)} />

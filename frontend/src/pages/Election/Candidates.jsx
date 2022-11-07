@@ -9,6 +9,7 @@ const Candidates = () => {
     
     const [search, setSearch] = useState('');
     const [confirmModal, setConfirmModal] = useState(false);
+    const launched = localStorage.election_launched==="true";
     
     const {data} = useQuery([], async () => {
         return axios.get(`candidate/${localStorage.election_id}`, {
@@ -30,6 +31,8 @@ const Candidates = () => {
     }
     
     const openConfirmModal = (id, party) => {
+      if(launched)
+      return
       localStorage.setItem('candidate_id', id);
       localStorage.setItem('party_id', party);
       

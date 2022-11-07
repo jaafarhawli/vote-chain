@@ -13,6 +13,7 @@ const Moderators = () => {
     const [refetch, setRefetch] = useState(true);
     const [confirmModal, setConfirmModal] = useState(false);
     const [search, setSearch] = useState('');
+    const launched = localStorage.election_launched==="true";
 
     const closeModal = () => {
         setModeratorModal(false)
@@ -45,6 +46,8 @@ const Moderators = () => {
       }
     
       const openConfirmModal = (id) => {
+        if(launched)
+        return
         setConfirmModal(true);
         localStorage.setItem('moderator_id', id)
         document.body.style.overflow = 'hidden';
@@ -81,7 +84,7 @@ const Moderators = () => {
         <AddModerator open={moderatorModal} closeModal={closeModal}  refetch={() => setRefetch(!refetch)} />
         <div className='pl-[330px] pt-[150px] pr-6'>
             <h1 className='text-[28px] font-bold'>Moderators</h1>
-            <EmptyState title={'No Moderators'} button={'Add moderator'} onClick={openModal} >You don’t have any moderators, add one now!</EmptyState>
+            <EmptyState title={'No Moderators'} button={'Add moderator'} disabled={launched} onClick={openModal} >You don’t have any moderators, add one now!</EmptyState>
         </div>
         </>
     );
@@ -93,7 +96,7 @@ const Moderators = () => {
     <div className='pl-[330px] pt-[150px] pr-6'>
         <div className='flex justify-between items-center w-full'>
           <h1 className='text-[28px] font-bold'>Moderators</h1>
-          <Button onClick={openModal} add={true}>Add Moderator</Button>
+          <Button onClick={openModal} add={true} disabled={launched}>Add Moderator</Button>
         </div>
             <input type="search" className='border-2 border-[#dddddd] w-1/3 rounded-md mt-4' placeholder='Search moderator by email' onChange={e => setSearch(e.target.value)} />
         <Table data={filteredData} moderator={true} remove={(id) => openConfirmModal(id)} />

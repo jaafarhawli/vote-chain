@@ -80,7 +80,7 @@ const Voters = (props) => {
     <AddVoter open={voterModal} closeModal={closeModal}  refetch={() => setRefetch(!refetch)} />
     <div className='pl-[330px] pt-[150px] pr-6'>
         <h1 className='text-[28px] font-bold'>Voters</h1>
-        <EmptyState title={'No Voters'} button={'Add voter'} onClick={openModal}>You don’t have any voters, add one now!</EmptyState>
+        <EmptyState title={'No Voters'} button={'Add voter'} disabled={launched} onClick={openModal}>You don’t have any voters, add one now!</EmptyState>
     </div>
     </>
     : 
