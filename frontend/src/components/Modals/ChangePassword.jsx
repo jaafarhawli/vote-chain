@@ -41,10 +41,10 @@ const ChangePassword = ({open, closeModal}) => {
           setSuccessModal(true);
     
         } catch (error) {
-          setMessage(error.message);
+          setMessage(error.response.data.message);
           setIsError(true);
           setSuccessModal(true);
-          console.log(error);
+          console.log(error.response.data.message);
         }
     }
 
