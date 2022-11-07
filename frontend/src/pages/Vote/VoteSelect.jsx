@@ -19,11 +19,11 @@ const VoteSelect = () => {
     const navigate = useNavigate();
 
     const {data} = useQuery([], async () => {
-        return axios.get(`user/parties/${localStorage.election_id}`, {
+        return axios.get(`party/${localStorage.election_id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
                     }
-                  }).then((res) => res.data);
+                  }).then((res) => res.data.data);
     })
 
     const showCandidates = async (data, party_id, party_name) => {
@@ -53,7 +53,7 @@ const VoteSelect = () => {
               localStorage.setItem('party', selectedPartyName);
               navigate('/vote/main/results');
             } catch (error) {
-                console.log(error);
+                console.log(error.response.data.message);
             }  
     }
 
