@@ -19,10 +19,10 @@ const AddVoter = ({open, closeModal, refetch}) => {
         const form = {
             name: name,
             email: email,
-            election_id: localStorage.election_id
+            election_id: localStorage.election_id,
         }     
         try {
-             await axios.post('user/voter', form, {
+             await axios.post('voter', form, {
                 headers: {
                   Authorization: `bearer ${localStorage.token}`
                 }
@@ -30,9 +30,9 @@ const AddVoter = ({open, closeModal, refetch}) => {
               refetch();
               closeModal();
             } catch (error) {
-                setSuccess(error.message);
+                setSuccess(error.response.data.message);
                 setSuccessModal(true);
-                console.log(error);
+                console.log(error.response.data.message);
             }   
     }
 
