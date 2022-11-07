@@ -44,7 +44,6 @@ const Candidates = () => {
           election_id: localStorage.election_id,
           user_id: localStorage.id 
       }
-      console.log(localStorage.candidate_id);
       
       try {
           await axios.post('candidate/remove', form, {

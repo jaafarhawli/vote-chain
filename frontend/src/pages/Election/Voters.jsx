@@ -38,11 +38,12 @@ const Voters = (props) => {
     const deleteVoter = async () => {
         const form = {
             voter_id: localStorage.voter_id,
-            election_id: localStorage.election_id 
+            election_id: localStorage.election_id,
+            user_id: localStorage.id 
         }
         
         try {
-            await axios.post('user/voter/remove', form, {
+            await axios.post('voter/remove', form, {
                 headers: {
                   Authorization: `bearer ${localStorage.token}`
                 }
@@ -50,16 +51,16 @@ const Voters = (props) => {
               setRefetch(!refetch)
               closeConfirm()
             } catch (error) {
-              console.log(error);
+              console.log(error.response.data.message);
             }
     }
 
     const {data} = useQuery([refetch], async () => {
-        return axios.get(`user/voters/${localStorage.election_id}`, {
+        return axios.get(`voter/voters/${localStorage.election_id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
                     }
-                  }).then((res) => res.data);
+                  }).then((res) => res.data.data);
     })
 
     const filteredData = useMemo(() => {
