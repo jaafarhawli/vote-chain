@@ -25,7 +25,7 @@ const createElection = async(req, res) => {
     return res.status(400).json({
         message: "Election should be 24 hours atleast"
     })
-    newElection(title, start_time, end_time, election_code, admin_id);
+    newElection(title, start_time, end_time, election_code, admin_id, res);
 }
 
 const editElection = async (req, res) => {
@@ -44,7 +44,7 @@ const editElection = async (req, res) => {
     Election.findById(election_id, async (err) => {
         if(err) 
         return res.status(400).json({message:"Invalid input"});
-        updateElection(election_id);
+        updateElection(election_id, res);
     }); 
 } 
 
@@ -103,7 +103,7 @@ const launchElection = async (req, res) => {
     }
     if(candidates===0)
     return res.status(400).json({message:"Add candidates before launching your election"});
-    setLaunch(election_id);
+    setLaunch(election_id, res);
 } 
 
 const viewElectionsAsAdmin = (req, res) => {

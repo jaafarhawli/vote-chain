@@ -1,4 +1,5 @@
 const Election = require('../models/elections.model');
+const User = require('../models/users.model');
 
 const viewElectionAsModeratorResult =  (election) => {
     return result = {
@@ -23,7 +24,7 @@ const removeElectionFromUsers = (user, users) => {
         })
 }
 
-const updateElection = (id) => {
+const updateElection = (id, res) => {
     Election.findByIdAndUpdate(id,{
         title: data.title,
         start_time: data.start_time,
@@ -36,7 +37,7 @@ const updateElection = (id) => {
     });
 }
 
-const newElection = async (title, start_time, end_time, election_code, admin_id) => {
+const newElection = async (title, start_time, end_time, election_code, admin_id, res) => {
     try{
         const election = new Election();
         election.title = title;
@@ -61,7 +62,7 @@ const newElection = async (title, start_time, end_time, election_code, admin_id)
     }
 }
 
-const setLaunch = (id) => {
+const setLaunch = (id, res) => {
     Election.findByIdAndUpdate(id,{
         launched: true
     }, async (err) => {
