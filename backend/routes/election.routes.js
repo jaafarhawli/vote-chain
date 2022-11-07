@@ -15,7 +15,7 @@ router.put('/', authMiddleware, adminMiddleware, launchedMiddleware, editElectio
 router.post('/delete', authMiddleware, adminMiddleware, launchedMiddleware, removeElection);
 
 // Launch election
-router.put('/launch', authMiddleware, adminMiddleware, launchedMiddleware, launchElection);
+router.put('/launch', authMiddleware, adminMiddleware, launchElection);
 
 // View elections as admin
 router.get('/:id', authMiddleware, viewElectionsAsAdmin);

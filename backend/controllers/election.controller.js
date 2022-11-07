@@ -126,6 +126,21 @@ const launchElection = async (req, res) => {
         const date =  new Date();
         if(date>election.start_time)
         return res.status(400).json({message:"Election has passed it's start time before being launched"});
+
+        if(election.voters.length===0)
+        return res.status(400).json({message:"Add voters before launching your election"});
+        
+        if(election.parties.length===0)
+        return res.status(400).json({message:"Add parties before launching your election"});
+        
+        let candidates = 0
+        for(const party of election.parties) {
+            const data = await Party.findById(party)
+            candidates+=data.candidates.length;
+        }
+        if(candidates===0)
+        return res.status(400).json({message:"Add candidates before launching your election"});
+
         Election.findByIdAndUpdate(election_id,{
             launched: true
         }, async (err) => {
