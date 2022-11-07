@@ -1,4 +1,4 @@
-const {viewElectionAsModeratorResult, removeElectionFromUsers} = require('../utils/election.utils');
+const {viewElectionAsModeratorResult, removeElectionFromUsers, updateElection, newElection} = require('../utils/election.utils');
 
 const User = require('../models/users.model');
 const Election = require('../models/elections.model');
@@ -25,29 +25,7 @@ const createElection = async(req, res) => {
     return res.status(400).json({
         message: "Election should be 24 hours atleast"
     })
-
-    try{
-        const election = new Election();
-        election.title = title;
-        election.start_time = start_time;
-        election.end_time = end_time;
-        election.code = election_code;
-        election.admin = admin_id;
-        election.description = "";
-        election.launched = false;
-        await election.save();
-
-        const admin = await User.findById(admin_id);
-        admin.elections.push(election._id);
-        await admin.save();
-
-        res.status(200).json({data: election});
-
-    }catch(err){
-        res.status(400).json({
-            message: err.message
-        })
-    }
+    newElection(title, start_time, end_time, election_code, admin_id);
 }
 
 const editElection = async (req, res) => {
@@ -66,16 +44,7 @@ const editElection = async (req, res) => {
     Election.findById(election_id, async (err) => {
         if(err) 
         return res.status(400).json({message:"Invalid input"});
-        Election.findByIdAndUpdate(election_id,{
-            title: data.title,
-            start_time: data.start_time,
-            end_time: data.end_time,
-            description: data.description
-        }, async (err) => {
-            if(err)
-            return res.status(400).json({message:"Invalid input"});
-            res.status(200).json({message:"Election updated successfully"});
-        });
+        updateElection(election_id);
     }); 
 } 
 
