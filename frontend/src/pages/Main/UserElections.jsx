@@ -22,11 +22,12 @@ const UserElections = () => {
               }).then((res) => res.data.data);
 })
 
-const viewElection = (id, start_time, end_time, description) => {
+const viewElection = (id, start_time, end_time, description, launched) => {
     localStorage.setItem('election_id', id);
     localStorage.setItem('election_start', start_time);
     localStorage.setItem('election_end', end_time);
     localStorage.setItem('election_description', description);
+    localStorage.setItem('election_launched', launched);
     navigate('admin/election/dashboard')
 }
 
@@ -55,7 +56,7 @@ return (
       <MainHeader empty={false} title={'Your Elections'} open={openModal} />
       <div className=' grid md:grid-cols-2 gap-4 lg:px-28 md:px-10 px-4 my-8'>
       {admin_elections?.map((election) => (
-          <ElectionCard onClick={() => viewElection(election._id, election.start_time, election.end_time, election.description)} id={election._id} title={election.title} start_time={election.start_time} end_time={election.end_time} key={election._id} />
+          <ElectionCard onClick={() => viewElection(election._id, election.start_time, election.end_time, election.description, election.launched)} id={election._id} title={election.title} start_time={election.start_time} end_time={election.end_time} key={election._id} />
      ))}
       </div>
     </div>

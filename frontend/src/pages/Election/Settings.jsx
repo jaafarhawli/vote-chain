@@ -21,6 +21,7 @@ const Settings = () => {
     const [disabled, setDisabled] = useState(true);
     const [save, setSave] = useState(false);
     const [confirmModal, setConfirmModal] = useState(false);
+    const launched = localStorage.election_launched==="true";
     const date = new Date();
 
     const navigate = useNavigate();
@@ -124,7 +125,7 @@ const Settings = () => {
     <div className='pl-[330px] pt-[150px] pr-6 flex flex-col'>
         <div className='flex justify-between items-center w-full'>
           <h1 className='text-[28px] font-bold'>Settings</h1>
-          <Button className='bg-red' onClick={() => setConfirmModal(true)}>Delete Election</Button>
+          <Button className='bg-red' disabled={launched} onClick={() => setConfirmModal(true)}>Delete Election</Button>
         </div>
         <form className='w-[400px] flex flex-col gap-5 mt-12'>
           <FormInput type="text" onChange={e => setTitle(e.target.value)} defaultValue={localStorage.election_title} >Election title</FormInput>          
@@ -156,7 +157,7 @@ const Settings = () => {
             <p className='font-semibold'>Description</p>
             <textarea defaultValue={localStorage.election_description? localStorage.election_description : ""} onChange={e => setDescription(e.target.value)} className='w-full border-[1px] border-black-200 outline-none rounded-sm p-4 text-[16px]' />
           </label>
-          <Button className='bg-cyan' disabled={disabled} onClick={saveInfo} >Save Changes</Button>
+          <Button className='bg-cyan' disabled={disabled || launched} onClick={saveInfo} >Save Changes</Button>
       </form> 
     </div>
     </>

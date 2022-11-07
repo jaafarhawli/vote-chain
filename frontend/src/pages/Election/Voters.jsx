@@ -13,6 +13,7 @@ const Voters = (props) => {
     const [voterModal, setVoterModal] = useState(false);
     const [refetch, setRefetch] = useState(true);
     const [confirmModal, setConfirmModal] = useState(false);
+    const launched = localStorage.election_launched==="true";
 
     const closeModal = () => {
         setVoterModal(false)
@@ -25,6 +26,8 @@ const Voters = (props) => {
     }
 
     const openConfirmModal = (id) => {
+        if(launched)
+        return
         setConfirmModal(true);
         localStorage.setItem('voter_id', id)
         document.body.style.overflow = 'hidden';
@@ -87,7 +90,7 @@ const Voters = (props) => {
     <div className='pl-[330px] pt-[150px] pr-6'>
         <div className='flex justify-between items-center w-full'>
           <h1 className='text-[28px] font-bold'>Voters</h1>
-          <Button add={true} onClick={openModal} >Add Voter</Button>
+          <Button add={true} onClick={openModal} disabled={launched} >Add Voter</Button>
         </div>
         <input type="search" className='border-2 border-[#dddddd] w-1/3 rounded-md mt-4' placeholder='Search voter by email' onChange={e => setSearch(e.target.value)} />
         {filteredData?.length===0 ? <EmptyState title={'No Voters'}>You don’t have any voters</EmptyState> : 

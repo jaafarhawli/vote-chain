@@ -6,6 +6,7 @@ import axios from '../../api/axios';
 const Launch = () => {
 
     const [confirmModal, setConfirmModal] = useState(false);
+    const [disabled, setDisabled] = useState(localStorage.election_launched==="true");
 
     const closeConfirm = () => {
         setConfirmModal(false);
@@ -23,7 +24,8 @@ const Launch = () => {
                 }
               });
               localStorage.setItem("election_launched", true);
-              closeConfirm()
+              setDisabled(true);
+              closeConfirm();
             } catch (error) {
               console.log(error.response.data.message);
             }
@@ -46,7 +48,7 @@ const Launch = () => {
                 </ul>
             </div>
         </div>
-        <Button className='mt-4' onClick={() => setConfirmModal(true)}>Launch</Button>      
+        <Button className='mt-4' disabled={disabled} onClick={() => setConfirmModal(true)}>Launch</Button>      
     </div>
     </>
   );
