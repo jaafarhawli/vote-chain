@@ -1,4 +1,4 @@
-const {viewElectionAsModeratorResult} = require('../utils/election.utils');
+const {viewElectionAsModeratorResult, removeElectionFromUsers} = require('../utils/election.utils');
 
 const User = require('../models/users.model');
 const Election = require('../models/elections.model');
@@ -105,14 +105,7 @@ const removeElection = (req, res) => {
                 return res.status(400).json({ err });
                 if(users.length==0)
                 return res.status(200).json({message:"Election removed successfully"});
-                const index = user.elections.indexOf(election_id);
-                user.elections.splice(index, 1); 
-                user.save();
-                users.forEach((user) => {
-                    const index = user.moderator_for.indexOf(election_id);
-                    user.moderator_for.splice(index, 1); 
-                    user.save();
-                })
+                removeElectionFromUsers(user, users);
                 return res.status(200).json({message:"Election removed successfully"});
             })
         })

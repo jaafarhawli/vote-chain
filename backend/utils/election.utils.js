@@ -1,4 +1,3 @@
-
 const viewElectionAsModeratorResult =  (election) => {
     return result = {
         id: election._id,
@@ -11,9 +10,21 @@ const viewElectionAsModeratorResult =  (election) => {
     }
 }
 
+const removeElectionFromUsers = (user, users) => {
+    const index = user.elections.indexOf(election_id);
+        user.elections.splice(index, 1); 
+        user.save();
+        users.forEach((user) => {
+            const index = user.moderator_for.indexOf(election_id);
+            user.moderator_for.splice(index, 1); 
+            user.save();
+        })
+}
+
 
 
 
 module.exports = {
-    viewElectionAsModeratorResult
+    viewElectionAsModeratorResult,
+    removeElectionFromUsers
 }
