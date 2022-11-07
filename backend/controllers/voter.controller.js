@@ -7,8 +7,8 @@ const getVoter = async (req, res) => {
     const {voter_id} = req.params;
     Voter.findOne({voter_id:voter_id}, async (err, voter) => {
         if(err)
-        return res.status(404).json("Voter not found");
-        return res.status(200).json(voter);
+        return res.status(404).json({message:"Voter not found"});
+        return res.status(200).json({data: voter});
     })
 }
 
@@ -21,20 +21,20 @@ const viewElectionAsVoter = async (req, res) => {
     return res.status(401).json({message:"Unauthorized"});
     if(election.launched===true)
     return res.status(400).json({message:"Election is not launched yet"});
-    res.status(200).json(election);
+    res.status(200).json({data: election});
 }
 
 const vote = async (req, res) => {
     const {id, party_id,candidate_id} = req.body;
     const voter = await Voter.findById(id).select();
     if(!voter)
-    return res.status(404).json("Voter not found");
+    return res.status(404).json({message: "Voter not found"});
     if(voter.voted == 1)
-    return res.status(400).json("Already voted");
+    return res.status(400).json({message:"Already voted"});
     
     const party = await Party.findOne({_id: party_id}).select();
     if(!party)
-    return res.status(404).json("Party not found");
+    return res.status(404).json({message:"Party not found"});
     party.candidates.forEach((candidate) => {
         if(candidate._id == candidate_id) {
             candidate.score+=1;
@@ -44,7 +44,7 @@ const vote = async (req, res) => {
     voter.voted = 1;
     voter.voting_time = new Date(Date.now()).toUTCString();
     await voter.save();
-    return res.status(200).json("Voted Successfully");
+    return res.status(200).json({message:"Voted Successfully"});
 }
 
 const addVoter = async (req, res)=>{
@@ -52,11 +52,11 @@ const addVoter = async (req, res)=>{
      
     const validate = validator.validate(email); 
     if(!validate)
-    return res.status(400).json("Invalid input");
+    return res.status(400).json({message:"Invalid input"});
 
     const election = await Election.findById(election_id);
     if(election.voters.includes(email)) {
-        return res.status(400).json("Voter is already in the election");
+        return res.status(400).json({message:"Voter is already in the election"});
     }
 
     let voter_id = Math.random().toString().slice(2,11);
@@ -86,7 +86,7 @@ const addVoter = async (req, res)=>{
         election.voters.push(voter.email);
         await election.save();
 
-        res.status(200).json({voter});
+        res.status(200).json({data: voter});
 
     }catch(err){
         res.status(400).json({
@@ -99,27 +99,27 @@ const removeVoter = async (req, res) => {
     const {voter_id, election_id} = req.body;
     Voter.findById(voter_id, async (err, voter) => {
         if(err)
-        return res.status(400).json("Invalid input");
+        return res.status(400).json({message:"Invalid input"});
         Election.findById(election_id, (err, election) => {
             if(err)
-            return res.status(404).json("Election not found");
+            return res.status(404).json({message:"Election not found"});
             const index = election.voters.indexOf(voter.email);
             election.voters.splice(index, 1); 
             election.save();
         })  })  
     Voter.findByIdAndRemove(voter_id, async (err) => {
         if(err)
-        return res.status(400).json("Invalid input");
+        return res.status(400).json({message:"Invalid input"});
     });
-    res.status(200).json("Voter removed successfully");
+    res.status(200).json({message:"Voter removed successfully"});
 }
 
 const viewVoters = async (req, res) => {
     const {election_id} = req.params;
     Voter.find({election_id: election_id}, async (err, voters) => {
         if(err)
-        return res.status(404).json("Election not founnd"); 
-        return res.status(200).json(voters);
+        return res.status(404).json({message:"Election not founnd"}); 
+        return res.status(200).json({data: voters});
     })
 }
 
