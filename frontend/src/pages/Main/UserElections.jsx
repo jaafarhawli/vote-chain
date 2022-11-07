@@ -55,7 +55,7 @@ return (
       <MainHeader empty={false} title={'Your Elections'} open={openModal} />
       <div className=' grid md:grid-cols-2 gap-4 lg:px-28 md:px-10 px-4 my-8'>
       {admin_elections?.map((election) => (
-          <ElectionCard onClick={() => viewElection(election._id, election.timezone, election.start_time, election.end_time)} id={election._id} title={election.title} start_time={election.start_time} end_time={election.end_time} />
+          <ElectionCard onClick={() => viewElection(election._id, election.start_time, election.end_time)} id={election._id} title={election.title} start_time={election.start_time} end_time={election.end_time} key={election._id} />
      ))}
       </div>
     </div>

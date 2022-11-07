@@ -11,11 +11,11 @@ import Voters from '../pages/Election/Voters';
 const ModeratorElection = () => {
 
     const {data} = useQuery([], async () => {
-        return axios.get(`user/election/moderator/${localStorage.id}/${localStorage.election_id}`, {
+        return axios.get(`election/moderator/${localStorage.id}/${localStorage.election_id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
                     }
-                  }).then((res) => res.data);
+                  }).then((res) => res.data.data);
     })
 
     localStorage.setItem('election_title', data?.title);

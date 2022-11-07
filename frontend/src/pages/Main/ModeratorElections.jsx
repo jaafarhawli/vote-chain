@@ -39,7 +39,7 @@ const ModeratorElections = () => {
           <MainHeader empty={true} title={'Moderator Elections'} />
           <div className=' grid md:grid-cols-2 gap-4 lg:px-28 md:px-10 px-4 mt-8'>
           {data?.map((election) => (
-              <ElectionCard onClick={() => viewElection(election._id, election.timezone, election.start_time, election.end_time)} id={election._id} title={election.title} start_time={election.start_time} end_time={election.end_time} />
+              <ElectionCard onClick={() => viewElection(election._id, election.timezone, election.start_time, election.end_time)} id={election._id} title={election.title} start_time={election.start_time} end_time={election.end_time} key={election._id} />
          ))}
           </div>
         </div>
