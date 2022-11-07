@@ -1,3 +1,5 @@
+const {viewElectionAsModeratorResult} = require('../utils/election.utils');
+
 const User = require('../models/users.model');
 const Election = require('../models/elections.model');
 const Voter = require('../models/voters.model');
@@ -185,15 +187,7 @@ const viewElectionAsModerator = (req, res) => {
         return res.status(404).json({message:"Election not found"});
         if(!election.moderators.includes(user_id))
         return res.status(401).json({message:"Unauthorized"});
-        const result = {
-            id: election._id,
-            code: election.code,
-            title: election.title,
-            start_time: election.start_time,
-            end_time: election.end_time,
-            timezone: election.timezone,
-            voters: election.voters
-        }
+        const result = viewElectionAsModeratorResult(election);
         res.status(200).json({data: result});
     });
 }
