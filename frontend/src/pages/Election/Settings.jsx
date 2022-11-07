@@ -46,14 +46,15 @@ const Settings = () => {
       }
 
         const form = {
-            id: localStorage.election_id,
+            election_id: localStorage.election_id,
+            user_id: localStorage.id,
             title: title,
             start_time: starttime,
             end_time: endtime,
             timezone: timezone
         }
         try {
-          await axios.put('user/election', form, {
+          await axios.put('election', form, {
             headers: {
               Authorization: `bearer ${localStorage.token}`
             }
@@ -70,7 +71,7 @@ const Settings = () => {
           setSave(!save);
         } catch (error) {
             setError(true);
-            setMessage(error.message);
+            setMessage(error.response.data.message);
             setSuccessModal(true);
           console.log(error);
         }
@@ -78,18 +79,19 @@ const Settings = () => {
 
     const deleteElection = async () => {
         const form = {
-            election_id: localStorage.election_id 
+            election_id: localStorage.election_id, 
+            user_id: localStorage.id 
         }
         
         try {
-            await axios.post('user/election/delete', form, {
+            await axios.post('election/delete', form, {
                 headers: {
                   Authorization: `bearer ${localStorage.token}`
                 }
               });
               navigate('/main');
             } catch (error) {
-              console.log(error);
+              console.log(error.response.data.message);
             }
     }
 
