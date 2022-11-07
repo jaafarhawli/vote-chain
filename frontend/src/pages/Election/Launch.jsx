@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import Button from '../../components/Reusable/Button';
 import ConfirmModal from '../../components/Modals/ConfirmModal';
+import axios from '../../api/axios';
 
 const Launch = () => {
 
@@ -10,9 +11,27 @@ const Launch = () => {
         setConfirmModal(false);
     }
 
+    const launchElection = async () => {
+        const form = {
+            election_id: localStorage.election_id,
+            user_id: localStorage.id 
+        }     
+        try {
+            await axios.put('election/launch', form, {
+                headers: {
+                  Authorization: `bearer ${localStorage.token}`
+                }
+              });
+              localStorage.setItem("election_launched", true);
+              closeConfirm()
+            } catch (error) {
+              console.log(error.response.data.message);
+            }
+        }
+
   return (
     <>
-    <ConfirmModal  open={confirmModal} closeModal={closeConfirm} text={"Are you sure you want to launch this election?"} />
+    <ConfirmModal  open={confirmModal} closeModal={closeConfirm} click={launchElection} launch={true} text={"Are you sure you want to launch this election?"} />
     <div className='items-center pl-[330px] pt-[150px] pr-6 flex flex-col'>
         <h1 className='text-[28px] font-bold'>Launch Election</h1>
         <div className='my-8'>
@@ -21,7 +40,7 @@ const Launch = () => {
                 <ul className='list-disc text-[18px] ml-12 mt-2'>
                     <li>Add or remove parties</li>
                     <li>Add or remove candidates</li>
-                    <li>Remove voters</li>
+                    <li>Add or remove voters</li>
                     <li>Edit election settings</li>
                     <li>Delete election</li>
                 </ul>
