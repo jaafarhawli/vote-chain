@@ -20,15 +20,18 @@ const AddCandidate = ({open, closeModal}) => {
 
         const form = {
             name: name,
-            party_id: localStorage.party_id
+            party_id: localStorage.party_id,
+            election_id: localStorage.election_id,
+            user_id: localStorage.id
         }
         
         try {
-             const data = await axios.post('user/candidate', form, {
+             const data = await axios.post('candidate/', form, {
                 headers: {
                   Authorization: `bearer ${localStorage.token}`
                 }
               });
+
               localStorage.setItem('candidate_id', data.data._id);
               if(image) {
                 const formData = new FormData();
@@ -38,27 +41,27 @@ const AddCandidate = ({open, closeModal}) => {
                 formData.append('candidateImg',image, image.name);
 
                 try {
-                    await axios.post('user/image', formData, {
+                    await axios.post('candidate/image', formData, {
                        headers: {
                          Authorization: `bearer ${localStorage.token}`
                        }
                      });
       
                    } catch (error) {
-                       setError(error.message);
+                       setError(error.resoonse.data.message);
                        setIsError(true);
                        setErrorModal(true);
-                     console.log(error);
+                     console.log(error.resoonse.data.message);
                    }
               }
               setIsError(false);
               setError("Candidate added");
               setErrorModal(true);
             } catch (error) {
-                setError(error.message);
+                setError(error.resoonse.data.message);
                 setIsError(true);
                 setErrorModal(true);
-              console.log(error);
+              console.log(error.resoonse.data.message);
             }
         
     }
