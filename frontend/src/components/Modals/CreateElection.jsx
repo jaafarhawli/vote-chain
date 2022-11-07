@@ -2,8 +2,6 @@ import React, {useState, useEffect} from 'react';
 import {HiOutlineXMark} from 'react-icons/hi2';
 import axios from '../../api/axios';
 import logo from '../../assets/VOTE CHAIN-logo-black.png';
-import TimezonePicker from 'react-bootstrap-timezone-picker';
-import 'react-bootstrap-timezone-picker/dist/react-bootstrap-timezone-picker.min.css';
 import Button from '../Reusable/Button';
 import FormInput from '../Reusable/FormInput';
 import SuccessModal from './SuccessModal';
@@ -16,7 +14,6 @@ const CreateElection = ({open, closeModal, refetch}) => {
     const [title, setTitle] = useState('');
     const [starttime, setStarttime] = useState('');
     const [endtime, setEndtime] = useState('');
-    const [timezone, setTimezone] = useState('');
     const [errorModal, setErrorModal] = useState(false);
     const [error, setError] = useState('');
     const [disabled, setDisabled] = useState(true);
@@ -34,12 +31,11 @@ const CreateElection = ({open, closeModal, refetch}) => {
             admin_id: localStorage.id,
             title: title,
             start_time: starttime,
-            end_time: endtime,
-            timezone: timezone
+            end_time: endtime
         }
         
         try {
-             await axios.post('user/election', form, {
+             await axios.post('election', form, {
                 headers: {
                   Authorization: `bearer ${localStorage.token}`
                 }
@@ -47,22 +43,19 @@ const CreateElection = ({open, closeModal, refetch}) => {
               refetch();
               closeModal();
             } catch (error) {
-                setError(error.message);
+                setError(error.response.data.message);
                 setErrorModal(true);
-              console.log(error);
+              console.log(error.response.data.message);
             }
         
     }
-    const handleChange = (value) => {
-        setTimezone(value);
-    }
 
     useEffect(() => {
-        if(title==='' || starttime==='' || endtime==='' || timezone==='')
+        if(title==='' || starttime==='' || endtime==='')
         setDisabled(true)
         else
         setDisabled(false)
-      }, [title, starttime, endtime, timezone]);
+      }, [title, starttime, endtime]);
 
     if(!open)
     return null;
@@ -101,17 +94,6 @@ return (
                 />
             </label>
           </div>
-          
-          <label>
-              <p className='font-medium'>Timezone</p>
-              <TimezonePicker
-                  
-                  placeholder   = "Select timezone..."
-                  onChange={handleChange}
-                  className='timezone w-full'
-                />
-             
-          </label>
           <Button className='bg-cyan' onClick={createElection} disabled={disabled} >Create election</Button>
       </form> 
      </div>
