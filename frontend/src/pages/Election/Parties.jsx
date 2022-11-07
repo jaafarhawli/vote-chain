@@ -28,11 +28,11 @@ const Parties = () => {
 
 
     const {data} = useQuery([refetch], async () => {
-        return axios.get(`user/parties/${localStorage.election_id}`, {
+        return axios.get(`party/${localStorage.election_id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
                     }
-                  }).then((res) => res.data);
+                  }).then((res) => res.data.data);
     })
 
     const filteredData = useMemo(() => {
@@ -45,7 +45,7 @@ const Parties = () => {
         setConfirmModal(false)
         document.body.style.overflow = 'unset';
       }
-const openConfirmModal = (id) => {
+    const openConfirmModal = (id) => {
         setConfirmModal(true);
         localStorage.setItem('party_id', id);
         document.body.style.overflow = 'hidden';
@@ -66,19 +66,20 @@ const openConfirmModal = (id) => {
       const deleteParty = async () => {
         const form = {
             party_id: localStorage.party_id,
-            election_id: localStorage.election_id 
+            election_id: localStorage.election_id,
+            user_id: localStorage.id 
         }
         
         try {
-            await axios.post('user/party/remove', form, {
+            await axios.post('party/remove', form, {
                 headers: {
                   Authorization: `bearer ${localStorage.token}`
                 }
               });
               setRefetch(!refetch)
-                 closeConfirm()
+              closeConfirm()
             } catch (error) {
-              console.log(error);
+              console.log(error.response.data.message);
             }
         }
 
@@ -92,8 +93,6 @@ const openConfirmModal = (id) => {
         </div>
         </>
     );
-
-    
 
 
   return (
