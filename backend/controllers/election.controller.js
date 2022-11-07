@@ -49,9 +49,19 @@ const createElection = async(req, res) => {
 const editElection = async (req, res) => {
     const {id, ...data} = req.body
 
+    if(data.end_time-data.start_time<0)
+    return res.status(400).json({
+        message: "Election end time should be ahead of start time"
+    })
+    
+    if(data.end_time-data.start_time<24)
+    return res.status(400).json({
+        message: "Election should be 24 hours atleast"
+    })
+
     Election.findById(election_id, async (err) => {
         if(err) 
-        return res.status(400).json("Invalid input");
+        return res.status(400).json({message:"Invalid input"});
         Election.findByIdAndUpdate(election_id,{
             title: data.title,
             start_time: data.start_time,
@@ -59,8 +69,8 @@ const editElection = async (req, res) => {
             description: data.description
         }, async (err) => {
             if(err)
-            return res.status(400).json("Invalid input");
-            res.status(200).json("Election updated successfully");
+            return res.status(400).json({message:"Invalid input"});
+            res.status(200).json({message:"Election updated successfully"});
         });
     }); 
 } 
