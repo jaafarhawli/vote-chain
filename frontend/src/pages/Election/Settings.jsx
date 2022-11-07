@@ -14,6 +14,7 @@ const Settings = () => {
     const [title, setTitle] = useState(localStorage.election_title);
     const [starttime, setStarttime] = useState(localStorage.election_start);
     const [endtime, setEndtime] = useState(localStorage.election_end);
+    const [description, setDescription] = useState(localStorage.election_description);
     const [successModal, setSuccessModal] = useState(false);
     const [error, setError] = useState(true);
     const [message, setMessage] = useState('');
@@ -48,6 +49,7 @@ const Settings = () => {
             title: title,
             start_time: starttime,
             end_time: endtime,
+            description: description
         }
         try {
           await axios.put('election', form, {
@@ -58,6 +60,7 @@ const Settings = () => {
           localStorage.setItem('election_title', title);
           localStorage.setItem('election_start', starttime);
           localStorage.setItem('election_end', endtime);
+          localStorage.setItem('election_description', description);
           setStarttime(localStorage.election_start);
           setEndtime(localStorage.election_end);
           setError(false);
@@ -96,7 +99,7 @@ const Settings = () => {
     }
 
     useEffect(() => {
-        if (title===localStorage.election_title && starttime===localStorage.election_start && endtime===localStorage.election_end)
+        if (title===localStorage.election_title && starttime===localStorage.election_start && endtime===localStorage.election_end && description===localStorage.election_description)
         setDisabled(true);
         if(title==='')
         setDisabled(true)
@@ -106,7 +109,9 @@ const Settings = () => {
         setDisabled(false);
         if(endtime!==localStorage.election_end && endtime!=='')
         setDisabled(false);
-      }, [title, starttime, endtime, save]);
+        if(description!==localStorage.election_description)
+        setDisabled(false);
+      }, [title, starttime, endtime, description, save]);
 
   return (
       <>
@@ -147,6 +152,10 @@ const Settings = () => {
                 />
             </label>
           </div>
+          <label>
+            <p className='font-semibold'>Description</p>
+            <textarea defaultValue={localStorage.election_description? localStorage.election_description : ""} onChange={e => setDescription(e.target.value)} className='w-full border-[1px] border-black-200 outline-none rounded-sm p-4 text-[16px]' />
+          </label>
           <Button className='bg-cyan' disabled={disabled} onClick={saveInfo} >Save Changes</Button>
       </form> 
     </div>

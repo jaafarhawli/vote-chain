@@ -22,11 +22,10 @@ const UserElections = () => {
               }).then((res) => res.data.data);
 })
 
-const viewElection = (id, timezone, start_time, end_time) => {
+const viewElection = (id, start_time, end_time) => {
     localStorage.setItem('election_id', id);
     localStorage.setItem('election_start', start_time);
     localStorage.setItem('election_end', end_time);
-    localStorage.setItem('election_timezone', timezone);
     navigate('admin/election/dashboard')
 }
 
