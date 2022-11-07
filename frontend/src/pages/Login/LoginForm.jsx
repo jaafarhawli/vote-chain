@@ -32,17 +32,17 @@ const LoginForm = () => {
               Authorization: `bearer ${localStorage.token}`
             }
           });
-          localStorage.setItem('firstname', user.data.first_name);
-          localStorage.setItem('lastname', user.data.last_name);
-          localStorage.setItem('id', user.data._id);
+          localStorage.setItem('firstname', user.data.data.first_name);
+          localStorage.setItem('lastname', user.data.data.last_name);
+          localStorage.setItem('id', user.data.data._id);
           navigate('/main');
         } catch (error) {
-          console.log(error);
+          console.log(error.response.data.message);
         }
     }
     catch (error) {
         setError(true);
-        console.log(error);
+        console.log(error.response.data.message);
     }
   }
 
