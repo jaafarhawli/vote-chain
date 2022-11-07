@@ -24,12 +24,12 @@ const Moderators = () => {
         document.body.style.overflow = 'unset';
       }
     
-const {data} = useQuery([refetch], async () => {
-        return axios.get(`user/moderators/${localStorage.election_id}`, {
+    const {data} = useQuery([refetch], async () => {
+        return axios.get(`moderator/${localStorage.election_id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
                     }
-                  }).then((res) => res.data);
+                  }).then((res) => res.data.data);
     })
 
     const filteredData = useMemo(() => {
@@ -55,19 +55,20 @@ const {data} = useQuery([refetch], async () => {
       const deleteModerator = async () => {
         const form = {
             moderator_id: localStorage.moderator_id,
-            election_id: localStorage.election_id 
+            election_id: localStorage.election_id,
+            user_id: localStorage.id 
         }
         
         try {
-            await axios.post('user/moderator/remove', form, {
+            await axios.post('moderator/remove', form, {
                 headers: {
                   Authorization: `bearer ${localStorage.token}`
                 }
               });
               setRefetch(!refetch)
-                 closeConfirm()
+              closeConfirm()
             } catch (error) {
-              console.log(error);
+              console.log(error.response.data.message);
             }
         }
 
