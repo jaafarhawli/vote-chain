@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import logo from '../../assets/VOTE CHAIN-logo-white-horizantal.png';
 import curve from '../../assets/main-curve.svg';
-import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Reusable/Button';
 import {IoIosNotifications} from 'react-icons/io';
@@ -23,7 +22,18 @@ const MainHeader = ({title, empty, open}) => {
                 }).then((res) => res.data.data);
     })
 
-    console.log(data)
+    const viewNotifications = async () => {
+      if(!showNotifications) {
+      document.body.style.overflow = 'hidden';
+      setShowNotifications(true);
+      }
+      else {
+      document.body.style.overflow = 'unset';
+      setShowNotifications(false);
+      }
+    }
+
+   
 
     return (
     <div>
@@ -34,8 +44,10 @@ const MainHeader = ({title, empty, open}) => {
                 <h2 className='hover:bg-purple-300/50 duration-150 p-2 rounded-lg select-none cursor-pointer' onClick={() => navigate('/main')}>Admin</h2>
                 <h2 className='hover:bg-purple-300/50 duration-150 p-2 rounded-lg select-none cursor-pointer' onClick={() => navigate('/main/moderate')}>Moderator</h2>
                 <div className='relative'>
-                  <IoIosNotifications className='text-[28px] hover:text-cyan duration-150' onClick={() => setShowNotifications(true)} />
-                  <div className='absolute right-0 w-[400px] h-[500px] bg-purple-300 rounded-xl p-4'>
+                  <IoIosNotifications className='text-[28px] hover:text-cyan duration-150' onClick={viewNotifications} />
+                  {showNotifications ?
+                   <>
+                   <div className='absolute right-0 w-[400px] h-[500px] bg-purple-300 rounded-xl p-4 overflow-scroll'>
                     <h1 className='text-black-100 text-[20px]'>Notifications</h1>
                     <div className='w-full bg-black-100 h-[1px]'></div>
                     <div className='grid grid-cols-1 gap-2'>
@@ -50,7 +62,12 @@ const MainHeader = ({title, empty, open}) => {
                       ))}
                     </div>
                   </div>
+                  </>
+                  :
+                  null
+                  }
                 </div>
+                
 
                 <Button onClick={() => navigate('/main/settings')}>{localStorage.firstname} {localStorage.lastname}</Button>
             </div>
