@@ -1,4 +1,4 @@
-const {returnUserInfo, updateUser} = require('../utils/user.utils');
+const {returnUserInfo, updateUser, updateUserPassword} = require('../utils/user.utils');
 
 const User = require('../models/users.model');
 const Election = require('../models/elections.model');
@@ -29,14 +29,7 @@ const changePassword = async (req, res) => {
     if(password.length<8) 
     return res.status(400).json({message:"Invalid password"});
 
-    hashed = await bcrypt.hash(password, 10);
-    User.findByIdAndUpdate(id,{
-        password: hashed
-    }, async (err) => {
-        if(err)
-        return res.status(400).json({message:"Invalid password"});
-        res.status(200).json({message:"Password updated successfully"});
-    });
+    updateUserPassword(id, password, res);
 }
 
 const deleteAccount = (req, res) => {

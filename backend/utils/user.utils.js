@@ -1,4 +1,5 @@
 const User = require('../models/users.model');
+const bcrypt = require('bcrypt');
 
 const returnUserInfo = (email, res) => {
     User.findOne({
@@ -23,9 +24,20 @@ const updateUser = (id, first_name, last_name, email, res) => {
     });
 }
 
+const updateUserPassword = async (id, password, res) => {
+    hashed = await bcrypt.hash(password, 10);
+    User.findByIdAndUpdate(id,{
+        password: hashed
+    }, (err) => {
+        if(err) 
+        return res.status(400).json({message:"Invalid password"});
 
+        res.status(200).json({message:"Password updated successfully"});
+    });
+}
 
 module.exports = {
     returnUserInfo,
-    updateUser
+    updateUser,
+    updateUserPassword
 }
