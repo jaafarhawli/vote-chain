@@ -13,15 +13,28 @@ const viewElectionAsModeratorResult =  (election) => {
     }
 }
 
-const removeElectionFromUsers = (user, users) => {
-    const index = user.elections.indexOf(election_id);
-        user.elections.splice(index, 1); 
-        user.save();
-        users.forEach((user) => {
-            const index = user.moderator_for.indexOf(election_id);
-            user.moderator_for.splice(index, 1); 
+const removeElectionFromUsers = (election_id, res) => {
+    // Remove the election from it's admin election list
+    User.findOne({elections: {"$in": [election_id]}}, (err, user) => {
+        if(err)
+        return res.status(400).json({ err });
+        // Remove the election from it's users' moderator_for election list
+        User.find({moderator_for: {"$in": [election_id]}}, (err, users) => {
+            if(err)
+            return res.status(400).json({ err });
+            if(users.length==0)
+            return res.status(200).json({message:"Election removed successfully"});
+            const index = user.elections.indexOf(election_id);
+            user.elections.splice(index, 1); 
             user.save();
+            users.forEach((user) => {
+                const index = user.moderator_for.indexOf(election_id);
+                user.moderator_for.splice(index, 1); 
+                user.save();
+            })
+            return res.status(200).json({message:"Election removed successfully"});
         })
+    })
 }
 
 const updateElection = (id, res) => {

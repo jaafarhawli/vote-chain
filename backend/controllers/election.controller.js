@@ -1,6 +1,5 @@
 const {viewElectionAsModeratorResult, removeElectionFromUsers, updateElection, newElection, setLaunch} = require('../utils/election.utils');
 
-const User = require('../models/users.model');
 const Election = require('../models/elections.model');
 const Voter = require('../models/voters.model');
 const Party = require('../models/parties.model');
@@ -64,20 +63,8 @@ const removeElection = (req, res) => {
             if(err) 
             return res.status(400).json({ err });
           });
-        // Remove the election from it's admin election list
-        User.findOne({elections: {"$in": [election_id]}}, (err, user) => {
-            if(err)
-            return res.status(400).json({ err });
-            // Remove the election from it's users' moderator_for election list
-            User.find({moderator_for: {"$in": [election_id]}}, (err, users) => {
-                if(err)
-                return res.status(400).json({ err });
-                if(users.length==0)
-                return res.status(200).json({message:"Election removed successfully"});
-                removeElectionFromUsers(user, users);
-                return res.status(200).json({message:"Election removed successfully"});
-            })
-        })
+        // Remove the election from it's users' admin and moderator_for election list
+        removeElectionFromUsers(election_id, res);
     });
 }
 
