@@ -1,6 +1,7 @@
 import React from 'react';
 import VoteHeader from './VoteHeader';
 import ElectionCard from '../../components/Reusable/ElectionCard';
+import Statistics from '../../components/Reusable/Statistics';
 
 const VoteResults = () => {
   return (
@@ -19,6 +20,7 @@ const VoteResults = () => {
           </div>
       </div>
         </div>
+      <Statistics />
       </div>
     </div>
   );

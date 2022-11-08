@@ -6,6 +6,7 @@ import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import Main from './Routes/Main';
 import Vote from './Routes/Vote';
+import { Chart as ChartJS } from 'chart.js/auto';
 
 
 function App() {
