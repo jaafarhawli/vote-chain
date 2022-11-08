@@ -6,6 +6,12 @@ const incrementCandidateVotes = async (party_id, candidate_id, voter, res) => {
     const party = await Party.findOne({_id: party_id}).select();
     if(!party)
     return res.status(404).json({message:"Party not found"});
+    Election.findById(party.election, (err, election) => {
+        if(err)
+        return res.status(404).json({ err });
+        if(election.launched===false)
+        return res.status(404).json({message: "Election is not launched yet" });
+    })
     party.candidates.forEach((candidate) => {
         if(candidate._id == candidate_id) {
             candidate.score+=1;
