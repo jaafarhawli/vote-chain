@@ -14,6 +14,7 @@ const VoteLoginForm = () => {
   const [id, setId] = useState('');
   const [key, setKey] = useState('');
   const [error, setError] = useState(false);
+  const [message, setMessage] = useState("");
 
   const handleSubmit = async () => {
     const form = {
@@ -58,6 +59,7 @@ const VoteLoginForm = () => {
     }
     catch (error) {
         setError(true);
+        setMessage(error.response.data.message);
         console.log(error.response.data.message);
     }
   }
@@ -67,7 +69,7 @@ const VoteLoginForm = () => {
       <img src={logo} alt="logo" className='w-[180px]' />
       <div className='bg-black-100 h-[2px] w-[180px]'></div>  
       <h1 className='my-4 text-2xl font-semibold text-purple-100'>Welcome!</h1>  
-      <h1 className={error? 'text-red ' : 'hidden'}>Invalid Credentials</h1>
+      <h1 className={error? 'text-red ' : 'hidden'}>{message}</h1>
       <form className='w-4/5 flex flex-col gap-5 '>
           <FormInput type="text" className='border-0' onChange={e => setCode(e.target.value)}>Election Code</FormInput>          
           <FormInput type="text" className='border-0' onChange={e => setId(e.target.value)}>ID</FormInput>          
