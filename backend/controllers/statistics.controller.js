@@ -1,5 +1,6 @@
 const Election = require('../models/elections.model');
 const Party = require('../models/parties.model');
+const Voter = require('../models/voters.model');
 
 const viewPartiesVoteCount = async (req, res) => {
     const {election_id} = req.params;
@@ -77,11 +78,26 @@ const viewElectionNumerics = async (req, res) => {
     });
 }
 
+const viewVotingPercentage = async (req, res) => {
+    const {election_id} = req.params;
+    const voters = await Voter.find({election_id: election_id}).select();
+    const votersTotal = voters.length;
+    let votedVoters = 0;
+    for(const voter of voters) {
+        if(voter.voted===true)
+        votedVoters++
+    }
+    return res.status(200).json({
+        voted: votedVoters,
+        notVoted: votersTotal - votedVoters
+    });
+}
 
 
 module.exports = {
     viewPartiesVoteCount,
     viewCandidatesVoteCount,
     viewPartyCandidates,
-    viewElectionNumerics
+    viewElectionNumerics,
+    viewVotingPercentage
 }
