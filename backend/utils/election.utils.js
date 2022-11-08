@@ -44,7 +44,7 @@ const removeElectionFromUsers = (election_id, res) => {
     })
 }
 
-const updateElection = (id, res) => {
+const updateElection = (id, data, res) => {
     Election.findByIdAndUpdate(id,{
         title: data.title,
         start_time: data.start_time,

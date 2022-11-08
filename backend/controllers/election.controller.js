@@ -36,7 +36,7 @@ const editElection = async (req, res) => {
     Election.findById(election_id, async (err) => {
         if(err) 
         return res.status(400).json({message:"Invalid input"});
-        updateElection(election_id, res);
+        updateElection(election_id, data, res);
     }); 
 } 
 
