@@ -3,6 +3,7 @@ import {useQuery} from '@tanstack/react-query';
 import axios from '../../api/axios';
 import { Doughnut } from 'react-chartjs-2';
 import { Bar } from 'react-chartjs-2';
+import { Pie } from 'react-chartjs-2';
 
 const Statistics = () => {
     
@@ -37,15 +38,21 @@ const Statistics = () => {
                     }
                   }).then((res) => res.data);
       })
-
-      console.log(votes);
       
     
     const partyStats = {
       labels: data?.labels,
       datasets: [{
         data: data?.data,
-        backgroundColor: ["#4ba0f7", "#00B8FF", "#7685e4", "#9568c7", "#a847a1", "#ae1f74"]
+        backgroundColor: ["#9568c7", "#00B8FF", "#7685e4", "#4ba0f7", "#a847a1", "#ae1f74"]
+      }]
+    }
+    
+    const voteStats = {
+      labels: ["Voted", "Did'nt Vote"],
+      datasets: [{
+        data: [votes?.voted, votes?.notVoted],
+        backgroundColor: ["#4ba0f7", "#9568c7"]
       }]
     }
     
@@ -78,11 +85,11 @@ const Statistics = () => {
     <div>
       {!live ?
       <>
-      <div className='flex w-full gap-6'>
-        <div className='w-1/3 my-6 bg-white rounded-2xl shadow-xl p-6'>
-          <Doughnut data={partyStats} />
+        <div className='flex w-full gap-6 my-6'>
+        <div className='w-1/3 bg-white rounded-2xl shadow-xl p-6'>
+          <Pie data={voteStats} />
         </div>
-        <div className='w-2/3 my-6 bg-white rounded-2xl shadow-xl p-6 flex align-baseline'>
+        <div className='w-2/3 bg-white rounded-2xl shadow-xl p-6 flex align-baseline'>
           <Bar data={candidateStats}
                 options={{
                   scales: {
@@ -114,9 +121,12 @@ const Statistics = () => {
                 }} />
         </div>
       </div>
-      <div className='grid grid-cols-2 gap-6 mb-6 w-full'>
+      <div className='flex flex-wrap gap-6 mb-6 w-full'>
+        <div className='w-1/3 bg-white rounded-2xl shadow-xl p-6'>
+          <Doughnut data={partyStats} />
+        </div>
       {parties?.map((party) => (
-          <div className='w-full bg-white rounded-2xl shadow-xl p-6 flex align-baseline'>
+          <div className='w-1/2 min-w-[50%] max-w-[66%] bg-white rounded-2xl h-fit shadow-xl p-6 flex align-baseline flex-1'>
             <Bar data={{
               labels: party.labels,
               datasets: [{
