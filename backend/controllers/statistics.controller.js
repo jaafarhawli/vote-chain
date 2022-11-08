@@ -1,4 +1,3 @@
-const Election = require('../models/elections.model');
 const Party = require('../models/parties.model');
 
 const viewPartiesVoteCount = async (req, res) => {
@@ -36,9 +35,32 @@ const viewCandidatesVoteCount = async (req, res) => {
     });
 }
 
+const viewPartyCandidates = async (req, res) => {
+        const {election_id} = req.params;
+        const parties = await Party.find({election: election_id}).select();
+        const result = [];
+        for(const party of parties) {
+            const candidateNames = [];
+            const candidateScores = [];
+            for(const candidate of party.candidates) {
+                candidateNames.push(candidate.name);
+                candidateScores.push(candidate.score);
+            }
+            result.push({
+                labels: candidateNames,
+                data: candidateScores,
+                party: party.name
+            })
+        }
+        return res.status(200).json({
+            result
+        });
+}
+
 
 
 module.exports = {
     viewPartiesVoteCount,
-    viewCandidatesVoteCount
+    viewCandidatesVoteCount,
+    viewPartyCandidates
 }
