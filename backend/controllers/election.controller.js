@@ -1,4 +1,4 @@
-const {viewElectionAsModeratorResult, removeElectionFromUsers, updateElection, newElection, setLaunch} = require('../utils/election.utils');
+const {viewElectionAsModeratorResult, removeElectionFromUsers, updateElection, newElection, setLaunch, generateElectionCode} = require('../utils/election.utils');
 
 const Election = require('../models/elections.model');
 const Voter = require('../models/voters.model');
@@ -6,14 +6,7 @@ const Party = require('../models/parties.model');
 
 const createElection = async(req, res) => {
     const {admin_id, title, start_time, end_time} = req.body;
-    let election_code = Math.random().toString(36).substring(2,7);
-    let code = Election.findOne({code: election_code});
-
-    // Generate a unique random code for the election
-    while(code.length==1) {
-        election_code = Math.random().toString(36).substring(2,7);
-        code = Election.find({code: election_code});
-    }
+    const election_code = generateElectionCode();
 
     if(end_time-start_time<0)
     return res.status(400).json({

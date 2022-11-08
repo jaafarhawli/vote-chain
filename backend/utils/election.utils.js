@@ -85,6 +85,18 @@ const setLaunch = (id, res) => {
     });
 }
 
+const generateElectionCode = () => {
+    let election_code = Math.random().toString(36).substring(2,7);
+    let code = Election.findOne({code: election_code});
+
+    // Generate a unique random code for the election
+    while(code.length==1) {
+        election_code = Math.random().toString(36).substring(2,7);
+        code = Election.findOne({code: election_code});
+    }
+    return election_code;
+}
+
 
 
 
@@ -93,5 +105,6 @@ module.exports = {
     removeElectionFromUsers,
     updateElection,
     newElection,
-    setLaunch
+    setLaunch, 
+    generateElectionCode
 }
