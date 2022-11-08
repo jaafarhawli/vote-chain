@@ -30,6 +30,8 @@ app.use('/moderator', moderatorRoutes);
 const statisticsRoutes = require('./routes/statistics.routes');
 app.use('/statistics', statisticsRoutes);
 
+const emailRoutes = require('./routes/email.routes');
+app.use('/verification', emailRoutes);
 
 app.listen(process.env.PORT, (err)=>{
     if(err) throw err;
