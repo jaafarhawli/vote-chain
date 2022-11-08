@@ -1,4 +1,4 @@
-const {returnUserInfo} = require('../utils/user.utils');
+const {returnUserInfo, updateUser} = require('../utils/user.utils');
 
 const User = require('../models/users.model');
 const Election = require('../models/elections.model');
@@ -15,17 +15,8 @@ const editAccount = async (req, res) => {
     User.findById(id, (err) => {
         if(err) 
         return res.status(400).json({message: "Invalid input"});
-    });
-    
-    User.findByIdAndUpdate(id,{
-        first_name: data.first_name,
-        last_name: data.last_name,
-        email: data.email,
-    }, async (err) => {
-        if(err)
-        return res.status(400).json({message:"Invalid input"});
-        res.status(200).json({message:"Account updated successfully"});
-    });
+    });  
+    updateUser(id, data.first_name, data.last_name, data.email, res);
 } 
 
 const changePassword = async (req, res) => {

@@ -11,10 +11,21 @@ const returnUserInfo = (email, res) => {
     } 
 })}
 
-
+const updateUser = (id, first_name, last_name, email, res) => {
+    User.findByIdAndUpdate(id,{
+        first_name: first_name,
+        last_name: last_name,
+        email: email,
+    }, async (err) => {
+        if(err)
+        return res.status(400).json({message:"Invalid input"});
+        res.status(200).json({message:"Account updated successfully"});
+    });
+}
 
 
 
 module.exports = {
-    returnUserInfo
+    returnUserInfo,
+    updateUser
 }
