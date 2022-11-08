@@ -19,14 +19,23 @@ const Dashboard = () => {
     <div className='pl-[330px] pt-[150px] bg-purple-400 pr-8'>
       <h1 className='text-[28px] font-bold'>Election Dashboard</h1>
       <h2 className='text-purple-100 mt-8 text-[22px] font-semibold'>Election code</h2>
-      <div className='flex gap-4 items-center mt-2'>
-          <input type="text" value={localStorage.election_code} readOnly={true} className='text-[20px] bg-black-100/5 w-1/2 py-5 px-4  border-black-200 border-2 shadow-inner rounded-md' />
-          <TbCopy className='text-black-200 p-2 border-black-200 border-2 w-[44px] h-[44px] rounded-lg' onClick={() => copyTextToClipboard(localStorage.election_code)}/>
-      </div>
-      <h2 className='text-purple-100 mt-8 text-[22px] font-semibold'>Election URL</h2>
-      <div className='flex gap-4 items-center mt-2'>
-          <input type="text" value={'-'} readOnly={true} className='text-[20px] bg-black-100/5 w-1/2 py-5 px-4  border-black-200 border-2 shadow-inner rounded-md' />
-          <TbCopy className='text-black-200 p-2 border-black-200 border-2 w-[44px] h-[44px] rounded-lg' onClick={() => copyTextToClipboard('-')}/>
+      <div className='flex w-full items-stretch'>
+        <div className='w-full'>
+          <div className='flex gap-4 items-center mt-2'>
+              <input type="text" value={localStorage.election_code} readOnly={true} className='text-[20px] bg-black-100/5 w-1/2 py-5 px-4  border-black-200 border-2 shadow-inner rounded-md' />
+              <TbCopy className='text-black-200 p-2 border-black-200 border-2 w-[44px] h-[44px] rounded-lg' onClick={() => copyTextToClipboard(localStorage.election_code)}/>
+          </div>
+          <h2 className='text-purple-100 mt-8 text-[22px] font-semibold'>Election URL</h2>
+          <div className='flex gap-4 items-center mt-2'>
+              <input type="text" value={'-'} readOnly={true} className='text-[20px] bg-black-100/5 w-1/2 py-5 px-4  border-black-200 border-2 shadow-inner rounded-md' />
+              <TbCopy className='text-black-200 p-2 border-black-200 border-2 w-[44px] h-[44px] rounded-lg' onClick={() => copyTextToClipboard('-')}/>
+          </div>
+        </div>
+        <ul className='bg-purple-100 w-[300px] rounded-2xl shadow-xl p-3 text-white text-[24px] font-bold space-y-2'>
+            <li>Voters:</li>
+            <li>Parties:</li>
+            <li>Candidates:</li>
+        </ul>
       </div>
       <Statistics />
       <ToastContainer autoClose={1000} hideProgressBar={true} position="bottom-center" />
