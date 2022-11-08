@@ -2,7 +2,7 @@ const Election = require('../models/elections.model');
 const Voter = require('../models/voters.model');
 const Party = require('../models/parties.model');
 var validator = require("email-validator");
-const { incrementCandidateVotes, generateVoterId, generateVoterKey } = require('../utils/voter.utils');
+const { incrementCandidateVotes, generateVoterId, generateVoterKey, addNewVoter } = require('../utils/voter.utils');
 
 const getVoter = async (req, res) => {
     const {voter_id} = req.params;
@@ -54,26 +54,7 @@ const addVoter = async (req, res)=>{
     // Generate a unique voter key for the voter
     const voter_key = generateVoterKey();
     
-    try{
-        const voter = new Voter();
-        voter.email = email;
-        voter.name = name;
-        voter.voter_id = voter_id;
-        voter.voter_key = voter_key;
-        voter.election_id = election_id;
-        voter.voted = 0;
-        await voter.save();
-
-        election.voters.push(voter.email);
-        await election.save();
-
-        res.status(200).json({data: voter});
-
-    }catch(err){
-        res.status(400).json({
-            message: err.message
-        })
-    }
+    addNewVoter(election, email, name, voter_id, voter_key, election_id, res);
 }
 
 const removeVoter = async (req, res) => {

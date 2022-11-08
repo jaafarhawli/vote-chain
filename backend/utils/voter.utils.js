@@ -38,10 +38,33 @@ const generateVoterKey  = () => {
     return voter_key;
 }
 
+const addNewVoter = async (election, email, name, voter_id, voter_key, election_id, res) => {
+    try{
+        const voter = new Voter();
+        voter.email = email;
+        voter.name = name;
+        voter.voter_id = voter_id;
+        voter.voter_key = voter_key;
+        voter.election_id = election_id;
+        voter.voted = 0;
+        await voter.save();
+
+        election.voters.push(voter.email);
+        await election.save();
+
+        res.status(200).json({data: voter});
+
+    }catch(err){
+        res.status(400).json({
+            message: err.message
+        })
+    }
+}
 
 
 module.exports = {
     incrementCandidateVotes,
     generateVoterId, 
-    generateVoterKey
+    generateVoterKey,
+    addNewVoter
 }
