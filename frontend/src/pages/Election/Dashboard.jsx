@@ -91,14 +91,78 @@ const Dashboard = () => {
       </div>
     
       {!live ?
+      <>
       <div className='flex w-full gap-6'>
         <div className='w-1/3 my-6 bg-white rounded-2xl shadow-xl p-6'>
           <Doughnut data={partyStats} />
         </div>
         <div className='w-2/3 my-6 bg-white rounded-2xl shadow-xl p-6 flex align-baseline'>
-          <Bar data={candidateStats} />
+          <Bar data={candidateStats}
+                options={{
+                  scales: {
+                    y: {
+                      grid: {
+                        display: false
+                      }
+                    },
+                    x: {
+                      grid: {
+                        display: false
+                      }
+                    }
+                  },       
+                  elements: {
+                    bar: {
+                      borderWidth: 2,
+                    },
+                  },
+                  plugins: {
+                    legend: {
+                      position: 'right',
+                    },
+                    title: {
+                      display: true,
+                      text: 'Top Candidates',
+                    },
+                  },
+                }} />
         </div>
       </div>
+      <div className='grid grid-cols-2 gap-6 mb-6 w-full'>
+      {parties?.map((party) => (
+          <div className='w-full bg-white rounded-2xl shadow-xl p-6 flex align-baseline'>
+            <Bar data={{
+              labels: party.labels,
+              datasets: [{
+                label: party.party,
+                data: party.data,
+                backgroundColor: ["#4ba0f7", "#00B8FF", "#7685e4", "#9568c7", "#a847a1", "#ae1f74"]
+              }]}}
+              options={{
+                indexAxis: 'y',
+                elements: {
+                  bar: {
+                    borderWidth: 2,
+                  },
+                },
+                scales: {
+                  y: {
+                    grid: {
+                      display: false
+                    }
+                  },
+                  x: {
+                    grid: {
+                      display: false
+                    }
+                  }
+                }
+              }}
+             />
+          </div>
+      ))}
+      </div>
+      </>
       :
       null}
       <ToastContainer autoClose={1000} hideProgressBar={true} position="bottom-center" />
