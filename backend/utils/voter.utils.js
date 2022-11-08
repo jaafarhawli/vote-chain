@@ -18,9 +18,30 @@ const incrementCandidateVotes = async (party_id, candidate_id, voter, res) => {
     return res.status(200).json({message:"Voted Successfully"});
 }
 
+const generateVoterId  = () => {
+    let voter_id = Math.random().toString().slice(2,11);
+    let id_exists = Election.findOne({voter_id: voter_id});
+    while(id_exists.length==1) {
+        voter_id = Math.random().toString().slice(2,11);
+        id_exists = Election.findOne({voter_id: voter_id});
+    }
+    return voter_id;
+}
+
+const generateVoterKey  = () => {
+    let voter_key = Math.random().toString(36).substring(2,11);
+    let key_exists = Election.findOne({voter_key: voter_key});
+    while(key_exists.length==1) {
+        voter_key = Math.random().toString(36).substring(2,11);
+        key_exists = Election.find({key_exists: voter_key});
+    }
+    return voter_key;
+}
 
 
 
 module.exports = {
-    incrementCandidateVotes
+    incrementCandidateVotes,
+    generateVoterId, 
+    generateVoterKey
 }

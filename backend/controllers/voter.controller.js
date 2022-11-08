@@ -2,7 +2,7 @@ const Election = require('../models/elections.model');
 const Voter = require('../models/voters.model');
 const Party = require('../models/parties.model');
 var validator = require("email-validator");
-const { incrementCandidateVotes } = require('../utils/voter.utils');
+const { incrementCandidateVotes, generateVoterId, generateVoterKey } = require('../utils/voter.utils');
 
 const getVoter = async (req, res) => {
     const {voter_id} = req.params;
@@ -49,20 +49,10 @@ const addVoter = async (req, res)=>{
     }
 
     // Generate a unique voter id for the voter
-    let voter_id = Math.random().toString().slice(2,11);
-    let id_exists = Election.findOne({voter_id: voter_id});
-    while(id_exists.length==1) {
-        voter_id = Math.random().toString().slice(2,11);
-        id_exists = Election.findOne({voter_id: voter_id});
-    }
+    const voter_id = generateVoterId();
 
     // Generate a unique voter key for the voter
-    let voter_key = Math.random().toString(36).substring(2,11);
-    let key_exists = Election.findOne({voter_key: voter_key});
-    while(key_exists.length==1) {
-        voter_key = Math.random().toString(36).substring(2,11);
-        key_exists = Election.find({key_exists: voter_key});
-    }
+    const voter_key = generateVoterKey();
     
     try{
         const voter = new Voter();
