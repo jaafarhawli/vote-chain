@@ -59,6 +59,9 @@ const voterLogin = async (req, res)=>{
     if(!election_id)
     return res.status(404).json({message: "Invalid Credentials"});
 
+    if(election_id.launched===false)
+    return res.status(404).json({message: "Election is not launched yet"});
+
     const voter = await Voter.findOne({$and:[{election_id:election_id}, {voter_id:voter_id}, {voter_key:voter_key}]}).select();
     if(!voter)
     return res.status(404).json({message: "Invalid Credentials"});
