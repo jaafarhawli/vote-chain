@@ -14,12 +14,19 @@ const RegisterForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirm, setConfirm] = useState('');
-  const [error, setError] = useState('');
+  const [message, setMessage] = useState('');
+  const [error, setError] = useState(false);
   const [disabled, setDisabled] = useState(true);
 
   const handleSubmit = async() => {
       if(confirm!==password) {
-          setError('Passwords didnt match');
+          setMessage('Passwords didnt match');
+          setError(true);
+          return;
+      }
+      if(password.length<8) {
+          setMessage('Password should be 8 characters atleast');
+          setError(true);
           return;
       }
       const form = {
@@ -29,15 +36,12 @@ const RegisterForm = () => {
           password: password
       }
       try {
-        const signup = await axios.post('auth/signup/user', form);
-        localStorage.setItem('firstname', firstname);
-        localStorage.setItem('lastname', lastname);
-        localStorage.setItem('email', email);
-        localStorage.setItem('token', signup.data.token);
-        localStorage.setItem('id', signup.data.user._id);
-        navigate('/main');
+        const signup = await axios.post('email', form);
+        setMessage(signup.data);
+        setError(false);
       } catch (error) {
-        setError(error.message);
+        setMessage(error.data);
+        setError(true);
         console.log(error);
       }
   }
@@ -54,7 +58,7 @@ const RegisterForm = () => {
       <img src={logo} alt="logo" className='w-[180px]' />
       <div className='bg-black-100 h-[2px] w-[180px]'></div>  
       <h1 className='my-4 text-2xl font-semibold text-purple-100'>Create Account</h1>  
-      <h1 className='text-red pb-2'>{error}</h1>
+      <h1 className={error ? 'text-red pb-2' : 'text-green pb-2'}>{message}</h1>
       <form className='w-4/5 flex flex-col gap-5 '>
           <div className='flex gap-2'>
             <FormInput type="text" className='border-0' onChange={e => setFirstname(e.target.value)}>First Name</FormInput> 
