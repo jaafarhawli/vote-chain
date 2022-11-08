@@ -1,4 +1,4 @@
-const {returnUserInfo, updateUser, updateUserPassword} = require('../utils/user.utils');
+const {returnUserInfo, updateUser, updateUserPassword, removeModeratorFromElections} = require('../utils/user.utils');
 
 const User = require('../models/users.model');
 const Election = require('../models/elections.model');
@@ -38,16 +38,7 @@ const deleteAccount = (req, res) => {
         if(err) 
         return res.status(400).json({ err });
       });
-    Election.find({moderators: {"$in": [id]}}, (err, elections) => {
-        if(err)
-        return res.status(400).json({ err });
-        elections.forEach((election) => {
-            const index = election.moderators.indexOf(id);
-            console.log("index", index);
-            election.moderators.splice(index, 1); 
-            election.save();
-        })
-    })
+    removeModeratorFromElections(id, res);
     
     User.findByIdAndDelete(id, (err) => {
         if(err)

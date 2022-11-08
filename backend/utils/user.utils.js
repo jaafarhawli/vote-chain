@@ -1,4 +1,5 @@
 const User = require('../models/users.model');
+const Election = require('../models/elections.model');
 const bcrypt = require('bcrypt');
 
 const returnUserInfo = (email, res) => {
@@ -36,8 +37,22 @@ const updateUserPassword = async (id, password, res) => {
     });
 }
 
+removeModeratorFromElections = (id, res) => {
+    Election.find({moderators: {"$in": [id]}}, (err, elections) => {
+        if(err)
+        return res.status(400).json({ err });
+        elections.forEach((election) => {
+            const index = election.moderators.indexOf(id);
+            console.log("index", index);
+            election.moderators.splice(index, 1); 
+            election.save();
+        })
+    })
+}
+
 module.exports = {
     returnUserInfo,
     updateUser,
-    updateUserPassword
+    updateUserPassword,
+    removeModeratorFromElections
 }
