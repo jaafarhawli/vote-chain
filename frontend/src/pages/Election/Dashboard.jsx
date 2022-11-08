@@ -19,12 +19,20 @@ const Dashboard = () => {
       }
 
       const {data} = useQuery(["parties"], async () => {
-        return axios.get(`statistics/${localStorage.election_id}`, {
+        return axios.get(`statistics/parties/${localStorage.election_id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
                     }
                   }).then((res) => res.data);
-    })
+      })
+      
+      const {data: candidates} = useQuery(["candidates"], async () => {
+        return axios.get(`statistics/candidates/${localStorage.election_id}`, {
+                    headers: {
+                      Authorization: `bearer ${localStorage.token}`
+                    }
+                  }).then((res) => res.data);
+      })
 
     const partyStats = {
       labels: data?.labels,
