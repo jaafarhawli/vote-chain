@@ -3,7 +3,6 @@ const Voter = require('../models/voters.model');
 const Election = require('../models/elections.model');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-var validator = require("email-validator");
 
 const login = async (req, res)=>{
     const {email, password} = req.body;
@@ -46,6 +45,5 @@ const voterLogin = async (req, res)=>{
 
 module.exports = {
     login,
-    userSignup,
     voterLogin,
 }
