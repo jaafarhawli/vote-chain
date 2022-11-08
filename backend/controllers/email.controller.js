@@ -59,17 +59,18 @@ const sendVerificationEmail = async (req, res) => {
   };
 
 
-   const verifyEmail = async (req, res) => {
-    try {
-      const user = await User.findOne({ _id: req.params.id });
-      if (!user) return res.status(400).send("Invalid link");
-  
-      await User.updateOne({ _id: user._id, verified: true });
-  
-      res.send("email verified sucessfully");
-    } catch (error) {
-      res.status(400).send("An error occured");
-    }
+  const verifyEmail = async (req, res) => {
+    const {id} = req.params;
+    const user = await User.findById(id).select();
+    if (!user) return res.status(400).send("Invalid link");
+
+    User.findByIdAndUpdate(id,{
+        verified:true
+    }, async (err) => {
+        if(err)
+        return res.status(400).json({message:"Invalid input"});
+        res.status(200).json({message:"Account updated successfully"});
+    });
   };
 
 module.exports = {
