@@ -2,6 +2,7 @@ const nodemailer = require("nodemailer");
 const User = require('../models/users.model');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+var validator = require("email-validator");
 
 const sendEmail = async (email, subject, text) => {
   try {
@@ -35,6 +36,13 @@ const sendVerificationEmail = async (req, res) => {
       let user = await User.findOne({ email: req.body.email });
       if (user)
         return res.status(400).send("User with given email already exist!");
+
+        if(req.body.password.length < 8)
+        return res.status(400).json("Invalid input");
+         
+        const validate = validator.validate(req.body.email); 
+        if(!validate)
+        return res.status(400).json("Invalid input");
   
       user = await new User({
   

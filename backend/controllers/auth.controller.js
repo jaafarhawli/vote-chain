@@ -12,6 +12,8 @@ const login = async (req, res)=>{
 
     if(!user) return res.status(404).json({message: "Invalid Credentials"});
     
+    if(!user.verified) return res.status(404).json({message: "Verify your email"});
+
     const isMatch = await bcrypt.compare(password, user.password);
     if(!isMatch) return res.status(404).json({message: "Invalid Credentials"});
 
