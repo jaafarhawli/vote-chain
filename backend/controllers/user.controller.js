@@ -1,18 +1,13 @@
+const {returnUserInfo} = require('../utils/user.utils');
+
 const User = require('../models/users.model');
 const Election = require('../models/elections.model');
 const bcrypt = require('bcrypt');
 
 const getUser = async (req, res) => {
     const {email} = req.params;
-    User.findOne({
-        email: email
-   }, async (err, user) => {
-    if(err)
-    return res.status(404).json({message:"User not found"});
-    else {
-        res.status(200).json({data: user});
-    } 
-})};
+    returnUserInfo(email, res)
+};
 
 const editAccount = async (req, res) => {
     const {id, ...data} = req.body
