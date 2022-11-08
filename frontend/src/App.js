@@ -8,6 +8,7 @@ import Main from './Routes/Main';
 import Vote from './Routes/Vote';
 // eslint-disable-next-line
 import { Chart as ChartJS } from 'chart.js/auto';
+import EmailVerification from './pages/Verification/EmailVerification';
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
 					<Route path='/register' element={<Register />} />
 					<Route path='/main/*' element={<Main />} />
 					<Route path='/vote/*' element={<Vote />} />
+					<Route path='/email/verify/:id/:token' element={<EmailVerification />} />
 				</Routes>
     	</BrowserRouter>
 	</QueryClientProvider>
