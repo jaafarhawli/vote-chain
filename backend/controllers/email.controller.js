@@ -60,9 +60,13 @@ const sendVerificationEmail = async (req, res) => {
 
 
   const verifyEmail = async (req, res) => {
-    const {id} = req.params;
+    const {id, token} = req.params;
     const user = await User.findById(id).select();
     if (!user) return res.status(400).send("Invalid link");
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+    const verifiedToken = await User.findOne({email: decoded.email}).lean();
+    if(!verifiedToken) return res.status(400).send("Invalid link");
 
     User.findByIdAndUpdate(id,{
         verified:true
