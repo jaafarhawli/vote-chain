@@ -3,6 +3,8 @@ import {TbCopy} from 'react-icons/tb';
 import { ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Statistics from '../../components/Reusable/Statistics';
+import {useQuery} from '@tanstack/react-query';
+import axios from '../../api/axios';
 
 const Dashboard = () => {
 
@@ -14,6 +16,14 @@ const Dashboard = () => {
           return document.execCommand('copy', true, text);
         }
       }  
+
+      const {data} = useQuery(["numerics"], async () => {
+        return axios.get(`statistics/${localStorage.election_id}`, {
+                    headers: {
+                      Authorization: `bearer ${localStorage.token}`
+                    }
+                  }).then((res) => res.data.numerics);
+      })
 
     return (
     <div className='pl-[330px] pt-[150px] bg-purple-400 pr-8'>
@@ -32,9 +42,9 @@ const Dashboard = () => {
           </div>
         </div>
         <ul className='bg-purple-100 w-[300px] rounded-2xl shadow-xl p-3 text-white text-[24px] font-bold space-y-2'>
-            <li>Voters:</li>
-            <li>Parties:</li>
-            <li>Candidates:</li>
+            <li>Voters: {data?.voters}</li>
+            <li>Parties: {data?.parties}</li>
+            <li>Candidates: {data?.candidates}</li>
         </ul>
       </div>
       <Statistics />
