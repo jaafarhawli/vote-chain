@@ -42,12 +42,24 @@ const Dashboard = () => {
         backgroundColor: ["#4ba0f7", "#00B8FF", "#7685e4", "#9568c7", "#a847a1", "#ae1f74"]
       }]
     }
+
+
+    const candidatesNames = []
+    const candidatesScores = []
+    
+    // Divide sorted candidates into two arrays
+    if(candidates) 
+    for(const [key, value] of Object.entries(candidates.sorted)) {
+      candidatesNames.push(key);
+      candidatesScores.push(value);
+    }
+    
     
     const candidateStats = {
-      labels: candidates?.labels,
+      labels: candidatesNames.slice(0, 10),
       datasets: [{
         label: "Votes",
-        data: candidates?.data,
+        data: candidatesScores.slice(0, 10),
         backgroundColor: ["#4ba0f7", "#00B8FF", "#7685e4", "#9568c7", "#a847a1", "#ae1f74"]
       }]
     }
