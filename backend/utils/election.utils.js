@@ -1,16 +1,23 @@
 const Election = require('../models/elections.model');
 const User = require('../models/users.model');
 
-const viewElectionAsModeratorResult =  (election) => {
-    return result = {
-        id: election._id,
-        code: election.code,
-        title: election.title,
-        start_time: election.start_time,
-        end_time: election.end_time,
-        timezone: election.timezone,
-        voters: election.voters
-    }
+const viewElectionAsModeratorResult =  (election_id, user_id, res) => {
+    Election.findById(election_id, (err, election) => {
+        if(err) 
+        return res.status(404).json({message:"Election not found"});
+        if(!election.moderators.includes(user_id))
+        return res.status(401).json({message:"Unauthorized"});
+        const result = {
+            id: election._id,
+            code: election.code,
+            title: election.title,
+            start_time: election.start_time,
+            end_time: election.end_time,
+            timezone: election.timezone,
+            voters: election.voters
+        }
+        res.status(200).json({data: result});
+    });
 }
 
 const removeElectionFromUsers = (election_id, res) => {
@@ -97,7 +104,15 @@ const generateElectionCode = () => {
     return election_code;
 }
 
-
+const returnElectionData = (election_id, user_id, res) => {
+    Election.findById(election_id, (err, election) => {
+        if(err) 
+        return res.status(404).json({message:"Election not found"});
+        if(election.admin!=user_id)
+        return res.status(401).json({message:"Unauthorized"});
+        res.status(200).json({data: election});
+    });
+}
 
 
 module.exports = {
@@ -106,5 +121,6 @@ module.exports = {
     updateElection,
     newElection,
     setLaunch, 
-    generateElectionCode
+    generateElectionCode,
+    returnElectionData
 }

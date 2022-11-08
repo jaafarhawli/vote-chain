@@ -1,4 +1,4 @@
-const {viewElectionAsModeratorResult, removeElectionFromUsers, updateElection, newElection, setLaunch, generateElectionCode} = require('../utils/election.utils');
+const {viewElectionAsModeratorResult, removeElectionFromUsers, updateElection, newElection, setLaunch, generateElectionCode, returnElectionData} = require('../utils/election.utils');
 
 const Election = require('../models/elections.model');
 const Voter = require('../models/voters.model');
@@ -106,25 +106,12 @@ const viewElectionsAsModerator = (req, res) => {
 
 const viewElectionAsAdmin = (req, res) => {
     const {user_id, election_id} = req.params;
-    Election.findById(election_id, (err, election) => {
-        if(err) 
-        return res.status(404).json({message:"Election not found"});
-        if(election.admin!=user_id)
-        return res.status(401).json({message:"Unauthorized"});
-        res.status(200).json({data: election});
-    });
+    returnElectionData(election_id, user_id, res);
 }
 
 const viewElectionAsModerator = (req, res) => {
     const {user_id, election_id} = req.params;
-    Election.findById(election_id, (err, election) => {
-        if(err) 
-        return res.status(404).json({message:"Election not found"});
-        if(!election.moderators.includes(user_id))
-        return res.status(401).json({message:"Unauthorized"});
-        const result = viewElectionAsModeratorResult(election);
-        res.status(200).json({data: result});
-    });
+    viewElectionAsModeratorResult(election_id, user_id, res);
 }
 
 module.exports = {
