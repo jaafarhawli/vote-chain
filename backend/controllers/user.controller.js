@@ -1,4 +1,4 @@
-const {returnUserInfo, updateUser, updateUserPassword, removeModeratorFromElections} = require('../utils/user.utils');
+const {returnUserInfo, updateUser, updateUserPassword, removeModeratorFromElections, addModeratorToElection} = require('../utils/user.utils');
 
 const User = require('../models/users.model');
 const Election = require('../models/elections.model');
@@ -65,22 +65,7 @@ const acceptRequest = async (req, res) => {
         return res.status(404).json({message:"User not found"});
         if(user.elections.includes(election_id))
         return res.status(400).json({message:"Invalid request"});
-        Election.findById(election_id, async (err, election) => {
-            if(err) 
-            return res.status(404).json({message:"Election not found"});
-            if(election.moderators.includes(user_id))
-            return res.status(400).json({message:"You are already a moderator to this election"});
-            user.moderator_for.push(election_id);
-            await user.save();
-
-            election.moderators.push(user._id);
-            await election.save();
-
-            await User.updateOne({"_id": user_id}, {"$pull": {
-                "notifications": {"election_id": election_id}
-            }})
-            res.status(200).json({message: "Request accepted"});
-    });
+        addModeratorToElection(election_id, user_id, user, res);
 });
 }
 

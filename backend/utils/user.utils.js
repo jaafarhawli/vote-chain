@@ -50,9 +50,30 @@ removeModeratorFromElections = (id, res) => {
     })
 }
 
+const addModeratorToElection = async (election_id, user_id, user, res) => {
+    Election.findById(election_id, async (err, election) => {
+        if(err) 
+        return res.status(404).json({message:"Election not found"});
+        if(election.moderators.includes(user_id))
+        return res.status(400).json({message:"You are already a moderator to this election"});
+        user.moderator_for.push(election_id);
+        await user.save();
+
+        election.moderators.push(user._id);
+        await election.save();
+
+        await User.updateOne({"_id": user_id}, {"$pull": {
+            "notifications": {"election_id": election_id}
+        }})
+        res.status(200).json({message: "Request accepted"});
+});
+}
+
+
 module.exports = {
     returnUserInfo,
     updateUser,
     updateUserPassword,
-    removeModeratorFromElections
+    removeModeratorFromElections,
+    addModeratorToElection
 }
