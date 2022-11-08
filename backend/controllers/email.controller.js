@@ -49,7 +49,7 @@ const sendVerificationEmail = async (req, res) => {
           expiresIn: '1y'
       });
   
-      const message = `${process.env.BASE_URL}/user/verify/${user._id}/${token}`;
+      const message = `${process.env.BASE_URL}/email/verify/${user._id}/${token}`;
       await sendEmail(user.email, "Verify Email", message);
   
       res.send("An Email sent to your account please verify");

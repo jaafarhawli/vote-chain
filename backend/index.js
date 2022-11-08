@@ -31,7 +31,7 @@ const statisticsRoutes = require('./routes/statistics.routes');
 app.use('/statistics', statisticsRoutes);
 
 const emailRoutes = require('./routes/email.routes');
-app.use('/verification', emailRoutes);
+app.use('/email', emailRoutes);
 
 app.listen(process.env.PORT, (err)=>{
     if(err) throw err;
