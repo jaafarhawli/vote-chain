@@ -1,8 +1,8 @@
+const { incrementCandidateVotes, generateVoterId, generateVoterKey, addNewVoter, removeVoterFromElection } = require('../utils/voter.utils');
+
 const Election = require('../models/elections.model');
 const Voter = require('../models/voters.model');
-const Party = require('../models/parties.model');
 var validator = require("email-validator");
-const { incrementCandidateVotes, generateVoterId, generateVoterKey, addNewVoter } = require('../utils/voter.utils');
 
 const getVoter = async (req, res) => {
     const {voter_id} = req.params;
@@ -59,16 +59,7 @@ const addVoter = async (req, res)=>{
 
 const removeVoter = async (req, res) => {
     const {voter_id, election_id} = req.body;
-    Voter.findById(voter_id, async (err, voter) => {
-        if(err)
-        return res.status(400).json({message:"Invalid input"});
-        Election.findById(election_id, (err, election) => {
-            if(err)
-            return res.status(404).json({message:"Election not found"});
-            const index = election.voters.indexOf(voter.email);
-            election.voters.splice(index, 1); 
-            election.save();
-        })  })  
+    removeVoterFromElection(voter_id, election_id, res);
     Voter.findByIdAndRemove(voter_id, async (err) => {
         if(err)
         return res.status(400).json({message:"Invalid input"});

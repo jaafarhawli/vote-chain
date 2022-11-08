@@ -61,10 +61,24 @@ const addNewVoter = async (election, email, name, voter_id, voter_key, election_
     }
 }
 
+const removeVoterFromElection = (voter_id, election_id, res) => {
+    Voter.findById(voter_id, async (err, voter) => {
+        if(err)
+        return res.status(400).json({message:"Invalid input"});
+        Election.findById(election_id, (err, election) => {
+            if(err)
+            return res.status(404).json({message:"Election not found"});
+            const index = election.voters.indexOf(voter.email);
+            election.voters.splice(index, 1); 
+            election.save();
+        }) }) 
+}
+
 
 module.exports = {
     incrementCandidateVotes,
     generateVoterId, 
     generateVoterKey,
-    addNewVoter
+    addNewVoter,
+    removeVoterFromElection
 }
