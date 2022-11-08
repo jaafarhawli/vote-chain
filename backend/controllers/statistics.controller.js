@@ -22,17 +22,17 @@ const viewPartiesVoteCount = async (req, res) => {
 const viewCandidatesVoteCount = async (req, res) => {
     const {election_id} = req.params;
     const parties = await Party.find({election: election_id}).select();
-    const candidateNames = [];
-    const candidateScores = [];
+    const candidateScores = {};
     for(const party of parties) {
         for(const candidate of party.candidates) {
-            candidateNames.push(candidate.name);
-            candidateScores.push(candidate.score);
+            candidateScores[candidate.name] = candidate.score
         }
     }
+    const sorted = Object.fromEntries(
+        Object.entries(candidateScores).sort(([,a],[,b]) => b-a)
+    );
     return res.status(200).json({
-        labels: candidateNames,
-        data: candidateScores
+        sorted
     });
 }
 
