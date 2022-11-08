@@ -34,6 +34,14 @@ const Dashboard = () => {
                     }
                   }).then((res) => res.data);
       })
+      
+      const {data: parties} = useQuery(["partyCandidates"], async () => {
+        return axios.get(`statistics/party/candidates/${localStorage.election_id}`, {
+                    headers: {
+                      Authorization: `bearer ${localStorage.token}`
+                    }
+                  }).then((res) => res.data.result);
+      })
 
     const partyStats = {
       labels: data?.labels,
