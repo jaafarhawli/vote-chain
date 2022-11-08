@@ -2,6 +2,7 @@ const Election = require('../models/elections.model');
 const Voter = require('../models/voters.model');
 const Party = require('../models/parties.model');
 var validator = require("email-validator");
+const { incrementCandidateVotes } = require('../utils/voter.utils');
 
 const getVoter = async (req, res) => {
     const {voter_id} = req.params;
@@ -32,19 +33,7 @@ const vote = async (req, res) => {
     if(voter.voted == 1)
     return res.status(400).json({message:"Already voted"});
     
-    const party = await Party.findOne({_id: party_id}).select();
-    if(!party)
-    return res.status(404).json({message:"Party not found"});
-    party.candidates.forEach((candidate) => {
-        if(candidate._id == candidate_id) {
-            candidate.score+=1;
-        }
-    })
-    party.save();
-    voter.voted = 1;
-    voter.voting_time = new Date(Date.now()).toUTCString();
-    await voter.save();
-    return res.status(200).json({message:"Voted Successfully"});
+    incrementCandidateVotes(party_id, candidate_id, voter, res);
 }
 
 const addVoter = async (req, res)=>{
