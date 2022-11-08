@@ -24,6 +24,11 @@ const userSchema = new mongoose.Schema({
         select: false
     },
 
+    verified: {
+        type: Boolean,
+        default: false,
+      },
+
     notifications: [{
         user_email: {
             type: String
