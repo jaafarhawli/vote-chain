@@ -41,10 +41,10 @@ const Dashboard = () => {
               <TbCopy className='text-black-200 p-2 border-black-200 border-2 w-[44px] h-[44px] rounded-lg' onClick={() => copyTextToClipboard('-')}/>
           </div>
         </div>
-        <ul className='bg-purple-100 w-[300px] rounded-2xl shadow-xl p-3 text-white text-[24px] font-bold space-y-2'>
-            <li>Voters: {data?.voters}</li>
-            <li>Parties: {data?.parties}</li>
-            <li>Candidates: {data?.candidates}</li>
+        <ul className='bg-purple-300 w-[300px] rounded-2xl shadow-xl p-3 text-black-100 text-[24px] font-bold space-y-2 flex flex-col justify-center'>
+            <li>Voters: <span className='text-purple-100'>{data?.voters}</span> </li>
+            <li>Parties: <span className='text-purple-100'>{data?.parties}</span> </li>
+            <li>Candidates: <span className='text-purple-100'>{data?.candidates}</span> </li>
         </ul>
       </div>
       <Statistics />

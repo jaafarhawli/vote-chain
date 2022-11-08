@@ -126,7 +126,7 @@ const Statistics = () => {
           <Doughnut data={partyStats} />
         </div>
       {parties?.map((party) => (
-          <div className='w-1/2 min-w-[50%] max-w-[66%] bg-white rounded-2xl h-fit shadow-xl p-6 flex align-baseline flex-1'>
+          <div className='min-w-[40%] max-w-[66%] bg-white rounded-2xl h-fit shadow-xl p-6 flex align-baseline flex-1'>
             <Bar data={{
               labels: party.labels,
               datasets: [{
