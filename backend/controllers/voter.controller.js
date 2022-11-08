@@ -3,6 +3,7 @@ const { incrementCandidateVotes, generateVoterId, generateVoterKey, addNewVoter,
 const Election = require('../models/elections.model');
 const Voter = require('../models/voters.model');
 var validator = require("email-validator");
+const { sendEmail } = require('./email.controller');
 
 const getVoter = async (req, res) => {
     const {voter_id} = req.params;
@@ -53,6 +54,13 @@ const addVoter = async (req, res)=>{
 
     // Generate a unique voter key for the voter
     const voter_key = generateVoterKey();
+
+    // Send email to voter
+    const message = `You've been added as a voter to ${election.title} election which is going to start on ${election.start_time}.
+    Your Id is: ${voter_id} and your key is ${voter_key}
+    Election code is ${election.code}
+    Don't share these information with anyone`
+    await sendEmail(email, "Election Credentials", message);
     
     addNewVoter(election, email, name, voter_id, voter_key, election_id, res);
 }
