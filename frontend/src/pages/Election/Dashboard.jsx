@@ -2,6 +2,8 @@ import React from 'react';
 import {TbCopy} from 'react-icons/tb';
 import { ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {useQuery} from '@tanstack/react-query';
+import axios from '../../api/axios';
 
 const Dashboard = () => {
 
@@ -13,6 +15,16 @@ const Dashboard = () => {
           return document.execCommand('copy', true, text);
         }
       }
+
+      const {data} = useQuery(["parties"], async () => {
+        return axios.get(`statistics/${localStorage.election_id}`, {
+                    headers: {
+                      Authorization: `bearer ${localStorage.token}`
+                    }
+                  }).then((res) => res.data);
+    })
+
+    console.log(data);
   
     return (
     <div className='pl-[330px] pt-[150px]'>
