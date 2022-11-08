@@ -27,6 +27,9 @@ app.use('/candidate', candidateRoutes);
 const moderatorRoutes = require('./routes/moderator.routes');
 app.use('/moderator', moderatorRoutes);
 
+const statisticsRoutes = require('./routes/statistics.routes');
+app.use('/statistics', statisticsRoutes);
+
 app.listen(process.env.PORT, (err)=>{
     if(err) throw err;
     console.log(`server running on port ${process.env.PORT}`);
