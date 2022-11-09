@@ -4,7 +4,10 @@ app.use(express.json());
 require('dotenv').config();
 require('./config/db.config');
 const cors = require("cors");
-app.use(cors());
+app.use(cors({
+    origin:'http://localhost:3000',
+    methods:['GET', 'POST', 'PUT', 'DELETE']
+}));
 
 const authRoutes = require('./routes/auth.routes');
 app.use('/auth', authRoutes);
