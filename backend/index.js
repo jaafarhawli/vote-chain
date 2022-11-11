@@ -8,6 +8,8 @@ app.use(cors({
     origin:'http://localhost:3000',
     methods:['GET', 'POST', 'PUT', 'DELETE']
 }));
+var path = require('path');
+app.use("/public", express.static(path.join(__dirname, 'public')));
 
 const authRoutes = require('./routes/auth.routes');
 app.use('/auth', authRoutes);
