@@ -24,5 +24,11 @@ contract Election {
     mapping(address => Voter) public voters;
 
     Candidate[] public candidates;
+
+    constructor(uint _startTime,uint _endTime) {
+        admin = msg.sender;
+        startTime = _startTime;
+        endTime = _endTime;
+    }
   
 }
