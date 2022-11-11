@@ -68,5 +68,18 @@ contract Election {
             }
         }
     }
+
+    function vote(uint candidate) external {
+        Voter storage sender = voters[msg.sender];
+        require(
+            block.timestamp > startTime && block.timestamp < endTime,
+            "Can't vote outside the election interval."
+        );
+        require(!sender.voted, "Already voted.");
+        require(sender.hasAccess, "No access.");
+        sender.voted = true;
+        sender.vote = candidate;
+        candidates[candidate].voteCount++;
+    }
   
 }
