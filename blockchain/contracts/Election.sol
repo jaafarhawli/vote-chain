@@ -30,5 +30,25 @@ contract Election {
         startTime = _startTime;
         endTime = _endTime;
     }
+
+    function addCandidates(string[] calldata candidatesList, string[] calldata candidateParty) external {
+        require(
+            block.timestamp < startTime,
+            "Can't add candidate after election starts."
+        );
+        
+        require(
+            msg.sender == admin,
+            "Only admin can add candidates."
+        );
+        
+        for (uint i = 0; i < candidatesList.length; i++) {
+            candidates.push(Candidate({
+                name: candidatesList[i],
+                partyName: candidateParty[i],
+                voteCount: 0
+            }));
+        }
+    }
   
 }
