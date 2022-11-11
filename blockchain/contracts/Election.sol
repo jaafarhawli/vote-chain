@@ -81,5 +81,9 @@ contract Election {
         sender.vote = candidate;
         candidates[candidate].voteCount++;
     }
+
+    function results() public view returns (Candidate[] memory) {
+        return candidates;
+    }
   
 }
