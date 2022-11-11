@@ -9,5 +9,11 @@ contract Election {
         uint vote;   
         bool hasAccess;
     }
-  
+
+    struct Candidate {
+        string name;  
+        string partyName;   
+        uint voteCount; 
+    }
+    
 }
