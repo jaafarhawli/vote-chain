@@ -15,5 +15,14 @@ contract Election {
         string partyName;   
         uint voteCount; 
     }
-    
+
+    address public admin;
+
+    uint public startTime;
+    uint public endTime;
+
+    mapping(address => Voter) public voters;
+
+    Candidate[] public candidates;
+  
 }
