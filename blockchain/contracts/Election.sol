@@ -50,5 +50,23 @@ contract Election {
             }));
         }
     }
+
+    function giveRightToVote(address[] calldata voterAddresses) external {
+        require(
+            block.timestamp < startTime,
+            "Can't add voter after election starts."
+        );
+       
+        require(
+            msg.sender == admin,
+            "Only admin can give right to vote."
+        );
+
+        for (uint p = 0; p < voterAddresses.length; p++) {
+            if (voters[voterAddresses[p]].hasAccess == false) {
+                voters[voterAddresses[p]].hasAccess = true;
+            }
+        }
+    }
   
 }
