@@ -13,4 +13,14 @@ contract('Election', (accounts) => {
         assert.equal(end_time, 1668249079);
     })
     
+    it('should allow admin to add candidates', async() => {
+        const candidates = ['mbappe'];
+        const parties = ['france'];
+        const election = await Election.deployed(1668239079, 1668249079);
+        await election.addCandidates(candidates, parties);
+        const results = await election.candidates.call(0);
+        assert.equal(results.name, 'mbappe');
+        assert.equal(results.partyName, 'france');
+        assert.equal(results.voteCount, 0);
+    })
 })
