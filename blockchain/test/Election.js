@@ -33,4 +33,18 @@ contract('Election', (accounts) => {
         assert(voters.hasAccess, true);
     })
     
+    it('should be able to vote', async() => {
+        const candidates = ['mbappe'];
+        const parties = ['france'];
+        const election = await Election.deployed(1668239079, 1668249079);
+        await election.addCandidates(candidates, parties);
+        const voter = accounts[2];
+        await election.giveRightToVote([voter]);
+        await election.vote(0, {from: voter});
+        const results = await election.results();
+        const voters = await election.voters.call(voter);
+        assert(results[0].voteCount, 1);
+        assert(voters.voted, true);
+    })
+    
 })
