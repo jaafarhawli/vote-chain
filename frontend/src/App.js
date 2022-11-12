@@ -10,30 +10,13 @@ import Vote from './Routes/Vote';
 // eslint-disable-next-line
 import { Chart as ChartJS } from 'chart.js/auto';
 import EmailVerification from './pages/Verification/EmailVerification';
-import Web3 from 'web3'
+import { init } from './Web3Client';
 
 
 function App() {
 
 	useEffect(() => {
-	  let provider = window.ethereum;
-	  if(typeof provider !== 'undefined') {
-		  provider
-		  	.request({method: 'eth_requestAccounts' })
-			.then((accounts) => {
-				console.log(accounts);
-			})
-			.catch((error) => {
-				console.log(error);
-			})
-
-		window.ethereum.on('accountsChanged', function (accounts) {
-			console.log(accounts);
-		})
-
-		const web3 = new Web3(provider);
-	  }
-
+	  init();
 	}, []);
 
   const client = new QueryClient();
