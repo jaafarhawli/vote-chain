@@ -2,7 +2,7 @@
 
 <div align="center">
 
-> Hello world! This is the project’s summary that describes the project plain and simple, limited to the space available.  
+> Hello world! This is the project’s summary that describes the project plain and simple, limited to the space available. 
 
 **[PROJECT PHILOSOPHY](https://github.com/jaafarhawli/vote-chain#-project-philosophy) • [WIREFRAMES](https://github.com/jaafarhawli/vote-chain#-wireframes) • [TECH STACK](https://github.com/jaafarhawli/vote-chain#-tech-stack) • [IMPLEMENTATION](https://github.com/jaafarhawli/vote-chain#-impplementation) • [HOW TO RUN?](https://github.com/jaafarhawli/vote-chain#-how-to-run)**
 
