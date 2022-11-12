@@ -2,6 +2,7 @@ const Election = artifacts.require("Election");
 const assert = require('assert');
 
 contract('Election', (accounts) => {
+    
     it('should deploy election', async() => {
         const admin_account = accounts[0];
         const election = await Election.deployed(1668239079, 1668249079);
@@ -23,4 +24,13 @@ contract('Election', (accounts) => {
         assert.equal(results.partyName, 'france');
         assert.equal(results.voteCount, 0);
     })
+
+    it('should give voter right to vote', async() => {
+        const election = await Election.deployed(1668239079, 1668249079);
+        const voter = accounts[2];
+        await election.giveRightToVote([voter]);
+        const voters = await election.voters.call(voter);
+        assert(voters.hasAccess, true);
+    })
+    
 })
