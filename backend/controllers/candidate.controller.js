@@ -1,13 +1,14 @@
 const Party = require('../models/parties.model');
 
 const addCandidate = async (req, res) => {
-    const {name, party_id} = req.body;
+    const {name, id, party_id} = req.body;
     Party.findById(party_id, async (err, party) => {
         if(err) 
         return res.status(404).json({message:"Party not found"});
         if(!party)
         return res.status(404).json({message:"Party not found"});
         const candidate = {
+            id: id,
             name: name,
             score: 0,
             picture_url: ""

@@ -11,6 +11,7 @@ const partySchema = new mongoose.Schema({
     },
 
     candidates: [{
+        id: Number,
         name: {
             type: String,
             required: 'Name is required',
