@@ -48,6 +48,7 @@ const VoteLoginForm = () => {
                 localStorage.setItem('election_end', election.data.data.end_time);
                 localStorage.setItem('election_title', election.data.data.title);
                 localStorage.setItem('election_description', election.data.data.description);
+                localStorage.setItem('election_address', election.data.data.contract_address);
                 navigate('/vote/main');
               } catch (error) {
                 console.log(error.response.data.message);
