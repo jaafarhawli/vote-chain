@@ -28,7 +28,7 @@ export const init = async () => {
 
 } 
 
-export const addCandidate = async (address) => {
+export const addCandidates = async (candidates, parties, address) => {
 	if(!isInitialized)
 	await init();
 
@@ -36,7 +36,7 @@ export const addCandidate = async (address) => {
 	const web3 = new Web3(provider);
 	let contract = new web3.eth.Contract(ElectionContract.abi, address);
 
-	return contract.methods.addCandidates(["mbappe"], ["france"]).send({from: selectedAccount});
+	return contract.methods.addCandidates(candidates, parties).send({from: selectedAccount});
 }
 
 export const createElectionContract = async () => {
