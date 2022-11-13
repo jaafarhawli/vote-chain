@@ -10,6 +10,7 @@ const AddVoter = ({open, closeModal, refetch}) => {
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
+    const [address, setAddress] = useState('');
     const [successModal, setSuccessModal] = useState(false);
     const [success, setSuccess] = useState('');
     const [disabled, setDisabled] = useState(true);
@@ -19,6 +20,7 @@ const AddVoter = ({open, closeModal, refetch}) => {
         const form = {
             name: name,
             email: email,
+            wallet_address: address,
             election_id: localStorage.election_id,
         }     
         try {
@@ -37,7 +39,7 @@ const AddVoter = ({open, closeModal, refetch}) => {
     }
 
     useEffect(() => {
-        if(name==='' || email==='')
+        if(name==='' || email==='' || address==='')
         setDisabled(true)
         else
         setDisabled(false)
@@ -57,6 +59,7 @@ const AddVoter = ({open, closeModal, refetch}) => {
       <form className='w-4/5 flex flex-col gap-5 '>
           <FormInput type="email" onChange={e => setEmail(e.target.value)} >Voter Email</FormInput>
           <FormInput type="text" onChange={e => setName(e.target.value)}>Voter Name</FormInput>
+          <FormInput type="text" onChange={e => setAddress(e.target.value)}>Voter Wallet Address</FormInput>
           <Button className='bg-cyan' onClick={addVoter} disabled={disabled} >Add</Button>
       </form> 
      </div>
