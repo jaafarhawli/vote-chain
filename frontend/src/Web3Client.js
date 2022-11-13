@@ -23,8 +23,6 @@ export const init = async () => {
 			console.log(`Selected account changed to ${selectedAccount}`);
 		})
 
-		const web3 = new Web3(provider);
-
 		isInitialized = true;
 	  }
 
@@ -62,7 +60,6 @@ export const createElectionContract = async () => {
         console.log('Transaction Hash :', transactionHash);
     }).on('confirmation', () => {}).then((newContractInstance) => 
 		newContractInstance._address
-        // {console.log('Deployed Contract Address : ', newContractInstance._address);}
 	)}
 
 
