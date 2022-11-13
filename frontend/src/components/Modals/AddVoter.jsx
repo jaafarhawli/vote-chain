@@ -43,7 +43,7 @@ const AddVoter = ({open, closeModal, refetch}) => {
         setDisabled(true)
         else
         setDisabled(false)
-      }, [name, email]);
+      }, [name, email, address]);
   
       if(!open)
       return null;

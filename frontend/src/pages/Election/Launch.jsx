@@ -3,7 +3,7 @@ import Button from '../../components/Reusable/Button';
 import ConfirmModal from '../../components/Modals/ConfirmModal';
 import axios from '../../api/axios';
 import {useQuery} from '@tanstack/react-query';
-import { addCandidates, viewCandidates } from '../../Web3Client';
+import { addCandidates, addVoterToBlockchain } from '../../Web3Client';
 
 const Launch = () => {
 
@@ -18,7 +18,15 @@ const Launch = () => {
                 }).then((res) => res.data.data);
   })
 
-  const addToBlockChain = async () => {
+  const {data: voters} = useQuery(["voters"], async () => {
+    return axios.get(`voter/voters/${localStorage.election_id}`, {
+                headers: {
+                  Authorization: `bearer ${localStorage.token}`
+                }
+              }).then((res) => res.data.data);
+})
+
+  const addCandidatesToBlockchain = async () => {
     let candidates = [];
     let parties = [];
     for(let candidate of data) {
@@ -27,12 +35,22 @@ const Launch = () => {
     }
     await addCandidates(candidates, parties, localStorage.election_address);
   }
+  
+  const addVotersToBlockChain = async () => {
+    let voters_addresses = [];
+    for(let voter of voters) {
+      voters_addresses.push(voter.voter_wallet_address);
+    }
+    await addVoterToBlockchain(voters_addresses, localStorage.election_address);
+  }
+
     
     const closeConfirm = () => {
         setConfirmModal(false);
     }
 
     const launchElection = async () => {
+      console.log(voters);
         const form = {
             election_id: localStorage.election_id,
             user_id: localStorage.id 
@@ -44,7 +62,8 @@ const Launch = () => {
                 }
               });
               localStorage.setItem("election_launched", true);
-              await addToBlockChain();
+              await addCandidatesToBlockchain();
+              await addVotersToBlockChain();
               setDisabled(true);
               closeConfirm();
             } catch (error) {

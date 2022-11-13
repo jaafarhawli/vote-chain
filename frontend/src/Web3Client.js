@@ -74,7 +74,7 @@ export const createElectionContract = async (start_time, end_time) => {
 		return contract.methods.results().call();
 	}
 
-	export const addVoterToBlockchain = async (address, voter_addresses) => {
+	export const addVoterToBlockchain = async (voter_addresses, address) => {
 		if(!isInitialized)
 		await init();
 	
