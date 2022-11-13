@@ -22,8 +22,6 @@ const CreateElection = ({open, closeModal, refetch}) => {
     const date = new Date()
 
     const createElection = async () => {
-
-        await createElectionContract();
      
         if(((endtime - starttime)/36e5) < 24) {
             setError("Your election should be 24 hours at least");
@@ -31,11 +29,14 @@ const CreateElection = ({open, closeModal, refetch}) => {
             return;
         }
 
+        const address = await createElectionContract();
+
         const form = {
             admin_id: localStorage.id,
             title: title,
             start_time: starttime,
-            end_time: endtime
+            end_time: endtime,
+            address: address
         }
         
         try {
