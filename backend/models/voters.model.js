@@ -18,6 +18,10 @@ const voterSchema = new mongoose.Schema({
         type: String
     },
 
+    voter_wallet_address: {
+        type: String
+    },
+
     election_id: {
         type: mongoose.Schema.Types.ObjectId, ref: 'Election'
     },
