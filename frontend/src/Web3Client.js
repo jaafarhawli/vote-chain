@@ -69,3 +69,11 @@ export const createElectionContract = async () => {
 		newContractInstance
         // console.log('Deployed Contract Address : ', newContractInstance);
 	)}
+
+
+	export const viewCandidates = async (election) => {
+		if(!isInitialized)
+		await init();
+	
+		return election.methods.results().call();
+	}
