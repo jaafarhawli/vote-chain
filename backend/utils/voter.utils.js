@@ -44,7 +44,7 @@ const generateVoterKey  = () => {
     return voter_key;
 }
 
-const addNewVoter = async (election, email, name, voter_id, voter_key, election_id, res) => {
+const addNewVoter = async (election, email, name, voter_id, voter_key, wallet_address,election_id, res) => {
     try{
         const voter = new Voter();
         voter.email = email;
@@ -52,6 +52,7 @@ const addNewVoter = async (election, email, name, voter_id, voter_key, election_
         voter.voter_id = voter_id;
         voter.voter_key = voter_key;
         voter.election_id = election_id;
+        voter.voter_wallet_address = wallet_address,
         voter.voted = 0;
         await voter.save();
 

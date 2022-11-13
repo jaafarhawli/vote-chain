@@ -38,7 +38,7 @@ const vote = async (req, res) => {
 }
 
 const addVoter = async (req, res)=>{
-    const {email, name, election_id} = req.body;
+    const {email, name, wallet_address, election_id} = req.body;
      
     const validate = validator.validate(email); 
     if(!validate)
@@ -62,7 +62,7 @@ const addVoter = async (req, res)=>{
     Don't share these information with anyone`
     await sendEmail(email, "Election Credentials", message);
     
-    addNewVoter(election, email, name, voter_id, voter_key, election_id, res);
+    addNewVoter(election, email, name, voter_id, voter_key, wallet_address, election_id, res);
 }
 
 const removeVoter = async (req, res) => {
