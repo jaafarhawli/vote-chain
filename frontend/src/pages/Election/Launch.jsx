@@ -45,8 +45,6 @@ const Launch = () => {
               });
               localStorage.setItem("election_launched", true);
               await addToBlockChain();
-              const candidates = await viewCandidates(localStorage.election_address);
-              console.log(candidates);
               setDisabled(true);
               closeConfirm();
             } catch (error) {

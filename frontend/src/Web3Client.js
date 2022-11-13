@@ -39,7 +39,7 @@ export const addCandidates = async (candidates, parties, address) => {
 	return contract.methods.addCandidates(candidates, parties).send({from: selectedAccount});
 }
 
-export const createElectionContract = async () => {
+export const createElectionContract = async (start_time, end_time) => {
 	let account = selectedAccount;
 	let provider = window.ethereum;
 	const web3 = new Web3(provider);
@@ -47,7 +47,7 @@ export const createElectionContract = async () => {
 
 	let payload = {
     data: ElectionContract.bytecode,
-    arguments: [1698239079, 1699239079]
+    arguments: [start_time, end_time]
 	}
 
 	let parameter = {

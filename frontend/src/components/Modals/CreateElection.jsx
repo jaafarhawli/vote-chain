@@ -20,6 +20,7 @@ const CreateElection = ({open, closeModal, refetch}) => {
     const [error, setError] = useState('');
     const [disabled, setDisabled] = useState(true);
     const date = new Date()
+    const epoch = new Date("01/01/1970 00:00:00");
 
     const createElection = async () => {
      
@@ -29,7 +30,10 @@ const CreateElection = ({open, closeModal, refetch}) => {
             return;
         }
 
-        const address = await createElectionContract();
+        const unixStartDate = Math.floor((new Date(starttime)  - epoch) / 1000);
+        const unixEndDate = Math.floor((new Date(endtime) - epoch) / 1000);
+
+        const address = await createElectionContract(unixStartDate, unixEndDate);
 
         const form = {
             admin_id: localStorage.id,
