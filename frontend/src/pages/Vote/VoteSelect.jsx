@@ -6,6 +6,7 @@ import {useQuery} from '@tanstack/react-query';
 import CandidateCard from '../../components/Reusable/CandidateCard';
 import Button from '../../components/Reusable/Button';
 import { useNavigate } from 'react-router-dom';
+import { voteCandidate } from '../../Web3Client';
 
 const VoteSelect = () => {
 
@@ -14,6 +15,7 @@ const VoteSelect = () => {
     const [selectedCandidate, setSelectedCandidate] = useState('');
     const [selectedPartyName, setSelectedPartyName] = useState('');
     const [selectedCandidateName, setSelectedCandidateName] = useState('');
+    const [selectedCandidateId, setSelectedCandidateId] = useState();
     const [disabled, setDisabled] = useState(true);
 
     const navigate = useNavigate();
@@ -32,12 +34,15 @@ const VoteSelect = () => {
         setSelectedPartyName(party_name);
     }
 
-    const selectCandidate = (id, candidate_name) => {
+    const selectCandidate = (id, candidate_name, blockchain_candidate_id) => {
         setSelectedCandidate(id);
         setSelectedCandidateName(candidate_name);
+        setSelectedCandidateId(blockchain_candidate_id);
     }
 
     const handleSubmit = async () => {
+
+        await voteCandidate(selectedCandidateId, localStorage.election_address);
         const form = {
             id: localStorage.voter_id,
             party_id: selectedParty,
@@ -83,7 +88,7 @@ const VoteSelect = () => {
             {candidates?.map(candidate => (
                 selectedCandidate===candidate._id ?
                 <CandidateCard name={candidate.name} image={candidate.picture_url} id={candidate._id} party_id={candidate.party_id} vote={true} selected={true} key={candidate._id} /> :
-                <CandidateCard name={candidate.name} image={candidate.picture_url} id={candidate._id} party_id={candidate.party_id} vote={true} select={() => selectCandidate(candidate._id, candidate.name)} key={candidate._id} /> 
+                <CandidateCard name={candidate.name} image={candidate.picture_url} id={candidate._id} party_id={candidate.party_id} vote={true} select={() => selectCandidate(candidate._id, candidate.name, candidate.id)} key={candidate._id} /> 
             ))}
         </div>
       </div>

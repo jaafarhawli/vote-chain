@@ -85,7 +85,7 @@ export const createElectionContract = async (start_time, end_time) => {
 		return contract.methods.giveRightToVote(voter_addresses).send({from: selectedAccount});
 	}
 
-	export const voteCandidate = async (address, candidate_id) => {
+	export const voteCandidate = async (candidate_id, address) => {
 		if(!isInitialized)
 		await init();
 	
