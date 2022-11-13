@@ -2,12 +2,32 @@ import React, {useState} from 'react';
 import Button from '../../components/Reusable/Button';
 import ConfirmModal from '../../components/Modals/ConfirmModal';
 import axios from '../../api/axios';
+import {useQuery} from '@tanstack/react-query';
+import { addCandidates, viewCandidates } from '../../Web3Client';
 
 const Launch = () => {
 
     const [confirmModal, setConfirmModal] = useState(false);
     const [disabled, setDisabled] = useState(localStorage.election_launched==="true");
 
+    const {data} = useQuery([], async () => {
+      return axios.get(`candidate/${localStorage.election_id}`, {
+                  headers: {
+                    Authorization: `bearer ${localStorage.token}`
+                  }
+                }).then((res) => res.data.data);
+  })
+
+  const addToBlockChain = async () => {
+    let candidates = [];
+    let parties = [];
+    for(let candidate of data) {
+      candidates.push(candidate.name);
+      parties.push(candidate.party);
+    }
+    await addCandidates(candidates, parties, localStorage.election_address);
+  }
+    
     const closeConfirm = () => {
         setConfirmModal(false);
     }
@@ -24,6 +44,9 @@ const Launch = () => {
                 }
               });
               localStorage.setItem("election_launched", true);
+              await addToBlockChain();
+              const candidates = await viewCandidates(localStorage.election_address);
+              console.log(candidates);
               setDisabled(true);
               closeConfirm();
             } catch (error) {
