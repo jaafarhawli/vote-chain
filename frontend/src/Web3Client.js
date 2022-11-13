@@ -2,7 +2,6 @@ import Web3 from 'web3';
 import ElectionContract from 'contracts/Election.json';
 
 let selectedAccount;
-let electionContract;
 let isInitialized = false;
 
 export const init = async () => {
@@ -26,12 +25,6 @@ export const init = async () => {
 
 		const web3 = new Web3(provider);
 
-		const networkID = await web3.eth.net.getId();
-
-		electionContract = new web3.eth.Contract(ElectionContract.abi, ElectionContract.networks[networkID].address);
-
-		web3.eth.getBalance(selectedAccount).then(function(value) {console.log(web3.utils.fromWei(value,"ether"));})
-
 		isInitialized = true;
 	  }
 
@@ -48,8 +41,6 @@ export const addCandidate = async (address) => {
 	return contract.methods.addCandidates(["mbappe"], ["france"]).send({from: selectedAccount});
 }
 
-
-// Function Call
 export const createElectionContract = async () => {
 	let account = selectedAccount;
 	let provider = window.ethereum;
@@ -84,4 +75,15 @@ export const createElectionContract = async () => {
 		let contract = new web3.eth.Contract(ElectionContract.abi, address);
 
 		return contract.methods.results().call();
+	}
+
+	export const addVoterToBlockchain = async (address, voter_addresses) => {
+		if(!isInitialized)
+		await init();
+	
+		let provider = window.ethereum;
+		const web3 = new Web3(provider);
+		let contract = new web3.eth.Contract(ElectionContract.abi, address);
+
+		return contract.methods.giveRightToVote(voter_addresses).send({from: selectedAccount});
 	}
