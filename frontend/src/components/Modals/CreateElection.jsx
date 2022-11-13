@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import { addCandidate } from '../../Web3Client';
 import {HiOutlineXMark} from 'react-icons/hi2';
 import axios from '../../api/axios';
 import logo from '../../assets/VOTE CHAIN-logo-black.png';
@@ -8,6 +9,7 @@ import SuccessModal from './SuccessModal';
 import "flatpickr/dist/themes/material_green.css";
 import Flatpickr from "react-flatpickr";
 require("flatpickr/dist/themes/material_blue.css");
+
 
 const CreateElection = ({open, closeModal, refetch}) => {
 
@@ -20,6 +22,12 @@ const CreateElection = ({open, closeModal, refetch}) => {
     const date = new Date()
 
     const createElection = async () => {
+
+        await addCandidate().then(data => {
+          console.log(data);
+        }).catch(err => {
+          console.log(err);
+        });
     
         if(((endtime - starttime)/36e5) < 24) {
             setError("Your election should be 24 hours at least");

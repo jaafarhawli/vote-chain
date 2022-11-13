@@ -20,7 +20,8 @@
     "react-scripts": "5.0.1",
     "react-toastify": "^9.1.0",
     "web-vitals": "^2.1.4",
-    "web3": "^1.8.1"
+    "web3": "^1.8.1",
+    "contracts": "file:./blockchain/build/contracts"
   },
   "scripts": {
     "start": "react-scripts start",
