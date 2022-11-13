@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import { addCandidate } from '../../Web3Client';
+import {createElectionContract} from '../../Web3Client';
 import {HiOutlineXMark} from 'react-icons/hi2';
 import axios from '../../api/axios';
 import logo from '../../assets/VOTE CHAIN-logo-black.png';
@@ -23,11 +23,7 @@ const CreateElection = ({open, closeModal, refetch}) => {
 
     const createElection = async () => {
 
-        await addCandidate().then(data => {
-          console.log(data);
-        }).catch(err => {
-          console.log(err);
-        });
+        const newElection = await createElectionContract();
     
         if(((endtime - starttime)/36e5) < 24) {
             setError("Your election should be 24 hours at least");

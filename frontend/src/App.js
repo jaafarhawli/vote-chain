@@ -13,6 +13,7 @@ import EmailVerification from './pages/Verification/EmailVerification';
 import { init } from './Web3Client';
 
 
+
 function App() {
 
 	useEffect(() => {
