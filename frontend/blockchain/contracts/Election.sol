@@ -91,7 +91,7 @@ contract Election {
     }
     
     function viewVoters() public view returns (uint[2] memory) {
-        return [votersNumber, votedVotersNumber];
+        return [votedVotersNumber, votersNumber-votedVotersNumber ];
     }
   
 }

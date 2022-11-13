@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { Bar } from 'react-chartjs-2';
 import { Pie } from 'react-chartjs-2';
-import { viewCandidates } from '../../Web3Client';
+import { viewCandidates, viewVoters } from '../../Web3Client';
 
 
 const BlockchainStatistics = () => {
@@ -13,6 +13,7 @@ const BlockchainStatistics = () => {
     const [candidatesScores, setCandidatesScores] = useState();
     const [allCandidates, setAllCandidates] = useState();
     const [allCandidatesScores, setAllCandidatesScores] = useState();
+    const [votedVoters, setVotedVoters] = useState();
 
     const getPartyNames = (data) => {
         const names = [];
@@ -63,6 +64,9 @@ const BlockchainStatistics = () => {
             getPartyNames(data);
             sortCandidates();
         });
+        viewVoters(localStorage.election_address).then((data) => {
+            setVotedVoters([data]);
+        });
     }, []);
 
     console.log(allCandidates, allCandidatesScores);
@@ -77,20 +81,20 @@ const BlockchainStatistics = () => {
       }]
     }
     
-    // const voteStats = {
-    //   labels: ["Voted", "Did'nt Vote"],
-    //   datasets: [{
-    //     data: [votes?.voted, votes?.notVoted],
-    //     backgroundColor: ["#4ba0f7", "#9568c7"]
-    //   }]
-    // }
+    const voteStats = {
+      labels: ["Voted", "Did'nt Vote"],
+      datasets: [{
+        data: votedVoters,
+        backgroundColor: ["#4ba0f7", "#9568c7"]
+      }]
+    }
     
     
     const candidateStats = {
-      labels: allCandidates.slice(0, 10),
+      labels: allCandidates?.slice(0, 10),
       datasets: [{
         label: "Votes",
-        data: allCandidatesScores.slice(0, 10),
+        data: allCandidatesScores?.slice(0, 10),
         backgroundColor: ["#4ba0f7", "#00B8FF", "#7685e4", "#9568c7", "#a847a1", "#ae1f74"]
       }]
     }
@@ -105,7 +109,7 @@ const BlockchainStatistics = () => {
       <>
         <div className='flex w-full gap-6 my-6'>
         <div className='w-1/3 bg-white rounded-2xl shadow-xl p-6'>
-          {/* <Pie data={voteStats} /> */}
+          <Pie data={voteStats} />
         </div>
         <div className='w-2/3 bg-white rounded-2xl shadow-xl p-6 flex align-baseline'>
           <Bar data={candidateStats}
@@ -143,10 +147,10 @@ const BlockchainStatistics = () => {
         <div className='w-1/3 bg-white rounded-2xl shadow-xl p-6'>
           <Doughnut data={partyStats} />
         </div>
-      {parties?.map((party) => (
+      {parties?.map((party, index) => (
           <div className='min-w-[40%] max-w-[66%] bg-white rounded-2xl h-fit shadow-xl p-6 flex align-baseline flex-1'>
             <Bar data={{
-              labels: candidatesNames,
+              labels: candidatesNames[index],
               datasets: [{
                 label: party,
                 data: candidatesScores,
