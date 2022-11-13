@@ -20,6 +20,8 @@ contract Election {
 
     uint public startTime;
     uint public endTime;
+    uint public votersNumber = 0;
+    uint public votedVotersNumber = 0;
 
     mapping(address => Voter) public voters;
 
@@ -67,6 +69,7 @@ contract Election {
                 voters[voterAddresses[p]].hasAccess = true;
             }
         }
+        votersNumber+=voterAddresses.length;
     }
 
     function vote(uint candidate) external {
@@ -80,10 +83,15 @@ contract Election {
         sender.voted = true;
         sender.vote = candidate;
         candidates[candidate].voteCount++;
+        votedVotersNumber++;
     }
 
     function results() public view returns (Candidate[] memory) {
         return candidates;
+    }
+    
+    function viewVoters() public view returns (uint[2] memory) {
+        return [votersNumber, votedVotersNumber];
     }
   
 }
