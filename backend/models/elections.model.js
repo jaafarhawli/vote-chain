@@ -19,6 +19,10 @@ const electionsSchema = new mongoose.Schema({
     code: {
         type: String
     },
+
+    contract_address: {
+        type: String
+    },
     
     description: {
         type: String
