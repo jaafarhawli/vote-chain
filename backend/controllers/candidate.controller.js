@@ -7,8 +7,15 @@ const addCandidate = async (req, res) => {
         return res.status(404).json({message:"Party not found"});
         if(!party)
         return res.status(404).json({message:"Party not found"});
+        const parties = await Party.find({election: party.election}).select();
+        let candidatesNumber = 0;
+        for(const party of parties) {
+            for(let i = 0; i<party.candidates.length; i++) {
+                candidatesNumber++;
+        }
+        }
         const candidate = {
-            id: id,
+            id: candidatesNumber,
             name: name,
             score: 0,
             picture_url: ""
