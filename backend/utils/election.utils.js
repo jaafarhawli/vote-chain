@@ -57,7 +57,7 @@ const updateElection = (id, data, res) => {
     });
 }
 
-const newElection = async (title, start_time, end_time, election_code, admin_id, res) => {
+const newElection = async (title, start_time, end_time, election_code, admin_id, address, res) => {
     try{
         const election = new Election();
         election.title = title;
@@ -65,6 +65,7 @@ const newElection = async (title, start_time, end_time, election_code, admin_id,
         election.end_time = end_time;
         election.code = election_code;
         election.admin = admin_id;
+        election.contract_address = address;
         election.description = "";
         election.launched = false;
         await election.save();

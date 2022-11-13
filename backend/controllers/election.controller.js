@@ -5,7 +5,7 @@ const Voter = require('../models/voters.model');
 const Party = require('../models/parties.model');
 
 const createElection = async(req, res) => {
-    const {admin_id, title, start_time, end_time} = req.body;
+    const {admin_id, title, start_time, end_time, address} = req.body;
     const election_code = generateElectionCode();
 
     if(end_time-start_time<0)
@@ -17,7 +17,7 @@ const createElection = async(req, res) => {
     return res.status(400).json({
         message: "Election should be 24 hours atleast"
     })
-    newElection(title, start_time, end_time, election_code, admin_id, res);
+    newElection(title, start_time, end_time, election_code, admin_id, address, res);
 }
 
 const editElection = async (req, res) => {
