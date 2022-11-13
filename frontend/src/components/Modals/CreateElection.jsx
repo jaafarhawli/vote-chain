@@ -23,7 +23,7 @@ const CreateElection = ({open, closeModal, refetch}) => {
 
     const createElection = async () => {
 
-        const newElection = await createElectionContract();
+        await createElectionContract();
      
         if(((endtime - starttime)/36e5) < 24) {
             setError("Your election should be 24 hours at least");

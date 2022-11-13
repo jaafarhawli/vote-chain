@@ -30,18 +30,22 @@ export const init = async () => {
 
 		electionContract = new web3.eth.Contract(ElectionContract.abi, ElectionContract.networks[networkID].address);
 
-		web3.eth.getBalance("0x0e1591cf241b2192258aBd800f8583E3e218bc15").then(function(value) {console.log(web3.utils.fromWei(value,"ether"));})
+		web3.eth.getBalance(selectedAccount).then(function(value) {console.log(web3.utils.fromWei(value,"ether"));})
 
 		isInitialized = true;
 	  }
 
 } 
 
-export const addCandidate = async (election) => {
+export const addCandidate = async (address) => {
 	if(!isInitialized)
 	await init();
 
-	return election.methods.addCandidates(["mbappe"], ["france"]).send({from: selectedAccount});
+	let provider = window.ethereum;
+	const web3 = new Web3(provider);
+	let contract = new web3.eth.Contract(ElectionContract.abi, address);
+
+	return contract.methods.addCandidates(["mbappe"], ["france"]).send({from: selectedAccount});
 }
 
 
@@ -66,14 +70,18 @@ export const createElectionContract = async () => {
     return deploy_contract.deploy(payload).send(parameter, (err, transactionHash) => {
         console.log('Transaction Hash :', transactionHash);
     }).on('confirmation', () => {}).then((newContractInstance) => 
-		newContractInstance
-        // console.log('Deployed Contract Address : ', newContractInstance);
+		newContractInstance._address
+        // {console.log('Deployed Contract Address : ', newContractInstance._address);}
 	)}
 
 
-	export const viewCandidates = async (election) => {
+	export const viewCandidates = async (address) => {
 		if(!isInitialized)
 		await init();
 	
-		return election.methods.results().call();
+		let provider = window.ethereum;
+		const web3 = new Web3(provider);
+		let contract = new web3.eth.Contract(ElectionContract.abi, address);
+
+		return contract.methods.results().call();
 	}
