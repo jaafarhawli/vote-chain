@@ -114,6 +114,14 @@ const viewElectionAsModerator = (req, res) => {
     viewElectionAsModeratorResult(election_id, user_id, res);
 }
 
+const viewElectionApplyers = (req, res) => {
+    const {election_id} = req.params;
+    const election = await Election.findById(election_id).select();
+    if(!election)
+    return res.status(404).json({message:"Election not found"});
+    res.status(200).json({data: election.applying_voters});
+}
+
 module.exports = {
     createElection, 
     editElection,
@@ -122,5 +130,6 @@ module.exports = {
     viewElectionsAsAdmin,
     viewElectionsAsModerator,
     viewElectionAsAdmin,
-    viewElectionAsModerator
+    viewElectionAsModerator,
+    viewElectionApplyers
 }

@@ -1,5 +1,5 @@
 const {Router} = require('express');
-const {createElection, editElection, removeElection, launchElection, viewElectionsAsAdmin, viewElectionsAsModerator, viewElectionAsAdmin, viewElectionAsModerator} = require('../controllers/election.controller');
+const {createElection, editElection, removeElection, launchElection, viewElectionsAsAdmin, viewElectionsAsModerator, viewElectionAsAdmin, viewElectionAsModerator, viewElectionApplyers} = require('../controllers/election.controller');
 const authMiddleware = require('../middlewares/auth.middleware');
 const adminMiddleware = require('../middlewares/admin.middleware');
 const launchedMiddleware = require('../middlewares/launched.middleware');
@@ -28,6 +28,9 @@ router.get('/:user_id/:election_id', authMiddleware, viewElectionAsAdmin);
 
 // View election as moderator
 router.get('/moderator/:user_id/:election_id', authMiddleware, viewElectionAsModerator);
+
+// View election appliers
+router.get('/applyers/:election_id', authMiddleware, viewElectionApplyers);
 
 
 module.exports = router;
