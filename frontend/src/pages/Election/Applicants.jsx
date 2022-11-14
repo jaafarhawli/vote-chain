@@ -11,26 +11,6 @@ const Applicants = (props) => {
     const [refetch, setRefetch] = useState(true);
     const launched = localStorage.election_launched==="true";
 
-    // const deleteVoter = async () => {
-    //     const form = {
-    //         voter_id: localStorage.voter_id,
-    //         election_id: localStorage.election_id,
-    //         user_id: localStorage.id 
-    //     }
-        
-    //     try {
-    //         await axios.post('voter/remove', form, {
-    //             headers: {
-    //               Authorization: `bearer ${localStorage.token}`
-    //             }
-    //           });
-    //           setRefetch(!refetch)
-    //           closeConfirm()
-    //         } catch (error) {
-    //           console.log(error.response.data.message);
-    //         }
-    // }
-
     const {data} = useQuery([refetch], async () => {
         return axios.get(`election/view/applyers/${localStorage.election_id}`, {
                     headers: {
@@ -41,11 +21,11 @@ const Applicants = (props) => {
 
     console.log(data);
 
-    // const filteredData = useMemo(() => {
-    //     return data?.filter(row => {
-    //       return row?.email?.toLowerCase().includes(search.toLowerCase())
-    //     })
-    //   }, [data, search])
+    const filteredData = useMemo(() => {
+        return data?.filter(row => {
+          return row?.email?.toLowerCase().includes(search.toLowerCase())
+        })
+      }, [data, search])
 
 
   return (
