@@ -87,6 +87,8 @@ const viewVoters = async (req, res) => {
 const applyToElection = async (req, res) => {
     const {email, address, election_code} = req.body;
     const election = await Election.findOne({code: election_code}).select();
+    if(!election)
+    return res.status(404).json({message:"Election not founnd"}); 
     election.applying_voters.push({
         email: email, 
         wallet_address: address
