@@ -30,7 +30,7 @@ router.get('/:user_id/:election_id', authMiddleware, viewElectionAsAdmin);
 router.get('/moderator/:user_id/:election_id', authMiddleware, viewElectionAsModerator);
 
 // View election appliers
-router.get('/applyers/:election_id', authMiddleware, viewElectionApplyers);
+router.get('/view/applyers/:election_id', viewElectionApplyers);
 
 
 module.exports = router;

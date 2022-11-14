@@ -114,7 +114,7 @@ const viewElectionAsModerator = (req, res) => {
     viewElectionAsModeratorResult(election_id, user_id, res);
 }
 
-const viewElectionApplyers = (req, res) => {
+const viewElectionApplyers = async (req, res) => {
     const {election_id} = req.params;
     const election = await Election.findById(election_id).select();
     if(!election)
