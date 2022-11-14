@@ -1,17 +1,57 @@
-import React from 'react';
+import React, {useState, useMemo} from 'react';
+import {useQuery} from '@tanstack/react-query';
+import axios from '../../api/axios';
+import EmptyState from '../../components/Reusable/EmptyState';
+import Button from '../../components/Reusable/Button';
+import Table from '../../components/Reusable/Table';
 
-const Applicants = () => {
+const Applicants = (props) => {
   
     const [search, setSearch] = useState('');
     const [refetch, setRefetch] = useState(true);
     const launched = localStorage.election_launched==="true";
+
+    // const deleteVoter = async () => {
+    //     const form = {
+    //         voter_id: localStorage.voter_id,
+    //         election_id: localStorage.election_id,
+    //         user_id: localStorage.id 
+    //     }
+        
+    //     try {
+    //         await axios.post('voter/remove', form, {
+    //             headers: {
+    //               Authorization: `bearer ${localStorage.token}`
+    //             }
+    //           });
+    //           setRefetch(!refetch)
+    //           closeConfirm()
+    //         } catch (error) {
+    //           console.log(error.response.data.message);
+    //         }
+    // }
+
+    const {data} = useQuery([refetch], async () => {
+        return axios.get(`election/view/applyers/${localStorage.election_id}`, {
+                    headers: {
+                      Authorization: `bearer ${localStorage.token}`
+                    }
+                  }).then((res) => res.data.data);
+    })
+
+    console.log(data);
+
+    // const filteredData = useMemo(() => {
+    //     return data?.filter(row => {
+    //       return row?.email?.toLowerCase().includes(search.toLowerCase())
+    //     })
+    //   }, [data, search])
 
 
   return (
     <>
     {data?.length===0 ?
     <>
-    <AddVoter open={voterModal} closeModal={closeModal}  refetch={() => setRefetch(!refetch)} />
     <div className='pl-[330px] pt-[150px] pr-6'>
         <h1 className='text-[28px] font-bold'>Voters</h1>
         <EmptyState title={'No Voters'} button={'Add voter'} disabled={launched} onClick={openModal}>You don’t have any voters, add one now!</EmptyState>
@@ -19,8 +59,6 @@ const Applicants = () => {
     </>
     : 
     <>
-    <ConfirmModal  open={confirmModal} closeModal={closeConfirm} click={deleteVoter} text={"Are you sure you want to delete this voter?"} />
-    <AddVoter open={voterModal} closeModal={closeModal}  refetch={() => setRefetch(!refetch)} />
     <div className='pl-[330px] pt-[150px] pr-6'>
         <div className='flex justify-between items-center w-full'>
           <h1 className='text-[28px] font-bold'>Voters</h1>

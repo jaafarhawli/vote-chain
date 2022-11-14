@@ -38,7 +38,7 @@ const Panel = (props) => {
             <FaUser />
             Voters
         </NavLink>
-        <NavLink to='voters' className='flex items-center gap-3 text-white/60 text-xl w-full hover:bg-purple-300/40 duration-200 py-4 pl-4 font-semibold' activeclassname='active'>
+        <NavLink to='applicants' className='flex items-center gap-3 text-white/60 text-xl w-full hover:bg-purple-300/40 duration-200 py-4 pl-4 font-semibold' activeclassname='active'>
             <FcAddDatabase />
             Applicants
         </NavLink>
