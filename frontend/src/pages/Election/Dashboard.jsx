@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Statistics from '../../components/Reusable/Statistics';
 import {useQuery} from '@tanstack/react-query';
 import axios from '../../api/axios';
-import BlockchainStatistics from '../../components/Reusable/BlockchainStatistics';
+// import BlockchainStatistics from '../../components/Reusable/BlockchainStatistics';
 
 const Dashboard = () => {
 
@@ -49,7 +49,7 @@ const Dashboard = () => {
         </ul>
       </div>
       <Statistics />
-      <BlockchainStatistics />
+      {/* <BlockchainStatistics /> */}
       <ToastContainer autoClose={1000} hideProgressBar={true} position="bottom-center" />
     </div>
   );

@@ -84,7 +84,7 @@ const BlockchainStatistics = () => {
     const voteStats = {
       labels: ["Voted", "Did'nt Vote"],
       datasets: [{
-        data: votedVoters,
+        data: [parseInt(votedVoters[0]), parseInt(votedVoters[1])],
         backgroundColor: ["#4ba0f7", "#9568c7"]
       }]
     }

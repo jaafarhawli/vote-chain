@@ -32,7 +32,7 @@ const VoteLoginForm = () => {
               headers: {
                 Authorization: `bearer ${localStorage.token}`
               }
-            });           
+            });
             localStorage.setItem('voter_id', user.data.data._id);
             localStorage.setItem('voter_email', user.data.data.email);
             localStorage.setItem('election_id', user.data.data.election_id);
