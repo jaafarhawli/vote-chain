@@ -84,6 +84,17 @@ const viewVoters = async (req, res) => {
     })
 }
 
+const applyToElection = async (req, res) => {
+    const {email, address, election_code} = req.body;
+    const election = await Election.findOne({code: election_code}).select();
+    election.applying_voters.push({
+        email: email, 
+        wallet_address: address
+    });
+    election.save();
+    res.status(200).json({message:"Request sent"}); 
+}   
+
 
 module.exports = {
     getVoter,
@@ -91,5 +102,6 @@ module.exports = {
     vote,
     addVoter, 
     removeVoter,
-    viewVoters
+    viewVoters,
+    applyToElection
 }
