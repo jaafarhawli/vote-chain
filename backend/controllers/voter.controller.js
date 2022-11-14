@@ -99,9 +99,9 @@ const applyToElection = async (req, res) => {
 
 const checkElection = async (req, res) => {
     const {election_code} = req.params;
-    const election = await Election.findOne({code: election_code}).select();
+    const election = await Election.findOne({code: election_code});
     if(!election)
-    res.status(404).json(false);
+    return res.status(404).json(false);
     res.status(200).json(true);
 }
 
