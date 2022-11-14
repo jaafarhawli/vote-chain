@@ -4,6 +4,7 @@ import axios from '../../api/axios';
 import Button from '../../components/Reusable/Button';
 import FormInput from '../../components/Reusable/FormInput';
 import { useParams } from 'react-router-dom';
+import {useQuery} from '@tanstack/react-query';
 
 const SurveyForm = () => {
 
@@ -14,6 +15,16 @@ const SurveyForm = () => {
   const [disabled, setDisabled] = useState(true);
 
   const param = useParams();
+
+  const {data} = useQuery([], async () => {
+    return axios.get(`voter/election/${param.code}`, {
+                headers: {
+                  Authorization: `bearer ${localStorage.token}`
+                }
+              }).then((res) => res.data);
+    })
+
+    console.log(data);
 
   const handleSubmit = async () => {
     const form = {

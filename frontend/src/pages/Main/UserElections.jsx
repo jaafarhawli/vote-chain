@@ -20,7 +20,7 @@ const UserElections = () => {
                   Authorization: `bearer ${localStorage.token}`
                 }
               }).then((res) => res.data.data);
-})
+  })
 
 const viewElection = (id, start_time, end_time, description, launched, contract_address) => {
     localStorage.setItem('election_id', id);
