@@ -6,6 +6,7 @@ import {HiUserGroup} from 'react-icons/hi';
 import {FaUserTie, FaUserCog, FaUser} from 'react-icons/fa';
 import {MdSettings} from 'react-icons/md';
 import {TbCloudUpload} from 'react-icons/tb';
+import {FcAddDatabase} from 'react-icons/fc';
 
 const Panel = (props) => {
   return (
@@ -36,6 +37,10 @@ const Panel = (props) => {
         <NavLink to='voters' className='flex items-center gap-3 text-white/60 text-xl w-full hover:bg-purple-300/40 duration-200 py-4 pl-4 font-semibold' activeclassname='active'>
             <FaUser />
             Voters
+        </NavLink>
+        <NavLink to='voters' className='flex items-center gap-3 text-white/60 text-xl w-full hover:bg-purple-300/40 duration-200 py-4 pl-4 font-semibold' activeclassname='active'>
+            <FcAddDatabase />
+            Applicants
         </NavLink>
         {props.admin ? 
         <>
