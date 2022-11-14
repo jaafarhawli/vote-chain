@@ -11,25 +11,25 @@ const Applicants = (props) => {
     const [refetch, setRefetch] = useState(true);
     const launched = localStorage.election_launched==="true";
 
-    // const deleteVoter = async () => {
-    //     const form = {
-    //         voter_id: localStorage.voter_id,
-    //         election_id: localStorage.election_id,
-    //         user_id: localStorage.id 
-    //     }
+    const removeApplicant = async (id) => {
+        const form = {
+            applier_id: id,
+            election_id: localStorage.election_id,
+            user_id: localStorage.id 
+        }
         
-    //     try {
-    //         await axios.post('voter/remove', form, {
-    //             headers: {
-    //               Authorization: `bearer ${localStorage.token}`
-    //             }
-    //           });
-    //           setRefetch(!refetch)
-    //           closeConfirm()
-    //         } catch (error) {
-    //           console.log(error.response.data.message);
-    //         }
-    // }
+        try {
+            await axios.post('voter/remove/applicant', form, {
+                headers: {
+                  Authorization: `bearer ${localStorage.token}`
+                }
+            });
+            setRefetch(!refetch)
+        } 
+        catch (error) {
+            console.log(error.response.data.message);
+        }
+    }
 
     const {data} = useQuery([refetch], async () => {
         return axios.get(`election/view/applyers/${localStorage.election_id}`, {
@@ -67,9 +67,9 @@ const Applicants = (props) => {
         <input type="search" className='border-2 border-[#dddddd] w-1/3 rounded-md mt-4' placeholder='Search voter by email' onChange={e => setSearch(e.target.value)} />
         {filteredData?.length===0 ? <EmptyState title={'No Applicants'}>You don’t have any applicants</EmptyState> : 
         props.admin ? 
-        <Table admin={true} data={filteredData} applicants={true} />
+        <Table admin={true} data={filteredData} applicants={true} remove={(id) => removeApplicant(id)} />
         :
-        <Table data={filteredData} applicants={true} />
+        <Table data={filteredData} applicants={true} remove={(id) => removeApplicant(id)} />
         }
     </div>
     </>
