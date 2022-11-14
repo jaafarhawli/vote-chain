@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Statistics from '../../components/Reusable/Statistics';
 import {useQuery} from '@tanstack/react-query';
 import axios from '../../api/axios';
+import CopyData from '../../components/Reusable/CopyData';
 // import BlockchainStatistics from '../../components/Reusable/BlockchainStatistics';
 
 const Dashboard = () => {
@@ -37,10 +38,7 @@ const Dashboard = () => {
               <TbCopy className='text-black-200 p-2 border-black-200 border-2 w-[44px] h-[44px] rounded-lg' onClick={() => copyTextToClipboard(localStorage.election_code)}/>
           </div>
           <h2 className='text-purple-100 mt-8 text-[22px] font-semibold'>Election URL</h2>
-          <div className='flex gap-4 items-center mt-2'>
-              <input type="text" value={'-'} readOnly={true} className='text-[20px] bg-black-100/5 w-1/2 py-5 px-4  border-black-200 border-2 shadow-inner rounded-md' />
-              <TbCopy className='text-black-200 p-2 border-black-200 border-2 w-[44px] h-[44px] rounded-lg' onClick={() => copyTextToClipboard('-')}/>
-          </div>
+          <CopyData value={'-'} onClick={(value) => copyTextToClipboard(value)} />
         </div>
         <ul className='bg-purple-300 w-[300px] rounded-2xl shadow-xl p-3 text-black-100 text-[24px] font-bold space-y-2 flex flex-col justify-center'>
             <li>Voters: <span className='text-purple-100'>{data?.voters}</span> </li>
