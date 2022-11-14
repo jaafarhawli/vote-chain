@@ -11,6 +11,7 @@ import Vote from './Routes/Vote';
 import { Chart as ChartJS } from 'chart.js/auto';
 import EmailVerification from './pages/Verification/EmailVerification';
 import { init } from './Web3Client';
+import Survey from './pages/Survey/Survey';
 
 
 
@@ -31,6 +32,7 @@ function App() {
 					<Route path='/register' element={<Register />} />
 					<Route path='/main/*' element={<Main />} />
 					<Route path='/vote/*' element={<Vote />} />
+					<Route path='/survey/:code' element={<Survey />} />
 					<Route path='/email/verify/:id/:token' element={<EmailVerification />} />
 				</Routes>
     	</BrowserRouter>
