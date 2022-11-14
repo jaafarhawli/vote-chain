@@ -7,7 +7,14 @@ const Table = (props) => {
     <table className='mt-8'>
             <thead>
                 <tr>
+                    {props.applicants?
+                    <>
+                    <th>Email</th>
+                    <th>Wallet Address</th>
+                    </>
+                    :
                     <th>Name</th>
+                    }
                     {props.moderator? <th>Email</th>
                     :
                     props.voter? 
@@ -26,7 +33,7 @@ const Table = (props) => {
                     <td>{moderator.email}</td>
                     <HiOutlineXMark className='absolute right-2 top-2 text-[25px] hover:text-red duration-150' onClick={() => props.remove(moderator._id)} />
                 </tr>
-     ))}
+            ))}
                 
             </tbody>
             :
@@ -38,7 +45,7 @@ const Table = (props) => {
                     <HiOutlineXMark className='absolute right-2 top-2 text-[25px] hover:text-red duration-150' onClick={(e) => { props.remove(party._id);
                     e.stopPropagation();}} />
                 </tr>
-     ))}     
+            ))}     
             </tbody>
             :
             props.voter? 
@@ -53,7 +60,21 @@ const Table = (props) => {
                     props.remove(voter._id)} />
                     : null}
                     </tr>
-     ))}     
+            ))}     
+            </tbody>
+            :
+            props.applicants?
+            <tbody>
+            {props.data?.map((applicant) => (
+                <tr className='relative' key={applicant.name}>
+                    <td>{applicant.email}</td>
+                    <td>{applicant.wallet_address}</td>
+                    {props.admin ?
+                    <HiOutlineXMark className='absolute right-2 top-2 text-[25px] hover:text-red duration-150' onClick={() => 
+                    props.remove(applicant._id)} />
+                    : null}
+                    </tr>
+            ))}     
             </tbody>
             : null
             }

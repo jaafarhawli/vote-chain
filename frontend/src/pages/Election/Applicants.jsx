@@ -11,6 +11,26 @@ const Applicants = (props) => {
     const [refetch, setRefetch] = useState(true);
     const launched = localStorage.election_launched==="true";
 
+    // const deleteVoter = async () => {
+    //     const form = {
+    //         voter_id: localStorage.voter_id,
+    //         election_id: localStorage.election_id,
+    //         user_id: localStorage.id 
+    //     }
+        
+    //     try {
+    //         await axios.post('voter/remove', form, {
+    //             headers: {
+    //               Authorization: `bearer ${localStorage.token}`
+    //             }
+    //           });
+    //           setRefetch(!refetch)
+    //           closeConfirm()
+    //         } catch (error) {
+    //           console.log(error.response.data.message);
+    //         }
+    // }
+
     const {data} = useQuery([refetch], async () => {
         return axios.get(`election/view/applyers/${localStorage.election_id}`, {
                     headers: {
@@ -33,23 +53,23 @@ const Applicants = (props) => {
     {data?.length===0 ?
     <>
     <div className='pl-[330px] pt-[150px] pr-6'>
-        <h1 className='text-[28px] font-bold'>Voters</h1>
-        <EmptyState title={'No Voters'} button={'Add voter'} disabled={launched} onClick={openModal}>You don’t have any voters, add one now!</EmptyState>
+        <h1 className='text-[28px] font-bold'>Applicants</h1>
+        <EmptyState title={'No Applicants'}>You don’t have any applicants</EmptyState>
     </div>
     </>
     : 
     <>
     <div className='pl-[330px] pt-[150px] pr-6'>
         <div className='flex justify-between items-center w-full'>
-          <h1 className='text-[28px] font-bold'>Voters</h1>
-          <Button add={true} onClick={openModal} disabled={launched} >Add Voter</Button>
+          <h1 className='text-[28px] font-bold'>Applicants</h1>
+          <Button add={true} disabled={launched} >Add Applicant</Button>
         </div>
         <input type="search" className='border-2 border-[#dddddd] w-1/3 rounded-md mt-4' placeholder='Search voter by email' onChange={e => setSearch(e.target.value)} />
-        {filteredData?.length===0 ? <EmptyState title={'No Voters'}>You don’t have any voters</EmptyState> : 
+        {filteredData?.length===0 ? <EmptyState title={'No Applicants'}>You don’t have any applicants</EmptyState> : 
         props.admin ? 
-        <Table admin={true} data={filteredData} voter={true} remove={(id) => openConfirmModal(id)} />
+        <Table admin={true} data={filteredData} applicants={true} />
         :
-        <Table data={filteredData} voter={true} remove={(id) => openConfirmModal(id)} />
+        <Table data={filteredData} applicants={true} />
         }
     </div>
     </>
