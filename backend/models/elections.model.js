@@ -47,6 +47,11 @@ const electionsSchema = new mongoose.Schema({
     parties: [{
         type: mongoose.Schema.Types.ObjectId, ref: 'Party'
     }],
+
+    applying_voters: [{
+        email: String,
+        wallet_address: String
+    }]
 })
 
 const Elections = mongoose.model('Elections', electionsSchema);
