@@ -81,11 +81,18 @@ const removeVoterFromElection = (voter_id, election_id, res) => {
         }) }) 
 }
 
+const removeApplierFromElection = async (applier_id, election_id) => {
+    await Election.updateOne({"_id": election_id}, {"$pull": {
+        "applying_voters": {"_id": applier_id}
+    }});
+}
+
 
 module.exports = {
     incrementCandidateVotes,
     generateVoterId, 
     generateVoterKey,
     addNewVoter,
-    removeVoterFromElection
+    removeVoterFromElection,
+    removeApplierFromElection
 }

@@ -1,4 +1,4 @@
-const { incrementCandidateVotes, generateVoterId, generateVoterKey, addNewVoter, removeVoterFromElection } = require('../utils/voter.utils');
+const { incrementCandidateVotes, generateVoterId, generateVoterKey, addNewVoter, removeVoterFromElection, removeApplierFromElection } = require('../utils/voter.utils');
 
 const Election = require('../models/elections.model');
 const Voter = require('../models/voters.model');
@@ -95,7 +95,13 @@ const applyToElection = async (req, res) => {
     });
     election.save();
     res.status(200).json({message:"Request sent"}); 
-}   
+}  
+
+const removeApplier = async (req, res) => {
+    const {applier_id, election_id} = req.body;
+    removeApplierFromElection(applier_id, election_id);   
+    res.status(200).json({message:"Applier removed successfully"});
+}
 
 const checkElection = async (req, res) => {
     const {election_code} = req.params;
@@ -114,5 +120,6 @@ module.exports = {
     removeVoter,
     viewVoters,
     applyToElection, 
-    checkElection
+    checkElection,
+    removeApplier
 }
