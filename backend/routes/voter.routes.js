@@ -1,5 +1,5 @@
 const {Router} = require('express');
-const {getVoter, viewElectionAsVoter, vote, addVoter, removeVoter, viewVoters, applyToElection} = require('../controllers/voter.controller');
+const {getVoter, viewElectionAsVoter, vote, addVoter, removeVoter, viewVoters, applyToElection, checkElection} = require('../controllers/voter.controller');
 const voterMiddleware = require('../middlewares/voter.middleware');
 const launchedMiddleware = require('../middlewares/launched.middleware');
 const authMiddleware = require('../middlewares/auth.middleware');
@@ -26,6 +26,9 @@ router.get('/voters/:election_id', authMiddleware, viewVoters);
 
 // Apply to election
 router.post('/apply', applyToElection);
+
+// Check election
+router.get('/election/:election_code', checkElection);
 
 
 module.exports = router;

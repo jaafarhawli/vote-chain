@@ -97,6 +97,14 @@ const applyToElection = async (req, res) => {
     res.status(200).json({message:"Request sent"}); 
 }   
 
+const checkElection = async (req, res) => {
+    const {election_code} = req.params;
+    const election = await Election.findOne({code: election_code}).select();
+    if(!election)
+    res.status(404).json(false);
+    res.status(200).json(true);
+}
+
 
 module.exports = {
     getVoter,
@@ -105,5 +113,6 @@ module.exports = {
     addVoter, 
     removeVoter,
     viewVoters,
-    applyToElection
+    applyToElection, 
+    checkElection
 }
