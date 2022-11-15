@@ -36,7 +36,8 @@ module.exports = {
       },
       'white': '#FFFFFF',
       'red': '#FF3636',
-      'green': '#1dc198'
+      'green': '#1dc198', 
+      'yellow': '#ffca62'
     }
   },
   plugins: [],

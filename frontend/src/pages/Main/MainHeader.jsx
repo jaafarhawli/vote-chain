@@ -77,7 +77,7 @@ const MainHeader = ({title, empty, open}) => {
                 <h2 className='hover:bg-purple-300/50 duration-150 p-2 rounded-lg select-none cursor-pointer' onClick={() => navigate('/main')}>Admin</h2>
                 <h2 className='hover:bg-purple-300/50 duration-150 p-2 rounded-lg select-none cursor-pointer' onClick={() => navigate('/main/moderate')}>Moderator</h2>
                 <div className='relative'>
-                  <IoIosNotifications className='text-[28px] hover:text-cyan duration-150' onClick={viewNotifications} />
+                  <IoIosNotifications onClick={viewNotifications} />
                   {showNotifications ?
                    <>
                    <div className='absolute right-0 w-[400px] h-[500px] bg-purple-300 rounded-xl p-4 overflow-scroll'>
