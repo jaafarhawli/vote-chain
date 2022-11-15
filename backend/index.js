@@ -23,11 +23,16 @@ const socketIO = require('socket.io')(http, {
 const users = {};
 
 socketIO.on('connection', (socket) => {
+    // socket.to(socket.id).emit('getEmail');
     console.log(`⚡: ${socket.id} user just connected!`);
-    let user = socket.id
 
-   socket.on('login', (email) => {
-    users[email] = user;
+//    socket.on('sendEmail', (email) => {
+//     users[email] = socket.id;
+//     console.log(users);
+//     });
+   
+    socket.on('login', (email) => {
+    users[email] = socket.id;
     console.log(users);
     });
    

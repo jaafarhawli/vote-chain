@@ -12,6 +12,9 @@ const Main = ({socket}) => {
     socket.on('getNotification', () => {
       console.log('received');
     });
+	  // socket.on('getEmail', () => {
+    //   socket.emit('sendEmail', localStorage.email);
+	  // });
   }, []);
 
   return (
