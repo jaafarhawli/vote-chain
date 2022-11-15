@@ -6,7 +6,7 @@ import jwt_decode from "jwt-decode";
 import Button from '../../components/Reusable/Button';
 import FormInput from '../../components/Reusable/FormInput';
 
-const LoginForm = () => {
+const LoginForm = ({socket}) => {
 
   const navigate = useNavigate();
 
@@ -32,12 +32,13 @@ const LoginForm = () => {
               Authorization: `bearer ${localStorage.token}`
             }
           });
+          socket.emit('login', user.data.data._id);
           localStorage.setItem('firstname', user.data.data.first_name);
           localStorage.setItem('lastname', user.data.data.last_name);
           localStorage.setItem('id', user.data.data._id);
           navigate('/main');
         } catch (error) {
-          console.log(error.response.data.message);
+          console.log(error);
         }
     }
     catch (error) {

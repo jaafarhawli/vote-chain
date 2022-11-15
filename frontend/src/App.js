@@ -28,7 +28,7 @@ function App() {
     	<BrowserRouter>
 				<Routes>
 					<Route path='/' element={<Landing />} />
-					<Route path='/login' element={<Login />} />
+					<Route path='/login' element={<Login socket={socket} />} />
 					<Route path='/register' element={<Register />} />
 					<Route path='/main/*' element={<Main />} />
 					<Route path='/vote/*' element={<Vote />} />
