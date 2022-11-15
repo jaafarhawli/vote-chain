@@ -8,7 +8,7 @@ import Button from '../../components/Reusable/Button';
 import FormInput from '../../components/Reusable/FormInput';
 import ChangePassword from '../../components/Modals/ChangePassword';
 
-const UserSettings = () => {
+const UserSettings = ({socket}) => {
 
   const navigate = useNavigate();
 
@@ -64,6 +64,7 @@ const closeModal = () => {
 }
 
 const logout = () => {
+  socket.emit('logout', localStorage.id);
   localStorage.clear();      
   navigate('/');
 }
