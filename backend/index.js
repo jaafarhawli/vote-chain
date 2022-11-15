@@ -29,6 +29,11 @@ socketIO.on('connection', (socket) => {
     users[id] = socket.id;
     console.log(users);
     });
+   
+    socket.on('logout', (id) => {
+    delete users[id];
+    console.log(users);
+    });
 
     socket.on('disconnect', () => {
       console.log('🔥: A user disconnected');
