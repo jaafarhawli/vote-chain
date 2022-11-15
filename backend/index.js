@@ -3,13 +3,29 @@ const app = express();
 app.use(express.json());
 require('dotenv').config();
 require('./config/db.config');
+const http = require("http").Server(app);
+app.use(express.urlencoded({ extended: true }));
 const cors = require("cors");
 app.use(cors({
     origin:'http://localhost:3000',
     methods:['GET', 'POST', 'PUT', 'DELETE']
 }));
+
 var path = require('path');
 app.use("/public", express.static(path.join(__dirname, 'public')));
+
+const socketIO = require('socket.io')(http, {
+    cors: {
+        origin: "http://localhost:3000",
+    }
+});
+
+socketIO.on('connection', (socket) => {
+    console.log(`⚡: ${socket.id} user just connected!`);
+    socket.on('disconnect', () => {
+      console.log('🔥: A user disconnected');
+    });
+});
 
 const authRoutes = require('./routes/auth.routes');
 app.use('/auth', authRoutes);
@@ -38,7 +54,7 @@ app.use('/statistics', statisticsRoutes);
 const emailRoutes = require('./routes/email.routes');
 app.use('/email', emailRoutes);
 
-app.listen(process.env.PORT, (err)=>{
+http.listen(process.env.PORT, (err)=>{
     if(err) throw err;
     console.log(`server running on port ${process.env.PORT}`);
 });
