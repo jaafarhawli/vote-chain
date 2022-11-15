@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect} from 'react';
 import './App.css';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import { BrowserRouter, Routes, Route} from "react-router-dom";
@@ -13,12 +13,16 @@ import EmailVerification from './pages/Verification/EmailVerification';
 import { init } from './Web3Client';
 import Survey from './pages/Survey/Survey';
 import socketIO from "socket.io-client";
-const socket = socketIO.connect("http://localhost:8000");
+const socket = socketIO.connect("http://localhost:8000")
 
 function App() {
 
 	useEffect(() => {
-	  init();
+	  init();  
+	}, []);
+	
+	useEffect(() => {
+		socket.emit('newUser', localStorage.email);
 	}, []);
 
   const client = new QueryClient();

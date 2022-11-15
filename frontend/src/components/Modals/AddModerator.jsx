@@ -29,12 +29,12 @@ const AddModerator = ({open, closeModal, refetch, socket}) => {
                 }
               });
               console.log(localStorage.election_title, localStorage.email, email);
-              socket.emit('sendNotification', (localStorage.email, localStorage.election_title, email));
+              socket.emit('sendNotification', localStorage.email, localStorage.election_title, email);
               refetch();
               closeModal();
             } catch (error) {
-                // setError(error);
-                // setErrorModal(true);
+                setError(error);
+                setErrorModal(true);
               console.log(error);
             }  
     }
