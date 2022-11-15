@@ -25,15 +25,21 @@ const users = {};
 socketIO.on('connection', (socket) => {
     console.log(`⚡: ${socket.id} user just connected!`);
 
-   socket.on('login', (id) => {
-    users[id] = socket.id;
+   socket.on('login', (email) => {
+    users[email] = socket.id;
     console.log(users);
     });
    
-    socket.on('logout', (id) => {
-    delete users[id];
+    socket.on('logout', (email) => {
+    delete users[email];
     console.log(users);
     });
+
+    socket.on('notification', (user_email, election_title, receiver_email) => {
+        const message = `${user_email} wants to add you as a moderator to his election "${election_title}"`;
+        const socketid = users[receiver_email];
+        socket.to(socketid).emit('notification', message);
+    })
 
     socket.on('disconnect', () => {
       console.log('🔥: A user disconnected');
