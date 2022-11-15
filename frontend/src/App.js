@@ -22,6 +22,7 @@ function App() {
 	}, []);
 	
 	useEffect(() => {
+		if(localStorage.email)
 		socket.emit('newUser', localStorage.email);
 	}, []);
 
