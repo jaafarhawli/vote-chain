@@ -12,8 +12,8 @@ import { Chart as ChartJS } from 'chart.js/auto';
 import EmailVerification from './pages/Verification/EmailVerification';
 import { init } from './Web3Client';
 import Survey from './pages/Survey/Survey';
-
-
+import socketIO from "socket.io-client";
+const socket = socketIO.connect("http://localhost:8000");
 
 function App() {
 
