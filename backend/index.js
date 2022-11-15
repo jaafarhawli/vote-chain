@@ -20,8 +20,16 @@ const socketIO = require('socket.io')(http, {
     }
 });
 
+const users = {};
+
 socketIO.on('connection', (socket) => {
     console.log(`⚡: ${socket.id} user just connected!`);
+
+   socket.on('login', (id) => {
+    users[id] = socket.id;
+    console.log(users);
+    });
+
     socket.on('disconnect', () => {
       console.log('🔥: A user disconnected');
     });
