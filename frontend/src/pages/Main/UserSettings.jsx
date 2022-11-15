@@ -64,7 +64,7 @@ const closeModal = () => {
 }
 
 const logout = () => {
-  socket.emit('logout', localStorage.id);
+  socket.emit('logout', localStorage.email);
   localStorage.clear();      
   navigate('/');
 }

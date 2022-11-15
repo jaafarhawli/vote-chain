@@ -13,7 +13,7 @@ import Settings from '../pages/Election/Settings';
 import Launch from '../pages/Election/Launch';
 import Applicants from '../pages/Election/Applicants';
 
-const AdminElection = () => {
+const AdminElection = ({socket}) => {
 
     const {data} = useQuery(["election"], async () => {
         return axios.get(`election/${localStorage.id}/${localStorage.election_id}`, {
@@ -34,7 +34,7 @@ const AdminElection = () => {
       <ElectionTitle />
       <Routes>
           <Route path='/dashboard' element={<Dashboard />} />
-          <Route path='/moderators' element={<Moderators />} />
+          <Route path='/moderators' element={<Moderators socket={socket} />} />
           <Route path='/parties' element={<Parties />} />
           <Route path='/candidates' element={<Candidates />} />
           <Route path='/voters' element={<Voters admin={true} />} />

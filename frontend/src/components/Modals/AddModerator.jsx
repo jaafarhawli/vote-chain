@@ -6,7 +6,7 @@ import Button from '../Reusable/Button';
 import FormInput from '../Reusable/FormInput';
 import SuccessModal from './SuccessModal';
 
-const AddModerator = ({open, closeModal, refetch}) => {
+const AddModerator = ({open, closeModal, refetch, socket}) => {
 
     const [email, setEmail] = useState('');
     const [errorModal, setErrorModal] = useState(false);
@@ -28,12 +28,14 @@ const AddModerator = ({open, closeModal, refetch}) => {
                   Authorization: `bearer ${localStorage.token}`
                 }
               });
+              console.log(localStorage.election_title, localStorage.email, email);
+              socket.emit('sendNotification', (localStorage.email, localStorage.election_title, email));
               refetch();
               closeModal();
             } catch (error) {
-                setError(error.response.data.message);
-                setErrorModal(true);
-              console.log(error.response.data.message);
+                // setError(error);
+                // setErrorModal(true);
+              console.log(error);
             }  
     }
 

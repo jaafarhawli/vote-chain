@@ -32,7 +32,7 @@ const LoginForm = ({socket}) => {
               Authorization: `bearer ${localStorage.token}`
             }
           });
-          socket.emit('login', user.data.data._id);
+          socket.emit('login', localStorage.email);
           localStorage.setItem('firstname', user.data.data.first_name);
           localStorage.setItem('lastname', user.data.data.last_name);
           localStorage.setItem('id', user.data.data._id);
