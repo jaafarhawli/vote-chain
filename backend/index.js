@@ -27,17 +27,14 @@ socketIO.on('connection', (socket) => {
 
    socket.on('newUser', (email) => {
     users[email] = socket.id;
-    console.log(users);
     });
    
     socket.on('login', (email) => {
     users[email] = socket.id;
-    console.log(users);
     });
    
     socket.on('logout', (email) => {
     delete users[email];
-    console.log(users);
     });
 
     socket.on('sendNotification', (sender_email, title, receiver_email) => {
