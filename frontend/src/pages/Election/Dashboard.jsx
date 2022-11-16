@@ -22,7 +22,7 @@ const Dashboard = () => {
       }  
 
       const {data} = useQuery(["numerics"], async () => {
-        return axios.get(`statistics/${localStorage.election_id}`, {
+        return axios.get(`statistics/${election.id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
                     }
