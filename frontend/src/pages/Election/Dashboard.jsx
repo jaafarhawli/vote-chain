@@ -5,9 +5,12 @@ import Statistics from '../../components/Reusable/Statistics';
 import {useQuery} from '@tanstack/react-query';
 import axios from '../../api/axios';
 import CopyData from '../../components/Reusable/CopyData';
+import { useSelector } from 'react-redux';
 // import BlockchainStatistics from '../../components/Reusable/BlockchainStatistics';
 
 const Dashboard = () => {
+
+    const election = useSelector((state) => state.election.value);
 
     const copyTextToClipboard = async (text) => {
         if ('clipboard' in navigator) {
@@ -19,7 +22,7 @@ const Dashboard = () => {
       }  
 
       const {data} = useQuery(["numerics"], async () => {
-        return axios.get(`statistics/${localStorage.election_id}`, {
+        return axios.get(`statistics/${election.id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
                     }
@@ -32,7 +35,7 @@ const Dashboard = () => {
       <h2 className='text-purple-100 mt-8 text-[22px] font-semibold'>Election code</h2>
       <div className='flex w-full '>
         <div className='w-full'>
-          <CopyData value={localStorage.election_code} onClick={(value) => copyTextToClipboard(value)} />
+          <CopyData value={election?.code} onClick={(value) => copyTextToClipboard(value)} />
           <h2 className='text-purple-100 mt-8 text-[22px] font-semibold'>Election URL</h2>
           <CopyData value={'-'} onClick={(value) => copyTextToClipboard(value)} />
           <h2 className='text-purple-100 mt-8 text-[22px] font-semibold'>Election Appliance URL</h2>

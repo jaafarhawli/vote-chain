@@ -7,15 +7,18 @@ import ConfirmModal from '../../components/Modals/ConfirmModal';
 import EmptyState from '../../components/Reusable/EmptyState';
 import Table from '../../components/Reusable/Table';
 import AddCandidate from '../../components/Modals/AddCandidate';
+import { useSelector } from 'react-redux';
 
 const Parties = () => {
+
+    const election = useSelector((state) => state.election.value);
 
     const [search, setSearch] = useState('');
     const [partyModal, setPartyModal] = useState(false);
     const [refetch, setRefetch] = useState(true);
     const [confirmModal, setConfirmModal] = useState(false);
     const [candidateModal, setCandidateModal] = useState(false);
-    const launched = localStorage.election_launched==="true";
+    const launched = localStorage.election_launched===true;
 
 
     const closeModal = () => {
@@ -30,7 +33,7 @@ const Parties = () => {
 
 
     const {data} = useQuery([refetch], async () => {
-        return axios.get(`party/${localStorage.election_id}`, {
+        return axios.get(`party/${election.id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
                     }
@@ -68,7 +71,7 @@ const Parties = () => {
       const deleteParty = async () => {
         const form = {
             party_id: localStorage.party_id,
-            election_id: localStorage.election_id,
+            election_id: election.id,
             user_id: localStorage.id 
         }
         

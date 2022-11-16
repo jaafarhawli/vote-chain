@@ -5,8 +5,11 @@ import logo from '../../assets/VOTE CHAIN-logo-black.png';
 import Button from '../Reusable/Button';
 import FormInput from '../Reusable/FormInput';
 import SuccessModal from './SuccessModal';
+import { useSelector } from 'react-redux';
 
 const AddModerator = ({open, closeModal, refetch, socket}) => {
+
+    const election = useSelector((state) => state.election.value);
 
     const [email, setEmail] = useState('');
     const [errorModal, setErrorModal] = useState(false);
@@ -17,7 +20,7 @@ const AddModerator = ({open, closeModal, refetch, socket}) => {
 
         const form = {
             email: email,
-            election_id: localStorage.election_id,
+            election_id: election.id,
             sender_email: localStorage.email,
             user_id: localStorage.id
         }
@@ -28,8 +31,7 @@ const AddModerator = ({open, closeModal, refetch, socket}) => {
                   Authorization: `bearer ${localStorage.token}`
                 }
               });
-              console.log(localStorage.election_title, localStorage.email, email);
-              socket.emit('sendNotification', localStorage.email, localStorage.election_title, email);
+              socket.emit('sendNotification', localStorage.email, election.title, email);
               refetch();
               closeModal();
             } catch (error) {

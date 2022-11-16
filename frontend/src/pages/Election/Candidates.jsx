@@ -4,20 +4,25 @@ import axios from '../../api/axios';
 import CandidateCard from '../../components/Reusable/CandidateCard';
 import EmptyState from '../../components/Reusable/EmptyState';
 import ConfirmModal from '../../components/Modals/ConfirmModal';
+import { useSelector } from 'react-redux';
 
 const Candidates = () => {
-    
+
+    const election = useSelector((state) => state.election.value);
+
     const [search, setSearch] = useState('');
     const [confirmModal, setConfirmModal] = useState(false);
-    const launched = localStorage.election_launched==="true";
+    const launched = election.launched===true;
     
-    const {data} = useQuery([], async () => {
-        return axios.get(`candidate/${localStorage.election_id}`, {
+    const {data} = useQuery([""], async () => {
+        return axios.get(`candidate/${election.id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
                     }
                   }).then((res) => res.data.data);
     })
+
+    console.log(data);
 
     const filteredData = useMemo(() => {
       return data?.filter(row => {
@@ -44,7 +49,7 @@ const Candidates = () => {
       const form = {
           candidate_id: localStorage.candidate_id,
           party_id: localStorage.party_id,
-          election_id: localStorage.election_id,
+          election_id: election.id,
           user_id: localStorage.id 
       }
       
