@@ -6,14 +6,17 @@ import Button from '../../components/Reusable/Button';
 import Table from '../../components/Reusable/Table';
 import AddVoter from '../../components/Modals/AddVoter';
 import ConfirmModal from '../../components/Modals/ConfirmModal';
+import { useSelector } from 'react-redux';
 
 const Voters = (props) => {
+
+    const election = useSelector((state) => state.election.value);
 
     const [search, setSearch] = useState('');
     const [voterModal, setVoterModal] = useState(false);
     const [refetch, setRefetch] = useState(true);
     const [confirmModal, setConfirmModal] = useState(false);
-    const launched = localStorage.election_launched==="true";
+    const launched = election.launched==="true";
 
     const closeModal = () => {
         setVoterModal(false)
@@ -41,7 +44,7 @@ const Voters = (props) => {
     const deleteVoter = async () => {
         const form = {
             voter_id: localStorage.voter_id,
-            election_id: localStorage.election_id,
+            election_id: election.id,
             user_id: localStorage.id 
         }
         
@@ -59,7 +62,7 @@ const Voters = (props) => {
     }
 
     const {data} = useQuery([refetch], async () => {
-        return axios.get(`voter/voters/${localStorage.election_id}`, {
+        return axios.get(`voter/voters/${election.id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
                     }

@@ -35,7 +35,7 @@ const Dashboard = () => {
       <h2 className='text-purple-100 mt-8 text-[22px] font-semibold'>Election code</h2>
       <div className='flex w-full '>
         <div className='w-full'>
-          <CopyData value={election.code} onClick={(value) => copyTextToClipboard(value)} />
+          <CopyData value={election?.code} onClick={(value) => copyTextToClipboard(value)} />
           <h2 className='text-purple-100 mt-8 text-[22px] font-semibold'>Election URL</h2>
           <CopyData value={'-'} onClick={(value) => copyTextToClipboard(value)} />
           <h2 className='text-purple-100 mt-8 text-[22px] font-semibold'>Election Appliance URL</h2>

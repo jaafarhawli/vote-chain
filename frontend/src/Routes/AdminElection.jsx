@@ -30,6 +30,7 @@ const AdminElection = ({socket}) => {
 
     useEffect(() => {
       dispatch(viewElection({
+        id: data?._id,
         title: data?.title,
         startTime: data?.start_time,
         endTime: data?.end_time,
