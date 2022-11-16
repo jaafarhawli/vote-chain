@@ -8,7 +8,10 @@ export const electionSlice = createSlice({
             title: '',
             startTime: '',
             endTime: '',
-            description: ''
+            code: '',
+            description: '',
+            launched: false,
+            address: ''
         }
     },
     reducers: {
@@ -17,5 +20,7 @@ export const electionSlice = createSlice({
         }
     }
 });
+
+export const {viewElection} = electionSlice.actions;
 
 export default electionSlice.reducer;

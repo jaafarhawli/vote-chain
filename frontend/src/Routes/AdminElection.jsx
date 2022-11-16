@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useQuery} from '@tanstack/react-query';
 import axios from '../api/axios';
 import {Route, Routes} from 'react-router-dom';
@@ -12,21 +12,30 @@ import Voters from '../pages/Election/Voters';
 import Settings from '../pages/Election/Settings';
 import Launch from '../pages/Election/Launch';
 import Applicants from '../pages/Election/Applicants';
+import { useSelector, useDispatch } from 'react-redux';
+import { viewElection } from '../redux/election';
 
 const AdminElection = ({socket}) => {
 
-    const {data} = useQuery(["election"], async () => {
-        return axios.get(`election/${localStorage.id}/${localStorage.election_id}`, {
+    const election = useSelector((state) => state.election.value);
+    const dispatch = useDispatch();
+
+    const {data} = useQuery([], async () => {
+        return axios.get(`election/${localStorage.id}/${election.id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
                     }
                   }).then((res) => res.data.data);
     })
 
-    localStorage.setItem('election_title', data?.title);
-    localStorage.setItem('start_time', data?.start_time);
-    localStorage.setItem('end_time', data?.end_time);
-    localStorage.setItem('election_code', data?.code);
+    useEffect(() => {
+      dispatch(viewElection({
+        title: data?.title,
+        startTime: data?.start_time,
+        endTime: data?.end_time,
+        code: data?.code
+      }));
+    }, [data, dispatch]);
 
   return (
     <div>
