@@ -62,6 +62,7 @@ const VoteMain = () => {
 
       if(distance<0) {
           setLive(true);
+          setDisabled(false);
           clearInterval(interval.current);
       }
       else {
@@ -72,9 +73,6 @@ const VoteMain = () => {
       }
     })
   }
-
-  if(live)
-  setDisabled(false);
 
   useEffect(() => {
     if(live)
