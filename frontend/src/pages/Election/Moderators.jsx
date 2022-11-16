@@ -16,7 +16,7 @@ const Moderators = ({socket}) => {
     const [refetch, setRefetch] = useState(true);
     const [confirmModal, setConfirmModal] = useState(false);
     const [search, setSearch] = useState('');
-    const launched = election.launched==="true";
+    const launched = election.launched===true;
 
     const closeModal = () => {
         setModeratorModal(false)

@@ -7,12 +7,14 @@ import ConfirmModal from '../../components/Modals/ConfirmModal';
 import { useNavigate } from 'react-router-dom';
 import "flatpickr/dist/themes/material_green.css";
 import Flatpickr from "react-flatpickr";
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import {viewElection} from '../../redux/election';
 require("flatpickr/dist/themes/material_blue.css");
 
 const Settings = () => {
 
     const election = useSelector((state) => state.election.value);
+    const dispatch = useDispatch();
 
     const [title, setTitle] = useState(election.title);
     const [starttime, setStarttime] = useState(election.startTime);
@@ -24,7 +26,7 @@ const Settings = () => {
     const [disabled, setDisabled] = useState(true);
     const [save, setSave] = useState(false);
     const [confirmModal, setConfirmModal] = useState(false);
-    const launched = election.launched==="true";
+    const launched = election.launched===true;
     const date = new Date();
 
     const navigate = useNavigate();
@@ -61,10 +63,12 @@ const Settings = () => {
               Authorization: `bearer ${localStorage.token}`
             }
           });
-          localStorage.setItem('election_title', title);
-          localStorage.setItem('election_start', starttime);
-          localStorage.setItem('election_end', endtime);
-          localStorage.setItem('election_description', description);
+          dispatch(viewElection({
+            title: title,
+            startTime: starttime,
+            endTime: endtime,
+            description: description
+          }));
           setError(false);
           setMessage('Election updated succussfully');
           setSuccessModal(true);

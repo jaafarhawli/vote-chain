@@ -13,7 +13,7 @@ const Launch = () => {
     const dispatch = useDispatch();
 
     const [confirmModal, setConfirmModal] = useState(false);
-    const [disabled, setDisabled] = useState(election.launched==="true");
+    const [disabled, setDisabled] = useState(election.launched===true);
 
     const {data} = useQuery([""], async () => {
       return axios.get(`candidate/${election.id}`, {

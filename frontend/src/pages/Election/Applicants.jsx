@@ -4,17 +4,20 @@ import axios from '../../api/axios';
 import EmptyState from '../../components/Reusable/EmptyState';
 import Button from '../../components/Reusable/Button';
 import Table from '../../components/Reusable/Table';
+import { useSelector } from 'react-redux';
 
 const Applicants = (props) => {
-  
+    
+    const election = useSelector((state) => state.election.value);
+
     const [search, setSearch] = useState('');
     const [refetch, setRefetch] = useState(true);
-    const launched = localStorage.election_launched==="true";
+    const launched = election.launched===true;
 
     const removeApplicant = async (id) => {
         const form = {
             applier_id: id,
-            election_id: localStorage.election_id,
+            election_id: election.id,
             user_id: localStorage.id 
         }
         
@@ -32,7 +35,7 @@ const Applicants = (props) => {
     }
 
     const {data} = useQuery([refetch], async () => {
-        return axios.get(`election/view/applyers/${localStorage.election_id}`, {
+        return axios.get(`election/view/applyers/${election.id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
                     }

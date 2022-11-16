@@ -34,7 +34,8 @@ const AdminElection = ({socket}) => {
         title: data?.title,
         startTime: data?.start_time,
         endTime: data?.end_time,
-        code: data?.code
+        code: data?.code,
+        launched: data?.launched
       }));
     }, [data, dispatch]);
 

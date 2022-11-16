@@ -18,7 +18,7 @@ const Parties = () => {
     const [refetch, setRefetch] = useState(true);
     const [confirmModal, setConfirmModal] = useState(false);
     const [candidateModal, setCandidateModal] = useState(false);
-    const launched = localStorage.election_launched==="true";
+    const launched = localStorage.election_launched===true;
 
 
     const closeModal = () => {

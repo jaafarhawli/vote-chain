@@ -16,7 +16,7 @@ const Voters = (props) => {
     const [voterModal, setVoterModal] = useState(false);
     const [refetch, setRefetch] = useState(true);
     const [confirmModal, setConfirmModal] = useState(false);
-    const launched = election.launched==="true";
+    const launched = election.launched===true;
 
     const closeModal = () => {
         setVoterModal(false)

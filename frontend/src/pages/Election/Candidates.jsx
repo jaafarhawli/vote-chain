@@ -12,7 +12,7 @@ const Candidates = () => {
 
     const [search, setSearch] = useState('');
     const [confirmModal, setConfirmModal] = useState(false);
-    const launched = election.launched==="true";
+    const launched = election.launched===true;
     
     const {data} = useQuery([""], async () => {
         return axios.get(`candidate/${election.id}`, {
