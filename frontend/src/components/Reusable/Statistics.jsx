@@ -86,7 +86,7 @@ const Statistics = () => {
 
   return (
     <div>
-      {!live ?
+      {live ?
       <>
         <div className='flex w-full gap-6 my-6'>
         <div className='w-1/3 bg-white rounded-2xl shadow-xl p-6'>

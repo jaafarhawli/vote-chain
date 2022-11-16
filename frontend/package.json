@@ -25,6 +25,7 @@
     "react-scripts": "5.0.1",
     "react-toastify": "^9.1.0",
     "redux": "^4.2.0",
+    "redux-persist": "^6.0.0",
     "socket.io-client": "^4.5.3",
     "solc": "^0.8.17",
     "web-vitals": "^2.1.4",
