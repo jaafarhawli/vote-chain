@@ -4,14 +4,19 @@ import ConfirmModal from '../../components/Modals/ConfirmModal';
 import axios from '../../api/axios';
 import {useQuery} from '@tanstack/react-query';
 import { addCandidates, addVoterToBlockchain } from '../../Web3Client';
+import { useSelector, useDispatch } from 'react-redux';
+import { viewElection } from '../../redux/election';
 
 const Launch = () => {
 
-    const [confirmModal, setConfirmModal] = useState(false);
-    const [disabled, setDisabled] = useState(localStorage.election_launched==="true");
+    const election = useSelector((state) => state.election.value);
+    const dispatch = useDispatch();
 
-    const {data} = useQuery([], async () => {
-      return axios.get(`candidate/${localStorage.election_id}`, {
+    const [confirmModal, setConfirmModal] = useState(false);
+    const [disabled, setDisabled] = useState(election.launched===true);
+
+    const {data} = useQuery([""], async () => {
+      return axios.get(`candidate/${election.id}`, {
                   headers: {
                     Authorization: `bearer ${localStorage.token}`
                   }
@@ -19,7 +24,7 @@ const Launch = () => {
   })
 
   const {data: voters} = useQuery(["voters"], async () => {
-    return axios.get(`voter/voters/${localStorage.election_id}`, {
+    return axios.get(`voter/voters/${election.id}`, {
                 headers: {
                   Authorization: `bearer ${localStorage.token}`
                 }
@@ -33,7 +38,7 @@ const Launch = () => {
       candidates.push(candidate.name);
       parties.push(candidate.party);
     }
-    await addCandidates(candidates, parties, localStorage.election_address);
+    await addCandidates(candidates, parties, election.address);
   }
   
   const addVotersToBlockChain = async () => {
@@ -41,7 +46,7 @@ const Launch = () => {
     for(let voter of voters) {
       voters_addresses.push(voter.voter_wallet_address);
     }
-    await addVoterToBlockchain(voters_addresses, localStorage.election_address);
+    await addVoterToBlockchain(voters_addresses, election.address);
   }
 
     
@@ -50,9 +55,8 @@ const Launch = () => {
     }
 
     const launchElection = async () => {
-      console.log(voters);
         const form = {
-            election_id: localStorage.election_id,
+            election_id: election.id,
             user_id: localStorage.id 
         }     
         try {
@@ -61,7 +65,9 @@ const Launch = () => {
                   Authorization: `bearer ${localStorage.token}`
                 }
               });
-              localStorage.setItem("election_launched", true);
+              dispatch(viewElection({
+                launched: true
+              }));
               await addCandidatesToBlockchain();
               await addVotersToBlockChain();
               setDisabled(true);

@@ -6,14 +6,17 @@ import AddModerator from '../../components/Modals/AddModerator';
 import ConfirmModal from '../../components/Modals/ConfirmModal';
 import EmptyState from '../../components/Reusable/EmptyState';
 import Table from '../../components/Reusable/Table';
+import { useSelector } from 'react-redux';
 
 const Moderators = ({socket}) => {
+
+    const election = useSelector((state) => state.election.value);
 
     const [moderatorModal, setModeratorModal] = useState(false);
     const [refetch, setRefetch] = useState(true);
     const [confirmModal, setConfirmModal] = useState(false);
     const [search, setSearch] = useState('');
-    const launched = localStorage.election_launched==="true";
+    const launched = election.launched===true;
 
     const closeModal = () => {
         setModeratorModal(false)
@@ -26,7 +29,7 @@ const Moderators = ({socket}) => {
       }
     
     const {data} = useQuery([refetch], async () => {
-        return axios.get(`moderator/${localStorage.election_id}`, {
+        return axios.get(`moderator/${election.id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
                     }
@@ -58,7 +61,7 @@ const Moderators = ({socket}) => {
       const deleteModerator = async () => {
         const form = {
             moderator_id: localStorage.moderator_id,
-            election_id: localStorage.election_id,
+            election_id: election.id,
             user_id: localStorage.id 
         }
         

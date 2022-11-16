@@ -6,10 +6,13 @@ import MainHeader from './MainHeader';
 import CreateElection from '../../components/Modals/CreateElection';
 import ElectionCard from '../../components/Reusable/ElectionCard';
 import EmptyState from '../../components/Reusable/EmptyState';
+import { useDispatch } from 'react-redux';
+import { viewElection as view } from '../../redux/election';
 
 const UserElections = () => {
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [electionModal, setElectionModal] = useState(false);
   const [refetch, setRefetch] = useState(true);
@@ -22,13 +25,12 @@ const UserElections = () => {
               }).then((res) => res.data.data);
   })
 
-const viewElection = (id, start_time, end_time, description, launched, contract_address) => {
-    localStorage.setItem('election_id', id);
-    localStorage.setItem('election_start', start_time);
-    localStorage.setItem('election_end', end_time);
-    localStorage.setItem('election_description', description);
-    localStorage.setItem('election_launched', launched);
-    localStorage.setItem('election_address', contract_address);
+const viewElection = (id, launched, contract_address) => {
+    dispatch(view({
+      id: id,
+      address: contract_address,
+      launched: launched
+    }));
     navigate('admin/election/dashboard')
 }
 

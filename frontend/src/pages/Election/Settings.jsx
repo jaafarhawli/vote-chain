@@ -7,21 +7,26 @@ import ConfirmModal from '../../components/Modals/ConfirmModal';
 import { useNavigate } from 'react-router-dom';
 import "flatpickr/dist/themes/material_green.css";
 import Flatpickr from "react-flatpickr";
+import { useSelector, useDispatch } from 'react-redux';
+import {viewElection} from '../../redux/election';
 require("flatpickr/dist/themes/material_blue.css");
 
 const Settings = () => {
 
-    const [title, setTitle] = useState(localStorage.election_title);
-    const [starttime, setStarttime] = useState(localStorage.election_start);
-    const [endtime, setEndtime] = useState(localStorage.election_end);
-    const [description, setDescription] = useState(localStorage.election_description);
+    const election = useSelector((state) => state.election.value);
+    const dispatch = useDispatch();
+
+    const [title, setTitle] = useState(election.title);
+    const [starttime, setStarttime] = useState(election.startTime);
+    const [endtime, setEndtime] = useState(election.endTime);
+    const [description, setDescription] = useState(election.description);
     const [successModal, setSuccessModal] = useState(false);
     const [error, setError] = useState(true);
     const [message, setMessage] = useState('');
     const [disabled, setDisabled] = useState(true);
     const [save, setSave] = useState(false);
     const [confirmModal, setConfirmModal] = useState(false);
-    const launched = localStorage.election_launched==="true";
+    const launched = election.launched===true;
     const date = new Date();
 
     const navigate = useNavigate();
@@ -45,7 +50,7 @@ const Settings = () => {
       }
 
         const form = {
-            election_id: localStorage.election_id,
+            election_id: election.id,
             user_id: localStorage.id,
             title: title,
             start_time: starttime,
@@ -58,10 +63,12 @@ const Settings = () => {
               Authorization: `bearer ${localStorage.token}`
             }
           });
-          localStorage.setItem('election_title', title);
-          localStorage.setItem('election_start', starttime);
-          localStorage.setItem('election_end', endtime);
-          localStorage.setItem('election_description', description);
+          dispatch(viewElection({
+            title: title,
+            startTime: starttime,
+            endTime: endtime,
+            description: description
+          }));
           setError(false);
           setMessage('Election updated succussfully');
           setSuccessModal(true);
@@ -76,7 +83,7 @@ const Settings = () => {
 
     const deleteElection = async () => {
         const form = {
-            election_id: localStorage.election_id, 
+            election_id: election.id, 
             user_id: localStorage.id 
         }
         
@@ -98,19 +105,19 @@ const Settings = () => {
     }
 
     useEffect(() => {
-        if (title===localStorage.election_title && starttime===localStorage.election_start && endtime===localStorage.election_end && description===localStorage.election_description)
+        if (title===election.title && starttime===election.startTime && endtime===election.endTime && description===election.description)
         setDisabled(true);
         if(title==='')
         setDisabled(true)
-        if(title!==localStorage.election_title && title!=='')
+        if(title!==election.title && title!=='')
         setDisabled(false);
-        if(starttime!==localStorage.election_start && starttime!=='')
+        if(starttime!==election.startTime && starttime!=='')
         setDisabled(false);
-        if(endtime!==localStorage.election_end && endtime!=='')
+        if(endtime!==election.endTime && endtime!=='')
         setDisabled(false);
-        if(description!==localStorage.election_description)
+        if(description!==election.description)
         setDisabled(false);
-      }, [title, starttime, endtime, description, save]);
+      }, [title, starttime, endtime, description, save, election]);
 
   return (
       <>
@@ -126,14 +133,14 @@ const Settings = () => {
           <Button className='bg-red' disabled={launched} onClick={() => setConfirmModal(true)}>Delete Election</Button>
         </div>
         <form className='w-[400px] flex flex-col gap-5 mt-12'>
-          <FormInput type="text" onChange={e => setTitle(e.target.value)} defaultValue={localStorage.election_title} >Election title</FormInput>          
+          <FormInput type="text" onChange={e => setTitle(e.target.value)} defaultValue={election.title} >Election title</FormInput>          
           <div className='flex gap-2'>
             <label>
                 <p className='font-semibold'>Start date</p>
                 <Flatpickr
                   data-enable-time
                   options={{ minDate: date }}
-                  value={localStorage.start_time}
+                  value={election.startTime}
                   onChange={dateStr => 
                     setStarttime(dateStr)
                 }
@@ -144,7 +151,7 @@ const Settings = () => {
                 <Flatpickr
                   data-enable-time
                   options={{ minDate: date }}
-                  value={localStorage.end_time}
+                  value={election.endTime}
                   onChange={dateStr => 
                     setEndtime(dateStr)
                 }
@@ -153,7 +160,7 @@ const Settings = () => {
           </div>
           <label>
             <p className='font-semibold'>Description</p>
-            <textarea defaultValue={localStorage.election_description? localStorage.election_description : ""} onChange={e => setDescription(e.target.value)} className='w-full border-[1px] border-black-200 outline-none rounded-sm p-4 text-[16px]' />
+            <textarea defaultValue={election.description? election.description : ""} onChange={e => setDescription(e.target.value)} className='w-full border-[1px] border-black-200 outline-none rounded-sm p-4 text-[16px]' />
           </label>
           <Button className='bg-cyan' disabled={disabled || launched} onClick={saveInfo} >Save Changes</Button>
       </form> 

@@ -4,11 +4,14 @@ import axios from '../../api/axios';
 import { Doughnut } from 'react-chartjs-2';
 import { Bar } from 'react-chartjs-2';
 import { Pie } from 'react-chartjs-2';
+import { useSelector } from 'react-redux';
 
 const Statistics = () => {
+
+    const election = useSelector((state) => state.election.value);
     
     const {data} = useQuery(["parties"], async () => {
-        return axios.get(`statistics/parties/${localStorage.election_id}`, {
+        return axios.get(`statistics/parties/${election.id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
                     }
@@ -16,7 +19,7 @@ const Statistics = () => {
       })
       
       const {data: candidates} = useQuery(["candidates"], async () => {
-        return axios.get(`statistics/candidates/${localStorage.election_id}`, {
+        return axios.get(`statistics/candidates/${election.id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
                     }
@@ -24,7 +27,7 @@ const Statistics = () => {
       })
       
       const {data: parties} = useQuery(["partyCandidates"], async () => {
-        return axios.get(`statistics/party/candidates/${localStorage.election_id}`, {
+        return axios.get(`statistics/party/candidates/${election.id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
                     }
@@ -32,7 +35,7 @@ const Statistics = () => {
       })
       
       const {data: votes} = useQuery(["votes"], async () => {
-        return axios.get(`statistics/vote/${localStorage.election_id}`, {
+        return axios.get(`statistics/vote/${election.id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
                     }
@@ -78,12 +81,12 @@ const Statistics = () => {
     }
     
     const date = new Date();
-    const startDate = new Date(localStorage.election_start);
+    const startDate = new Date(election.startTime);
     const live = date > startDate;
 
   return (
     <div>
-      {!live ?
+      {live ?
       <>
         <div className='flex w-full gap-6 my-6'>
         <div className='w-1/3 bg-white rounded-2xl shadow-xl p-6'>
