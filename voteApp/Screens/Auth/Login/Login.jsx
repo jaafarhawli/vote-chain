@@ -11,15 +11,14 @@ import * as SecureStore from 'expo-secure-store';
 
 const Login = () => {
 
-  const [code, setCode] = useState('');
-  const [id, setId] = useState('');
-  const [key, setKey] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleSubmit = async () => {
-    token = await login(code, id, key);
-    await SecureStore.setItemAsync('election1', token);
-    let result = await SecureStore.getItemAsync('election1');
-    console.log(result);
+    // token = await login(code, id, key);
+    // await SecureStore.setItemAsync('election1', token);
+    // let result = await SecureStore.getItemAsync('election1');
+    // console.log(result);
   }
 
   return (
@@ -27,9 +26,8 @@ const Login = () => {
         <Image source={images.whiteLogoText} style={styles.image} fadeDuration={1000} />
         <MyAppText style={styles.title}>Join Election</MyAppText>
         <View style={styles.inputsContainer}>
-            <Input placeholder="Election Code" style={styles.input} onChange={newText => setCode(newText)} />
-            <Input placeholder="ID" style={styles.input} onChange={newText => setId(newText)} />
-            <Input placeholder="Key" style={styles.input} onChange={newText => setKey(newText)} />
+            <Input placeholder="Username" style={styles.input} onChange={newText => setUsername(newText)} />
+            <Input placeholder="Password" style={styles.input} secureTextEntry={true} onChange={newText => setPassword(newText)} />
             <CustomizedButton title="Join" onPress={handleSubmit} />
         </View>
     </LinearGradient>

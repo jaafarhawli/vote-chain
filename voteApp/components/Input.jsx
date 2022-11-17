@@ -7,7 +7,7 @@ import React from 'react'
 const Input = (props) => {
 
   return (
-      <TextInput style={[styles.input, props.style]} placeholder={props.placeholder} selectionColor={colors.primary[100]} onChangeText={props.onChange} />
+      <TextInput style={[styles.input, props.style]} placeholder={props.placeholder} selectionColor={colors.primary[100]} onChangeText={props.onChange} secureTextEntry={props.secureTextEntry} />
   )
 }
 
