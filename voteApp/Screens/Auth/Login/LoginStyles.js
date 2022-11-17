@@ -25,6 +25,10 @@ export const styles = StyleSheet.create({
         marginBottom: 10,
     },
     signup: {
+      color: colors.secondary
+    },
+    signupContainer: {
+      flexDirection: 'row',
       paddingTop: '90%'
     }
   });

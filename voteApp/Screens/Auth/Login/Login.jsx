@@ -8,8 +8,12 @@ import MyAppText from '../../../components/MyAppText';
 import { LinearGradient } from 'expo-linear-gradient';
 import { login } from '../../../api/login';
 import * as SecureStore from 'expo-secure-store';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { useNavigation } from '@react-navigation/native';
 
 const Login = () => {
+
+  const navigation = useNavigation();
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -30,7 +34,12 @@ const Login = () => {
             <Input placeholder="Password" style={styles.input} secureTextEntry={true} onChange={newText => setPassword(newText)} />
             <CustomizedButton title="Login" onPress={handleSubmit} />
         </View>
-        <MyAppText style={styles.signup}>Dont have an account? Signup</MyAppText>
+        <View style={styles.signupContainer}>
+          <MyAppText>Dont have an account? </MyAppText>
+          <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+            <MyAppText style={styles.signup}>Signup</MyAppText>  
+          </TouchableOpacity>
+        </View>
     </LinearGradient>
   )
 }
