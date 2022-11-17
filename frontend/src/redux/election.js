@@ -16,7 +16,10 @@ export const electionSlice = createSlice({
     },
     reducers: {
         viewElection: (state, action) => {
-            state.value = action.payload;
+            state.value = {
+                ...state.value,
+                ...action.payload
+            }
         }
     }
 });
