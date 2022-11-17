@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import Form from '../../../components/Complex/Form/Form'
-import register from '../../../api/register'
+import { register } from '../../../api/register'
+import * as SecureStore from 'expo-secure-store';
 
 const Register = () => {
 
@@ -13,7 +14,14 @@ const Register = () => {
       if(password!==confirm)
       return setMessage('Passwords didnt match');
       const token = await register(username, password);
-      console.log(token);
+      if(token.data) {
+        await SecureStore.setItemAsync('token', token.data);
+        let result = await SecureStore.getItemAsync('token');
+        setMessage('');
+        return console.log(result);
+      }
+      else
+      setMessage(token)
   }
 
   return (

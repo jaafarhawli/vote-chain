@@ -7,8 +7,9 @@ export const login = async (username, password) => {
     } 
     try {
         const data = await axios.post('auth/login/account', form);
-        return data.data;
+        return data;
       } catch (error) {
         console.log(error);
+        return error.response.data.message;
       }
 }

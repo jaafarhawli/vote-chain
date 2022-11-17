@@ -7,18 +7,23 @@ const Login = () => {
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [message, setMessage] = useState('');
 
   const handleSubmit = async () => {
     const token = await login(username, password);
-    await SecureStore.setItemAsync('token', token);
-    let result = await SecureStore.getItemAsync('token');
-    console.log(result);
+    if(token.data) {
+      await SecureStore.setItemAsync('token', token.data);
+      setMessage('');
+      let result = await SecureStore.getItemAsync('token');
+      return console.log(result);
+    }
+    else 
+    setMessage(token);
   }
 
   return (
-    <Form onSubmit={handleSubmit} setUsername={text => setUsername(text)} setPassword={text => setPassword(text)} />
+    <Form onSubmit={handleSubmit} setUsername={text => setUsername(text)} setPassword={text => setPassword(text)} message={message} />
   )
 }
 
 export default Login
-

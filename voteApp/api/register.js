@@ -10,5 +10,6 @@ export const register = async (username, password) => {
         return data.data;
       } catch (error) {
         console.log(error);
+        return error.response.data.message;
       }
 }
