@@ -8,7 +8,8 @@ export default {
     white: '#FFFFFF',
     black: {
         100: '#000000',
-        200: '#3D3C3C'
+        200: '#303030',
+        300: '#3D3C3C'
     },
     red: '#FF3636',
     green: '#1dc198', 
