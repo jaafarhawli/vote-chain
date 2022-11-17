@@ -6,7 +6,7 @@ export const styles = StyleSheet.create({
       flex: 1,
       alignItems: 'center',
       justifyContent: 'center',
-      padding: 40
+      padding: 40,
     },
     title: {
       color: 'white',
@@ -23,5 +23,8 @@ export const styles = StyleSheet.create({
     },
     input: {
         marginBottom: 10,
+    },
+    signup: {
+      paddingTop: '90%'
     }
   });
