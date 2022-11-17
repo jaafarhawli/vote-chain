@@ -1,10 +1,10 @@
 import React from 'react'
 import { View, Image } from 'react-native';
-import Input from '../../../components/Input';
+import Input from '../../Reusable/Input';
 import { images, colors } from '../../../constants';
 import { styles } from './FormStyles';
-import CustomizedButton from '../../../components/button';
-import MyAppText from '../../../components/MyAppText';
+import CustomizedButton from '../../Reusable/button';
+import MyAppText from '../../Reusable/MyAppText';
 import { LinearGradient } from 'expo-linear-gradient';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';

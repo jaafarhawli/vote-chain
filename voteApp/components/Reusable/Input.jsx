@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler';
-import {colors} from '../constants';
+import {colors} from '../../constants';
 
 import React from 'react'
 
