@@ -29,6 +29,11 @@ export const styles = StyleSheet.create({
     },
     signupContainer: {
       flexDirection: 'row',
-      paddingTop: '90%'
+      paddingTop: '70%'
+    },
+    errorMessage: {
+        color: colors.red,
+        textAlign: 'center',
+        marginTop: 10
     }
   });

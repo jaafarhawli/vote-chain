@@ -9,7 +9,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 
-const Form = ({register, onSubmit, setUsername, setPassword, setConfirm}) => {
+const Form = ({register, message,onSubmit, setUsername, setPassword, setConfirm}) => {
 
   const navigation = useNavigation();
 
@@ -29,6 +29,7 @@ const Form = ({register, onSubmit, setUsername, setPassword, setConfirm}) => {
             }
             
             <CustomizedButton title={register ? "Register" : "Login"} onPress={onSubmit} />
+            <MyAppText style={styles.errorMessage}>{message}</MyAppText>
         </View>
         {
             register 
