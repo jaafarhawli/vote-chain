@@ -1,12 +1,13 @@
 import React from 'react'
 import { StyleSheet, Text, View, Image, StatusBar } from 'react-native';
+import Input from '../../components/Input';
 import { images } from '../../constants';
 
 const Login = () => {
   return (
     <View style={styles.container}>
         <Image source={images.whiteLogo} style={styles.image} fadeDuration={1000} />
-        <Text style={styles.text}>Hello React Native</Text>
+        <Input placeholder="Email" />
     </View>
   )
 }
@@ -19,6 +20,7 @@ const styles = StyleSheet.create({
       backgroundColor: '#3D3C3C',
       alignItems: 'center',
       justifyContent: 'center',
+      padding: 40
     },
     text: {
       color: 'white'
