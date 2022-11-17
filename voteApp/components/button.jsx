@@ -1,13 +1,13 @@
-import { Button, Pressable, StyleSheet, Text } from 'react-native'
+import { Button, Pressable, StyleSheet, Text, TouchableHighlight, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { colors } from '../constants'
 import MyAppText from './MyAppText'
 
 const button = (props) => {
   return (
-    <Pressable style={[styles.button, props.styles]}>
+    <TouchableOpacity style={[styles.button, props.styles]} activeOpacity={0.6} onPress={props.onPress}>
         <MyAppText style={[styles.text, props.textStyle]}>{props.title}</MyAppText>
-    </Pressable>
+    </TouchableOpacity>
   )
 }
 
