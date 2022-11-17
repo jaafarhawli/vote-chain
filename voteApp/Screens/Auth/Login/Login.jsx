@@ -6,7 +6,7 @@ import { styles } from './LoginStyles';
 import CustomizedButton from '../../../components/button';
 import MyAppText from '../../../components/MyAppText';
 import { LinearGradient } from 'expo-linear-gradient';
-import axios from 'axios';
+import axios from '../../../api/axios';
 
 const Login = () => {
 
@@ -21,7 +21,7 @@ const Login = () => {
       voter_key: key
     };
     try {
-      const data = await axios.post(' http://192.168.0.107:8000/auth/login/voter', form);
+      const data = await axios.post('auth/login/voter', form);
       console.log(data.data);
     } catch (error) {
       console.log(error);
