@@ -2,6 +2,7 @@ const voterAccount = require('../models/voterAccounts.model');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const Election = require('../models/elections.model');
+const Voter = require('../models/voters.model');
 
 const register = async (req, res) => {
     try {
@@ -31,14 +32,19 @@ const register = async (req, res) => {
   };
 
   const addElection = async (req, res) => {
-      const {account_id, election_id} = req.body;
+      const {account_id, voter_id, election_id} = req.body;
       voterAccount.findById(account_id, async (err, account) => {
           if(err)
           return res.status(400).json({message: error});
-          const election = await Election.findById(election_id).select();
-          if(!election)
-          return res.status(400).json({message: 'Election not found'});
-          await account.elections.push(election_id);
+          const voter = await Voter.findById(voter_id).select();
+          if(!voter)
+          return res.status(400).json({message: 'Voter is not found'});
+          if(voter.election_id != election_id)
+          return res.status(400).json({message: 'Election is not found'});         
+          await account.elections.push({
+            election_id: election_id,
+            voter_id: voter_id
+          });
           await account.save();
           res.status(200).json({message: "Election added successfully"});
       }) 
