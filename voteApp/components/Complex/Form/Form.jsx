@@ -9,7 +9,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 
-const Form = ({register, onSubmit, setUsername, setPassword}) => {
+const Form = ({register, onSubmit, setUsername, setPassword, setConfirm}) => {
 
   const navigation = useNavigation();
 
