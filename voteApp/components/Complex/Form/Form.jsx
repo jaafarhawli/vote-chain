@@ -16,18 +16,38 @@ const Form = ({register, onSubmit, setUsername, setPassword}) => {
   return (
     <LinearGradient style={styles.container} colors={[colors.primary[100], colors.white]}>
         <Image source={images.whiteLogoText} style={styles.image} fadeDuration={1000} />
-        <MyAppText style={styles.title}>Welcome!</MyAppText>
+        <MyAppText style={styles.title}>{register ? "Create Account" : "Welcome!"}</MyAppText>
         <View style={styles.inputsContainer}>
             <Input placeholder="Username" style={styles.input} onChange={newText => setUsername(newText)} />
             <Input placeholder="Password" style={styles.input} secureTextEntry={true} onChange={newText => setPassword(newText)} />
-            <CustomizedButton title="Login" onPress={onSubmit} />
+            
+            {
+                register ?
+                <Input placeholder="Confirm Password" style={styles.input} secureTextEntry={true} onChange={newText => setConfirm(newText)} />
+                : 
+                null
+            }
+            
+            <CustomizedButton title={register ? "Register" : "Login"} onPress={onSubmit} />
         </View>
-        <View style={styles.signupContainer}>
-          <MyAppText>Dont have an account? </MyAppText>
-          <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-            <MyAppText style={styles.signup}>Signup</MyAppText>  
-          </TouchableOpacity>
-        </View>
+        {
+            register 
+            ?
+            <View style={styles.signupContainer}>
+                <MyAppText>Already have an account? </MyAppText>
+                <TouchableOpacity onPress={() => navigation.navigate('Login')}>
+                    <MyAppText style={styles.signup}>Login</MyAppText>  
+                </TouchableOpacity>
+            </View> 
+            :
+            <View style={styles.signupContainer}>
+                <MyAppText>Dont have an account? </MyAppText>
+                <TouchableOpacity onPress={() => navigation.navigate('Register')}>
+                    <MyAppText style={styles.signup}>Register</MyAppText>  
+                </TouchableOpacity>
+            </View> 
+        }
+
     </LinearGradient>
   )
 }
