@@ -1,5 +1,7 @@
+const path = '../assets/images'
+
 export default {
-    whiteLogo: require('../assets/logo5.png'),
-    whiteLogoText: require('../assets/VOTE-CHAIN-logo-white.png'),
-    purpleLogoText: require('../assets/VOTE-CHAIN-logo-purple.png'),
+    whiteLogo: require(`${path}/logo5.png`),
+    whiteLogoText: require(`${path}/VOTE-CHAIN-logo-white.png`),
+    purpleLogoText: require(`${path}/VOTE-CHAIN-logo-purple.png`),
 }
