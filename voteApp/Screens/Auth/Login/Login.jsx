@@ -1,8 +1,9 @@
 import React from 'react'
 import { Text, View, Image, Button } from 'react-native';
-import Input from '../../../components/Input';
+import Input from '../../../components/input';
 import { images } from '../../../constants';
 import { styles } from './LoginStyles';
+import CustomizedButton from '../../../components/button';
 
 const Login = () => {
   return (
@@ -13,7 +14,7 @@ const Login = () => {
             <Input placeholder="Election Code" style={styles.input} />
             <Input placeholder="ID" style={styles.input} />
             <Input placeholder="Key" style={styles.input} />
-            <Button title="Join" />
+            <CustomizedButton title="Join" />
         </View>
     </View>
   )
