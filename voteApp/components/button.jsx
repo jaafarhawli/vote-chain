@@ -1,11 +1,12 @@
 import { Button, Pressable, StyleSheet, Text } from 'react-native'
 import React from 'react'
 import { colors } from '../constants'
+import MyAppText from './MyAppText'
 
 const button = (props) => {
   return (
     <Pressable style={[styles.button, props.styles]}>
-        <Text style={[styles.text, props.textStyle]}>{props.title}</Text>
+        <MyAppText style={[styles.text, props.textStyle]}>{props.title}</MyAppText>
     </Pressable>
   )
 }
@@ -24,7 +25,7 @@ const styles = StyleSheet.create({
     },
     text: {
         color: colors.white,
-        fontWeight: 'bold',
         textTransform: 'uppercase',
+        fontFamily: 'AppFontBold'
     }
 })

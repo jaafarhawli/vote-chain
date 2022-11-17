@@ -19,6 +19,7 @@ const styles = StyleSheet.create({
         width: '100%',
         fontSize: 18,
         padding: 8,
-        borderRadius: 5
+        borderRadius: 5,
+        fontFamily: 'AppFont'
     }
 })

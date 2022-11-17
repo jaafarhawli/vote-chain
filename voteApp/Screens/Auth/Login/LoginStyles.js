@@ -13,7 +13,7 @@ export const styles = StyleSheet.create({
       color: 'white',
       fontSize: 24,
       marginBottom: 20,
-      color: colors.primary[200]
+      color: colors.white
     },
     image: {
       width: '100%',
