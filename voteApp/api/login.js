@@ -1,4 +1,4 @@
-import axios from "./axios";
+import axios from "./axios/axios";
 
 export const login = async (code, id, key) => {
     const form = {
