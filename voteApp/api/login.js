@@ -8,7 +8,7 @@ export const login = async (code, id, key) => {
     };
     try {
       const data = await axios.post('auth/login/voter', form);
-      console.log(data.data);
+      return data.data;
     } catch (error) {
       console.log(error);
     }
