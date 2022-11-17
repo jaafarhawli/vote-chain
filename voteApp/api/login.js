@@ -1,15 +1,14 @@
 import axios from "./axios/axios";
 
-export const login = async (code, id, key) => {
+export const login = async (username, password) => {
     const form = {
-      election_code: code,
-      voter_id: id,
-      voter_key: key
-    };
+        username: username,
+        password: password
+    } 
     try {
-      const data = await axios.post('auth/login/voter', form);
-      return data.data;
-    } catch (error) {
-      console.log(error);
-    }
-  }
+        const data = await axios.post('auth/login/account', form);
+        return data.data;
+      } catch (error) {
+        console.log(error);
+      }
+}

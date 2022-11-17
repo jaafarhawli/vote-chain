@@ -6,7 +6,7 @@ import { styles } from './LoginStyles';
 import CustomizedButton from '../../../components/button';
 import MyAppText from '../../../components/MyAppText';
 import { LinearGradient } from 'expo-linear-gradient';
-import { login } from '../../../api/login';
+import { login } from '../../../api/electionLogin';
 import * as SecureStore from 'expo-secure-store';
 
 const Login = () => {
