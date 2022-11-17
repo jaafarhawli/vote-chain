@@ -74,6 +74,9 @@ app.use('/statistics', statisticsRoutes);
 const emailRoutes = require('./routes/email.routes');
 app.use('/email', emailRoutes);
 
+const voterAppRoutes = require('./routes/voterApp.routes');
+app.use('/app', voterAppRoutes);
+
 http.listen(process.env.PORT, (err)=>{
     if(err) throw err;
     console.log(`server running on port ${process.env.PORT}`);
