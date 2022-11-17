@@ -4,14 +4,14 @@ import {colors} from '../constants';
 
 import React from 'react'
 
-const input = (props) => {
+const Input = (props) => {
 
   return (
-      <TextInput style={[styles.input, props.style]} placeholder={props.placeholder} selectionColor={colors.primary[100]} />
+      <TextInput style={[styles.input, props.style]} placeholder={props.placeholder} selectionColor={colors.primary[100]} onChangeText={props.onChange} />
   )
 }
 
-export default input
+export default Input
 
 const styles = StyleSheet.create({
     input : {
