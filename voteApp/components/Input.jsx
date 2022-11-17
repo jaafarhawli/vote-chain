@@ -1,10 +1,13 @@
 import { StyleSheet } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler';
+import {colors} from '../constants';
+
 import React from 'react'
 
 const Input = (props) => {
+
   return (
-      <TextInput style={styles.input} placeholder={props.placeholder} />
+      <TextInput style={[styles.input, props.style]} placeholder={props.placeholder} selectionColor={colors.primary[100]} />
   )
 }
 
