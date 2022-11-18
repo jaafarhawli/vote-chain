@@ -67,7 +67,11 @@ const Settings = () => {
             title: title,
             startTime: starttime,
             endTime: endtime,
-            description: description
+            description: description,
+            id: election.id,
+            launched: election.launched,
+            code: election.code,
+            address: election.address
           }));
           setError(false);
           setMessage('Election updated succussfully');
