@@ -66,8 +66,20 @@ const register = async (req, res) => {
     res.status(200).json({data: elections});
     }
 
+    const checkToken = async (req, res) => {
+      const {token} = req.body;
+      try{
+        const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+        const account = await voterAccount.findOne({username: decoded.username}).lean();
+        return res.status(200).json({data: account})
+      } catch(err){
+        return res.status(401).json({message: "Unauthorized"})
+      }
+    }
+
   module.exports = {
     register,
     addElection,
-    viewAccountElections
+    viewAccountElections,
+    checkToken
 }
