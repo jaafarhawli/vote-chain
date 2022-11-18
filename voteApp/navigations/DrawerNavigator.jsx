@@ -5,6 +5,8 @@ import axios from '../api/axios/axios';
 import * as SecureStore from 'expo-secure-store';
 import { colors } from '../constants';
 
+
+
 const Drawer = createDrawerNavigator();
 
 function DrawerNavigator() {
@@ -19,17 +21,18 @@ function DrawerNavigator() {
     })
 
   return (
-    <Drawer.Navigator  screenOptions={{
-        headerTitleAlign: 'center',
-        headerTintColor: colors.white,
-        headerTitleStyle: {
-            color: colors.white
+    <Drawer.Navigator 
+        screenOptions={{
+            headerTitleAlign: 'center',
+            headerTintColor: colors.white,
+            headerTitleStyle: {
+                color: colors.white
+            },
+            headerStyle: {
+                backgroundColor: colors.black[200],
+                elevation: 0,
+                shadowOpacity: 0,
         },
-        headerStyle: {
-            backgroundColor: colors.black[200],
-            elevation: 0,
-            shadowOpacity: 0,
-      },
       }}>
         <Drawer.Screen name='Home' component={BottomTabNavigator} />
         {data?.map((election) => (
