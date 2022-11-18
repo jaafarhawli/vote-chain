@@ -10,6 +10,8 @@ import { store } from './redux/store';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import 'react-native-gesture-handler';
 import DrawerNavigator from './navigations/DrawerNavigator';
+import { StatusBar } from 'expo-status-bar';
+import { colors } from './constants';
 
 export default function App() {
   
@@ -43,6 +45,7 @@ export default function App() {
   return (
     <Provider store={store}>
       <QueryClientProvider client={client}>
+        <StatusBar backgroundColor={colors.black[200]} style="light" />
         <NavigationContainer>
           {isAuthenticated ?
           <DrawerNavigator />
