@@ -1,7 +1,7 @@
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import BottomTabNavigator from './BottomTabNavigator';
 import {useQuery} from '@tanstack/react-query';
-import axios from '../../../api/axios/axios';
+import axios from '../api/axios/axios';
 import * as SecureStore from 'expo-secure-store';
 
 const Drawer = createDrawerNavigator();
@@ -16,17 +16,15 @@ function DrawerNavigator() {
                 Authorization: `bearer ${token}`
         }}).then((res) => res.data.data);
     })
-    
-    const viewElection = async (electionId, voterId) => {
-        console.log(electionId, voterId);
-    }
 
   return (
     <Drawer.Navigator>
+        <Drawer.Screen name='Home' component={BottomTabNavigator} />
         {data?.map((election) => (
-          <ElectionCard key={election.election_id} title={election.election_title} electionId={election.election_id} voterId={election.voter_id} onPress={viewElection} />
+          <Drawer.Screen name={election.election_id} key={election.election_id} options={{title: election.election_title,}}>
+                {() => <BottomTabNavigator voterId={election.voter_id} electionId={election.election_id}  />}
+          </Drawer.Screen> 
         ))}
-      <Drawer.Screen name="Election" component={BottomTabNavigator} />
     </Drawer.Navigator>
   );
 }

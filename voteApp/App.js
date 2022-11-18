@@ -8,6 +8,8 @@ import { viewUser } from './api/viewUser';
 import {Provider} from 'react-redux';
 import { store } from './redux/store';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
+import 'react-native-gesture-handler';
+import DrawerNavigator from './navigations/DrawerNavigator';
 
 export default function App() {
   
@@ -43,7 +45,7 @@ export default function App() {
       <QueryClientProvider client={client}>
         <NavigationContainer>
           {isAuthenticated ?
-          <BottomTabNavigator />
+          <DrawerNavigator />
           :
           <AuthNavigator />
           }

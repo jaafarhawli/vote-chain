@@ -8,13 +8,14 @@ import { colors } from '../constants';
 
 const Tab = createBottomTabNavigator();
 
-function BottomTabNavigator() {
+function BottomTabNavigator({voterId, electionId}) {
 
   const election = useSelector((state) => state.election.value);
 
   return (
     <Tab.Navigator screenOptions={
       ({route}) => ({
+        headerShown: false,
         tabBarShowLabel: false,
         tabBarActiveTintColor: colors.secondary,
         tabBarInactiveTintColor: colors.black[100],
