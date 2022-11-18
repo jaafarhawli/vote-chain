@@ -52,6 +52,8 @@ const viewNotifications = async (req, res) => {
     User.findById(user_id, async (err, user) => {
         if(err)
         return res.status(404).json({message:"Election not founnd"}); 
+        if(!user)
+        return res.status(404).json({message:"User not founnd"}); 
         return res.status(200).json({data: user.notifications});
     })
 }
