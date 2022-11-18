@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Reusable/Button';
 import FormInput from '../../components/Reusable/FormInput';
 import ChangePassword from '../../components/Modals/ChangePassword';
+import { ToastContainer } from 'react-toastify';
 
 const UserSettings = ({socket}) => {
 
@@ -129,6 +130,7 @@ const deleteAccount = async () => {
           <Button className='bg-red flex-1 hover:bg-red/80'  onClick={openModal} >Delete Account</Button>
           <Button className='bg-red flex-1 hover:bg-red/80'  onClick={logout} >Log out</Button>
         </form>   
+        <ToastContainer autoClose={4000} hideProgressBar={true} position="top-right" limit={1} />
     </div>
   );
 }

@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import MainHeader from './MainHeader';
 import ElectionCard from '../../components/Reusable/ElectionCard';
 import EmptyState from '../../components/Reusable/EmptyState';
+import { ToastContainer } from 'react-toastify';
 
 const ModeratorElections = () => {
 
@@ -42,6 +43,7 @@ const ModeratorElections = () => {
               <ElectionCard onClick={() => viewElection(election._id, election.timezone, election.start_time, election.end_time)} id={election._id} title={election.title} start_time={election.start_time} end_time={election.end_time} key={election._id} />
          ))}
           </div>
+          <ToastContainer autoClose={4000} hideProgressBar={true} position="top-right" limit={1} />
         </div>
       );
 }

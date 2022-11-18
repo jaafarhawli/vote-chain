@@ -5,7 +5,7 @@ import ModeratorElections from '../pages/Main/ModeratorElections';
 import UserElections from '../pages/Main/UserElections';
 import UserSettings from '../pages/Main/UserSettings';
 import ModeratorElection from './ModeratorElection';
-import { ToastContainer, toast} from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Main = ({socket}) => {
@@ -34,7 +34,6 @@ const Main = ({socket}) => {
             <Route path='/admin/election/*' element={<AdminElection socket={socket} />} />
             <Route path='/moderator/election/*' element={<ModeratorElection />} />
         </Routes>
-        <ToastContainer autoClose={4000} hideProgressBar={true} position="top-right" limit={1} />
     </div>
   );
 }

@@ -8,6 +8,7 @@ import ElectionCard from '../../components/Reusable/ElectionCard';
 import EmptyState from '../../components/Reusable/EmptyState';
 import { useDispatch } from 'react-redux';
 import { viewElection as view } from '../../redux/election';
+import { ToastContainer } from 'react-toastify';
 
 const UserElections = () => {
 
@@ -62,6 +63,7 @@ return (
           <ElectionCard onClick={() => viewElection(election._id, election.start_time, election.end_time, election.description, election.launched, election.contract_address)} id={election._id} title={election.title} start_time={election.start_time} end_time={election.end_time} key={election._id} />
      ))}
       </div>
+      <ToastContainer autoClose={4000} hideProgressBar={true} position="top-right" limit={1} />
     </div>
   );
 }

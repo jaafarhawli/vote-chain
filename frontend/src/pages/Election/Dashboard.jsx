@@ -37,9 +37,9 @@ const Dashboard = () => {
         <div className='w-full'>
           <CopyData value={election?.code} onClick={(value) => copyTextToClipboard(value)} />
           <h2 className='text-purple-100 mt-8 text-[22px] font-semibold'>Election URL</h2>
-          <CopyData value={'-'} onClick={(value) => copyTextToClipboard(value)} />
+          <CopyData value={'http://localhost:3000/vote'} onClick={(value) => copyTextToClipboard(value)} />
           <h2 className='text-purple-100 mt-8 text-[22px] font-semibold'>Election Appliance URL</h2>
-          <CopyData value={'-'} onClick={(value) => copyTextToClipboard(value)} />
+          <CopyData value={`http://localhost:3000/survey/${election.code}`} onClick={(value) => copyTextToClipboard(value)} />
         </div>
         <ul className='bg-purple-300 w-[300px] rounded-2xl shadow-xl p-3 text-black-100 text-[24px] font-bold space-y-2 flex flex-col justify-center max-h-[170px]'>
             <li>Voters: <span className='text-purple-100'>{data?.voters}</span> </li>
