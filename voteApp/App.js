@@ -7,9 +7,11 @@ import * as SecureStore from 'expo-secure-store';
 import { viewUser } from './api/viewUser';
 import {Provider} from 'react-redux';
 import { store } from './redux/store';
+import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 
 export default function App() {
   
+  const client = new QueryClient();
   const [isAuthenticated, setIsAuthenticated] = useState();
 
   const checkToken = async () => {
@@ -38,13 +40,15 @@ export default function App() {
   
   return (
     <Provider store={store}>
-      <NavigationContainer>
-        {isAuthenticated ?
-        <BottomTabNavigator />
-        :
-        <AuthNavigator />
-        }
-      </NavigationContainer>
+      <QueryClientProvider client={client}>
+        <NavigationContainer>
+          {isAuthenticated ?
+          <BottomTabNavigator />
+          :
+          <AuthNavigator />
+          }
+        </NavigationContainer>
+      </QueryClientProvider>
     </Provider>
   );
 }
