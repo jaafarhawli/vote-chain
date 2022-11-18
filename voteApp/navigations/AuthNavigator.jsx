@@ -1,6 +1,5 @@
 import { createStackNavigator } from '@react-navigation/stack';
-import Login from '../screens/Auth/Login/Login';
-import Register from '../screens/Auth/Register/Register';
+import { Login, Register } from '../screens';
 import BottomTabNavigator from './BottomTabNavigator';
 
 const Stack = createStackNavigator();

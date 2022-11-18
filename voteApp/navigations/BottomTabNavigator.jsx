@@ -1,8 +1,6 @@
 import React, {useEffect} from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import HomeScreen from '../screens/Home/HomeScreen/HomeScreen';
-import ResultsScreen from '../screens/Home/ResultsScreen/ResultsScreen';
-import VoteScreen from '../screens/Home/VoteScreen/VoteScreen';
+import { HomeScreen, VoteScreen, ResultsScreen } from '../screens';
 import { Entypo, MaterialCommunityIcons, Foundation  } from '@expo/vector-icons';
 import { useSelector, useDispatch } from 'react-redux';
 import EmptyState from '../components/Complex/EmptyState/EmptyState';
