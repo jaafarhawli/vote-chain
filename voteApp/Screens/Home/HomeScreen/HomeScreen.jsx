@@ -1,8 +1,5 @@
 import { Text, View } from 'react-native'
 import React from 'react'
-import {useQuery} from '@tanstack/react-query';
-import axios from '../../../api/axios/axios';
-import * as SecureStore from 'expo-secure-store';
 
 const HomeScreen = () => {
   
