@@ -1,6 +1,6 @@
-import { Button, Pressable, StyleSheet, Text, TouchableHighlight, TouchableOpacity } from 'react-native'
+import { StyleSheet, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { colors } from '../constants'
+import { colors } from '../../constants'
 import MyAppText from './MyAppText'
 
 const button = (props) => {
