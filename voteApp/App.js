@@ -4,14 +4,17 @@ import AuthNavigator from './navigations/AuthNavigator';
 import {useFonts} from 'expo-font'
 import BottomTabNavigator from './navigations/BottomTabNavigator';
 import * as SecureStore from 'expo-secure-store';
+import { viewUser } from './api/viewUser';
 
 export default function App() {
 
-  const [token, setToken] = useState();
+  const [isAuthenticated, setIsAuthenticated] = useState();
 
   const checkToken = async () => {
-    let result = await SecureStore.getItemAsync('token')
-    setToken(result)
+    let result = await SecureStore.getItemAsync('token');
+    const data = await viewUser(result);
+    if(data.data)
+    setIsAuthenticated(data.data)
   }
 
   useEffect(() => {
@@ -30,7 +33,7 @@ export default function App() {
   
   return (
     <NavigationContainer>
-      {token ?
+      {isAuthenticated ?
       <BottomTabNavigator />
       :
       <AuthNavigator />

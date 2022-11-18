@@ -2,8 +2,11 @@ import React, {useState} from 'react'
 import { login } from '../../../api/login';
 import * as SecureStore from 'expo-secure-store';
 import Form from '../../../components/Complex/Form/Form';
+import { useNavigation } from '@react-navigation/native';
 
 const Login = () => {
+
+  const navigation = useNavigation();
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -14,8 +17,7 @@ const Login = () => {
     if(token.data) {
       await SecureStore.setItemAsync('token', token.data);
       setMessage('');
-      let result = await SecureStore.getItemAsync('token');
-      return console.log(result);
+      navigation.navigate('Home');
     }
     else 
     setMessage(token);
