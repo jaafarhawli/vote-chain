@@ -66,7 +66,14 @@ const Launch = () => {
                 }
               });
               dispatch(viewElection({
-                launched: true
+                launched: true,
+                election_id: election.id,
+                user_id: localStorage.id,
+                title: election.title,
+                startTime: election.startTime,
+                endTime: election.endTime,
+                description: election.description,
+                code: election.code
               }));
               await addCandidatesToBlockchain();
               await addVotersToBlockChain();
