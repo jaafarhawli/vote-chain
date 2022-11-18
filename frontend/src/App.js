@@ -38,7 +38,7 @@ function App() {
 					<Route path='/main/*' element={<Main socket={socket} />} />
 					<Route path='/vote/*' element={<Vote />} />
 					<Route path='/survey/:code' element={<Survey />} />
-					<Route path='/email/verify/:id/:token' element={<EmailVerification />} />
+					<Route path='api/email/verify/:id/:token' element={<EmailVerification />} />
 				</Routes>
     	</BrowserRouter>
 	</QueryClientProvider>
