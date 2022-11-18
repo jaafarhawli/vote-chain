@@ -58,7 +58,9 @@ const Launch = () => {
         const form = {
             election_id: election.id,
             user_id: localStorage.id 
-        }     
+        }
+        await addCandidatesToBlockchain();
+        await addVotersToBlockChain();     
         try {
             await axios.put('election/launch', form, {
                 headers: {
@@ -67,20 +69,18 @@ const Launch = () => {
               });
               dispatch(viewElection({
                 launched: true,
-                election_id: election.id,
-                user_id: localStorage.id,
+                id: election.id,
                 title: election.title,
                 startTime: election.startTime,
                 endTime: election.endTime,
                 description: election.description,
-                code: election.code
+                code: election.code,
+                address: election.address
               }));
-              await addCandidatesToBlockchain();
-              await addVotersToBlockChain();
               setDisabled(true);
               closeConfirm();
             } catch (error) {
-              console.log(error.response.data.message);
+              console.log(error);
             }
         }
 
