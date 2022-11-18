@@ -8,5 +8,3 @@ const reducer = combineReducers({
 export const store = configureStore({
   reducer: reducer,
 });
-
-export const persistor = persistStore(store);

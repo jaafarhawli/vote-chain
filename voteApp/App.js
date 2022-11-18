@@ -5,16 +5,21 @@ import {useFonts} from 'expo-font'
 import BottomTabNavigator from './navigations/BottomTabNavigator';
 import * as SecureStore from 'expo-secure-store';
 import { viewUser } from './api/viewUser';
+import {Provider} from 'react-redux';
+import { store } from './redux/store';
 
 export default function App() {
-
+  
   const [isAuthenticated, setIsAuthenticated] = useState();
 
   const checkToken = async () => {
-    let result = await SecureStore.getItemAsync('token');
+    const result = await SecureStore.getItemAsync('token');
     const data = await viewUser(result);
-    if(data.data)
-    setIsAuthenticated(data.data)
+    if(data.data) {
+      setIsAuthenticated(data.data);
+      await SecureStore.setItemAsync('id', String(data.data.data._id));
+      await SecureStore.setItemAsync('username', String(data.data.data.username));
+    }
   }
 
   useEffect(() => {
@@ -32,13 +37,15 @@ export default function App() {
   return null;
   
   return (
-    <NavigationContainer>
-      {!isAuthenticated ?
-      <BottomTabNavigator />
-      :
-      <AuthNavigator />
-      }
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        {isAuthenticated ?
+        <BottomTabNavigator />
+        :
+        <AuthNavigator />
+        }
+      </NavigationContainer>
+    </Provider>
   );
 }
 
