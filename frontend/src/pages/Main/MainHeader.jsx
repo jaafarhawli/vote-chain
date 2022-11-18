@@ -45,7 +45,7 @@ const MainHeader = ({title, empty, open}) => {
                 Authorization: `bearer ${localStorage.token}`
               }
             });
-            setRefetch(!refetch)
+            setRefetch(!refetch);
           } catch (error) {
             console.log(error.response.data.message);
           }  

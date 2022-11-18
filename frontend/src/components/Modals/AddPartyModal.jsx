@@ -5,8 +5,11 @@ import logo from '../../assets/VOTE CHAIN-logo-black.png';
 import Button from '../Reusable/Button';
 import FormInput from '../Reusable/FormInput';
 import SuccessModal from './SuccessModal';
+import { useSelector } from 'react-redux';
 
 const AddPartyModal = ({open, closeModal, refetch}) => {
+
+    const election = useSelector((state) => state.election.value);
 
     const [name, setName] = useState('');
     const [errorModal, setErrorModal] = useState(false);
@@ -17,7 +20,7 @@ const AddPartyModal = ({open, closeModal, refetch}) => {
 
         const form = {
             name: name,
-            election_id: localStorage.election_id,
+            election_id: election.id,
             user_id: localStorage.id
         }
         

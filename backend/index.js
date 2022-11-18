@@ -32,7 +32,7 @@ socketIO.on('connection', (socket) => {
     socket.on('login', (email) => {
     users[email] = socket.id;
     });
-   
+
     socket.on('logout', (email) => {
     delete users[email];
     });

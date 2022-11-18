@@ -6,8 +6,11 @@ import Button from '../Reusable/Button';
 import FormInput from '../Reusable/FormInput';
 import SuccessModal from './SuccessModal';
 import {IoMdImage} from 'react-icons/io';
+import { useSelector } from 'react-redux';
 
 const AddCandidate = ({open, closeModal}) => {
+
+    const election = useSelector((state) => state.election.value);
 
     const [name, setName] = useState('');
     const [errorModal, setErrorModal] = useState(false);
@@ -21,7 +24,7 @@ const AddCandidate = ({open, closeModal}) => {
         const form = {
             name: name,
             party_id: localStorage.party_id,
-            election_id: localStorage.election_id,
+            election_id: election.id,
             user_id: localStorage.id
         }
         

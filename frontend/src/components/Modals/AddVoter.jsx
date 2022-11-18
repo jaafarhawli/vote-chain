@@ -5,8 +5,11 @@ import FormInput from '../Reusable/FormInput';
 import {HiOutlineXMark} from 'react-icons/hi2';
 import axios from '../../api/axios';
 import logo from '../../assets/VOTE CHAIN-logo-black.png';
+import { useSelector } from 'react-redux';
 
 const AddVoter = ({open, closeModal, refetch}) => {
+
+    const election = useSelector((state) => state.election.value);
 
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -21,7 +24,7 @@ const AddVoter = ({open, closeModal, refetch}) => {
             name: name,
             email: email,
             wallet_address: address,
-            election_id: localStorage.election_id,
+            election_id: election.id,
         }     
         try {
              await axios.post('voter', form, {
