@@ -33,7 +33,7 @@ export default function App() {
   
   return (
     <NavigationContainer>
-      {isAuthenticated ?
+      {!isAuthenticated ?
       <BottomTabNavigator />
       :
       <AuthNavigator />

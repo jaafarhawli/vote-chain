@@ -9,7 +9,7 @@ const Tab = createBottomTabNavigator();
 function BottomTabNavigator() {
   return (
     <Tab.Navigator>
-      <Tab.Screen name="Home" component={HomeScreen} 
+      <Tab.Screen name="Main" component={HomeScreen} 
         options={{
             tabBarIcon: () => (
                 <Entypo name="home" size={24} color="black" />
