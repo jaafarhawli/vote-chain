@@ -17,10 +17,15 @@ function DrawerNavigator() {
         }}).then((res) => res.data.data);
     })
     
-    console.log(data);
+    const viewElection = async (electionId, voterId) => {
+        console.log(electionId, voterId);
+    }
 
   return (
     <Drawer.Navigator>
+        {data?.map((election) => (
+          <ElectionCard key={election.election_id} title={election.election_title} electionId={election.election_id} voterId={election.voter_id} onPress={viewElection} />
+        ))}
       <Drawer.Screen name="Election" component={BottomTabNavigator} />
     </Drawer.Navigator>
   );
