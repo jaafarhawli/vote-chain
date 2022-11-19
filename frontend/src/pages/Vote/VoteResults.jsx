@@ -14,8 +14,8 @@ const VoteResults = () => {
           <div className='w-2/3'>
             <p className='text-white text-[20px]'>You have selected</p>
             <div className='flex w-full'>
-                <p className='flex-1 text-[24px] font-bold text-white'>{localStorage.party}</p>
-                <p className='flex-1 text-[24px] font-bold text-white'>{localStorage.candidate}</p>
+                <p className='flex-1 text-[24px] font-bold text-white'>{localStorage.chosenParty}</p>
+                <p className='flex-1 text-[24px] font-bold text-white'>{localStorage.chosenCandidate}</p>
             </div>
           </div>
       </div>

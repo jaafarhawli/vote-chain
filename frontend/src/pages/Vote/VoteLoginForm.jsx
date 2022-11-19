@@ -37,6 +37,8 @@ const VoteLoginForm = () => {
             localStorage.setItem('voter_email', user.data.data.email);
             localStorage.setItem('election_id', user.data.data.election_id);
             localStorage.setItem('voted', user.data.data.voted);
+            localStorage.setItem('chosen_party', user.data.data.chosenParty);
+            localStorage.setItem('chosen_party', user.data.data.chosenCandidate);
             try {
                 const election = await axios.get(`voter/election/${localStorage.voter_email}/${localStorage.election_id}`, {
                   headers: {

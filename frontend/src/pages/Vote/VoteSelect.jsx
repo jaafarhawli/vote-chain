@@ -56,6 +56,8 @@ const VoteSelect = () => {
               });
               localStorage.setItem('candidate', selectedCandidateName);
               localStorage.setItem('party', selectedPartyName);
+              localStorage.setItem('chosen_party', selectedPartyName);
+              localStorage.setItem('chosen_candidate', selectedCandidateName);
               navigate('/vote/main/results');
             } catch (error) {
                 console.log(error.response.data.message);
