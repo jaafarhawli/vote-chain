@@ -8,8 +8,6 @@ import Button from '../../components/Reusable/Button';
 import LandingFooter from '../Landing/LandingFooter';
 import Timer from '../../components/Reusable/Timer';
 
-
-
 const VoteMain = () => {
   
   const navigate = useNavigate();
