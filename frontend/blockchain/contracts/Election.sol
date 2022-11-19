@@ -93,5 +93,9 @@ contract Election {
     function viewVoters() public view returns (uint[2] memory) {
         return [votedVotersNumber, votersNumber-votedVotersNumber ];
     }
+    
+    function viewTimeInterval() public view returns (uint[2] memory) {
+        return [startTime, endTime ];
+    }
   
 }
