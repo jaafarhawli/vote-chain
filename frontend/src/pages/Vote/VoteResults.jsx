@@ -1,7 +1,7 @@
 import React from 'react';
 import VoteHeader from './VoteHeader';
 import ElectionCard from '../../components/Reusable/ElectionCard';
-import Statistics from '../../components/Reusable/Statistics';
+import BlockchainStatistics from '../../components/Reusable/BlockchainStatistics';
 
 const VoteResults = () => {
   return (
@@ -20,7 +20,7 @@ const VoteResults = () => {
           </div>
       </div>
         </div>
-      {/* <Statistics /> */}
+      <BlockchainStatistics electionAddress={localStorage.election_address}  />
       </div>
     </div>
   );
