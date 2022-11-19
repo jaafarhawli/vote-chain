@@ -13,12 +13,14 @@ const Table = (props) => {
                     <th>Wallet Address</th>
                     </>
                     :
+                    props.party?
                     <th>Name</th>
-                    }
-                    {props.moderator? <th>Email</th>
+                    :
+                    props.moderator? <th>Email</th>
                     :
                     props.voter? 
                     <>
+                    <th>Name</th>
                     <th>Email</th>
                     <th>ID</th>
                     </> : null
@@ -51,7 +53,7 @@ const Table = (props) => {
             props.voter? 
             <tbody>
             {props.data?.map((voter) => (
-                <tr className='relative' key={voter.name}>
+                <tr className='relative' key={voter.email}>
                     <td>{voter.name}</td>
                     <td>{voter.email}</td>
                     <td>{voter.voter_id}</td>

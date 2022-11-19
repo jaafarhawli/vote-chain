@@ -15,7 +15,6 @@ const Parties = () => {
 
     const [search, setSearch] = useState('');
     const [partyModal, setPartyModal] = useState(false);
-    const [refetch, setRefetch] = useState(true);
     const [confirmModal, setConfirmModal] = useState(false);
     const [candidateModal, setCandidateModal] = useState(false);
     const launched = localStorage.election_launched===true;
@@ -32,7 +31,7 @@ const Parties = () => {
       }
 
 
-    const {data} = useQuery([refetch], async () => {
+    const {data, refetch} = useQuery(["parties"], async () => {
         return axios.get(`party/${election.id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
@@ -81,7 +80,7 @@ const Parties = () => {
                   Authorization: `bearer ${localStorage.token}`
                 }
               });
-              setRefetch(!refetch)
+              refetch();
               closeConfirm()
             } catch (error) {
               console.log(error.response.data.message);
@@ -91,7 +90,7 @@ const Parties = () => {
     if(data?.length === 0)
     return (
         <>
-        <AddPartyModal open={partyModal} closeModal={closeModal}    refetch={() => setRefetch(!refetch)} />
+        <AddPartyModal open={partyModal} closeModal={closeModal}    refetch={refetch} />
         <div className='pl-[330px] pt-[150px] pr-6'>
             <h1 className='text-[28px] font-bold'>Parties</h1>
             <EmptyState title={'No Parties'} button={'Add party'} disabled={launched} onClick={openModal} >You don’t have any parties, add one now!</EmptyState>
@@ -103,7 +102,7 @@ const Parties = () => {
   return (
     <>
     <ConfirmModal  open={confirmModal} closeModal={closeConfirm} click={deleteParty} text={"Are you sure you want to delete this party?"} />
-    <AddPartyModal open={partyModal} closeModal={closeModal}  refetch={() => setRefetch(!refetch)} />
+    <AddPartyModal open={partyModal} closeModal={closeModal}  refetch={refetch} />
     <AddCandidate open={candidateModal} closeModal={closeCandidateModal} />
     <div className='pl-[330px] pt-[150px] pr-6'>
         <div className='flex justify-between items-center w-full'>
