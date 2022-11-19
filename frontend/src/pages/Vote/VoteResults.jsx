@@ -20,7 +20,7 @@ const VoteResults = () => {
           </div>
       </div>
         </div>
-      <Statistics />
+      {/* <Statistics /> */}
       </div>
     </div>
   );
