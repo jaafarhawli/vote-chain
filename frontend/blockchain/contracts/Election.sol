@@ -97,5 +97,14 @@ contract Election {
     function viewTimeInterval() public view returns (uint[2] memory) {
         return [startTime, endTime ];
     }
+
+    function changeTime(uint _startTime, uint _endTime) external {
+        require(
+            msg.sender == admin,
+            "Only admin can give right to vote."
+        );
+        startTime = _startTime;
+        endTime = _endTime;
+    }
   
 }
