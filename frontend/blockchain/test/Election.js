@@ -56,4 +56,10 @@ contract('Election', (accounts) => {
         assert(end_time, 1678249079);
     })
     
+    it('should be able to launch election', async() => {
+        const election = await Election.deployed(7968239079, 7968249079);
+        await election.launchElection();
+        const launched = await election.launched.call();
+        assert(launched, true);
+    })
 })

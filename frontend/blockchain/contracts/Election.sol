@@ -141,7 +141,7 @@ contract Election {
         );
 
         require(
-            block.timestamp > startTime && block.timestamp < endTime,
+            block.timestamp < startTime,
             "Can't launch election after it already started."
         );
 
