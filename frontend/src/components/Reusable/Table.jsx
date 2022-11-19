@@ -1,5 +1,5 @@
 import React from 'react';
-import {HiOutlineXMark} from 'react-icons/hi2';
+import {IoClose} from 'react-icons/io5';
 
 const Table = (props) => {
 
@@ -33,7 +33,7 @@ const Table = (props) => {
                 <tr className='relative' key={moderator.email}>
                     <td>{moderator.first_name} {moderator.last_name}</td>
                     <td>{moderator.email}</td>
-                    <HiOutlineXMark className='absolute right-2 top-2 text-[25px] hover:text-red duration-150' onClick={() => props.remove(moderator._id)} />
+                    <IoClose className='absolute right-2 top-2 text-[25px] hover:text-red duration-150' onClick={() => props.remove(moderator._id)} />
                 </tr>
             ))}
                 
@@ -44,7 +44,7 @@ const Table = (props) => {
             {props.data?.map((party) => (
                 <tr className='relative' key={party.name} onClick={() => props.addCandidate(party._id)}>
                     <td className='w-full'>{party.name}</td>
-                    <HiOutlineXMark className='absolute right-2 top-2 text-[25px] hover:text-red duration-150' onClick={(e) => { props.remove(party._id);
+                    <IoClose className='absolute right-2 top-2 text-[25px] hover:text-red duration-150' onClick={(e) => { props.remove(party._id);
                     e.stopPropagation();}} />
                 </tr>
             ))}     
@@ -58,7 +58,7 @@ const Table = (props) => {
                     <td>{voter.email}</td>
                     <td>{voter.voter_id}</td>
                     {props.admin ?
-                    <HiOutlineXMark className='absolute right-2 top-2 text-[25px] hover:text-red duration-150' onClick={() => 
+                    <IoClose className='absolute right-2 top-2 text-[25px] hover:text-red duration-150' onClick={() => 
                     props.remove(voter._id)} />
                     : null}
                     </tr>
@@ -72,7 +72,7 @@ const Table = (props) => {
                     <td>{applicant.email}</td>
                     <td>{applicant.wallet_address}</td>
                     {props.admin ?
-                    <HiOutlineXMark className='absolute right-2 top-2 text-[25px] hover:text-red duration-150' onClick={() => 
+                    <IoClose className='absolute right-2 top-2 text-[25px] hover:text-red duration-150' onClick={() => 
                     props.remove(applicant._id)} />
                     : null}
                     </tr>
