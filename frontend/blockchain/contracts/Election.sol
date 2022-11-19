@@ -113,6 +113,10 @@ contract Election {
     function viewTimeInterval() public view returns (uint[2] memory) {
         return [startTime, endTime ];
     }
+    
+    function checkIfLaunched() public view returns (bool) {
+        return launched;
+    }
 
     function changeTime(uint _startTime, uint _endTime) external {
         require(
