@@ -14,8 +14,9 @@ const BlockchainStatistics = () => {
     const [allCandidates, setAllCandidates] = useState();
     const [allCandidatesScores, setAllCandidatesScores] = useState();
     const [votedVoters, setVotedVoters] = useState();
+    const [sorted, setSorted] = useState(false);
 
-    const getPartyNames = (data) => {
+    const getPartyNames = async (data) => {
         const names = [];
         const scores = [];
         const candidates = [];
@@ -50,26 +51,37 @@ const BlockchainStatistics = () => {
     }
 
     const sortCandidates = () => {
-        const indices = [...allCandidatesScores.keys()]
-        indices.sort( (a,b) => allCandidatesScores[a] - allCandidatesScores[b] )
+        if(allCandidates) {
+        const indices = [];
+        for(let i = 0; i< allCandidates.length; i++) {
+          indices[i] = i;
+        }
+        indices.sort( (a,b) => allCandidatesScores[b] - allCandidatesScores[a] )
 
         const sortedNames = indices.map(i => allCandidates[i]);
         const sortedScores = indices.map(i => allCandidatesScores[i]);
         setAllCandidates(sortedNames);
         setAllCandidatesScores(sortedScores);
+      }
+    }
+
+    const viewStats = (data) => {
+      getPartyNames(data);
+      sortCandidates();
+      if(!sorted)
+      setSorted(true);
     }
     
     useEffect(() => {
         viewCandidates(localStorage.election_address).then((data) => {
-            getPartyNames(data);
-            sortCandidates();
+            viewStats(data);
         });
         viewVoters(localStorage.election_address).then((data) => {
             setVotedVoters([data]);
         });
-    }, []);
+    }, [sorted]);
 
-    console.log(allCandidates, allCandidatesScores);
+    console.log(allCandidates, allCandidatesScores, parties, candidatesNames, candidatesScores);
     
 
 
@@ -81,13 +93,13 @@ const BlockchainStatistics = () => {
       }]
     }
     
-    const voteStats = {
-      labels: ["Voted", "Did'nt Vote"],
-      datasets: [{
-        data: [parseInt(votedVoters[0]), parseInt(votedVoters[1])],
-        backgroundColor: ["#4ba0f7", "#9568c7"]
-      }]
-    }
+    // const voteStats = {
+    //   labels: ["Voted", "Did'nt Vote"],
+    //   datasets: [{
+    //     data: [parseInt(votedVoters[0]), parseInt(votedVoters[1])],
+    //     backgroundColor: ["#4ba0f7", "#9568c7"]
+    //   }]
+    // }
     
     
     const candidateStats = {
@@ -105,11 +117,11 @@ const BlockchainStatistics = () => {
 
   return (
     <div>
-      {!live ?
+      {/* {!live ? */}
       <>
         <div className='flex w-full gap-6 my-6'>
         <div className='w-1/3 bg-white rounded-2xl shadow-xl p-6'>
-          <Pie data={voteStats} />
+          {/* <Pie data={voteStats} /> */}
         </div>
         <div className='w-2/3 bg-white rounded-2xl shadow-xl p-6 flex align-baseline'>
           <Bar data={candidateStats}
@@ -153,7 +165,7 @@ const BlockchainStatistics = () => {
               labels: candidatesNames[index],
               datasets: [{
                 label: party,
-                data: candidatesScores,
+                data: candidatesScores[index],
                 backgroundColor: ["#4ba0f7", "#00B8FF", "#7685e4", "#9568c7", "#a847a1", "#ae1f74"]
               }]}}
               options={{
@@ -181,8 +193,8 @@ const BlockchainStatistics = () => {
       ))}
       </div>
       </>
-      :
-      null}
+      {/* :
+      null} */}
     </div>
   );
 }
