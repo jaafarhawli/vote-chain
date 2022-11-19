@@ -12,7 +12,7 @@ const incrementCandidateVotes = async (party_id, candidate_id, voter, res) => {
         if(election.launched===false)
         return res.status(404).json({message: "Election is not launched yet" });
     })
-    party.candidates.forEach((candidate) => {
+    party.candidates.forEach( async (candidate) => {
         if(candidate._id == candidate_id) {
             candidate.score+=1;
             voter.chosenCandidate = candidate.name;
