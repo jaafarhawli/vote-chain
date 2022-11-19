@@ -117,16 +117,35 @@ contract Election {
     function changeTime(uint _startTime, uint _endTime) external {
         require(
             msg.sender == admin,
-            "Only admin can give right to vote."
+            "Only admin can change election time interval."
         );
 
         require(
             launched == false,
             "Election is already launched"
         );
-        
+
         startTime = _startTime;
         endTime = _endTime;
     }
-  
+    
+    function launchElection() external {
+        require(
+            msg.sender == admin,
+            "Only admin can launch election."
+        );
+
+        require(
+            launched == false,
+            "Election is already launched"
+        );
+
+        require(
+            block.timestamp > startTime && block.timestamp < endTime,
+            "Can't launch election after it already started."
+        );
+
+        launched = true;
+    }
+ 
 }
