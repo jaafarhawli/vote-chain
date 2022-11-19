@@ -6,7 +6,7 @@ import {useQuery} from '@tanstack/react-query';
 import axios from '../../api/axios';
 import CopyData from '../../components/Reusable/CopyData';
 import { useSelector } from 'react-redux';
-// import BlockchainStatistics from '../../components/Reusable/BlockchainStatistics';
+import BlockchainStatistics from '../../components/Reusable/BlockchainStatistics';
 
 const Dashboard = () => {
 
@@ -47,8 +47,8 @@ const Dashboard = () => {
             <li>Candidates: <span className='text-purple-100'>{data?.candidates}</span> </li>
         </ul>
       </div>
-      <Statistics />
-      {/* <BlockchainStatistics /> */}
+      {/* <Statistics /> */}
+      <BlockchainStatistics />
       <ToastContainer autoClose={1000} hideProgressBar={true} position="bottom-center" />
     </div>
   );

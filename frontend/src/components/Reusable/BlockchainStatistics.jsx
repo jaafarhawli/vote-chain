@@ -81,7 +81,7 @@ const BlockchainStatistics = () => {
         });
     }, [sorted]);
 
-    console.log(allCandidates, allCandidatesScores, parties, candidatesNames, candidatesScores);
+    console.log(allCandidates, allCandidatesScores, parties, candidatesNames, candidatesScores, votedVoters);
     
 
 
@@ -92,15 +92,6 @@ const BlockchainStatistics = () => {
         backgroundColor: ["#9568c7", "#00B8FF", "#7685e4", "#4ba0f7", "#a847a1", "#ae1f74"]
       }]
     }
-    
-    // const voteStats = {
-    //   labels: ["Voted", "Did'nt Vote"],
-    //   datasets: [{
-    //     data: [parseInt(votedVoters[0]), parseInt(votedVoters[1])],
-    //     backgroundColor: ["#4ba0f7", "#9568c7"]
-    //   }]
-    // }
-    
     
     const candidateStats = {
       labels: allCandidates?.slice(0, 10),
@@ -121,7 +112,13 @@ const BlockchainStatistics = () => {
       <>
         <div className='flex w-full gap-6 my-6'>
         <div className='w-1/3 bg-white rounded-2xl shadow-xl p-6'>
-          {/* <Pie data={voteStats} /> */}
+          {votedVoters ? <Pie data={{
+              labels: ["Voted", "Did'nt Vote"],
+              datasets: [{
+                data: [parseInt(votedVoters[0][0]), parseInt(votedVoters[0][1])],
+                backgroundColor: ["#4ba0f7", "#9568c7"]
+              }]
+            }} /> : null}
         </div>
         <div className='w-2/3 bg-white rounded-2xl shadow-xl p-6 flex align-baseline'>
           <Bar data={candidateStats}
