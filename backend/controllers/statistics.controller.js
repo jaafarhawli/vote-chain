@@ -61,9 +61,13 @@ const viewPartyCandidates = async (req, res) => {
 
 const viewElectionNumerics = async (req, res) => {
     const {election_id} = req.params;
+    if(!election_id)
+    return res.status(400).json({message:"Invalid input"});
     const election = await Election.findById(election_id).populate({
         path: "parties",
       });
+      if(!election)
+      return res.status(400).json({message:"Invalid input"});
     let candidates = 0;
     for(const party of election.parties) {
         candidates+=party.candidates.length;
@@ -71,7 +75,8 @@ const viewElectionNumerics = async (req, res) => {
     const numerics = {
         voters: election.voters.length,
         parties: election.parties.length,
-        candidates: candidates
+        candidates: candidates,
+        address: election.contract_address
     }
     return res.status(200).json({
         numerics
