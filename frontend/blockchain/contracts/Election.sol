@@ -22,6 +22,7 @@ contract Election {
     uint public endTime;
     uint public votersNumber = 0;
     uint public votedVotersNumber = 0;
+    bool public launched = false;
 
     mapping(address => Voter) public voters;
 
@@ -42,6 +43,11 @@ contract Election {
         require(
             msg.sender == admin,
             "Only admin can add candidates."
+        );
+
+        require(
+            launched == false,
+            "Election is already launched"
         );
         
         for (uint i = 0; i < candidatesList.length; i++) {
@@ -64,6 +70,11 @@ contract Election {
             "Only admin can give right to vote."
         );
 
+        require(
+            launched == false,
+            "Election is already launched"
+        );
+
         for (uint p = 0; p < voterAddresses.length; p++) {
             if (voters[voterAddresses[p]].hasAccess == false) {
                 voters[voterAddresses[p]].hasAccess = true;
@@ -77,6 +88,11 @@ contract Election {
         require(
             block.timestamp > startTime && block.timestamp < endTime,
             "Can't vote outside the election interval."
+        );
+
+        require(
+            launched == true,
+            "Election is not launched yet"
         );
         require(!sender.voted, "Already voted.");
         require(sender.hasAccess, "No access.");
@@ -103,6 +119,12 @@ contract Election {
             msg.sender == admin,
             "Only admin can give right to vote."
         );
+
+        require(
+            launched == false,
+            "Election is already launched"
+        );
+        
         startTime = _startTime;
         endTime = _endTime;
     }
