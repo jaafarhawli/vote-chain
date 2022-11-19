@@ -51,6 +51,7 @@ return (
       <CreateElection open={electionModal} closeModal={closeModal} refetch={() => setRefetch(!refetch)} />
         <MainHeader title={'Your Elections'} empty={true} open={openModal} />
         <EmptyState title={'No Elections'} button={'Create a new election'} onClick={openModal} >You don’t have any elections, create one now!</EmptyState>
+        <ToastContainer autoClose={4000} hideProgressBar={true} position="top-right" limit={1} />
     </div>
 )
 

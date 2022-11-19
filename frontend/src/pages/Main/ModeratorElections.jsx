@@ -6,10 +6,13 @@ import MainHeader from './MainHeader';
 import ElectionCard from '../../components/Reusable/ElectionCard';
 import EmptyState from '../../components/Reusable/EmptyState';
 import { ToastContainer } from 'react-toastify';
+import { useDispatch } from 'react-redux';
+import { viewElection as view } from '../../redux/election';
 
 const ModeratorElections = () => {
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const {data} = useQuery(["moderators"], async () => {
         return axios.get(`election/moderator/${localStorage.id}`, {
@@ -20,10 +23,9 @@ const ModeratorElections = () => {
     })
 
     const viewElection = (id, timezone, start_time, end_time) => {
-      localStorage.setItem('election_id', id);
-      localStorage.setItem('election_start', start_time);
-      localStorage.setItem('election_end', end_time);
-      localStorage.setItem('election_timezone', timezone);
+      dispatch(view({
+        id: id,
+      }));
       navigate('/main/moderator/election/dashboard')
     }
 
@@ -32,6 +34,7 @@ const ModeratorElections = () => {
         <div>
             <MainHeader empty={true} title={'Moderator Elections'} />
             <EmptyState title={'No Elections'} >You're not assigned as moderator to any election</EmptyState>
+            <ToastContainer autoClose={4000} hideProgressBar={true} position="top-right" limit={1} />
         </div>
     );
 
