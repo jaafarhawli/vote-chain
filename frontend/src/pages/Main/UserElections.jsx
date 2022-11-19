@@ -26,11 +26,21 @@ const UserElections = () => {
               }).then((res) => res.data.data);
   })
 
-const viewElection = (id, launched, contract_address) => {
+const viewElection = async (id) => {
+    const election = await axios.get(`election/${localStorage.id}/${id}`, {
+    headers: {
+      Authorization: `bearer ${localStorage.token}`
+    }
+  });
     dispatch(view({
       id: id,
-      address: contract_address,
-      launched: launched
+      title: election.data.data.title,
+      startTime: election.data.data.start_time,
+      endTime: election.data.data.end_time,
+      code: election.data.data.code,
+      launched: election.data.data.launched,
+      description: election.data.data.description,
+      address: election.data.data.contract_address
     }));
     navigate('admin/election/dashboard')
 }
@@ -61,7 +71,7 @@ return (
       <MainHeader empty={false} title={'Your Elections'} open={openModal} />
       <div className=' grid md:grid-cols-2 gap-4 lg:px-28 md:px-10 px-4 my-8'>
       {admin_elections?.map((election) => (
-          <ElectionCard onClick={() => viewElection(election._id, election.start_time, election.end_time, election.description, election.launched, election.contract_address)} id={election._id} title={election.title} start_time={election.start_time} end_time={election.end_time} key={election._id} />
+          <ElectionCard onClick={() => viewElection(election._id)} id={election._id} title={election.title} start_time={election.start_time} end_time={election.end_time} key={election._id} />
      ))}
       </div>
       <ToastContainer autoClose={4000} hideProgressBar={true} position="top-right" limit={1} />
@@ -70,6 +80,3 @@ return (
 }
 
 export default UserElections;
-
-
-

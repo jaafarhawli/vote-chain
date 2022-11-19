@@ -1,11 +1,11 @@
+/* eslint-disable */ 
 import React, {useState, useEffect} from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { Bar } from 'react-chartjs-2';
 import { Pie } from 'react-chartjs-2';
 import { viewCandidates, viewVoters } from '../../Web3Client';
 
-
-const BlockchainStatistics = () => {
+const BlockchainStatistics = ({electionAddress}) => {
 
     const [parties, setParties] = useState();
     const [partiesScores, setPartiesScores] = useState();
@@ -73,17 +73,14 @@ const BlockchainStatistics = () => {
     }
     
     useEffect(() => {
-        viewCandidates(localStorage.election_address).then((data) => {
+      if(electionAddress){
+        viewCandidates(electionAddress).then((data) => {
             viewStats(data);
         });
-        viewVoters(localStorage.election_address).then((data) => {
+        viewVoters(electionAddress).then((data) => {
             setVotedVoters([data]);
-        });
-    }, [sorted]);
-
-    console.log(allCandidates, allCandidatesScores, parties, candidatesNames, candidatesScores, votedVoters);
-    
-
+        })}
+    }, [sorted, electionAddress]);
 
     const partyStats = {
       labels: parties,
@@ -157,7 +154,7 @@ const BlockchainStatistics = () => {
           <Doughnut data={partyStats} />
         </div>
       {parties?.map((party, index) => (
-          <div className='min-w-[40%] max-w-[66%] bg-white rounded-2xl h-fit shadow-xl p-6 flex align-baseline flex-1'>
+          <div className='min-w-[40%] max-w-[66%] bg-white rounded-2xl h-fit shadow-xl p-6 flex align-baseline flex-1' key={index}>
             <Bar data={{
               labels: candidatesNames[index],
               datasets: [{

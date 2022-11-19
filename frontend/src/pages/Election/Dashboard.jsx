@@ -1,7 +1,6 @@
 import React from 'react';
 import { ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Statistics from '../../components/Reusable/Statistics';
 import {useQuery} from '@tanstack/react-query';
 import axios from '../../api/axios';
 import CopyData from '../../components/Reusable/CopyData';
@@ -21,12 +20,12 @@ const Dashboard = () => {
         }
       }  
 
-      const {data} = useQuery(["numerics"], async () => {
-        return axios.get(`statistics/${election.id}`, {
+      const {data} = useQuery([election], async () => {
+         return axios.get(`statistics/${election.id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
                     }
-                  }).then((res) => res.data.numerics);
+                  }).then((res) => res.data.numerics);     
       })
 
     return (
@@ -47,8 +46,7 @@ const Dashboard = () => {
             <li>Candidates: <span className='text-purple-100'>{data?.candidates}</span> </li>
         </ul>
       </div>
-      {/* <Statistics /> */}
-      <BlockchainStatistics />
+      <BlockchainStatistics electionAddress={data?.address} />
       <ToastContainer autoClose={1000} hideProgressBar={true} position="bottom-center" />
     </div>
   );

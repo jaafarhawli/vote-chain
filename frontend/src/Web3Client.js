@@ -25,7 +25,6 @@ export const init = async () => {
 
 		isInitialized = true;
 	  }
-
 } 
 
 export const addCandidates = async (candidates, parties, address) => {
