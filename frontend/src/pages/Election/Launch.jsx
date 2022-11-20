@@ -3,7 +3,7 @@ import Button from '../../components/Reusable/Button';
 import ConfirmModal from '../../components/Modals/ConfirmModal';
 import axios from '../../api/axios';
 import {useQuery} from '@tanstack/react-query';
-import { addCandidates, addVoterToBlockchain } from '../../Web3Client';
+import { addCandidates, addVoterToBlockchain, launchElection as launchToBlockchain } from '../../Web3Client';
 import { useSelector, useDispatch } from 'react-redux';
 import { viewElection } from '../../redux/election';
 
@@ -60,7 +60,8 @@ const Launch = () => {
             user_id: localStorage.id 
         }
         await addCandidatesToBlockchain();
-        await addVotersToBlockChain();     
+        await addVotersToBlockChain();
+        await launchToBlockchain(election.address);     
         try {
             await axios.put('election/launch', form, {
                 headers: {
