@@ -9,6 +9,7 @@ import "flatpickr/dist/themes/material_green.css";
 import Flatpickr from "react-flatpickr";
 import { useSelector, useDispatch } from 'react-redux';
 import {viewElection} from '../../redux/election';
+import { changeTimeInterval } from '../../Web3Client';
 require("flatpickr/dist/themes/material_blue.css");
 
 const Settings = () => {
@@ -32,29 +33,10 @@ const Settings = () => {
     const navigate = useNavigate();
 
     const saveInfo = async() => {
-      const startdate = new Date(starttime);
-      const enddate = new Date(endtime);
-
-      if((enddate - startdate) < 0) {
-        setError(true);
-        setMessage("Your election end time should be ahead of the start time");
-        setSuccessModal(true);
-        return;
-      }
-      
-      if(((enddate - startdate)/36e5) < 24) {
-        setError(true);
-        setMessage("Your election should be 24 hours at least");
-        setSuccessModal(true);
-        return;
-      }
-
         const form = {
             election_id: election.id,
             user_id: localStorage.id,
             title: title,
-            start_time: starttime,
-            end_time: endtime,
             description: description
         }
         try {
@@ -65,8 +47,8 @@ const Settings = () => {
           });
           dispatch(viewElection({
             title: title,
-            startTime: starttime,
-            endTime: endtime,
+            startTime: election.startTime,
+            endTime: election.endTime,
             description: description,
             id: election.id,
             launched: election.launched,
@@ -83,6 +65,44 @@ const Settings = () => {
             setSuccessModal(true);
           console.log(error);
         }
+    }
+
+    const changeTime = async () => {
+      const startdate = new Date(starttime);
+      const enddate = new Date(endtime);
+      const offset = new Date().getTimezoneOffset()
+      const epoch = new Date(`01/01/1970 ${-offset/60}:00:00`);
+      const unixStartDate = Math.floor((new Date(starttime) - epoch) / 1000);
+      const unixEndDate = Math.floor((new Date(endtime)- epoch) / 1000);
+
+      if((enddate - startdate) < 0) {
+        setError(true);
+        setMessage("Your election end time should be ahead of the start time");
+        setSuccessModal(true);
+        return;
+      }
+      
+      if(((enddate - startdate)/36e5) < 24) {
+        setError(true);
+        setMessage("Your election should be 24 hours at least");
+        setSuccessModal(true);
+        return;
+      }
+      await changeTimeInterval(unixStartDate, unixEndDate, election.address);
+      dispatch(viewElection({
+        title: title,
+        startTime: starttime,
+        endTime: endtime,
+        description: description,
+        id: election.id,
+        launched: election.launched,
+        code: election.code,
+        address: election.address
+      }));
+      setError(false);
+      setMessage('Election updated succussfully');
+      setSuccessModal(true);
+      setSave(!save);
     }
 
     const deleteElection = async () => {
@@ -169,7 +189,7 @@ const Settings = () => {
                 />
             </label>
           </div>
-          <Button className='bg-cyan' disabled={disabled || launched} onClick={saveInfo} >Change Time Interval</Button>
+          <Button className='bg-cyan' disabled={disabled || launched} onClick={changeTime} >Change Time Interval</Button>
       </form>
     </div>
     </>
