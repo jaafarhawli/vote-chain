@@ -116,3 +116,14 @@ export const createElectionContract = async (start_time, end_time) => {
 
 		return contract.methods.viewTimeInterval().call();
 	}
+
+	export const launchElection = async (address) => {
+		if(!isInitialized)
+		await init();
+	
+		let provider = window.ethereum;
+		const web3 = new Web3(provider);
+		let contract = new web3.eth.Contract(ElectionContract.abi, address);
+	
+		return contract.methods.launchElection().send({from: selectedAccount});
+	}
