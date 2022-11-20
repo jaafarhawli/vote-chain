@@ -13,8 +13,8 @@ const viewElectionAsModeratorResult =  (election_id, user_id, res) => {
             title: election.title,
             start_time: election.start_time,
             end_time: election.end_time,
-            timezone: election.timezone,
-            voters: election.voters
+            voters: election.voters,
+            applying_voters: election.applying_voters
         }
         res.status(200).json({data: result});
     });
