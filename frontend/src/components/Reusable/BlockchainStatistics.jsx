@@ -3,7 +3,7 @@ import React, {useState, useEffect} from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { Bar } from 'react-chartjs-2';
 import { Pie } from 'react-chartjs-2';
-import { viewCandidates, viewVoters } from '../../Web3Client';
+import { viewCandidates, viewTimeInterval, viewVoters } from '../../Web3Client';
 
 const BlockchainStatistics = ({electionAddress}) => {
 
@@ -15,6 +15,7 @@ const BlockchainStatistics = ({electionAddress}) => {
     const [allCandidatesScores, setAllCandidatesScores] = useState();
     const [votedVoters, setVotedVoters] = useState();
     const [sorted, setSorted] = useState(false);
+    const [isLive, setIsLive] = useState(false);
 
     const getPartyNames = async (data) => {
         const names = [];
@@ -71,6 +72,13 @@ const BlockchainStatistics = ({electionAddress}) => {
       if(!sorted)
       setSorted(true);
     }
+
+    const compareTime = async (startDate) => {
+      const epoch = new Date('01/01/1970 00:00:00');
+      const unixDate = Math.floor((new Date() - epoch) / 1000);
+      console.log(unixDate, startDate)
+      return unixDate > startDate
+    }
     
     useEffect(() => {
       if(electionAddress){
@@ -79,7 +87,13 @@ const BlockchainStatistics = ({electionAddress}) => {
         });
         viewVoters(electionAddress).then((data) => {
             setVotedVoters([data]);
-        })}
+        })
+        viewTimeInterval(electionAddress).then((data) => {
+        compareTime(parseInt(data[0])).then((live) => {
+          setIsLive(live);
+        })
+      });
+      }
     }, [sorted, electionAddress]);
 
     const partyStats = {
@@ -98,14 +112,10 @@ const BlockchainStatistics = ({electionAddress}) => {
         backgroundColor: ["#4ba0f7", "#00B8FF", "#7685e4", "#9568c7", "#a847a1", "#ae1f74"]
       }]
     }
-    
-    const date = new Date();
-    const startDate = new Date(localStorage.election_start);
-    const live = date > startDate;
 
   return (
     <div>
-      {/* {!live ? */}
+      {isLive ?
       <>
         <div className='flex w-full gap-6 my-6'>
         <div className='w-1/3 bg-white rounded-2xl shadow-xl p-6'>
@@ -187,8 +197,8 @@ const BlockchainStatistics = ({electionAddress}) => {
       ))}
       </div>
       </>
-      {/* :
-      null} */}
+      :
+      null} 
     </div>
   );
 }
