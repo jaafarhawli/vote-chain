@@ -17,8 +17,7 @@ const Parties = () => {
     const [partyModal, setPartyModal] = useState(false);
     const [confirmModal, setConfirmModal] = useState(false);
     const [candidateModal, setCandidateModal] = useState(false);
-    const launched = localStorage.election_launched===true;
-
+    const launched = election.launched===true;
 
     const closeModal = () => {
         setPartyModal(false)
