@@ -9,6 +9,7 @@ import EmptyState from '../../components/Reusable/EmptyState';
 import { useDispatch } from 'react-redux';
 import { viewElection as view } from '../../redux/election';
 import { ToastContainer } from 'react-toastify';
+import { checkIfLaunched } from '../../Web3Client';
 
 const UserElections = () => {
 
@@ -32,13 +33,15 @@ const viewElection = async (id) => {
       Authorization: `bearer ${localStorage.token}`
     }
   });
+  let isLaunched = false;
+  await checkIfLaunched(election.data.data.contract_address).then((launched) => isLaunched = launched);
     dispatch(view({
       id: id,
       title: election.data.data.title,
       startTime: election.data.data.start_time,
       endTime: election.data.data.end_time,
       code: election.data.data.code,
-      launched: election.data.data.launched,
+      launched: isLaunched,
       description: election.data.data.description,
       address: election.data.data.contract_address
     }));
