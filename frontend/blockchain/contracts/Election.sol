@@ -148,6 +148,16 @@ contract Election {
             block.timestamp < startTime,
             "Can't launch election after it already started."
         );
+        
+        require(
+            votersNumber > 0,
+            "You should have atleast one voter before launching the election."
+        );
+
+        require(
+            candidates.length > 0,
+            "You should have atleast one candidate before launching the election."
+        );
 
         launched = true;
     }

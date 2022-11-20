@@ -32,7 +32,7 @@ contract('Election', (accounts) => {
         const voters = await election.voters.call(voter);
         assert(voters.hasAccess, true);
     })
-    
+
     it('should be able to vote', async() => {
         const candidates = ['mbappe'];
         const parties = ['france'];
@@ -62,4 +62,5 @@ contract('Election', (accounts) => {
         const launched = await election.launched.call();
         assert(launched, true);
     })
+    
 })
