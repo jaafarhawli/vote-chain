@@ -24,7 +24,7 @@ const ModeratorElections = () => {
     })
 
     const viewElection = async (id) => {
-      const election = await axios.get(`election/${localStorage.id}/${id}`, {
+      const election = await axios.get(`election/moderator/${localStorage.id}/${id}`, {
         headers: {
           Authorization: `bearer ${localStorage.token}`
         }
@@ -38,8 +38,6 @@ const ModeratorElections = () => {
         endTime: election.data.data.end_time,
         code: election.data.data.code,
         launched: isLaunched,
-        description: election.data.data.description,
-        address: election.data.data.contract_address
       }));
       navigate('/main/moderator/election/dashboard')
     }
