@@ -25,6 +25,7 @@ const Settings = () => {
     const [error, setError] = useState(true);
     const [message, setMessage] = useState('');
     const [disabled, setDisabled] = useState(true);
+    const [timeDisabled, setTimeDisabled] = useState(true);
     const [save, setSave] = useState(false);
     const [confirmModal, setConfirmModal] = useState(false);
     const launched = election.launched===true;
@@ -129,16 +130,18 @@ const Settings = () => {
     }
 
     useEffect(() => {
-        if (title===election.title && starttime===election.startTime && endtime===election.endTime && description===election.description)
+        if (title===election.title && description===election.description)
         setDisabled(true);
+        if (starttime===election.startTime && endtime===election.endTime)
+        setTimeDisabled(true);
         if(title==='')
         setDisabled(true)
         if(title!==election.title && title!=='')
         setDisabled(false);
         if(starttime!==election.startTime && starttime!=='')
-        setDisabled(false);
+        setTimeDisabled(false);
         if(endtime!==election.endTime && endtime!=='')
-        setDisabled(false);
+        setTimeDisabled(false);
         if(description!==election.description)
         setDisabled(false);
       }, [title, starttime, endtime, description, save, election]);
@@ -189,7 +192,7 @@ const Settings = () => {
                 />
             </label>
           </div>
-          <Button className='bg-cyan' disabled={disabled || launched} onClick={changeTime} >Change Time Interval</Button>
+          <Button className='bg-cyan' disabled={timeDisabled || launched} onClick={changeTime} >Change Time Interval</Button>
       </form>
     </div>
     </>
