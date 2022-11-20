@@ -8,6 +8,7 @@ import EmptyState from '../../components/Reusable/EmptyState';
 import { ToastContainer } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { viewElection as view } from '../../redux/election';
+import { checkIfLaunched } from '../../Web3Client';
 
 const ModeratorElections = () => {
 
@@ -22,9 +23,23 @@ const ModeratorElections = () => {
                   }).then((res) => res.data.data);
     })
 
-    const viewElection = (id, timezone, start_time, end_time) => {
+    const viewElection = async (id) => {
+      const election = await axios.get(`election/${localStorage.id}/${id}`, {
+        headers: {
+          Authorization: `bearer ${localStorage.token}`
+        }
+      });
+      let isLaunched = false;
+      await checkIfLaunched(election.data.data.contract_address).then((launched) => isLaunched = launched);
       dispatch(view({
         id: id,
+        title: election.data.data.title,
+        startTime: election.data.data.start_time,
+        endTime: election.data.data.end_time,
+        code: election.data.data.code,
+        launched: isLaunched,
+        description: election.data.data.description,
+        address: election.data.data.contract_address
       }));
       navigate('/main/moderator/election/dashboard')
     }
@@ -43,7 +58,7 @@ const ModeratorElections = () => {
           <MainHeader empty={true} title={'Moderator Elections'} />
           <div className=' grid md:grid-cols-2 gap-4 lg:px-28 md:px-10 px-4 mt-8'>
           {data?.map((election) => (
-              <ElectionCard onClick={() => viewElection(election._id, election.timezone, election.start_time, election.end_time)} id={election._id} title={election.title} start_time={election.start_time} end_time={election.end_time} key={election._id} />
+              <ElectionCard onClick={() => viewElection(election._id)} id={election._id} title={election.title} start_time={election.start_time} end_time={election.end_time} key={election._id} />
          ))}
           </div>
           <ToastContainer autoClose={4000} hideProgressBar={true} position="top-right" limit={1} />
