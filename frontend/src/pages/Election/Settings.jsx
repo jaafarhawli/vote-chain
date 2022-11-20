@@ -138,7 +138,14 @@ const Settings = () => {
         </div>
         <form className='w-[400px] flex flex-col gap-5 mt-12'>
           <FormInput type="text" onChange={e => setTitle(e.target.value)} defaultValue={election.title} >Election title</FormInput>          
-          <div className='flex gap-2'>
+          <label>
+            <p className='font-semibold'>Description</p>
+            <textarea defaultValue={election.description? election.description : ""} onChange={e => setDescription(e.target.value)} className='w-full border-[1px] border-black-200 outline-none rounded-sm p-4 text-[16px]' />
+          </label>
+          <Button className='bg-cyan' disabled={disabled || launched} onClick={saveInfo} >Save Changes</Button>
+      </form> 
+      <form className='w-[400px] flex flex-col gap-5 mt-12'>
+        <div className='flex gap-2'>
             <label>
                 <p className='font-semibold'>Start date</p>
                 <Flatpickr
@@ -162,12 +169,8 @@ const Settings = () => {
                 />
             </label>
           </div>
-          <label>
-            <p className='font-semibold'>Description</p>
-            <textarea defaultValue={election.description? election.description : ""} onChange={e => setDescription(e.target.value)} className='w-full border-[1px] border-black-200 outline-none rounded-sm p-4 text-[16px]' />
-          </label>
-          <Button className='bg-cyan' disabled={disabled || launched} onClick={saveInfo} >Save Changes</Button>
-      </form> 
+          <Button className='bg-cyan' disabled={disabled || launched} onClick={saveInfo} >Change Time Interval</Button>
+      </form>
     </div>
     </>
   );
