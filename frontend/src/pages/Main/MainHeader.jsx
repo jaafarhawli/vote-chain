@@ -49,7 +49,7 @@ const MainHeader = ({title, empty, open, refetch}) => {
             refetchNotifications();
             refetch();
           } catch (error) {
-            console.log(error.response.data.message);
+            console.log(error);
           }  
     }  
     
@@ -67,7 +67,7 @@ const MainHeader = ({title, empty, open, refetch}) => {
             refetchNotifications();
             refetch();
           } catch (error) {
-            console.log(error.response.data.message);
+            console.log(error);
           }  
     }  
 
