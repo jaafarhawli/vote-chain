@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 const VoteResults = () => {
 
   const election = useSelector((state) => state.election.value);
+  const voter = useSelector((state) => state.voter.value);
 
   return (
     <div>
@@ -18,14 +19,14 @@ const VoteResults = () => {
           <div className='w-2/3'>
             <p className='text-white text-[20px]'>You have selected</p>
             <div className='flex w-full'>
-                <p className='flex-1 text-[24px] font-bold text-white'>{election.chosenParty}</p>
-                <p className='flex-1 text-[24px] font-bold text-white'>{election.chosenCandidate}</p>
+                <p className='flex-1 text-[24px] font-bold text-white'>{voter.chosenParty}</p>
+                <p className='flex-1 text-[24px] font-bold text-white'>{voter.chosenCandidate}</p>
             </div>
           </div>
       </div>
         </div>
         {localStorage.ended ?
-        <BlockchainStatistics electionAddress={localStorage.election_address}  />
+        <BlockchainStatistics electionAddress={election.address}  />
         : null}
       </div>
     </div>
