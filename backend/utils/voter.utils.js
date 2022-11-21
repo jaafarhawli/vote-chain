@@ -16,7 +16,6 @@ const incrementCandidateVotes = async (party_id, candidate_id, voter, res) => {
         if(candidate._id == candidate_id) {
             candidate.score+=1;
             voter.chosenCandidate = candidate.name;
-            await voter.save();
         }
     })
     party.save();
