@@ -22,8 +22,6 @@ const Candidates = () => {
                   }).then((res) => res.data.data);
     })
 
-    console.log(data);
-
     const filteredData = useMemo(() => {
       return data?.filter(row => {
         return row?.name?.toLowerCase().includes(search.toLowerCase())
