@@ -11,7 +11,8 @@ export const electionSlice = createSlice({
             code: '',
             description: '',
             launched: false,
-            address: ''
+            address: '',
+            ended: false
         }
     },
     reducers: {

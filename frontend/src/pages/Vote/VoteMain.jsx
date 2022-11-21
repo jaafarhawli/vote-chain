@@ -7,11 +7,13 @@ import curve from '../../assets/backgroundcurve.svg';
 import Button from '../../components/Reusable/Button';
 import LandingFooter from '../Landing/LandingFooter';
 import Timer from '../../components/Reusable/Timer';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { viewElection } from '../../redux/election';
 
 const VoteMain = () => {
   
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const election = useSelector((state) => state.election.value);
   const voter = useSelector((state) => state.voter.value);
 
@@ -22,7 +24,6 @@ const VoteMain = () => {
   const [timerSeconds, setTimerSeconds] = useState();
   const [live, setLive] = useState(false);
   const [disabled, setDisabled] = useState(true);
-  const [ended, setEnded] = useState();
   
   const startEndTimer = () => {
     const endDate = new Date(election.endTime).getTime();
@@ -37,7 +38,9 @@ const VoteMain = () => {
       const seconds = Math.floor(distance % (60 * 1000) / 1000);
   
       if(distance<0) {    
-          setEnded(true);
+          dispatch(viewElection({
+            ended: true
+          }));
           clearInterval(interval.current);
         }
         
@@ -77,7 +80,6 @@ const VoteMain = () => {
   }
 
   const checkResults = () => {
-    localStorage.setItem('ended', ended);
     navigate('results');
   }
 
@@ -101,7 +103,7 @@ const VoteMain = () => {
             <p className='text-white pt-6 max-w-[400px]'>{election.description}</p>
             <div className='flex gap-4 mt-6'>
                 <Button onClick={() => navigate('select')} disabled={disabled || voter.voted} >Vote now</Button>              
-                <Button className={'border-cyan border-2 bg-opacity-0 hover:bg-cyan disabled:hover:bg-black-200 disabled:border-none'} disabled={disabled || !ended} onClick={checkResults} >Check Results</Button>
+                <Button className={'border-cyan border-2 bg-opacity-0 hover:bg-cyan disabled:hover:bg-black-200 disabled:border-none'} disabled={disabled || !election.ended} onClick={checkResults} >Check Results</Button>
             </div> 
         </div>
         <img src={landingsm} alt="talents" className="w-[45%] md:hidden hidden sm:flex mt-5" />
@@ -110,7 +112,7 @@ const VoteMain = () => {
       <img src={curve} alt='/' className='w-full invisible max-h-[110px]' />
     </div>
     <div className='flex flex-col justify-center items-center w-full h-[300px] bg-gradient-to-b from-purple-300 to-purple-400'>
-        {ended ?
+        {election.ended ?
         <h1 className='text-[34px] font-bold mb-8'>Election has ended</h1>
         :
         live ?
