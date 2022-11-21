@@ -70,13 +70,6 @@ const Launch = () => {
               });
               dispatch(viewElection({
                 launched: true,
-                id: election.id,
-                title: election.title,
-                startTime: election.startTime,
-                endTime: election.endTime,
-                description: election.description,
-                code: election.code,
-                address: election.address
               }));
               setDisabled(true);
               closeConfirm();
