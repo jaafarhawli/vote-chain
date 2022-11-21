@@ -74,9 +74,9 @@ const BlockchainStatistics = ({electionAddress}) => {
     }
 
     const compareTime = async (startDate) => {
-      const epoch = new Date('01/01/1970 00:00:00');
+      const offset = new Date().getTimezoneOffset()
+      const epoch = new Date(`01/01/1970 ${-offset/60}:00:00`);
       const unixDate = Math.floor((new Date() - epoch) / 1000);
-      console.log(unixDate, startDate)
       return unixDate > startDate
     }
     
