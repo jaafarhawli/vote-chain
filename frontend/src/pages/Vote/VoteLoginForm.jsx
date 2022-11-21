@@ -5,10 +5,16 @@ import Button from '../../components/Reusable/Button';
 import FormInput from '../../components/Reusable/FormInput';
 import axios from '../../api/axios';
 import jwt_decode from "jwt-decode";
+import { useSelector, useDispatch } from 'react-redux';
+import { updateVoter } from '../../redux/voter';
+import { viewElection } from '../../redux/election';
 
 const VoteLoginForm = () => {
 
   const navigate = useNavigate();
+  const voter = useSelector((state) => state.voter.value);
+  const dispatch = useDispatch();
+
 
   const [code, setCode] = useState('');
   const [id, setId] = useState('');
@@ -33,24 +39,28 @@ const VoteLoginForm = () => {
                 Authorization: `bearer ${localStorage.token}`
               }
             });
-            localStorage.setItem('voter_id', user.data.data._id);
-            localStorage.setItem('voter_email', user.data.data.email);
-            localStorage.setItem('election_id', user.data.data.election_id);
-            localStorage.setItem('voted', user.data.data.voted);
-            localStorage.setItem('chosen_party', user.data.data.chosenParty);
-            localStorage.setItem('chosen_party', user.data.data.chosenCandidate);
+            dispatch(updateVoter({
+              id: user.data.data._id,
+              email: user.data.data.email,
+              election_id: user.data.data.election_id,
+              voted: user.data.data.voted,
+              chosenParty: user.data.data.chosenParty,
+              chosenCandidate: user.data.data.chosenCandidate
+            }));
             try {
-                const election = await axios.get(`voter/election/${localStorage.voter_email}/${localStorage.election_id}`, {
+                const election = await axios.get(`voter/election/${voter.email}/${voter.election_id}`, {
                   headers: {
                     Authorization: `bearer ${localStorage.token}`
                   }
-                });           
-                localStorage.setItem('election_id', election.data.data._id);
-                localStorage.setItem('election_start', election.data.data.start_time);
-                localStorage.setItem('election_end', election.data.data.end_time);
-                localStorage.setItem('election_title', election.data.data.title);
-                localStorage.setItem('election_description', election.data.data.description);
-                localStorage.setItem('election_address', election.data.data.contract_address);
+                });  
+                dispatch(viewElection({
+                  id: election.data.data._id,
+                  title: election.data.data.title,
+                  startTime: election.data.data.start_time,
+                  endTime: election.data.data.end_time,
+                  description: election.data.data.description,
+                  address: election.data.data.contract_address
+                }));         
                 navigate('/vote/main');
               } catch (error) {
                 console.log(error.response.data.message);
