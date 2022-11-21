@@ -7,7 +7,7 @@ import {IoIosNotifications} from 'react-icons/io';
 import {useQuery} from '@tanstack/react-query';
 import axios from '../../api/axios';
 import {VscWorkspaceTrusted, VscWorkspaceUntrusted} from 'react-icons/vsc';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
  
 const MainHeader = ({title, empty, open, refetch}) => {
 

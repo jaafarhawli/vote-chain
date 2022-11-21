@@ -5,8 +5,11 @@ import logo from '../../assets/VOTE CHAIN-logo-black.png';
 import Button from '../Reusable/Button';
 import SuccessModal from './SuccessModal';
 import FormInput from '../Reusable/FormInput';
+import { useSelector } from 'react-redux';
 
 const ChangePassword = ({open, closeModal}) => {
+
+    const user = useSelector((state) => state.user.value);
 
     const [oldPassword, setOldPassword] = useState('');
     const [password, setPassword] = useState('');
@@ -26,7 +29,7 @@ const ChangePassword = ({open, closeModal}) => {
         }
     
         const form = {
-            id: localStorage.id,
+            id: user.id,
             old_password: oldPassword,
             password: password,
         }

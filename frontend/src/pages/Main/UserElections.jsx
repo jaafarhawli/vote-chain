@@ -10,16 +10,18 @@ import { useDispatch } from 'react-redux';
 import { viewElection as view } from '../../redux/election';
 import { ToastContainer } from 'react-toastify';
 import { checkIfLaunched } from '../../Web3Client';
+import { useSelector } from 'react-redux';
 
 const UserElections = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.value);
 
   const [electionModal, setElectionModal] = useState(false);
 
   const {data: admin_elections, refetch} = useQuery(["elections"], async () => {
-    return axios.get(`election/${localStorage.id}`, {
+    return axios.get(`election/${user.id}`, {
                 headers: {
                   Authorization: `bearer ${localStorage.token}`
                 }
@@ -27,7 +29,7 @@ const UserElections = () => {
   })
 
 const viewElection = async (id) => {
-    const election = await axios.get(`election/${localStorage.id}/${id}`, {
+    const election = await axios.get(`election/${user.id}/${id}`, {
     headers: {
       Authorization: `bearer ${localStorage.token}`
     }

@@ -11,6 +11,7 @@ import { useSelector } from 'react-redux';
 const AddCandidate = ({open, closeModal}) => {
 
     const election = useSelector((state) => state.election.value);
+    const user = useSelector((state) => state.user.value);
 
     const [name, setName] = useState('');
     const [errorModal, setErrorModal] = useState(false);
@@ -25,7 +26,7 @@ const AddCandidate = ({open, closeModal}) => {
             name: name,
             party_id: localStorage.party_id,
             election_id: election.id,
-            user_id: localStorage.id
+            user_id: user.id
         }
         
         try {

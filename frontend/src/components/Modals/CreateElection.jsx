@@ -8,10 +8,13 @@ import FormInput from '../Reusable/FormInput';
 import SuccessModal from './SuccessModal';
 import "flatpickr/dist/themes/material_green.css";
 import Flatpickr from "react-flatpickr";
+import { useSelector } from 'react-redux';
 require("flatpickr/dist/themes/material_blue.css");
 
 
 const CreateElection = ({open, closeModal, refetch}) => {
+
+    const user = useSelector((state) => state.user.value);
 
     const [title, setTitle] = useState('');
     const [starttime, setStarttime] = useState('');
@@ -37,7 +40,7 @@ const CreateElection = ({open, closeModal, refetch}) => {
         const address = await createElectionContract(unixStartDate, unixEndDate);
 
         const form = {
-            admin_id: localStorage.id,
+            admin_id: user.id,
             title: title,
             start_time: starttime,
             end_time: endtime,

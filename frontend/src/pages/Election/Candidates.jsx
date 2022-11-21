@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 const Candidates = () => {
 
     const election = useSelector((state) => state.election.value);
+    const user = useSelector((state) => state.user.value);
 
     const [search, setSearch] = useState('');
     const [confirmModal, setConfirmModal] = useState(false);
@@ -48,7 +49,7 @@ const Candidates = () => {
           candidate_id: localStorage.candidate_id,
           party_id: localStorage.party_id,
           election_id: election.id,
-          user_id: localStorage.id 
+          user_id: user.id 
       }
       
       try {

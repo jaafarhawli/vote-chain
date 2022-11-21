@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 const Applicants = (props) => {
     
     const election = useSelector((state) => state.election.value);
+    const user = useSelector((state) => state.user.value);
 
     const [search, setSearch] = useState('');
     const launched = election.launched===true;
@@ -17,7 +18,7 @@ const Applicants = (props) => {
         const form = {
             applier_id: id,
             election_id: election.id,
-            user_id: localStorage.id 
+            user_id: user.id 
         }
         
         try {

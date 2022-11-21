@@ -15,6 +15,7 @@ require("flatpickr/dist/themes/material_blue.css");
 const Settings = () => {
 
     const election = useSelector((state) => state.election.value);
+    const user = useSelector((state) => state.user.value);
     const dispatch = useDispatch();
 
     const [title, setTitle] = useState(election.title);
@@ -36,7 +37,7 @@ const Settings = () => {
     const saveInfo = async() => {
         const form = {
             election_id: election.id,
-            user_id: localStorage.id,
+            user_id: user.id,
             title: title,
             description: description
         }
@@ -115,7 +116,7 @@ const Settings = () => {
     const deleteElection = async () => {
         const form = {
             election_id: election.id, 
-            user_id: localStorage.id 
+            user_id: user.id 
         }
         
         try {

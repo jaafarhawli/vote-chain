@@ -11,6 +11,7 @@ import { useSelector } from 'react-redux';
 const Voters = (props) => {
 
     const election = useSelector((state) => state.election.value);
+    const user = useSelector((state) => state.user.value);
 
     const [search, setSearch] = useState('');
     const [voterModal, setVoterModal] = useState(false);
@@ -44,7 +45,7 @@ const Voters = (props) => {
         const form = {
             voter_id: localStorage.voter_id,
             election_id: election.id,
-            user_id: localStorage.id 
+            user_id: user.id 
         }
         
         try {

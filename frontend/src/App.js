@@ -13,18 +13,21 @@ import EmailVerification from './pages/Verification/EmailVerification';
 import { init } from './Web3Client';
 import Survey from './pages/Survey/Survey';
 import socketIO from "socket.io-client";
+import { useSelector } from 'react-redux';
 const socket = socketIO.connect("http://localhost:8000")
 
 function App() {
+
+	const user = useSelector((state) => state.user.value);
 
 	useEffect(() => {
 	  init();  
 	}, []);
 	
 	useEffect(() => {
-		if(localStorage.email)
-		socket.emit('newUser', localStorage.email);
-	}, []);
+		if(user.email)
+		socket.emit('newUser', user.email);
+	}, [user.email]);
 
   const client = new QueryClient();
 

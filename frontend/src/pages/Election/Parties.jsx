@@ -12,6 +12,7 @@ import { useSelector } from 'react-redux';
 const Parties = () => {
 
     const election = useSelector((state) => state.election.value);
+    const user = useSelector((state) => state.user.value);
 
     const [search, setSearch] = useState('');
     const [partyModal, setPartyModal] = useState(false);
@@ -70,7 +71,7 @@ const Parties = () => {
         const form = {
             party_id: localStorage.party_id,
             election_id: election.id,
-            user_id: localStorage.id 
+            user_id: user.id 
         }
         
         try {

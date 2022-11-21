@@ -10,6 +10,7 @@ import { viewElection } from '../../redux/election';
 const Launch = () => {
 
     const election = useSelector((state) => state.election.value);
+    const user = useSelector((state) => state.user.value);
     const dispatch = useDispatch();
 
     const [confirmModal, setConfirmModal] = useState(false);
@@ -57,7 +58,7 @@ const Launch = () => {
     const launchElection = async () => {
         const form = {
             election_id: election.id,
-            user_id: localStorage.id 
+            user_id: user.id 
         }
         await addCandidatesToBlockchain();
         await addVotersToBlockChain();

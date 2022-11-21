@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux';
 const AddPartyModal = ({open, closeModal, refetch}) => {
 
     const election = useSelector((state) => state.election.value);
+    const user = useSelector((state) => state.user.value);
 
     const [name, setName] = useState('');
     const [errorModal, setErrorModal] = useState(false);
@@ -21,7 +22,7 @@ const AddPartyModal = ({open, closeModal, refetch}) => {
         const form = {
             name: name,
             election_id: election.id,
-            user_id: localStorage.id
+            user_id: user.id
         }
         
         try {

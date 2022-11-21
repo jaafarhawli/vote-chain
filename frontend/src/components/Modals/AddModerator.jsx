@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux';
 const AddModerator = ({open, closeModal, refetch, socket}) => {
 
     const election = useSelector((state) => state.election.value);
+    const user = useSelector((state) => state.user.value);
 
     const [email, setEmail] = useState('');
     const [errorModal, setErrorModal] = useState(false);
@@ -22,7 +23,7 @@ const AddModerator = ({open, closeModal, refetch, socket}) => {
             email: email,
             election_id: election.id,
             sender_email: localStorage.email,
-            user_id: localStorage.id
+            user_id: user.id
         }
         
         try {
@@ -31,7 +32,7 @@ const AddModerator = ({open, closeModal, refetch, socket}) => {
                   Authorization: `bearer ${localStorage.token}`
                 }
               });
-              socket.emit('sendNotification', localStorage.email, election.title, email);
+              socket.emit('sendNotification', user.email, election.title, email);
               refetch();
               closeModal();
             } catch (error) {

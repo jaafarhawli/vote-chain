@@ -11,6 +11,7 @@ import { useSelector } from 'react-redux';
 const Moderators = ({socket}) => {
 
     const election = useSelector((state) => state.election.value);
+    const user = useSelector((state) => state.user.value);
 
     const [moderatorModal, setModeratorModal] = useState(false);
     const [confirmModal, setConfirmModal] = useState(false);
@@ -61,7 +62,7 @@ const Moderators = ({socket}) => {
         const form = {
             moderator_id: localStorage.moderator_id,
             election_id: election.id,
-            user_id: localStorage.id 
+            user_id: user.id 
         }
         
         try {
