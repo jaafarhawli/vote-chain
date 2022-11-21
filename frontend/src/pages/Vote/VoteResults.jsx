@@ -25,7 +25,7 @@ const VoteResults = () => {
           </div>
       </div>
         </div>
-        {localStorage.ended ?
+        {election.ended ?
         <BlockchainStatistics electionAddress={election.address}  />
         : null}
       </div>
