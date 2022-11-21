@@ -7,15 +7,17 @@ import {IoIosNotifications} from 'react-icons/io';
 import {useQuery} from '@tanstack/react-query';
 import axios from '../../api/axios';
 import {VscWorkspaceTrusted, VscWorkspaceUntrusted} from 'react-icons/vsc';
+import { useSelector, useDispatch } from 'react-redux';
  
 const MainHeader = ({title, empty, open, refetch}) => {
 
     const navigate = useNavigate();
+    const user = useSelector((state) => state.user.value);
 
     const [showNotifications, setShowNotifications] = useState(false);   
     
     const {data, refetch: refetchNotifications} = useQuery(["notifications"], async () => {
-      return axios.get(`user/notifications/${localStorage.id}`, {
+      return axios.get(`user/notifications/${user.id}`, {
                   headers: {
                     Authorization: `bearer ${localStorage.token}`
                   }
@@ -35,7 +37,7 @@ const MainHeader = ({title, empty, open, refetch}) => {
 
     const acceptRequest = async (election_id) => {
       const form = {
-        user_id: localStorage.id,
+        user_id: user.id,
         election_id: election_id
      }   
       try {
@@ -53,7 +55,7 @@ const MainHeader = ({title, empty, open, refetch}) => {
     
     const rejectRequest = async (election_id) => {
       const form = {
-        user_id: localStorage.id,
+        user_id: user.id,
         election_id: election_id
      }   
       try {
@@ -101,7 +103,7 @@ const MainHeader = ({title, empty, open, refetch}) => {
                   null
                   }
                 </div>
-                <Button onClick={() => navigate('/main/settings')}>{localStorage.firstname} {localStorage.lastname}</Button>
+                <Button onClick={() => navigate('/main/settings')}>{user.firstName} {user.lastName}</Button>
             </div>
         </div>
         <div className='flex justify-between w-full items-center mt-8'>
