@@ -11,7 +11,6 @@ const Applicants = (props) => {
     const election = useSelector((state) => state.election.value);
 
     const [search, setSearch] = useState('');
-    const [refetch, setRefetch] = useState(true);
     const launched = election.launched===true;
 
     const removeApplicant = async (id) => {
@@ -27,22 +26,20 @@ const Applicants = (props) => {
                   Authorization: `bearer ${localStorage.token}`
                 }
             });
-            setRefetch(!refetch)
+            refetch();
         } 
         catch (error) {
             console.log(error.response.data.message);
         }
     }
 
-    const {data} = useQuery([refetch], async () => {
+    const {data, refetch} = useQuery(["applicants"], async () => {
         return axios.get(`election/view/applyers/${election.id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
                     }
                   }).then((res) => res.data.data);
     })
-
-    console.log(data);
 
     const filteredData = useMemo(() => {
         return data?.filter(row => {

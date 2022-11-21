@@ -20,7 +20,7 @@ const Dashboard = () => {
         }
       }  
 
-      const {data} = useQuery([election], async () => {
+      const {data} = useQuery(["numerics"], async () => {
          return axios.get(`statistics/${election.id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
@@ -46,7 +46,7 @@ const Dashboard = () => {
             <li>Candidates: <span className='text-purple-100'>{data?.candidates}</span> </li>
         </ul>
       </div>
-      <BlockchainStatistics electionAddress={data?.address} />
+      <BlockchainStatistics electionAddress={election.address} />
       <ToastContainer autoClose={1000} hideProgressBar={true} position="bottom-center" />
     </div>
   );

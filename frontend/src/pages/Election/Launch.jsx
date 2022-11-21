@@ -15,7 +15,7 @@ const Launch = () => {
     const [confirmModal, setConfirmModal] = useState(false);
     const [disabled, setDisabled] = useState(election.launched===true);
 
-    const {data} = useQuery([""], async () => {
+    const {data} = useQuery(["candidates"], async () => {
       return axios.get(`candidate/${election.id}`, {
                   headers: {
                     Authorization: `bearer ${localStorage.token}`

@@ -38,6 +38,7 @@ const ModeratorElections = () => {
         endTime: election.data.data.end_time,
         code: election.data.data.code,
         launched: isLaunched,
+        address: election.data.data.contract_address
       }));
       navigate('/main/moderator/election/dashboard')
     }

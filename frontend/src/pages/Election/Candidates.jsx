@@ -14,7 +14,7 @@ const Candidates = () => {
     const [confirmModal, setConfirmModal] = useState(false);
     const launched = election.launched===true;
     
-    const {data, refetch} = useQuery([""], async () => {
+    const {data, refetch} = useQuery(["candidates"], async () => {
         return axios.get(`candidate/${election.id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
