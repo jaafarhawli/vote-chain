@@ -5,14 +5,13 @@ import Button from '../../components/Reusable/Button';
 import FormInput from '../../components/Reusable/FormInput';
 import axios from '../../api/axios';
 import jwt_decode from "jwt-decode";
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { updateVoter } from '../../redux/voter';
 import { viewElection } from '../../redux/election';
 
 const VoteLoginForm = () => {
 
   const navigate = useNavigate();
-  const voter = useSelector((state) => state.voter.value);
   const dispatch = useDispatch();
 
 
@@ -48,7 +47,7 @@ const VoteLoginForm = () => {
               chosenCandidate: user.data.data.chosenCandidate
             }));
             try {
-                const election = await axios.get(`voter/election/${voter.email}/${voter.election_id}`, {
+                const election = await axios.get(`voter/election/${user.data.data.email}/${user.data.data.election_id}`, {
                   headers: {
                     Authorization: `bearer ${localStorage.token}`
                   }

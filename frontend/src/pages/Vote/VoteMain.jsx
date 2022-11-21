@@ -13,6 +13,7 @@ const VoteMain = () => {
   
   const navigate = useNavigate();
   const election = useSelector((state) => state.election.value);
+
   
   const [timerDays, setTimerDays] = useState();
   const [timerHours, setTimerHours] = useState();
