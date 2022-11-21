@@ -5,10 +5,13 @@ import axios from '../../api/axios';
 import jwt_decode from "jwt-decode";
 import Button from '../../components/Reusable/Button';
 import FormInput from '../../components/Reusable/FormInput';
+import { useDispatch } from 'react-redux';
+import { updateUser } from '../../redux/user';
 
 const LoginForm = ({socket}) => {
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -25,18 +28,22 @@ const LoginForm = ({socket}) => {
         const data = await axios.post('auth/login/user', form);
         const token = data.data;
         const decoded = jwt_decode(token);
+        dispatch(updateUser({
+          email: decoded.email
+        }));
         localStorage.setItem('token', token);
-        localStorage.setItem('email', decoded.email);
         try {
           const user = await axios.get(`user/${decoded.email}`, {
             headers: {
               Authorization: `bearer ${localStorage.token}`
             }
           });
-          socket.emit('login', localStorage.email);
-          localStorage.setItem('firstname', user.data.data.first_name);
-          localStorage.setItem('lastname', user.data.data.last_name);
-          localStorage.setItem('id', user.data.data._id);
+          socket.emit('login', decoded.email);
+          dispatch(updateUser({
+            firstName: user.data.data.first_name,
+            lastName: user.data.data.last_name,
+            id: user.data.data._id
+          }));
           navigate('/main');
         } catch (error) {
           console.log(error);
