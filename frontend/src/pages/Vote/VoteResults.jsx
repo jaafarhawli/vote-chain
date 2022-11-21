@@ -14,13 +14,15 @@ const VoteResults = () => {
           <div className='w-2/3'>
             <p className='text-white text-[20px]'>You have selected</p>
             <div className='flex w-full'>
-                <p className='flex-1 text-[24px] font-bold text-white'>{localStorage.chosenParty}</p>
-                <p className='flex-1 text-[24px] font-bold text-white'>{localStorage.chosenCandidate}</p>
+                <p className='flex-1 text-[24px] font-bold text-white'>{localStorage.chosen_party}</p>
+                <p className='flex-1 text-[24px] font-bold text-white'>{localStorage.chosen_candidate}</p>
             </div>
           </div>
       </div>
         </div>
+        {localStorage.ended ?
       <BlockchainStatistics electionAddress={localStorage.election_address}  />
+      : null}
       </div>
     </div>
   );

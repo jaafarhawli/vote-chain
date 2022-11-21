@@ -90,6 +90,24 @@ const Settings = () => {
         return;
       }
       await changeTimeInterval(unixStartDate, unixEndDate, election.address);
+      const form = {
+        start_time: starttime,
+        end_time: endtime,
+        user_id: localStorage.id,
+        election_id: election.id,
+      }
+      try {
+        await axios.put('election', form, {
+          headers: {
+            Authorization: `bearer ${localStorage.token}`
+          }
+        });
+      } catch (error) {
+      setError(true);
+      setMessage(error.response.data.message);
+      setSuccessModal(true);
+     console.log(error);
+    }
       dispatch(viewElection({
         title: title,
         startTime: starttime,

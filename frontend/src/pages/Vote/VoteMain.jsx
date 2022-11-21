@@ -72,6 +72,11 @@ const VoteMain = () => {
     })
   }
 
+  const checkResults = () => {
+    localStorage.setItem('ended', ended);
+    navigate('results');
+  }
+
   useEffect(() => {
     if(live)
     startEndTimer();
@@ -92,7 +97,7 @@ const VoteMain = () => {
             <p className='text-white pt-6 max-w-[400px]'>{localStorage.election_description}</p>
             <div className='flex gap-4 mt-6'>
                 <Button onClick={() => navigate('select')} disabled={disabled} >Vote now</Button>              
-                <Button className={'border-cyan border-2 bg-opacity-0 hover:bg-cyan disabled:hover:bg-black-200 disabled:border-none'} disabled={disabled} onClick={() => navigate('results')} >Check Results</Button>
+                <Button className={'border-cyan border-2 bg-opacity-0 hover:bg-cyan disabled:hover:bg-black-200 disabled:border-none'} disabled={disabled || !ended} onClick={checkResults} >Check Results</Button>
             </div> 
         </div>
         <img src={landingsm} alt="talents" className="w-[45%] md:hidden hidden sm:flex mt-5" />

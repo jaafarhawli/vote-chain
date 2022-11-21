@@ -14,7 +14,7 @@ const Candidates = () => {
     const [confirmModal, setConfirmModal] = useState(false);
     const launched = election.launched===true;
     
-    const {data} = useQuery([""], async () => {
+    const {data, refetch} = useQuery([""], async () => {
         return axios.get(`candidate/${election.id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
@@ -59,7 +59,8 @@ const Candidates = () => {
                 Authorization: `bearer ${localStorage.token}`
               }
             });
-            closeConfirm()
+            closeConfirm();
+            refetch();
           } catch (error) {
             console.log(error.response.data.message);
           }
