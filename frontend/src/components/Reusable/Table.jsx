@@ -11,15 +11,20 @@ const Table = (props) => {
                     <>
                     <th>Email</th>
                     <th>Wallet Address</th>
+                    <th></th>
                     </>
                     :
                     props.party?
+                    <>
                     <th>Name</th>
+                    <th></th>
+                    </>
                     :
                     props.moderator? 
                     <>
                     <th>Name</th>
                     <th>Email</th>
+                    <th></th>
                     </>
                     :
                     props.voter? 
@@ -28,6 +33,7 @@ const Table = (props) => {
                     <th>Email</th>
                     <th>ID</th>
                     <th>Wallet Address</th>
+                    <th></th>
                     </> : null
                     }
                 </tr>
@@ -35,10 +41,12 @@ const Table = (props) => {
             {props.moderator ?
             <tbody>
             {props.data?.map((moderator) => (
-                <tr className='relative' key={moderator.email}>
+                <tr className='w-full' key={moderator.email}>
                     <td>{moderator.first_name} {moderator.last_name}</td>
                     <td>{moderator.email}</td>
-                    <IoClose className='absolute right-2 top-2 text-[25px] hover:text-red duration-150' onClick={() => props.remove(moderator._id)} />
+                    <td className=' whitespace-nowrap w-1'>
+                        <IoClose className='text-[25px] hover:text-red duration-150' onClick={() => props.remove(moderator._id)} />
+                    </td>
                 </tr>
             ))}
                 
@@ -49,8 +57,10 @@ const Table = (props) => {
             {props.data?.map((party) => (
                 <tr className='relative' key={party.name} onClick={() => props.addCandidate(party._id)}>
                     <td className='w-full'>{party.name}</td>
-                    <IoClose className='absolute right-2 top-2 text-[25px] hover:text-red duration-150' onClick={(e) => { props.remove(party._id);
-                    e.stopPropagation();}} />
+                    <td>
+                        <IoClose className=' text-[25px] hover:text-red duration-150' onClick={(e) => { props.remove(party._id);
+                        e.stopPropagation();}} />
+                    </td>
                 </tr>
             ))}     
             </tbody>
@@ -58,15 +68,17 @@ const Table = (props) => {
             props.voter? 
             <tbody>
             {props.data?.map((voter) => (
-                <tr className='relative' key={voter.email}>
+                <tr className='w-full' key={voter.email}>
                     <td>{voter.name}</td>
                     <td>{voter.email}</td>
                     <td>{voter.voter_id}</td>
                     <td>{voter.voter_wallet_address}</td>
                     {props.admin ?
-                    <IoClose className='absolute right-2 top-2 text-[25px] hover:text-red duration-150' onClick={() => 
-                    props.remove(voter._id)} />
-                    : null}
+                    <td className=' whitespace-nowrap w-1 '>
+                        <IoClose className='text-[25px] hover:text-red duration-150' onClick={() => 
+                        props.remove(voter._id)} />
+                    </td>
+                    : null}                        
                     </tr>
             ))}     
             </tbody>
@@ -74,12 +86,14 @@ const Table = (props) => {
             props.applicants?
             <tbody>
             {props.data?.map((applicant) => (
-                <tr className='relative' key={applicant.name}>
+                <tr className='w-full' key={applicant.name}>
                     <td>{applicant.email}</td>
-                    <td>{applicant.wallet_address}</td>
+                    <td>{applicant.wallet_address}</td>                   
                     {props.admin ?
-                    <IoClose className='absolute right-2 top-2 text-[25px] hover:text-red duration-150' onClick={() => 
-                    props.remove(applicant._id)} />
+                    <td className=' whitespace-nowrap w-1'>
+                        <IoClose className='text-[25px] hover:text-red duration-150' onClick={() => 
+                        props.remove(applicant._id)} />
+                    </td>
                     : null}
                     </tr>
             ))}     
