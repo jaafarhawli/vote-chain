@@ -7,8 +7,14 @@ import CandidateCard from '../../components/Reusable/CandidateCard';
 import Button from '../../components/Reusable/Button';
 import { useNavigate } from 'react-router-dom';
 import { voteCandidate } from '../../Web3Client';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateVoter } from '../../redux/voter';
 
 const VoteSelect = () => {
+
+    const election = useSelector((state) => state.election.value);
+    const voter = useSelector((state) => state.voter.value);
+    const dispatch = useDispatch();
 
     const [candidates, setCandidates] = useState([]);
     const [selectedParty, setSelectedParty] = useState('');
@@ -20,8 +26,8 @@ const VoteSelect = () => {
 
     const navigate = useNavigate();
 
-    const {data} = useQuery([], async () => {
-        return axios.get(`party/${localStorage.election_id}`, {
+    const {data} = useQuery(["parties"], async () => {
+        return axios.get(`party/${election.id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
                     }
@@ -42,9 +48,9 @@ const VoteSelect = () => {
 
     const handleSubmit = async () => {
 
-        await voteCandidate(selectedCandidateId, localStorage.election_address);
+        await voteCandidate(selectedCandidateId, election.address);
         const form = {
-            id: localStorage.voter_id,
+            id: voter.id,
             party_id: selectedParty,
             candidate_id: selectedCandidate
         }     
@@ -54,10 +60,10 @@ const VoteSelect = () => {
                   Authorization: `bearer ${localStorage.token}`
                 }
               });
-              localStorage.setItem('candidate', selectedCandidateName);
-              localStorage.setItem('party', selectedPartyName);
-              localStorage.setItem('chosen_party', selectedPartyName);
-              localStorage.setItem('chosen_candidate', selectedCandidateName);
+              dispatch(updateVoter({
+                chosenParty: selectedPartyName,
+                chosenCandidate: selectedCandidateName
+              }));
               navigate('/vote/main/results');
             } catch (error) {
                 console.log(error.response.data.message);
@@ -77,7 +83,7 @@ const VoteSelect = () => {
         <>
       <VoteHeader>Voting is live now!</VoteHeader>
       <div className='lg:px-28 md:px-10 px-4'>
-        <ElectionCard id={localStorage.election_id} title={localStorage.election_title} start_time={localStorage.election_start} end_time={localStorage.election_end} className='!bg-black-300 mt-4' title_size='text-[28px]' date_size='!text-[15px]' />
+        <ElectionCard id={election.id} title={election.title} start_time={election.startTime} end_time={election.endTime} className='!bg-black-300 mt-4' title_size='text-[28px]' date_size='!text-[15px]' />
         <h2 className='mt-8 text-[24px] font-bold'>Choose your party</h2>
         <div className='grid grid-cols-2 mt-4 gap-4'>
          {data?.map((party) => (

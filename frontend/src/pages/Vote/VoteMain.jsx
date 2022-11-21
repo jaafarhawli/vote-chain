@@ -7,7 +7,7 @@ import curve from '../../assets/backgroundcurve.svg';
 import Button from '../../components/Reusable/Button';
 import LandingFooter from '../Landing/LandingFooter';
 import Timer from '../../components/Reusable/Timer';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 const VoteMain = () => {
   
