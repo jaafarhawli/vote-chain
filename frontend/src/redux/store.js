@@ -1,5 +1,6 @@
 import {configureStore, combineReducers} from '@reduxjs/toolkit';
 import electionReducer from './election';
+import voterReducer from './voter';
 import {persistReducer, persistStore} from 'redux-persist';
 import storage  from 'redux-persist/lib/storage';
 
@@ -12,6 +13,7 @@ const persistConfig =  {
 
 const reducer = combineReducers({
   election: electionReducer,
+  voter: voterReducer
 })
   
 const persistedReducer = persistReducer(persistConfig, reducer);
