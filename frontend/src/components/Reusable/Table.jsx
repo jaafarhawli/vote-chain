@@ -16,13 +16,18 @@ const Table = (props) => {
                     props.party?
                     <th>Name</th>
                     :
-                    props.moderator? <th>Email</th>
+                    props.moderator? 
+                    <>
+                    <th>Name</th>
+                    <th>Email</th>
+                    </>
                     :
                     props.voter? 
                     <>
                     <th>Name</th>
                     <th>Email</th>
                     <th>ID</th>
+                    <th>Wallet Address</th>
                     </> : null
                     }
                 </tr>
@@ -57,6 +62,7 @@ const Table = (props) => {
                     <td>{voter.name}</td>
                     <td>{voter.email}</td>
                     <td>{voter.voter_id}</td>
+                    <td>{voter.voter_wallet_address}</td>
                     {props.admin ?
                     <IoClose className='absolute right-2 top-2 text-[25px] hover:text-red duration-150' onClick={() => 
                     props.remove(voter._id)} />
