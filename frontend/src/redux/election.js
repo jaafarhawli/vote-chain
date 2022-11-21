@@ -6,8 +6,8 @@ export const electionSlice = createSlice({
         value: {
             id: '',
             title: '',
-            startTime: '',
-            endTime: '',
+            startTime: {},
+            endTime: {},
             code: '',
             description: '',
             launched: false,
@@ -16,7 +16,7 @@ export const electionSlice = createSlice({
     },
     reducers: {
         viewElection: (state, action) => {
-            state.value = action.payload;
+            state.value = {...state.value, ...action.payload};
         }
     }
 });

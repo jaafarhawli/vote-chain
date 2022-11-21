@@ -48,13 +48,7 @@ const Settings = () => {
           });
           dispatch(viewElection({
             title: title,
-            startTime: election.startTime,
-            endTime: election.endTime,
             description: description,
-            id: election.id,
-            launched: election.launched,
-            code: election.code,
-            address: election.address
           }));
           setError(false);
           setMessage('Election updated succussfully');
@@ -109,14 +103,8 @@ const Settings = () => {
      console.log(error);
     }
       dispatch(viewElection({
-        title: title,
         startTime: starttime,
         endTime: endtime,
-        description: description,
-        id: election.id,
-        launched: election.launched,
-        code: election.code,
-        address: election.address
       }));
       setError(false);
       setMessage('Election updated succussfully');
