@@ -62,7 +62,8 @@ const VoteSelect = () => {
               });
               dispatch(updateVoter({
                 chosenParty: selectedPartyName,
-                chosenCandidate: selectedCandidateName
+                chosenCandidate: selectedCandidateName, 
+                voted: true
               }));
               navigate('/vote/main/results');
             } catch (error) {

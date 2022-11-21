@@ -13,6 +13,7 @@ const VoteMain = () => {
   
   const navigate = useNavigate();
   const election = useSelector((state) => state.election.value);
+  const voter = useSelector((state) => state.voter.value);
 
   
   const [timerDays, setTimerDays] = useState();
@@ -99,7 +100,7 @@ const VoteMain = () => {
             <h1 className='text-4xl text-purple-100 font-bold md:text-5xl lg:text-6xl pt-12 md:pt-8'>{election.title}</h1>
             <p className='text-white pt-6 max-w-[400px]'>{election.description}</p>
             <div className='flex gap-4 mt-6'>
-                <Button onClick={() => navigate('select')} disabled={disabled} >Vote now</Button>              
+                <Button onClick={() => navigate('select')} disabled={disabled || voter.voted} >Vote now</Button>              
                 <Button className={'border-cyan border-2 bg-opacity-0 hover:bg-cyan disabled:hover:bg-black-200 disabled:border-none'} disabled={disabled || !ended} onClick={checkResults} >Check Results</Button>
             </div> 
         </div>
