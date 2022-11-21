@@ -15,7 +15,7 @@ const ModeratorElections = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const {data} = useQuery(["moderators"], async () => {
+    const {data, refetch} = useQuery(["moderators"], async () => {
         return axios.get(`election/moderator/${localStorage.id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
@@ -45,7 +45,7 @@ const ModeratorElections = () => {
     if(data?.length===0) 
     return (
         <div>
-            <MainHeader empty={true} title={'Moderator Elections'} />
+            <MainHeader empty={true} title={'Moderator Elections'} refetch={refetch} />
             <EmptyState title={'No Elections'} >You're not assigned as moderator to any election</EmptyState>
             <ToastContainer autoClose={4000} hideProgressBar={true} position="top-right" limit={1} />
         </div>
@@ -53,7 +53,7 @@ const ModeratorElections = () => {
 
     return (
         <div>
-          <MainHeader empty={true} title={'Moderator Elections'} />
+          <MainHeader empty={true} title={'Moderator Elections'} refetch={refetch} />
           <div className=' grid md:grid-cols-2 gap-4 lg:px-28 md:px-10 px-4 mt-8'>
           {data?.map((election) => (
               <ElectionCard onClick={() => viewElection(election._id)} id={election._id} title={election.title} start_time={election.start_time} end_time={election.end_time} key={election._id} />

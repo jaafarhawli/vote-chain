@@ -61,7 +61,7 @@ if(admin_elections?.length===0)
 return (
     <div>
       <CreateElection open={electionModal} closeModal={closeModal} refetch={refetch} />
-        <MainHeader title={'Your Elections'} empty={true} open={openModal} />
+        <MainHeader title={'Your Elections'} empty={true} open={openModal} refetch={refetch} />
         <EmptyState title={'No Elections'} button={'Create a new election'} onClick={openModal} >You don’t have any elections, create one now!</EmptyState>
         <ToastContainer autoClose={4000} hideProgressBar={true} position="top-right" limit={1} />
     </div>
@@ -70,7 +70,7 @@ return (
   return (
     <div>
       <CreateElection open={electionModal} closeModal={closeModal} refetch={refetch} />
-      <MainHeader empty={false} title={'Your Elections'} open={openModal} />
+      <MainHeader empty={false} title={'Your Elections'} open={openModal} refetch={refetch} />
       <div className=' grid md:grid-cols-2 gap-4 lg:px-28 md:px-10 px-4 my-8'>
       {admin_elections?.map((election) => (
           <ElectionCard onClick={() => viewElection(election._id)} id={election._id} title={election.title} start_time={election.start_time} end_time={election.end_time} key={election._id} />

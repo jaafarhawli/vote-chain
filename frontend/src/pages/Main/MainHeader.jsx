@@ -8,14 +8,13 @@ import {useQuery} from '@tanstack/react-query';
 import axios from '../../api/axios';
 import {VscWorkspaceTrusted, VscWorkspaceUntrusted} from 'react-icons/vsc';
  
-const MainHeader = ({title, empty, open}) => {
+const MainHeader = ({title, empty, open, refetch}) => {
 
     const navigate = useNavigate();
 
     const [showNotifications, setShowNotifications] = useState(false);   
-    const [refetch, setRefetch] = useState(false);   
     
-    const {data} = useQuery([refetch], async () => {
+    const {data, refetch: refetchNotifications} = useQuery(["notifications"], async () => {
       return axios.get(`user/notifications/${localStorage.id}`, {
                   headers: {
                     Authorization: `bearer ${localStorage.token}`
@@ -45,7 +44,8 @@ const MainHeader = ({title, empty, open}) => {
                 Authorization: `bearer ${localStorage.token}`
               }
             });
-            setRefetch(!refetch);
+            refetchNotifications();
+            refetch();
           } catch (error) {
             console.log(error.response.data.message);
           }  
@@ -62,7 +62,8 @@ const MainHeader = ({title, empty, open}) => {
                 Authorization: `bearer ${localStorage.token}`
               }
             });
-            setRefetch(!refetch)
+            refetchNotifications();
+            refetch();
           } catch (error) {
             console.log(error.response.data.message);
           }  
