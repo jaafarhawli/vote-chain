@@ -4,6 +4,7 @@ import Panel from '../components/Reusable/Panel';
 import ElectionTitle from '../components/Reusable/ElectionTitle';
 import Dashboard from '../pages/Election/Dashboard';
 import Voters from '../pages/Election/Voters';
+import Applicants from '../pages/Election/Applicants';
 
 const ModeratorElection = () => {
 
@@ -14,6 +15,7 @@ const ModeratorElection = () => {
       <Routes>
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/voters' element={<Voters />} />
+          <Route path='/applicants' element={<Applicants />} />
       </Routes>
     </div>
   );
