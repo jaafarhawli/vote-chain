@@ -12,14 +12,13 @@ import { useSelector } from 'react-redux';
 const Parties = () => {
 
     const election = useSelector((state) => state.election.value);
+    const user = useSelector((state) => state.user.value);
 
     const [search, setSearch] = useState('');
     const [partyModal, setPartyModal] = useState(false);
-    const [refetch, setRefetch] = useState(true);
     const [confirmModal, setConfirmModal] = useState(false);
     const [candidateModal, setCandidateModal] = useState(false);
-    const launched = localStorage.election_launched===true;
-
+    const launched = election.launched===true;
 
     const closeModal = () => {
         setPartyModal(false)
@@ -32,7 +31,7 @@ const Parties = () => {
       }
 
 
-    const {data} = useQuery([refetch], async () => {
+    const {data, refetch} = useQuery(["parties"], async () => {
         return axios.get(`party/${election.id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
@@ -51,12 +50,16 @@ const Parties = () => {
         document.body.style.overflow = 'unset';
       }
     const openConfirmModal = (id) => {
+        if(launched)
+        return;
         setConfirmModal(true);
         localStorage.setItem('party_id', id);
         document.body.style.overflow = 'hidden';
       }
 
       const openCandidateModal = (id) => {
+        if(launched)
+        return;
         setCandidateModal(true);
         localStorage.setItem('party_id', id);
         document.body.style.overflow = 'hidden';
@@ -72,7 +75,7 @@ const Parties = () => {
         const form = {
             party_id: localStorage.party_id,
             election_id: election.id,
-            user_id: localStorage.id 
+            user_id: user.id 
         }
         
         try {
@@ -81,7 +84,7 @@ const Parties = () => {
                   Authorization: `bearer ${localStorage.token}`
                 }
               });
-              setRefetch(!refetch)
+              refetch();
               closeConfirm()
             } catch (error) {
               console.log(error.response.data.message);
@@ -91,7 +94,7 @@ const Parties = () => {
     if(data?.length === 0)
     return (
         <>
-        <AddPartyModal open={partyModal} closeModal={closeModal}    refetch={() => setRefetch(!refetch)} />
+        <AddPartyModal open={partyModal} closeModal={closeModal}    refetch={refetch} />
         <div className='pl-[330px] pt-[150px] pr-6'>
             <h1 className='text-[28px] font-bold'>Parties</h1>
             <EmptyState title={'No Parties'} button={'Add party'} disabled={launched} onClick={openModal} >You don’t have any parties, add one now!</EmptyState>
@@ -103,7 +106,7 @@ const Parties = () => {
   return (
     <>
     <ConfirmModal  open={confirmModal} closeModal={closeConfirm} click={deleteParty} text={"Are you sure you want to delete this party?"} />
-    <AddPartyModal open={partyModal} closeModal={closeModal}  refetch={() => setRefetch(!refetch)} />
+    <AddPartyModal open={partyModal} closeModal={closeModal}  refetch={refetch} />
     <AddCandidate open={candidateModal} closeModal={closeCandidateModal} />
     <div className='pl-[330px] pt-[150px] pr-6'>
         <div className='flex justify-between items-center w-full'>

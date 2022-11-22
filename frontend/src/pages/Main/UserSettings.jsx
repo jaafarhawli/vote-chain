@@ -8,14 +8,18 @@ import Button from '../../components/Reusable/Button';
 import FormInput from '../../components/Reusable/FormInput';
 import ChangePassword from '../../components/Modals/ChangePassword';
 import { ToastContainer } from 'react-toastify';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateUser } from '../../redux/user';
 
 const UserSettings = ({socket}) => {
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.value);
 
-  const [firstname, setFirstname] = useState(localStorage.firstname);
-  const [lastname, setLastname] = useState(localStorage.lastname);
-  const [email, setEmail] = useState(localStorage.email);
+  const [firstname, setFirstname] = useState(user.firstName);
+  const [lastname, setLastname] = useState(user.lastName);
+  const [email, setEmail] = useState(user.email);
   const [message, setMessage] = useState('');
   const [passwordModal, setPasswordModal] = useState(false);
   const [isError, setIsError] = useState(false);
@@ -26,7 +30,7 @@ const UserSettings = ({socket}) => {
 
   const saveInfo = async() => {
     const form = {
-        id: localStorage.id,
+        id: user.id,
         first_name: firstname,
         last_name: lastname,
         email: email,
@@ -37,9 +41,11 @@ const UserSettings = ({socket}) => {
           Authorization: `bearer ${localStorage.token}`
         }
       });
-      localStorage.setItem('firstname', firstname);
-      localStorage.setItem('lastname', lastname);
-      localStorage.setItem('email', email);
+      dispatch(updateUser({
+        firstName: firstname,
+        lastName: lastname,
+        email: email
+      }));
       setSave(!save);
       setIsError(false);
       setMessage('Account updated successfully');
@@ -83,7 +89,7 @@ const openPassword = () => {
 
 const deleteAccount = async () => {
   const form = {
-      id: localStorage.id
+      id: user.id
   }
 
   try {
@@ -101,18 +107,18 @@ const deleteAccount = async () => {
   }
 
   useEffect(() => {
-    if (firstname===localStorage.firstname && lastname===localStorage.lastname && email===localStorage.email)
+    if (firstname===user.firstName && lastname===user.lastName && email===user.email)
     setDisabled(true);
     if(firstname==='' || lastname==='' || email==='')
     setDisabled(true);
-    if(firstname!==localStorage.firstname && firstname!=='')
+    if(firstname!==user.firstName && firstname!=='')
     setDisabled(false);
-    if(lastname!==localStorage.lastname && lastname!=='')
+    if(lastname!==user.lastName && lastname!=='')
     setDisabled(false);
-    if(email!==localStorage.email && email!=='')
+    if(email!==user.email && email!=='')
     setDisabled(false);
 
-  }, [firstname, lastname, email, save]);
+  }, [firstname, lastname, email, save, user]);
 
   return (
     <div>
@@ -122,9 +128,9 @@ const deleteAccount = async () => {
       <MainHeader title={'Account Settings'} empty={true} />
       <form className='lg:w-[600px] w-[400px] flex flex-col gap-5 lg:px-28 md:px-10 px-4'>
           <h1 className='text-[28px] font-semibold text-purple-100'>Account Info</h1>
-            <FormInput type="text" onChange={e => setFirstname(e.target.value)} defaultValue={localStorage.firstname}>First Name</FormInput>
-            <FormInput type="text" defaultValue={localStorage.lastname}  onChange={e => setLastname(e.target.value)}>Last Name</FormInput>
-            <FormInput type="text" defaultValue={localStorage.email}  onChange={e => setEmail(e.target.value)}>Email</FormInput>
+            <FormInput type="text" onChange={e => setFirstname(e.target.value)} defaultValue={user.firstName}>First Name</FormInput>
+            <FormInput type="text" defaultValue={user.lastName}  onChange={e => setLastname(e.target.value)}>Last Name</FormInput>
+            <FormInput type="text" defaultValue={user.email}  onChange={e => setEmail(e.target.value)}>Email</FormInput>
           <Button className=' bg-cyan' onClick={saveInfo} disabled={disabled} >Save changes</Button>
           <p className='font-semibold text-purple-100 hover:underline select-none cursor-pointer mb-4' onClick={openPassword} >Change Password?</p>
           <Button className='bg-red flex-1 hover:bg-red/80'  onClick={openModal} >Delete Account</Button>

@@ -1,11 +1,11 @@
+/* eslint-disable */ 
 import React, {useState, useEffect} from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { Bar } from 'react-chartjs-2';
 import { Pie } from 'react-chartjs-2';
-import { viewCandidates, viewVoters } from '../../Web3Client';
+import { viewCandidates, viewTimeInterval, viewVoters } from '../../Web3Client';
 
-
-const BlockchainStatistics = () => {
+const BlockchainStatistics = ({electionAddress}) => {
 
     const [parties, setParties] = useState();
     const [partiesScores, setPartiesScores] = useState();
@@ -14,8 +14,10 @@ const BlockchainStatistics = () => {
     const [allCandidates, setAllCandidates] = useState();
     const [allCandidatesScores, setAllCandidatesScores] = useState();
     const [votedVoters, setVotedVoters] = useState();
+    const [sorted, setSorted] = useState(false);
+    const [isLive, setIsLive] = useState(false);
 
-    const getPartyNames = (data) => {
+    const getPartyNames = async (data) => {
         const names = [];
         const scores = [];
         const candidates = [];
@@ -50,28 +52,49 @@ const BlockchainStatistics = () => {
     }
 
     const sortCandidates = () => {
-        const indices = [...allCandidatesScores.keys()]
-        indices.sort( (a,b) => allCandidatesScores[a] - allCandidatesScores[b] )
+        if(allCandidates) {
+        const indices = [];
+        for(let i = 0; i< allCandidates.length; i++) {
+          indices[i] = i;
+        }
+        indices.sort( (a,b) => allCandidatesScores[b] - allCandidatesScores[a] )
 
         const sortedNames = indices.map(i => allCandidates[i]);
         const sortedScores = indices.map(i => allCandidatesScores[i]);
         setAllCandidates(sortedNames);
         setAllCandidatesScores(sortedScores);
+      }
+    }
+
+    const viewStats = (data) => {
+      getPartyNames(data);
+      sortCandidates();
+      if(!sorted)
+      setSorted(true);
+    }
+
+    const compareTime = async (startDate) => {
+      const offset = new Date().getTimezoneOffset()
+      const epoch = new Date(`01/01/1970 ${-offset/60}:00:00`);
+      const unixDate = Math.floor((new Date() - epoch) / 1000);
+      return unixDate > startDate
     }
     
     useEffect(() => {
-        viewCandidates(localStorage.election_address).then((data) => {
-            getPartyNames(data);
-            sortCandidates();
+      if(electionAddress){
+        viewCandidates(electionAddress).then((data) => {
+            viewStats(data);
         });
-        viewVoters(localStorage.election_address).then((data) => {
+        viewVoters(electionAddress).then((data) => {
             setVotedVoters([data]);
-        });
-    }, []);
-
-    console.log(allCandidates, allCandidatesScores);
-    
-
+        })
+        viewTimeInterval(electionAddress).then((data) => {
+        compareTime(parseInt(data[0])).then((live) => {
+          setIsLive(live);
+        })
+      });
+      }
+    }, [sorted, electionAddress]);
 
     const partyStats = {
       labels: parties,
@@ -81,15 +104,6 @@ const BlockchainStatistics = () => {
       }]
     }
     
-    const voteStats = {
-      labels: ["Voted", "Did'nt Vote"],
-      datasets: [{
-        data: [parseInt(votedVoters[0]), parseInt(votedVoters[1])],
-        backgroundColor: ["#4ba0f7", "#9568c7"]
-      }]
-    }
-    
-    
     const candidateStats = {
       labels: allCandidates?.slice(0, 10),
       datasets: [{
@@ -98,18 +112,20 @@ const BlockchainStatistics = () => {
         backgroundColor: ["#4ba0f7", "#00B8FF", "#7685e4", "#9568c7", "#a847a1", "#ae1f74"]
       }]
     }
-    
-    const date = new Date();
-    const startDate = new Date(localStorage.election_start);
-    const live = date > startDate;
 
   return (
     <div>
-      {!live ?
+      {isLive ?
       <>
         <div className='flex w-full gap-6 my-6'>
         <div className='w-1/3 bg-white rounded-2xl shadow-xl p-6'>
-          <Pie data={voteStats} />
+          {votedVoters ? <Pie data={{
+              labels: ["Voted", "Did'nt Vote"],
+              datasets: [{
+                data: [parseInt(votedVoters[0][0]), parseInt(votedVoters[0][1])],
+                backgroundColor: ["#4ba0f7", "#9568c7"]
+              }]
+            }} /> : null}
         </div>
         <div className='w-2/3 bg-white rounded-2xl shadow-xl p-6 flex align-baseline'>
           <Bar data={candidateStats}
@@ -148,12 +164,12 @@ const BlockchainStatistics = () => {
           <Doughnut data={partyStats} />
         </div>
       {parties?.map((party, index) => (
-          <div className='min-w-[40%] max-w-[66%] bg-white rounded-2xl h-fit shadow-xl p-6 flex align-baseline flex-1'>
+          <div className='min-w-[40%] max-w-[66%] bg-white rounded-2xl h-fit shadow-xl p-6 flex align-baseline flex-1' key={index}>
             <Bar data={{
               labels: candidatesNames[index],
               datasets: [{
                 label: party,
-                data: candidatesScores,
+                data: candidatesScores[index],
                 backgroundColor: ["#4ba0f7", "#00B8FF", "#7685e4", "#9568c7", "#a847a1", "#ae1f74"]
               }]}}
               options={{
@@ -182,7 +198,7 @@ const BlockchainStatistics = () => {
       </div>
       </>
       :
-      null}
+      null} 
     </div>
   );
 }

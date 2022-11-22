@@ -3,19 +3,20 @@ import Button from '../../components/Reusable/Button';
 import ConfirmModal from '../../components/Modals/ConfirmModal';
 import axios from '../../api/axios';
 import {useQuery} from '@tanstack/react-query';
-import { addCandidates, addVoterToBlockchain } from '../../Web3Client';
+import { addCandidates, addVoterToBlockchain, launchElection as launchToBlockchain } from '../../Web3Client';
 import { useSelector, useDispatch } from 'react-redux';
 import { viewElection } from '../../redux/election';
 
 const Launch = () => {
 
     const election = useSelector((state) => state.election.value);
+    const user = useSelector((state) => state.user.value);
     const dispatch = useDispatch();
 
     const [confirmModal, setConfirmModal] = useState(false);
     const [disabled, setDisabled] = useState(election.launched===true);
 
-    const {data} = useQuery([""], async () => {
+    const {data} = useQuery(["candidates"], async () => {
       return axios.get(`candidate/${election.id}`, {
                   headers: {
                     Authorization: `bearer ${localStorage.token}`
@@ -57,10 +58,11 @@ const Launch = () => {
     const launchElection = async () => {
         const form = {
             election_id: election.id,
-            user_id: localStorage.id 
+            user_id: user.id 
         }
         await addCandidatesToBlockchain();
-        await addVotersToBlockChain();     
+        await addVotersToBlockChain();
+        await launchToBlockchain(election.address);     
         try {
             await axios.put('election/launch', form, {
                 headers: {
@@ -69,13 +71,6 @@ const Launch = () => {
               });
               dispatch(viewElection({
                 launched: true,
-                id: election.id,
-                title: election.title,
-                startTime: election.startTime,
-                endTime: election.endTime,
-                description: election.description,
-                code: election.code,
-                address: election.address
               }));
               setDisabled(true);
               closeConfirm();

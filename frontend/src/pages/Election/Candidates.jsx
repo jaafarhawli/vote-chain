@@ -9,20 +9,19 @@ import { useSelector } from 'react-redux';
 const Candidates = () => {
 
     const election = useSelector((state) => state.election.value);
+    const user = useSelector((state) => state.user.value);
 
     const [search, setSearch] = useState('');
     const [confirmModal, setConfirmModal] = useState(false);
     const launched = election.launched===true;
     
-    const {data} = useQuery([""], async () => {
+    const {data, refetch} = useQuery(["candidates"], async () => {
         return axios.get(`candidate/${election.id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
                     }
                   }).then((res) => res.data.data);
     })
-
-    console.log(data);
 
     const filteredData = useMemo(() => {
       return data?.filter(row => {
@@ -50,7 +49,7 @@ const Candidates = () => {
           candidate_id: localStorage.candidate_id,
           party_id: localStorage.party_id,
           election_id: election.id,
-          user_id: localStorage.id 
+          user_id: user.id 
       }
       
       try {
@@ -59,7 +58,8 @@ const Candidates = () => {
                 Authorization: `bearer ${localStorage.token}`
               }
             });
-            closeConfirm()
+            closeConfirm();
+            refetch();
           } catch (error) {
             console.log(error.response.data.message);
           }

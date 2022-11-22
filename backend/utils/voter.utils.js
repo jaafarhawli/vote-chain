@@ -12,14 +12,15 @@ const incrementCandidateVotes = async (party_id, candidate_id, voter, res) => {
         if(election.launched===false)
         return res.status(404).json({message: "Election is not launched yet" });
     })
-    party.candidates.forEach((candidate) => {
+    party.candidates.forEach( async (candidate) => {
         if(candidate._id == candidate_id) {
             candidate.score+=1;
+            voter.chosenCandidate = candidate.name;
         }
     })
     party.save();
     voter.voted = 1;
-    voter.voting_time = new Date(Date.now()).toUTCString();
+    voter.chosenParty = party.name;
     await voter.save();
     return res.status(200).json({message:"Voted Successfully"});
 }
@@ -53,6 +54,8 @@ const addNewVoter = async (election, email, name, voter_id, voter_key, wallet_ad
         voter.voter_key = voter_key;
         voter.election_id = election_id;
         voter.voter_wallet_address = wallet_address,
+        voter.chosenParty = '',
+        voter.chosenCandidate = '',
         voter.voted = 0;
         await voter.save();
 

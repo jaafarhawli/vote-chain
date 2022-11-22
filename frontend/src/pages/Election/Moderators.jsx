@@ -11,9 +11,9 @@ import { useSelector } from 'react-redux';
 const Moderators = ({socket}) => {
 
     const election = useSelector((state) => state.election.value);
+    const user = useSelector((state) => state.user.value);
 
     const [moderatorModal, setModeratorModal] = useState(false);
-    const [refetch, setRefetch] = useState(true);
     const [confirmModal, setConfirmModal] = useState(false);
     const [search, setSearch] = useState('');
     const launched = election.launched===true;
@@ -28,7 +28,7 @@ const Moderators = ({socket}) => {
         document.body.style.overflow = 'unset';
       }
     
-    const {data} = useQuery([refetch], async () => {
+    const {data, refetch} = useQuery(["moderators"], async () => {
         return axios.get(`moderator/${election.id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
@@ -62,7 +62,7 @@ const Moderators = ({socket}) => {
         const form = {
             moderator_id: localStorage.moderator_id,
             election_id: election.id,
-            user_id: localStorage.id 
+            user_id: user.id 
         }
         
         try {
@@ -71,8 +71,8 @@ const Moderators = ({socket}) => {
                   Authorization: `bearer ${localStorage.token}`
                 }
               });
-              setRefetch(!refetch)
-              closeConfirm()
+              refetch();
+              closeConfirm();
             } catch (error) {
               console.log(error.response.data.message);
             }
@@ -84,7 +84,7 @@ const Moderators = ({socket}) => {
     if(data?.length === 0)
     return (
         <>
-        <AddModerator open={moderatorModal} closeModal={closeModal}  refetch={() => setRefetch(!refetch)} socket={socket} />
+        <AddModerator open={moderatorModal} closeModal={closeModal} refetch={refetch} socket={socket} />
         <div className='pl-[330px] pt-[150px] pr-6'>
             <h1 className='text-[28px] font-bold'>Moderators</h1>
             <EmptyState title={'No Moderators'} button={'Add moderator'} disabled={launched} onClick={openModal} >You don’t have any moderators, add one now!</EmptyState>
@@ -95,7 +95,7 @@ const Moderators = ({socket}) => {
   return (
         <>
         <ConfirmModal  open={confirmModal} closeModal={closeConfirm} click={deleteModerator} text={"Are you sure you want to delete this moderator?"} />
-        <AddModerator open={moderatorModal} closeModal={closeModal} refetch={() => setRefetch(!refetch)} socket={socket} />
+        <AddModerator open={moderatorModal} closeModal={closeModal} refetch={refetch} socket={socket} />
     <div className='pl-[330px] pt-[150px] pr-6'>
         <div className='flex justify-between items-center w-full'>
           <h1 className='text-[28px] font-bold'>Moderators</h1>

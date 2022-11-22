@@ -1,6 +1,8 @@
 import {configureStore, combineReducers} from '@reduxjs/toolkit';
 import electionReducer from './election';
-import {persistReducer, persistStore, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER,} from 'redux-persist';
+import voterReducer from './voter';
+import userReducer from './user';
+import {persistReducer, persistStore} from 'redux-persist';
 import storage  from 'redux-persist/lib/storage';
 
 
@@ -9,9 +11,11 @@ const persistConfig =  {
     version: 1,
     storage
   }
-  
+
 const reducer = combineReducers({
   election: electionReducer,
+  voter: voterReducer,
+  user: userReducer
 })
   
 const persistedReducer = persistReducer(persistConfig, reducer);
@@ -20,9 +24,7 @@ export const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
+      serializableCheck: false
     }),
 });
 

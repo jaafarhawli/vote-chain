@@ -9,11 +9,13 @@ import "flatpickr/dist/themes/material_green.css";
 import Flatpickr from "react-flatpickr";
 import { useSelector, useDispatch } from 'react-redux';
 import {viewElection} from '../../redux/election';
+import { changeTimeInterval } from '../../Web3Client';
 require("flatpickr/dist/themes/material_blue.css");
 
 const Settings = () => {
 
     const election = useSelector((state) => state.election.value);
+    const user = useSelector((state) => state.user.value);
     const dispatch = useDispatch();
 
     const [title, setTitle] = useState(election.title);
@@ -24,6 +26,7 @@ const Settings = () => {
     const [error, setError] = useState(true);
     const [message, setMessage] = useState('');
     const [disabled, setDisabled] = useState(true);
+    const [timeDisabled, setTimeDisabled] = useState(true);
     const [save, setSave] = useState(false);
     const [confirmModal, setConfirmModal] = useState(false);
     const launched = election.launched===true;
@@ -32,8 +35,41 @@ const Settings = () => {
     const navigate = useNavigate();
 
     const saveInfo = async() => {
+        const form = {
+            election_id: election.id,
+            user_id: user.id,
+            title: title,
+            description: description
+        }
+        try {
+          await axios.put('election', form, {
+            headers: {
+              Authorization: `bearer ${localStorage.token}`
+            }
+          });
+          dispatch(viewElection({
+            title: title,
+            description: description,
+          }));
+          setError(false);
+          setMessage('Election updated succussfully');
+          setSuccessModal(true);
+          setSave(!save);
+        } catch (error) {
+            setError(true);
+            setMessage(error.response.data.message);
+            setSuccessModal(true);
+          console.log(error);
+        }
+    }
+
+    const changeTime = async () => {
       const startdate = new Date(starttime);
       const enddate = new Date(endtime);
+      const offset = new Date().getTimezoneOffset()
+      const epoch = new Date(`01/01/1970 ${-offset/60}:00:00`);
+      const unixStartDate = Math.floor((new Date(starttime) - epoch) / 1000);
+      const unixEndDate = Math.floor((new Date(endtime)- epoch) / 1000);
 
       if((enddate - startdate) < 0) {
         setError(true);
@@ -48,47 +84,39 @@ const Settings = () => {
         setSuccessModal(true);
         return;
       }
-
-        const form = {
-            election_id: election.id,
-            user_id: localStorage.id,
-            title: title,
-            start_time: starttime,
-            end_time: endtime,
-            description: description
-        }
-        try {
-          await axios.put('election', form, {
-            headers: {
-              Authorization: `bearer ${localStorage.token}`
-            }
-          });
-          dispatch(viewElection({
-            title: title,
-            startTime: starttime,
-            endTime: endtime,
-            description: description,
-            id: election.id,
-            launched: election.launched,
-            code: election.code,
-            address: election.address
-          }));
-          setError(false);
-          setMessage('Election updated succussfully');
-          setSuccessModal(true);
-          setSave(!save);
-        } catch (error) {
-            setError(true);
-            setMessage(error.response.data.message);
-            setSuccessModal(true);
-          console.log(error);
-        }
+      await changeTimeInterval(unixStartDate, unixEndDate, election.address);
+      const form = {
+        start_time: starttime,
+        end_time: endtime,
+        user_id: user.id,
+        election_id: election.id,
+      }
+      try {
+        await axios.put('election', form, {
+          headers: {
+            Authorization: `bearer ${localStorage.token}`
+          }
+        });
+      } catch (error) {
+      setError(true);
+      setMessage(error.response.data.message);
+      setSuccessModal(true);
+     console.log(error);
+    }
+      dispatch(viewElection({
+        startTime: starttime,
+        endTime: endtime,
+      }));
+      setError(false);
+      setMessage('Election updated succussfully');
+      setSuccessModal(true);
+      setSave(!save);
     }
 
     const deleteElection = async () => {
         const form = {
             election_id: election.id, 
-            user_id: localStorage.id 
+            user_id: user.id 
         }
         
         try {
@@ -109,16 +137,18 @@ const Settings = () => {
     }
 
     useEffect(() => {
-        if (title===election.title && starttime===election.startTime && endtime===election.endTime && description===election.description)
+        if (title===election.title && description===election.description)
         setDisabled(true);
+        if (starttime===election.startTime && endtime===election.endTime)
+        setTimeDisabled(true);
         if(title==='')
         setDisabled(true)
         if(title!==election.title && title!=='')
         setDisabled(false);
         if(starttime!==election.startTime && starttime!=='')
-        setDisabled(false);
+        setTimeDisabled(false);
         if(endtime!==election.endTime && endtime!=='')
-        setDisabled(false);
+        setTimeDisabled(false);
         if(description!==election.description)
         setDisabled(false);
       }, [title, starttime, endtime, description, save, election]);
@@ -138,7 +168,14 @@ const Settings = () => {
         </div>
         <form className='w-[400px] flex flex-col gap-5 mt-12'>
           <FormInput type="text" onChange={e => setTitle(e.target.value)} defaultValue={election.title} >Election title</FormInput>          
-          <div className='flex gap-2'>
+          <label>
+            <p className='font-semibold'>Description</p>
+            <textarea defaultValue={election.description? election.description : ""} onChange={e => setDescription(e.target.value)} className='w-full border-[1px] border-black-200 outline-none rounded-sm p-4 text-[16px]' />
+          </label>
+          <Button className='bg-cyan' disabled={disabled || launched} onClick={saveInfo} >Save Changes</Button>
+      </form> 
+      <form className='w-[400px] flex flex-col gap-5 mt-12'>
+        <div className='flex gap-2'>
             <label>
                 <p className='font-semibold'>Start date</p>
                 <Flatpickr
@@ -162,12 +199,8 @@ const Settings = () => {
                 />
             </label>
           </div>
-          <label>
-            <p className='font-semibold'>Description</p>
-            <textarea defaultValue={election.description? election.description : ""} onChange={e => setDescription(e.target.value)} className='w-full border-[1px] border-black-200 outline-none rounded-sm p-4 text-[16px]' />
-          </label>
-          <Button className='bg-cyan' disabled={disabled || launched} onClick={saveInfo} >Save Changes</Button>
-      </form> 
+          <Button className='bg-cyan' disabled={timeDisabled || launched} onClick={changeTime} >Change Time Interval</Button>
+      </form>
     </div>
     </>
   );

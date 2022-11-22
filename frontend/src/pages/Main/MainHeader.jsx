@@ -7,16 +7,17 @@ import {IoIosNotifications} from 'react-icons/io';
 import {useQuery} from '@tanstack/react-query';
 import axios from '../../api/axios';
 import {VscWorkspaceTrusted, VscWorkspaceUntrusted} from 'react-icons/vsc';
+import { useSelector } from 'react-redux';
  
-const MainHeader = ({title, empty, open}) => {
+const MainHeader = ({title, empty, open, refetch}) => {
 
     const navigate = useNavigate();
+    const user = useSelector((state) => state.user.value);
 
     const [showNotifications, setShowNotifications] = useState(false);   
-    const [refetch, setRefetch] = useState(false);   
     
-    const {data} = useQuery([refetch], async () => {
-      return axios.get(`user/notifications/${localStorage.id}`, {
+    const {data, refetch: refetchNotifications} = useQuery(["notifications"], async () => {
+      return axios.get(`user/notifications/${user.id}`, {
                   headers: {
                     Authorization: `bearer ${localStorage.token}`
                   }
@@ -36,7 +37,7 @@ const MainHeader = ({title, empty, open}) => {
 
     const acceptRequest = async (election_id) => {
       const form = {
-        user_id: localStorage.id,
+        user_id: user.id,
         election_id: election_id
      }   
       try {
@@ -45,15 +46,16 @@ const MainHeader = ({title, empty, open}) => {
                 Authorization: `bearer ${localStorage.token}`
               }
             });
-            setRefetch(!refetch);
+            refetchNotifications();
+            refetch();
           } catch (error) {
-            console.log(error.response.data.message);
+            console.log(error);
           }  
     }  
     
     const rejectRequest = async (election_id) => {
       const form = {
-        user_id: localStorage.id,
+        user_id: user.id,
         election_id: election_id
      }   
       try {
@@ -62,9 +64,10 @@ const MainHeader = ({title, empty, open}) => {
                 Authorization: `bearer ${localStorage.token}`
               }
             });
-            setRefetch(!refetch)
+            refetchNotifications();
+            refetch();
           } catch (error) {
-            console.log(error.response.data.message);
+            console.log(error);
           }  
     }  
 
@@ -100,7 +103,7 @@ const MainHeader = ({title, empty, open}) => {
                   null
                   }
                 </div>
-                <Button onClick={() => navigate('/main/settings')}>{localStorage.firstname} {localStorage.lastname}</Button>
+                <Button onClick={() => navigate('/main/settings')}>{user.firstName} {user.lastName}</Button>
             </div>
         </div>
         <div className='flex justify-between w-full items-center mt-8'>

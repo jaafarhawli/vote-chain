@@ -30,9 +30,13 @@ const voterSchema = new mongoose.Schema({
         type: Boolean,
     },
 
-    voting_time: {
-        type: Date,
-    }, 
+    chosenParty: {
+        type: String,
+    },
+
+    chosenCandidate: {
+        type: String
+    }
 
 })
 

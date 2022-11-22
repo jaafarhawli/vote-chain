@@ -8,7 +8,7 @@ const Survey = () => {
 
     const param = useParams();
 
-  const {data} = useQuery([], async () => {
+  const {data} = useQuery(["survey"], async () => {
     return axios.get(`voter/election/${param.code}`, {
                 headers: {
                   Authorization: `bearer ${localStorage.token}`

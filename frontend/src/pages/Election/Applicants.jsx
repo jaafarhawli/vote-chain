@@ -9,16 +9,16 @@ import { useSelector } from 'react-redux';
 const Applicants = (props) => {
     
     const election = useSelector((state) => state.election.value);
+    const user = useSelector((state) => state.user.value);
 
     const [search, setSearch] = useState('');
-    const [refetch, setRefetch] = useState(true);
     const launched = election.launched===true;
 
     const removeApplicant = async (id) => {
         const form = {
             applier_id: id,
             election_id: election.id,
-            user_id: localStorage.id 
+            user_id: user.id 
         }
         
         try {
@@ -27,22 +27,20 @@ const Applicants = (props) => {
                   Authorization: `bearer ${localStorage.token}`
                 }
             });
-            setRefetch(!refetch)
+            refetch();
         } 
         catch (error) {
             console.log(error.response.data.message);
         }
     }
 
-    const {data} = useQuery([refetch], async () => {
+    const {data, refetch} = useQuery(["applicants"], async () => {
         return axios.get(`election/view/applyers/${election.id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
                     }
                   }).then((res) => res.data.data);
     })
-
-    console.log(data);
 
     const filteredData = useMemo(() => {
         return data?.filter(row => {

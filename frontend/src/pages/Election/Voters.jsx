@@ -11,10 +11,10 @@ import { useSelector } from 'react-redux';
 const Voters = (props) => {
 
     const election = useSelector((state) => state.election.value);
+    const user = useSelector((state) => state.user.value);
 
     const [search, setSearch] = useState('');
     const [voterModal, setVoterModal] = useState(false);
-    const [refetch, setRefetch] = useState(true);
     const [confirmModal, setConfirmModal] = useState(false);
     const launched = election.launched===true;
 
@@ -45,7 +45,7 @@ const Voters = (props) => {
         const form = {
             voter_id: localStorage.voter_id,
             election_id: election.id,
-            user_id: localStorage.id 
+            user_id: user.id 
         }
         
         try {
@@ -54,14 +54,14 @@ const Voters = (props) => {
                   Authorization: `bearer ${localStorage.token}`
                 }
               });
-              setRefetch(!refetch)
+              refetch();
               closeConfirm()
             } catch (error) {
               console.log(error.response.data.message);
             }
     }
 
-    const {data} = useQuery([refetch], async () => {
+    const {data, refetch} = useQuery(["voters"], async () => {
         return axios.get(`voter/voters/${election.id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
@@ -80,7 +80,7 @@ const Voters = (props) => {
     <>
     {data?.length===0 ?
     <>
-    <AddVoter open={voterModal} closeModal={closeModal}  refetch={() => setRefetch(!refetch)} />
+    <AddVoter open={voterModal} closeModal={closeModal}  refetch={refetch} />
     <div className='pl-[330px] pt-[150px] pr-6'>
         <h1 className='text-[28px] font-bold'>Voters</h1>
         <EmptyState title={'No Voters'} button={'Add voter'} disabled={launched} onClick={openModal}>You don’t have any voters, add one now!</EmptyState>
@@ -89,7 +89,7 @@ const Voters = (props) => {
     : 
     <>
     <ConfirmModal  open={confirmModal} closeModal={closeConfirm} click={deleteVoter} text={"Are you sure you want to delete this voter?"} />
-    <AddVoter open={voterModal} closeModal={closeModal}  refetch={() => setRefetch(!refetch)} />
+    <AddVoter open={voterModal} closeModal={closeModal}  refetch={refetch} />
     <div className='pl-[330px] pt-[150px] pr-6'>
         <div className='flex justify-between items-center w-full'>
           <h1 className='text-[28px] font-bold'>Voters</h1>

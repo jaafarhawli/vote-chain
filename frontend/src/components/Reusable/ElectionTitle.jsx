@@ -7,7 +7,8 @@ import { useSelector } from 'react-redux';
 const ElectionTitle = () => {
 
     const navigate = useNavigate();
-    const election = useSelector((state) => state.election.value)
+    const election = useSelector((state) => state.election.value);
+    const user = useSelector((state) => state.user.value);
 
     const local_start = new Date(election.startTime).toString();
     const local_end = new Date(election.endTime).toString();
@@ -28,7 +29,7 @@ const ElectionTitle = () => {
         </div>
         <div className='flex gap-8 items-center'>
             <AiFillHome className='text-white text-[30px] hover:text-white/80 duration-150' onClick={() => navigate('/main')} />
-            <Button className='bg-white/20 px-6 py-6' onClick={() => navigate('/main/settings')}>{localStorage.firstname} {localStorage.lastname}</Button>
+            <Button className='bg-white/20 px-6 py-6' onClick={() => navigate('/main/settings')}>{user.firstName} {user.lastName}</Button>
         </div>
       </div>
     </div>

@@ -80,6 +80,8 @@ const viewVoters = async (req, res) => {
     Voter.find({election_id: election_id}, async (err, voters) => {
         if(err)
         return res.status(404).json({message:"Election not founnd"}); 
+        if(!voters)
+        return res.status(404).json({message:"Voter not founnd"}); 
         return res.status(200).json({data: voters});
     })
 }
