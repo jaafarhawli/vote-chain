@@ -1,14 +1,12 @@
 import React from 'react';
-import curve from '../../assets/feature-curve.svg';
 import {BiCheckShield} from 'react-icons/bi';
 import {MdEmail} from 'react-icons/md';
 import {ImStatsBars} from 'react-icons/im';
 
 const LandingFeatures = () => {
   return (
-    <div>
-        <div className='aspect-960/200 w-full  bg-no-repeat bg-cover bg-center h-[150px]' style={{backgroundImage: `url("${curve}")`}}></div>
-    <div className='flex flex-col items-center lg:px-28 md:px-10 px-4 bg-black-300 w-full lg:pb-12'>
+    <div className='lg:px-28 md:px-10 px-4 bg-bg w-full lg:py-12'>
+    <div className='flex flex-col items-center bg-gradient-to-br from-purple-100/30 to-purple-100/10 rounded-xl p-6 pb-10 backdrop-blur-2xl shadow-2xl w-full'>
       <h1 className='md:text-[36px] text-purple-100 font-bold lg:text-[40px] lg:pb-4 text-[32px]'>Excellent Features</h1>
       <div className='flex flex-col items-center lg:flex-row lg:justify-between w-full'>
         <div className='flex flex-col text-center items-center w-[300px] text-purple-200 pt-8'>
@@ -28,7 +26,6 @@ const LandingFeatures = () => {
         </div>
       </div>
     </div>
-      <div className='aspect-960/200 w-full  bg-no-repeat bg-cover bg-center rotate-180 h-[150px]' style={{backgroundImage: `url("${curve}")`}}></div>
     </div>
   );
 }
