@@ -88,7 +88,7 @@ const Settings = () => {
       const form = {
         start_time: starttime,
         end_time: endtime,
-        user_id: localStorage.id,
+        user_id: user.id,
         election_id: election.id,
       }
       try {

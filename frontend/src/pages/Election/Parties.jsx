@@ -50,12 +50,16 @@ const Parties = () => {
         document.body.style.overflow = 'unset';
       }
     const openConfirmModal = (id) => {
+        if(launched)
+        return;
         setConfirmModal(true);
         localStorage.setItem('party_id', id);
         document.body.style.overflow = 'hidden';
       }
 
       const openCandidateModal = (id) => {
+        if(launched)
+        return;
         setCandidateModal(true);
         localStorage.setItem('party_id', id);
         document.body.style.overflow = 'hidden';
