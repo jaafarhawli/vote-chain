@@ -54,3 +54,12 @@ th {
 tr:nth-child(even) {
     background-color: #D3DCFF;
 }
+
+.neon {
+	box-shadow: 0 0 .2rem #fff,
+            0 0 .2rem #fff,
+            0 0 2rem #00B8FF,
+            0 0 0.8rem #00B8FF,
+            0 0 2.8rem #00B8FF,
+            inset 0 0 1.3rem #00B8FF; 
+}
