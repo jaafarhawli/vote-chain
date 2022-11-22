@@ -21,12 +21,12 @@
 }
 
 .hero {
-	background-image: url("assets/backgroundcurve.svg");
+	background-image: url("assets/Group47.svg");
 }
 
 @media (max-width: 640px) {
 	.hero {
-	  background-image: url("assets/backgroundcurve-sm.svg");
+	  background-image: url("assets/Group47.svg");
 	}
   }
 
