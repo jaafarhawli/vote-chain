@@ -9,7 +9,7 @@ const LandingHero = () => {
   const navigate = useNavigate();
 
   return (
-    <div className='hero flex flex-col bg-no-repeat bg-center bg-cover bg-purple-300 w-full h-screen' >
+    <div className='hero flex flex-col bg-no-repeat bg-center bg-cover bg-bg w-full h-screen' >
       <div className='flex w-full pt-4 items-center justify-between lg:px-28 md:px-10 px-4'>
         <img src={logo} alt="logo" className='w-48' />
         <div className='flex gap-4'>
