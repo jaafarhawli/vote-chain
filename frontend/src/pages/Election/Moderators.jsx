@@ -83,7 +83,9 @@ const Moderators = ({socket}) => {
         <>
         {
         isLoading ? 
-        <Loader loading={isLoading} />
+        <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
+          <Loader loading={isLoading} />
+        </div>
         :
         data?.length === 0 ?
         <>
