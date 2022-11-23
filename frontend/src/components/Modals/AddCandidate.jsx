@@ -3,10 +3,10 @@ import {IoClose} from 'react-icons/io5';
 import axios from '../../api/axios';
 import logo from '../../assets/VOTE CHAIN-logo-black.png';
 import Button from '../Reusable/Button';
-import FormInput from '../Reusable/FormInput';
 import SuccessModal from './SuccessModal';
 import {IoMdImage} from 'react-icons/io';
 import { useSelector } from 'react-redux';
+import FormLabelInput from '../Reusable/FormLabelInput';
 
 const AddCandidate = ({open, closeModal}) => {
 
@@ -91,7 +91,7 @@ const AddCandidate = ({open, closeModal}) => {
         <form className='w-4/5 flex flex-col gap-5 '>
             <input type="file" onChange={e => setImage(e.target.files[0])} className='hidden' ref={imageRef} />
             <IoMdImage className='self-center text-[100px] bg-black-100/20 text-white p-4 rounded-full hover:bg-black-100/30 duration-150' onClick={handleClick} />
-            <FormInput type="text" onChange={e => setName(e.target.value)}>Candidate Name</FormInput>
+            <FormLabelInput type="text" onChange={e => setName(e.target.value)}>Candidate Name</FormLabelInput>
             <Button className='bg-cyan' onClick={addCandidate}>Add</Button>
         </form> 
        </div>

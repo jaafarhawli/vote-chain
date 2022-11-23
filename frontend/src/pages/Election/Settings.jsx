@@ -9,6 +9,7 @@ import Flatpickr from "react-flatpickr";
 import { useSelector, useDispatch } from 'react-redux';
 import {viewElection} from '../../redux/election';
 import { changeTimeInterval } from '../../Web3Client';
+import FormLabelInput from '../../components/Reusable/FormLabelInput';
 require("flatpickr/dist/themes/material_blue.css");
 
 const Settings = () => {
@@ -166,10 +167,7 @@ const Settings = () => {
           <Button className='bg-red' disabled={launched} onClick={() => setConfirmModal(true)}>Delete Election</Button>
         </div>
         <form className='w-1/2 flex flex-col gap-5 mt-12'>
-          <label>
-            <p className='font-bold'>Election title</p>
-            <input type="text" onChange={e => setTitle(e.target.value)} defaultValue={election.title} />
-          </label>        
+        <FormLabelInput type="text" onChange={e => setTitle(e.target.value)} defaultValue={election.title} >Election title</FormLabelInput>       
           <label>
             <p className='font-semibold'>Description</p>
             <textarea defaultValue={election.description? election.description : ""} onChange={e => setDescription(e.target.value)} className='w-full border-[1px] border-black-200 outline-none rounded-sm p-4 text-[16px]' />

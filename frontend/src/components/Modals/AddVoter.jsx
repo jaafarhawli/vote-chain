@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import Button from '../Reusable/Button';
 import SuccessModal from './SuccessModal';
-import FormInput from '../Reusable/FormInput';
 import {IoClose} from 'react-icons/io5';
 import axios from '../../api/axios';
 import logo from '../../assets/VOTE CHAIN-logo-black.png';
 import { useSelector } from 'react-redux';
+import FormLabelInput from '../Reusable/FormLabelInput';
 
 const AddVoter = ({open, closeModal, refetch}) => {
 
@@ -60,9 +60,9 @@ const AddVoter = ({open, closeModal, refetch}) => {
       <div className='bg-black-100 h-[2px] w-[180px]'></div>  
       <h1 className='my-4 text-2xl font-semibold text-purple-100'>Add Voter</h1>  
       <form className='w-4/5 flex flex-col gap-5 '>
-          <FormInput type="email" onChange={e => setEmail(e.target.value)} >Voter Email</FormInput>
-          <FormInput type="text" onChange={e => setName(e.target.value)}>Voter Name</FormInput>
-          <FormInput type="text" onChange={e => setAddress(e.target.value)}>Voter Wallet Address</FormInput>
+          <FormLabelInput type="email" onChange={e => setEmail(e.target.value)} >Voter Email</FormLabelInput>
+          <FormLabelInput type="text" onChange={e => setName(e.target.value)}>Voter Name</FormLabelInput>
+          <FormLabelInput type="text" onChange={e => setAddress(e.target.value)}>Voter Wallet Address</FormLabelInput>
           <Button className='bg-cyan' onClick={addVoter} disabled={disabled} >Add</Button>
       </form> 
      </div>

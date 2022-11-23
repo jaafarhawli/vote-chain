@@ -4,8 +4,8 @@ import axios from '../../api/axios';
 import logo from '../../assets/VOTE CHAIN-logo-black.png';
 import Button from '../Reusable/Button';
 import SuccessModal from './SuccessModal';
-import FormInput from '../Reusable/FormInput';
 import { useSelector } from 'react-redux';
+import FormLabelInput from '../Reusable/FormLabelInput';
 
 const ChangePassword = ({open, closeModal}) => {
 
@@ -70,9 +70,9 @@ const ChangePassword = ({open, closeModal}) => {
       <div className='bg-black-100 h-[2px] w-[180px]'></div>  
       <h1 className='my-4 text-2xl font-semibold text-purple-100'>Change Password</h1>  
       <form className='w-4/5 flex flex-col gap-5 '>
-            <FormInput type="password" onChange={e => setOldPassword(e.target.value)}>Old Password</FormInput>
-            <FormInput type="password" onChange={e => setPassword(e.target.value)}>New Password</FormInput>
-            <FormInput type="password" onChange={e => setConfirm(e.target.value)}>Confirm New Password</FormInput>
+            <FormLabelInput type="password" onChange={e => setOldPassword(e.target.value)}>Old Password</FormLabelInput>
+            <FormLabelInput type="password" onChange={e => setPassword(e.target.value)}>New Password</FormLabelInput>
+            <FormLabelInput type="password" onChange={e => setConfirm(e.target.value)}>Confirm New Password</FormLabelInput>
             <Button className=' bg-cyan' onClick={changePassword} disabled={disabled}>Save changes</Button>
       </form> 
      </div>

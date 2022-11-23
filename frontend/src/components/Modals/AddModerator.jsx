@@ -3,9 +3,9 @@ import {IoClose} from 'react-icons/io5';
 import axios from '../../api/axios';
 import logo from '../../assets/VOTE CHAIN-logo-black.png';
 import Button from '../Reusable/Button';
-import FormInput from '../Reusable/FormInput';
 import SuccessModal from './SuccessModal';
 import { useSelector } from 'react-redux';
+import FormLabelInput from '../Reusable/FormLabelInput';
 
 const AddModerator = ({open, closeModal, refetch, socket}) => {
 
@@ -61,7 +61,7 @@ const AddModerator = ({open, closeModal, refetch, socket}) => {
       <div className='bg-black-100 h-[2px] w-[180px]'></div>  
       <h1 className='my-4 text-2xl font-semibold text-purple-100'>Add Moderator</h1>  
       <form className='w-4/5 flex flex-col gap-5 '>
-          <FormInput type="text" onChange={e => setEmail(e.target.value)}>Moderator Email</FormInput>
+          <FormLabelInput type="text" onChange={e => setEmail(e.target.value)}>Moderator Email</FormLabelInput>
           <Button className='bg-cyan' onClick={addModerator} disabled={disabled} >Add</Button>
       </form> 
      </div>
