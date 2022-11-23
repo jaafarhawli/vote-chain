@@ -50,7 +50,7 @@ const ModeratorElections = () => {
         <div>
           <div className='bg-bg lg:px-28 md:px-10 px-4 pt-6 min-h-screen'>
             <MainHeader empty={true} title={'Moderator Elections'} refetch={refetch} />
-            <EmptyState title={'No Elections'} >You're not assigned as moderator to any election</EmptyState>
+            <EmptyState title={'No Elections'} light={true}>You're not assigned as moderator to any election</EmptyState>
           </div>
             <ToastContainer autoClose={4000} hideProgressBar={true} position="top-right" limit={1} />
         </div>
