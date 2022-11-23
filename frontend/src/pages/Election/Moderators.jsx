@@ -7,6 +7,7 @@ import ConfirmModal from '../../components/Modals/ConfirmModal';
 import EmptyState from '../../components/Reusable/EmptyState';
 import Table from '../../components/Reusable/Table';
 import { useSelector } from 'react-redux';
+import Loader from '../../components/Reusable/Loader';
 
 const Moderators = ({socket}) => {
 
@@ -28,7 +29,7 @@ const Moderators = ({socket}) => {
         document.body.style.overflow = 'unset';
       }
     
-    const {data, refetch} = useQuery(["moderators"], async () => {
+    const {data, refetch, isLoading} = useQuery(["moderators"], async () => {
         return axios.get(`moderator/${election.id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
@@ -78,11 +79,9 @@ const Moderators = ({socket}) => {
             }
         }
 
-        
-      
-
-    if(data?.length === 0)
     return (
+        <>
+        {data?.length === 0 ?
         <>
         <AddModerator open={moderatorModal} closeModal={closeModal} refetch={refetch} socket={socket} />
         <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
@@ -92,9 +91,7 @@ const Moderators = ({socket}) => {
         </div>
         </div>
         </>
-    );
-
-  return (
+        :
         <>
         <ConfirmModal  open={confirmModal} closeModal={closeConfirm} click={deleteModerator} text={"Are you sure you want to delete this moderator?"} />
         <AddModerator open={moderatorModal} closeModal={closeModal} refetch={refetch} socket={socket} />
@@ -105,9 +102,14 @@ const Moderators = ({socket}) => {
           <Button onClick={openModal} add={true} disabled={launched}>Add Moderator</Button>
         </div>
             <input type="search" className='border-2 border-[#dddddd] w-1/3 rounded-md mt-4' placeholder='Search moderator by email' onChange={e => setSearch(e.target.value)} />
+        {isLoading ? 
+        <Loader loading={isLoading} />
+        :
         <Table data={filteredData} moderator={true} remove={(id) => openConfirmModal(id)} />
+        }
+        </div>
     </div>
-    </div>
+    </>}
     </>
   );
 }
