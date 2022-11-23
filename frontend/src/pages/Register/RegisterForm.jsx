@@ -61,12 +61,12 @@ const RegisterForm = () => {
       <h1 className={error ? 'text-red pb-2' : 'text-green pb-2'}>{message}</h1>
       <form className='w-4/5 flex flex-col gap-5 '>
           <div className='flex gap-2'>
-            <FormInput type="text" textStyle='text-purple-200' className='border-0' onChange={e => setFirstname(e.target.value)}>First Name</FormInput> 
-            <FormInput type="text" textStyle='text-purple-200' className='border-0' onChange={e => setLastname(e.target.value)}>Last Name</FormInput> 
+            <FormInput type="text" error={error} required={true} textStyle='text-purple-200' className='border-0' onChange={e => setFirstname(e.target.value)}>First Name</FormInput> 
+            <FormInput type="text" error={error} required={true} textStyle='text-purple-200' className='border-0' onChange={e => setLastname(e.target.value)}>Last Name</FormInput> 
           </div>
-          <FormInput type="email" textStyle='text-purple-200' className='border-0' onChange={e => setEmail(e.target.value)}>Email</FormInput> 
-          <FormInput type="password" textStyle='text-purple-200' className='border-0' onChange={e => setPassword(e.target.value)}>Password</FormInput> 
-          <FormInput type="password" textStyle='text-purple-200' className='border-0' onChange={e => setConfirm(e.target.value)}>Confirm Password</FormInput> 
+          <FormInput type="email" error={error} required={true} textStyle='text-purple-200' className='border-0' onChange={e => setEmail(e.target.value)}>Email</FormInput> 
+          <FormInput type="password" error={error} required={true} textStyle='text-purple-200' className='border-0' onChange={e => setPassword(e.target.value)}>Password</FormInput> 
+          <FormInput type="password" error={error} required={true} textStyle='text-purple-200' className='border-0' onChange={e => setConfirm(e.target.value)}>Confirm Password</FormInput> 
           <Button className='bg-cyan' onClick={handleSubmit} disabled={disabled} >Get Started</Button>
       </form> 
       <p className='mt-4 text-[16px] text-white'>Already have an account? <span className='font-semibold text-cyan select-none hover:underline' onClick={() => navigate('/login')}>Login</span></p>

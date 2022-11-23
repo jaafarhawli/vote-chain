@@ -70,11 +70,11 @@ const LoginForm = ({socket}) => {
       <h1 className='my-4 text-2xl font-semibold text-white'>Welcome!</h1>  
       <h1 className={error? 'text-red ' : 'hidden'}>{message}</h1>
       <form className='w-4/5 flex flex-col gap-5 '>
-          <FormInput type="email" className='border-0' textStyle='text-purple-200' onChange={e => setEmail(e.target.value)}>Email</FormInput>          
-          <FormInput type="password" className='border-0' textStyle='text-purple-200' onChange={e => setPassword(e.target.value)}>Password</FormInput>                
+          <FormInput type="email" error={error} required={true} className='border-0' textStyle='text-purple-200' onChange={e => setEmail(e.target.value)}>Email</FormInput>          
+          <FormInput type="password" error={error} required={true} className='border-0' textStyle='text-purple-200' onChange={e => setPassword(e.target.value)}>Password</FormInput>                
           <Button className='bg-cyan' onClick={handleSubmit} disabled={disabled} >Login</Button>
       </form> 
-      <p className='mt-4 text-[16px] text-white'>New to Vote Chain? <span className='font-semibold text-cyan select-none hover:underline' onClick={() => navigate('/register')}>Sign up</span></p>
+      <p className='mt-4 text-[16px] text-white'>New to Vote Chain? <span className='font-semibold text-cyan select-none hover:underline' onClick={() => navigate('/register')}>Register</span></p>
     </div>
   );
 }
