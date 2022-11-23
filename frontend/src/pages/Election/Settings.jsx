@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import Button from '../../components/Reusable/Button';
-import FormInput from '../../components/Reusable/FormInput';
 import axios from '../../api/axios';
 import SuccessModal from '../../components/Modals/SuccessModal';
 import ConfirmModal from '../../components/Modals/ConfirmModal';
@@ -167,7 +166,10 @@ const Settings = () => {
           <Button className='bg-red' disabled={launched} onClick={() => setConfirmModal(true)}>Delete Election</Button>
         </div>
         <form className='w-1/2 flex flex-col gap-5 mt-12'>
-          <FormInput type="text" onChange={e => setTitle(e.target.value)} defaultValue={election.title} >Election title</FormInput>          
+          <label>
+            <p className='font-bold'>Election title</p>
+            <input type="text" onChange={e => setTitle(e.target.value)} defaultValue={election.title} />
+          </label>        
           <label>
             <p className='font-semibold'>Description</p>
             <textarea defaultValue={election.description? election.description : ""} onChange={e => setDescription(e.target.value)} className='w-full border-[1px] border-black-200 outline-none rounded-sm p-4 text-[16px]' />
