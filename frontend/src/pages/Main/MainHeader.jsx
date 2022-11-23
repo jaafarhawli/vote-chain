@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import logo from '../../assets/VOTE CHAIN-logo-white-horizantal.png';
 import curve from '../../assets/main-curve.svg';
 import { useNavigate } from 'react-router-dom';
@@ -6,16 +6,18 @@ import Button from '../../components/Reusable/Button';
 import {IoIosNotifications} from 'react-icons/io';
 import {useQuery} from '@tanstack/react-query';
 import axios from '../../api/axios';
-import {VscWorkspaceTrusted, VscWorkspaceUntrusted} from 'react-icons/vsc';
 import {IoCloseCircleOutline, IoCheckmarkCircleOutline} from 'react-icons/io5'
 import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
  
 const MainHeader = ({title, empty, open, refetch}) => {
 
     const navigate = useNavigate();
+    const param = useParams();
     const user = useSelector((state) => state.user.value);
 
-    const [showNotifications, setShowNotifications] = useState(false);   
+    const [showNotifications, setShowNotifications] = useState(false);
+    const [active, setActive] = useState();   
     
     const {data, refetch: refetchNotifications} = useQuery(["notifications"], async () => {
       return axios.get(`user/notifications/${user.id}`, {
@@ -70,7 +72,17 @@ const MainHeader = ({title, empty, open, refetch}) => {
           } catch (error) {
             console.log(error);
           }  
-    }  
+    } 
+    
+    useEffect(() => {
+      console.log(param['*']);
+      if(param['*'] === 'moderate')
+      setActive(2);
+      else if(param['*'] === 'settings')
+      setActive(3);
+      else
+      setActive(1);
+    }, [param]);
 
     return (
     <div>
@@ -78,8 +90,8 @@ const MainHeader = ({title, empty, open, refetch}) => {
         <div className='flex justify-between w-full items-center'>
             <img src={logo} alt="" className='w-36' />
             <div className='flex gap-3 text-white font-semibold items-center'>
-                <h2 className='hover:bg-purple-300/50 duration-150 p-2 rounded-lg select-none cursor-pointer' onClick={() => navigate('/main')}>Admin</h2>
-                <h2 className='hover:bg-purple-300/50 duration-150 p-2 rounded-lg select-none cursor-pointer' onClick={() => navigate('/main/moderate')}>Moderator</h2>
+              <h2 className={active === 1 ? 'bg-purple-300/50 duration-150 p-2 rounded-lg select-none cursor-pointer' : 'hover:bg-purple-300/50 duration-150 p-2 rounded-lg select-none cursor-pointer'} onClick={() => navigate('/main')}>Admin</h2>
+              <h2 className={active === 2 ? 'bg-purple-300/50 duration-150 p-2 rounded-lg select-none cursor-pointer' : 'hover:bg-purple-300/50 duration-150 p-2 rounded-lg select-none cursor-pointer'} onClick={() => navigate('/main/moderate')}>Moderator</h2>
                 <div className='relative'>
                   <IoIosNotifications onClick={viewNotifications} className={data?.length===0 ? 'text-[28px] hover:text-cyan duration-150' : 'text-[28px] hover:text-cyan duration-150 text-yellow'} />
                   {showNotifications ?
