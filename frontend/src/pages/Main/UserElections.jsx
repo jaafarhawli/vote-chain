@@ -76,7 +76,7 @@ return (
       <CreateElection open={electionModal} closeModal={closeModal} refetch={refetch} />
       <div className='bg-bg lg:px-28 md:px-10 px-4 pt-6 min-h-screen'>
         <MainHeader empty={false} title={'Your Elections'} open={openModal} refetch={refetch} />
-        <div className='grid md:grid-cols-2 gap-4 md:px-10 px-4 py-8'>
+        <div className='grid md:grid-cols-2 gap-4  w-full py-8'>
         {admin_elections?.map((election) => (
             <ElectionCard onClick={() => viewElection(election._id)} id={election._id} title={election.title} start_time={election.start_time} end_time={election.end_time} key={election._id} />
         ))}
