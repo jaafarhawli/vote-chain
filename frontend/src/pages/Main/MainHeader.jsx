@@ -89,8 +89,6 @@ const MainHeader = ({title, empty, open, refetch}) => {
         <div className='flex justify-between w-full items-center'>
             <img src={logo} alt="" className='w-36' />
             <div className='flex gap-3 text-white font-semibold items-center'>
-              <h2 className={active === 1 ? 'bg-purple-300/50 duration-150 p-2 rounded-lg select-none cursor-pointer' : 'hover:bg-purple-300/50 duration-150 p-2 rounded-lg select-none cursor-pointer'} onClick={() => navigate('/main')}>Admin</h2>
-              <h2 className={active === 2 ? 'bg-purple-300/50 duration-150 p-2 rounded-lg select-none cursor-pointer' : 'hover:bg-purple-300/50 duration-150 p-2 rounded-lg select-none cursor-pointer'} onClick={() => navigate('/main/moderate')}>Moderator</h2>
                 <div className='relative'>
                   <IoIosNotifications onClick={viewNotifications} className={data?.length===0 ? 'text-[28px] hover:text-cyan duration-150' : 'text-[28px] hover:text-cyan duration-150 text-yellow'} />
                   {showNotifications ?
@@ -115,13 +113,21 @@ const MainHeader = ({title, empty, open, refetch}) => {
                   null
                   }
                 </div>
-                <Button onClick={() => navigate('/main/settings')}>{user.firstName} {user.lastName}</Button>
+                <Button onClick={() => navigate('/main/settings')} className=' bg-bg/0 neon'>{user.firstName} {user.lastName}</Button>
             </div>
         </div>
-        <div className='flex justify-between w-full items-center mt-8'>
-            <h1 className='text-white text-[28px] md:text-[32px] lg:text-[36px] font-bold '>{title}</h1>
-            {!empty && <Button onClick={open} add={true}>Create a new election</Button>}
-        </div>
+        <div className='flex w-full mt-6 gap-2'>
+          <div className='flex-1 text-center text-white font-bold'>
+            <h2 className={active === 1 ? 'bg-purple-300/50 duration-150 p-2 select-none cursor-pointer' : 'hover:bg-purple-300/50 duration-150 p-2 select-none cursor-pointer'} onClick={() => navigate('/main')}>Admin</h2>
+          </div>
+          <div className='flex-1 text-center text-white font-bold'>
+              <h2 className={active === 2 ? 'bg-purple-300/50 duration-150 p-2 select-none cursor-pointer' : 'hover:bg-purple-300/50 duration-150 p-2 select-none cursor-pointer'} onClick={() => navigate('/main/moderate')}>Moderator</h2>
+          </div>
+          </div>
+      </div>
+      <div className='flex justify-between w-full items-center mt-8'>
+          <h1 className='text-white text-[28px] md:text-[32px] lg:text-[36px] font-bold '>{title}</h1>
+          {!empty && <Button onClick={open} add={true}>Create a new election</Button>}
       </div>
     </div>
   );
