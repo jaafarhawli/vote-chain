@@ -84,7 +84,7 @@ const VoteSelect = () => {
       <>
       <div className='bg-bg lg:px-28 md:px-10 px-4 pt-6 min-h-screen'>
       <VoteHeader>Voting is live now!</VoteHeader>
-      <div className='md:px-10 px-4 bg-bg'>
+      <div className='bg-bg'>
         <ElectionCard id={election.id} title={election.title} start_time={election.startTime} end_time={election.endTime} className='!bg-black-300 mt-4' title_size='text-[28px]' date_size='!text-[15px]' />
         <h2 className='mt-8 text-[24px] font-bold text-white'>Choose your party</h2>
         <div className='grid grid-cols-2 mt-4 gap-4'>
