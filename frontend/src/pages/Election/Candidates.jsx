@@ -5,6 +5,7 @@ import CandidateCard from '../../components/Reusable/CandidateCard';
 import EmptyState from '../../components/Reusable/EmptyState';
 import ConfirmModal from '../../components/Modals/ConfirmModal';
 import { useSelector } from 'react-redux';
+import Loader from '../../components/Reusable/Loader';
 
 const Candidates = () => {
 
@@ -15,7 +16,7 @@ const Candidates = () => {
     const [confirmModal, setConfirmModal] = useState(false);
     const launched = election.launched===true;
     
-    const {data, refetch} = useQuery(["candidates"], async () => {
+    const {data, refetch, isLoading} = useQuery(["candidates"], async () => {
         return axios.get(`candidate/${election.id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
@@ -67,7 +68,13 @@ const Candidates = () => {
 
     return (
       <>
-      {data?.length===0 ? <>
+      {
+      isLoading ? 
+      <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
+        <Loader />
+      </div>
+      :
+      data?.length===0 ? <>
         <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
         <div className='w-[98%] mx-auto px-8 '>
             <h1 className='text-[28px] font-bold'>Candidates</h1>
