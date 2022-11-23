@@ -74,13 +74,13 @@ const MainHeader = ({title, empty, open, refetch}) => {
     } 
     
     useEffect(() => {
-      console.log(param['*']);
       if(param['*'] === 'moderate')
       setActive(2);
       else if(param['*'] === 'settings')
       setActive(3);
       else
       setActive(1);
+      document.body.style.overflow = 'unset';
     }, [param]);
 
     return (
