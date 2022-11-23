@@ -49,8 +49,8 @@ const SurveyForm = () => {
       <h1 className='my-4 text-2xl font-semibold text-white'>Welcome!</h1>  
       <h1 className={error? 'text-red ' : 'text-green'}>{message}</h1>
       <form className='w-4/5 flex flex-col gap-5 '>
-          <FormInput type="email" textStyle='text-purple-200' className='border-0' onChange={e => setEmail(e.target.value)}>Email</FormInput>          
-          <FormInput type="text" textStyle='text-purple-200' className='border-0' onChange={e => setAddress(e.target.value)}>Wallet Account Address</FormInput>                
+          <FormInput type="email" error={error} required={true} textStyle='text-purple-200' className='border-0' onChange={e => setEmail(e.target.value)}>Email</FormInput>          
+          <FormInput type="text" error={error} required={true} textStyle='text-purple-200' className='border-0' onChange={e => setAddress(e.target.value)}>Wallet Account Address</FormInput>                
           <Button className='bg-cyan' onClick={handleSubmit} disabled={disabled} >Send</Button>
       </form> 
     </div>

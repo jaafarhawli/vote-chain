@@ -19,7 +19,7 @@ const Survey = () => {
   return (
       <>
       {data ?
-    <div className='bg-gradient-to-r from-bg to-purple-100  flex w-full h-screen justify-center items-center'>
+    <div className='bg-bg flex w-full h-screen justify-center items-center'>
       <div className='flex md:w-1/2 justify-center items-center'>
           <SurveyForm />
       </div>
