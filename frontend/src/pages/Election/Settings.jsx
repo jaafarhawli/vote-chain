@@ -166,17 +166,17 @@ const Settings = () => {
           <h1 className='text-[28px] font-bold'>Settings</h1>
           <Button className='bg-red' disabled={launched} onClick={() => setConfirmModal(true)}>Delete Election</Button>
         </div>
-        <form className='w-[400px] flex flex-col gap-5 mt-12'>
+        <form className='w-1/2 flex flex-col gap-5 mt-12'>
           <FormInput type="text" onChange={e => setTitle(e.target.value)} defaultValue={election.title} >Election title</FormInput>          
           <label>
             <p className='font-semibold'>Description</p>
             <textarea defaultValue={election.description? election.description : ""} onChange={e => setDescription(e.target.value)} className='w-full border-[1px] border-black-200 outline-none rounded-sm p-4 text-[16px]' />
           </label>
-          <Button className='bg-cyan' disabled={disabled || launched} onClick={saveInfo} >Save Changes</Button>
+          <Button className='bg-cyan w-1/2 self-start' disabled={disabled || launched} onClick={saveInfo} >Save Changes</Button>
       </form> 
-      <form className='w-[400px] flex flex-col gap-5 mt-12'>
-        <div className='flex gap-2'>
-            <label>
+      <form className='w-1/2 flex flex-col gap-5 mt-12'>
+        <div className='flex gap-2 w-full'>
+            <label className='flex-1'>
                 <p className='font-semibold'>Start date</p>
                 <Flatpickr
                   data-enable-time
@@ -187,7 +187,7 @@ const Settings = () => {
                 }
                 />
             </label>
-            <label>
+            <label className='flex-1'>
                 <p className='font-semibold'>End date</p>
                 <Flatpickr
                   data-enable-time
@@ -199,7 +199,7 @@ const Settings = () => {
                 />
             </label>
           </div>
-          <Button className='bg-cyan' disabled={timeDisabled || launched} onClick={changeTime} >Change Time Interval</Button>
+          <Button className='bg-cyan w-1/2 self-start' disabled={timeDisabled || launched} onClick={changeTime} >Change Time Interval</Button>
       </form>
     </div>
     </>
