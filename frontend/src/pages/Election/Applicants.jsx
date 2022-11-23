@@ -5,6 +5,7 @@ import EmptyState from '../../components/Reusable/EmptyState';
 import Button from '../../components/Reusable/Button';
 import Table from '../../components/Reusable/Table';
 import { useSelector } from 'react-redux';
+import Loader from '../../components/Reusable/Loader';
 
 const Applicants = (props) => {
     
@@ -34,7 +35,7 @@ const Applicants = (props) => {
         }
     }
 
-    const {data, refetch} = useQuery(["applicants"], async () => {
+    const {data, refetch, isLoading} = useQuery(["applicants"], async () => {
         return axios.get(`election/view/applyers/${election.id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
@@ -51,7 +52,13 @@ const Applicants = (props) => {
 
   return (
     <>
-    {data?.length===0 ?
+    {
+    isLoading ? 
+    <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
+        <Loader loading={isLoading} />
+    </div>
+    :
+    data?.length===0 ?
     <>
     <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
     <div className='w-[98%] mx-auto px-8 '>
