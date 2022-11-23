@@ -85,6 +85,10 @@ const Launch = () => {
     <div className='items-center pl-[330px] pt-[150px] pr-6 flex flex-col'>
         <h1 className='text-[28px] font-bold'>Launch Election</h1>
         <div className='my-8 bg-yellow px-12 py-4 rounded-lg'>
+          {election.launched ?
+            <h1 className='text-center text-[24px] font-bold'>Your Election is launched</h1> 
+            :
+            <>
             <h1 className='text-center text-[28px] font-bold mb-2'>Attention!</h1>
             <p className='text-[22px]'>After you launch your election, you won't be able to:</p>
             <div className='flex flex-col items-start'>
@@ -96,6 +100,7 @@ const Launch = () => {
                     <li>Delete election</li>
                 </ul>
             </div>
+            </>}
         </div>
         <Button className='mt-4' disabled={disabled} onClick={() => setConfirmModal(true)}>Launch</Button>      
     </div>
