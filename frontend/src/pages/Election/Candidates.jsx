@@ -81,7 +81,7 @@ const Candidates = () => {
         </div>
             <input type="search" className='border-2 border-[#dddddd] w-1/3 rounded-md mt-4' placeholder='Search candidate by name' onChange={e => setSearch(e.target.value)} />
             {filteredData?.length===0 ? <EmptyState title={'No Candidates'}>You don’t have any candidates</EmptyState> : null}
-        <div className='grid grid-cols-4 gap-4 justify-between my-8'>
+        <div className='flex flex-wrap gap-6 w-full my-8'>
             {filteredData?.map(candidate => (
                 <CandidateCard name={candidate.name} party={candidate.party} image={candidate.image} id={candidate.id} party_id={candidate.party_id} remove={(id, party) => openConfirmModal(id, party)} key={candidate.id} />
             ))}
