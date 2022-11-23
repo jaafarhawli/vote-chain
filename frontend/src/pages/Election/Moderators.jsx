@@ -81,7 +81,11 @@ const Moderators = ({socket}) => {
 
     return (
         <>
-        {data?.length === 0 ?
+        {
+        isLoading ? 
+        <Loader loading={isLoading} />
+        :
+        data?.length === 0 ?
         <>
         <AddModerator open={moderatorModal} closeModal={closeModal} refetch={refetch} socket={socket} />
         <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
@@ -102,11 +106,7 @@ const Moderators = ({socket}) => {
           <Button onClick={openModal} add={true} disabled={launched}>Add Moderator</Button>
         </div>
             <input type="search" className='border-2 border-[#dddddd] w-1/3 rounded-md mt-4' placeholder='Search moderator by email' onChange={e => setSearch(e.target.value)} />
-        {isLoading ? 
-        <Loader loading={isLoading} />
-        :
         <Table data={filteredData} moderator={true} remove={(id) => openConfirmModal(id)} />
-        }
         </div>
     </div>
     </>}
