@@ -60,7 +60,7 @@ const ModeratorElections = () => {
         <div>
           <div className='bg-bg lg:px-28 md:px-10 px-4 pt-6 min-h-screen'>
           <MainHeader empty={true} title={'Moderator Elections'} refetch={refetch} />
-          <div className=' grid md:grid-cols-2 gap-4 md:px-10 px-4 mt-8'>
+          <div className=' grid md:grid-cols-2 gap-4 mt-8'>
           {data?.map((election) => (
               <ElectionCard onClick={() => viewElection(election._id)} id={election._id} title={election.title} start_time={election.start_time} end_time={election.end_time} key={election._id} />
          ))}

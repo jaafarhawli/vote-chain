@@ -85,7 +85,7 @@ const MainHeader = ({title, empty, open, refetch}) => {
 
     return (
     <div>
-      <div className='flex flex-col md:px-10 px-4 bg-gradient-to-b from-purple-100/30 to-purple-100/10 w-full py-6'>
+      <div className='flex flex-col md:px-10 px-4 bg-gradient-to-b from-purple-100/30 to-purple-100/10 w-full py-6 rounded-lg'>
         <div className='flex justify-between w-full items-center'>
             <img src={logo} alt="" className='w-36' />
             <div className='flex gap-3 text-white font-semibold items-center'>
