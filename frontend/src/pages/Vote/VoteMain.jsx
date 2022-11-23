@@ -1,8 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/VOTE CHAIN-logo-white-horizantal.png';
-import landingsm from '../../assets/landing-sm.svg';
-import landinglg from '../../assets/landing-lg.svg';
 import curve from '../../assets/backgroundcurve.svg';
 import Button from '../../components/Reusable/Button';
 import LandingFooter from '../Landing/LandingFooter';
@@ -109,13 +107,13 @@ const VoteMain = () => {
       </div>
       <img src={curve} alt='/' className='w-full invisible max-h-[110px]' />
     </div>
-    <div className='flex flex-col justify-center items-center w-full h-[300px] bg-gradient-to-b from-purple-300 to-purple-400'>
+    <div className='flex flex-col justify-center items-center w-full h-[300px] bg-bg'>
         {election.ended ?
-        <h1 className='text-[34px] font-bold mb-8'>Election has ended</h1>
+        <h1 className='text-[34px] font-bold mb-8 text-white'>Election has ended</h1>
         :
         live ?
         <>
-        <h1 className='text-[34px] font-bold mb-8'>Time Left For Election To End</h1>
+        <h1 className='text-[34px] font-bold mb-8 text-white'>Time Left For Election To End</h1>
         <div className='flex gap-8'>
             <Timer type={"Days"}>{timerDays}</Timer>
             <Timer type={"Hours"}>{timerHours}</Timer>
