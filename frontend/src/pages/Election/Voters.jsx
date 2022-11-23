@@ -7,6 +7,7 @@ import Table from '../../components/Reusable/Table';
 import AddVoter from '../../components/Modals/AddVoter';
 import ConfirmModal from '../../components/Modals/ConfirmModal';
 import { useSelector } from 'react-redux';
+import Loader from '../../components/Reusable/Loader';
 
 const Voters = (props) => {
 
@@ -61,7 +62,7 @@ const Voters = (props) => {
             }
     }
 
-    const {data, refetch} = useQuery(["voters"], async () => {
+    const {data, refetch, isLoading} = useQuery(["voters"], async () => {
         return axios.get(`voter/voters/${election.id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
@@ -78,7 +79,13 @@ const Voters = (props) => {
 
   return (
     <>
-    {data?.length===0 ?
+    {
+    isLoading ? 
+    <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
+        <Loader loading={isLoading} />
+    </div>
+    :
+    data?.length===0 ?
     <>
     <AddVoter open={voterModal} closeModal={closeModal}  refetch={refetch} />
     <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>

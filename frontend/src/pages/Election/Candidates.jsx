@@ -71,7 +71,7 @@ const Candidates = () => {
       {
       isLoading ? 
       <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
-        <Loader />
+        <Loader loading={isLoading} />
       </div>
       :
       data?.length===0 ? <>
