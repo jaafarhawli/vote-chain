@@ -14,8 +14,8 @@ const ElectionTitle = () => {
     const local_end = new Date(election.endTime).toString();
   
     return (
-    <div className='fixed pl-[300px] w-full z-[10] '>
-      <div className='w-full bg-purple-100 py-4 flex justify-between px-8 items-center max-h-[150px]'>
+    <div className='fixed pl-[250px] w-full z-[10] '>
+      <div className='w-[98%] mt-2 mx-auto rounded-lg bg-bg/50 py-4 flex justify-between px-8 items-center max-h-[150px]'>
         <div className='text-white w-2/3 flex flex-col justify-center'>
         <h2 className='font-semibold text-[26px]'>{election.title}</h2>
               <div className='flex w-full flex-row mt-2 gap-2'>

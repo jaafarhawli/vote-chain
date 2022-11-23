@@ -161,7 +161,8 @@ const Settings = () => {
            setSuccessModal(false);
            document.body.style.overflow = 'unset';
         }} />
-    <div className='pl-[330px] pt-[150px] pr-8 flex flex-col'>
+    <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
+    <div className='w-[98%] mx-auto px-8 '>
         <div className='flex justify-between items-center w-full'>
           <h1 className='text-[28px] font-bold'>Settings</h1>
           <Button className='bg-red' disabled={launched} onClick={() => setConfirmModal(true)}>Delete Election</Button>
@@ -201,6 +202,7 @@ const Settings = () => {
           </div>
           <Button className='bg-cyan w-1/2 self-start' disabled={timeDisabled || launched} onClick={changeTime} >Change Time Interval</Button>
       </form>
+    </div>
     </div>
     </>
   );

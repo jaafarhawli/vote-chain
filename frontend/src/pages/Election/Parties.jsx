@@ -108,13 +108,15 @@ const Parties = () => {
     <ConfirmModal  open={confirmModal} closeModal={closeConfirm} click={deleteParty} text={"Are you sure you want to delete this party?"} />
     <AddPartyModal open={partyModal} closeModal={closeModal}  refetch={refetch} />
     <AddCandidate open={candidateModal} closeModal={closeCandidateModal} />
-    <div className='pl-[330px] pt-[150px] pr-8'>
+    <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
+    <div className='w-[98%] mx-auto px-8 '>
         <div className='flex justify-between items-center w-full'>
           <h1 className='text-[28px] font-bold'>Parties</h1>
           <Button onClick={openModal} add={true} disabled={launched}>Add Party</Button>
         </div>
             <input type="search" className='border-2 border-[#dddddd] w-1/3 rounded-md mt-4' placeholder='Search moderator by email' onChange={e => setSearch(e.target.value)} />
             <Table data={filteredData} party={true} remove={(id) => openConfirmModal(id)} addCandidate={(id) => openCandidateModal(id)} />
+    </div>
     </div>
     </>
   );

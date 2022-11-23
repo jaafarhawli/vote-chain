@@ -53,14 +53,17 @@ const Applicants = (props) => {
     <>
     {data?.length===0 ?
     <>
-    <div className='pl-[330px] pt-[150px] pr-6'>
+    <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
+    <div className='w-[98%] mx-auto px-8 '>
         <h1 className='text-[28px] font-bold'>Applicants</h1>
         <EmptyState title={'No Applicants'}>You don’t have any applicants</EmptyState>
+    </div>
     </div>
     </>
     : 
     <>
-    <div className='pl-[330px] pt-[150px] pr-8'>
+    <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
+    <div className='w-[98%] mx-auto px-8 '>
         <div className='flex justify-between items-center w-full'>
           <h1 className='text-[28px] font-bold'>Applicants</h1>
           <Button add={true} disabled={launched} >Add Applicant</Button>
@@ -72,6 +75,7 @@ const Applicants = (props) => {
         :
         <Table data={filteredData} applicants={true} remove={(id) => removeApplicant(id)} />
         }
+    </div>
     </div>
     </>
     }     

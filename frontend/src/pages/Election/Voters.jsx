@@ -81,16 +81,19 @@ const Voters = (props) => {
     {data?.length===0 ?
     <>
     <AddVoter open={voterModal} closeModal={closeModal}  refetch={refetch} />
-    <div className='pl-[330px] pt-[150px] pr-6'>
+    <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
+    <div className='w-[98%] mx-auto px-8 '>
         <h1 className='text-[28px] font-bold'>Voters</h1>
         <EmptyState title={'No Voters'} button={'Add voter'} disabled={launched} onClick={openModal}>You don’t have any voters, add one now!</EmptyState>
+    </div>
     </div>
     </>
     : 
     <>
     <ConfirmModal  open={confirmModal} closeModal={closeConfirm} click={deleteVoter} text={"Are you sure you want to delete this voter?"} />
     <AddVoter open={voterModal} closeModal={closeModal}  refetch={refetch} />
-    <div className='pl-[330px] pt-[150px] pr-8'>
+    <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
+    <div className='w-[98%] mx-auto px-8 '>
         <div className='flex justify-between items-center w-full'>
           <h1 className='text-[28px] font-bold'>Voters</h1>
           <Button add={true} onClick={openModal} disabled={launched} >Add Voter</Button>
@@ -102,6 +105,7 @@ const Voters = (props) => {
         :
         <Table data={filteredData} voter={true} remove={(id) => openConfirmModal(id)} />
         }
+    </div>
     </div>
     </>
     }     

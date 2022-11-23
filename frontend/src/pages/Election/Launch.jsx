@@ -82,7 +82,8 @@ const Launch = () => {
   return (
     <>
     <ConfirmModal  open={confirmModal} closeModal={closeConfirm} click={launchElection} launch={true} text={"Are you sure you want to launch this election?"} />
-    <div className='items-center pl-[330px] pt-[150px] pr-6 flex flex-col'>
+    <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
+    <div className='w-[98%] mx-auto px-8 '>
         <h1 className='text-[28px] font-bold'>Launch Election</h1>
         <div className='my-8 bg-yellow px-12 py-4 rounded-lg'>
           {election.launched ?
@@ -103,6 +104,7 @@ const Launch = () => {
             </>}
         </div>
         <Button className='mt-4' disabled={disabled} onClick={() => setConfirmModal(true)}>Launch</Button>      
+    </div>
     </div>
     </>
   );

@@ -29,7 +29,8 @@ const Dashboard = () => {
       })
 
     return (
-    <div className='pl-[330px] pt-[150px] bg-purple-400 pr-8 min-h-screen'>
+    <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
+    <div className='w-[98%] mx-auto px-8 '>
       <h1 className='text-[28px] font-bold'>Election Dashboard</h1>
       <h2 className='text-purple-100 mt-8 text-[22px] font-semibold'>Election code</h2>
       <div className='flex w-full '>
@@ -63,6 +64,7 @@ const Dashboard = () => {
       </div>
       <BlockchainStatistics electionAddress={election.address} />
       <ToastContainer autoClose={1000} hideProgressBar={true} position="bottom-center" />
+    </div>
     </div>
   );
 }
