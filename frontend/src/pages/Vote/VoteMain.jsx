@@ -123,7 +123,7 @@ const VoteMain = () => {
         </>
         :
         <>
-        <h1 className='text-[34px] font-bold mb-8'>Time Left For Election</h1>
+        <h1 className='text-[34px] font-bold mb-8 text-white'>Time Left For Election</h1>
         <div className='flex gap-8'>
             <Timer type={"Days"}>{timerDays}</Timer>
             <Timer type={"Hours"}>{timerHours}</Timer>
