@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import logo from '../../assets/VOTE CHAIN-logo-white-horizantal.png';
-import curve from '../../assets/main-curve.svg';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Reusable/Button';
 import {IoIosNotifications} from 'react-icons/io';
@@ -124,7 +123,6 @@ const MainHeader = ({title, empty, open, refetch}) => {
             {!empty && <Button onClick={open} add={true}>Create a new election</Button>}
         </div>
       </div>
-      {/* <div className='aspect-960/200 w-full  bg-no-repeat bg-cover bg-center md:[100px] h-[60px]' style={{backgroundImage: `url("${curve}")`}}></div> */}
     </div>
   );
 }
