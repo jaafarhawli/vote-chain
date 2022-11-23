@@ -72,11 +72,13 @@ return (
   return (
     <div>
       <CreateElection open={electionModal} closeModal={closeModal} refetch={refetch} />
-      <MainHeader empty={false} title={'Your Elections'} open={openModal} refetch={refetch} />
-      <div className=' grid md:grid-cols-2 gap-4 lg:px-28 md:px-10 px-4 my-8'>
-      {admin_elections?.map((election) => (
-          <ElectionCard onClick={() => viewElection(election._id)} id={election._id} title={election.title} start_time={election.start_time} end_time={election.end_time} key={election._id} />
-     ))}
+      <div className='bg-bg lg:px-28 md:px-10 px-4 pt-6'>
+        <MainHeader empty={false} title={'Your Elections'} open={openModal} refetch={refetch} />
+        <div className='grid md:grid-cols-2 gap-4 md:px-10 px-4 py-8'>
+        {admin_elections?.map((election) => (
+            <ElectionCard onClick={() => viewElection(election._id)} id={election._id} title={election.title} start_time={election.start_time} end_time={election.end_time} key={election._id} />
+        ))}
+      </div>
       </div>
       <ToastContainer autoClose={4000} hideProgressBar={true} position="top-right" limit={1} />
     </div>
