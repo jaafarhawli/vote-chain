@@ -60,7 +60,7 @@ const Applicants = (props) => {
     </>
     : 
     <>
-    <div className='pl-[330px] pt-[150px] pr-6'>
+    <div className='pl-[330px] pt-[150px] pr-8'>
         <div className='flex justify-between items-center w-full'>
           <h1 className='text-[28px] font-bold'>Applicants</h1>
           <Button add={true} disabled={launched} >Add Applicant</Button>

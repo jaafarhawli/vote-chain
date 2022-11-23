@@ -161,7 +161,7 @@ const Settings = () => {
            setSuccessModal(false);
            document.body.style.overflow = 'unset';
         }} />
-    <div className='pl-[330px] pt-[150px] pr-6 flex flex-col'>
+    <div className='pl-[330px] pt-[150px] pr-8 flex flex-col'>
         <div className='flex justify-between items-center w-full'>
           <h1 className='text-[28px] font-bold'>Settings</h1>
           <Button className='bg-red' disabled={launched} onClick={() => setConfirmModal(true)}>Delete Election</Button>

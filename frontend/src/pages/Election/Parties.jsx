@@ -108,7 +108,7 @@ const Parties = () => {
     <ConfirmModal  open={confirmModal} closeModal={closeConfirm} click={deleteParty} text={"Are you sure you want to delete this party?"} />
     <AddPartyModal open={partyModal} closeModal={closeModal}  refetch={refetch} />
     <AddCandidate open={candidateModal} closeModal={closeCandidateModal} />
-    <div className='pl-[330px] pt-[150px] pr-6'>
+    <div className='pl-[330px] pt-[150px] pr-8'>
         <div className='flex justify-between items-center w-full'>
           <h1 className='text-[28px] font-bold'>Parties</h1>
           <Button onClick={openModal} add={true} disabled={launched}>Add Party</Button>

@@ -29,7 +29,7 @@ const Dashboard = () => {
       })
 
     return (
-    <div className='pl-[330px] pt-[150px] bg-purple-400 pr-8'>
+    <div className='pl-[330px] pt-[150px] bg-purple-400 pr-8 min-h-screen'>
       <h1 className='text-[28px] font-bold'>Election Dashboard</h1>
       <h2 className='text-purple-100 mt-8 text-[22px] font-semibold'>Election code</h2>
       <div className='flex w-full '>

@@ -90,7 +90,7 @@ const Voters = (props) => {
     <>
     <ConfirmModal  open={confirmModal} closeModal={closeConfirm} click={deleteVoter} text={"Are you sure you want to delete this voter?"} />
     <AddVoter open={voterModal} closeModal={closeModal}  refetch={refetch} />
-    <div className='pl-[330px] pt-[150px] pr-6'>
+    <div className='pl-[330px] pt-[150px] pr-8'>
         <div className='flex justify-between items-center w-full'>
           <h1 className='text-[28px] font-bold'>Voters</h1>
           <Button add={true} onClick={openModal} disabled={launched} >Add Voter</Button>

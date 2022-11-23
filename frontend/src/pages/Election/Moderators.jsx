@@ -96,7 +96,7 @@ const Moderators = ({socket}) => {
         <>
         <ConfirmModal  open={confirmModal} closeModal={closeConfirm} click={deleteModerator} text={"Are you sure you want to delete this moderator?"} />
         <AddModerator open={moderatorModal} closeModal={closeModal} refetch={refetch} socket={socket} />
-    <div className='pl-[330px] pt-[150px] pr-6'>
+    <div className='pl-[330px] pt-[150px] pr-8'>
         <div className='flex justify-between items-center w-full'>
           <h1 className='text-[28px] font-bold'>Moderators</h1>
           <Button onClick={openModal} add={true} disabled={launched}>Add Moderator</Button>
