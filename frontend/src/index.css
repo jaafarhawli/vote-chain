@@ -51,8 +51,17 @@ th {
     padding: 8px;
 	
 }
+
+tr:nth-child(odd):hover.party {
+    background-color: #eaeaea;
+}
+
 tr:nth-child(even) {
     background-color: #D3DCFF;
+}
+
+tr:nth-child(even):hover.party {
+    background-color: #bbc7fa;
 }
 
 .neon {
