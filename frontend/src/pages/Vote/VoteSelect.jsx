@@ -81,11 +81,12 @@ const VoteSelect = () => {
 
   return (
     <div className=' min-h-screen flex flex-col justify-between'>
-        <>
+      <>
+      <div className='bg-bg lg:px-28 md:px-10 px-4 pt-6 min-h-screen'>
       <VoteHeader>Voting is live now!</VoteHeader>
-      <div className='lg:px-28 md:px-10 px-4'>
+      <div className='md:px-10 px-4 bg-bg'>
         <ElectionCard id={election.id} title={election.title} start_time={election.startTime} end_time={election.endTime} className='!bg-black-300 mt-4' title_size='text-[28px]' date_size='!text-[15px]' />
-        <h2 className='mt-8 text-[24px] font-bold'>Choose your party</h2>
+        <h2 className='mt-8 text-[24px] font-bold text-white'>Choose your party</h2>
         <div className='grid grid-cols-2 mt-4 gap-4'>
          {data?.map((party) => (
              selectedParty===party._id ? 
@@ -100,6 +101,7 @@ const VoteSelect = () => {
                 <CandidateCard name={candidate.name} image={candidate.picture_url} id={candidate._id} party_id={candidate.party_id} vote={true} select={() => selectCandidate(candidate._id, candidate.name, candidate.id)} key={candidate._id} /> 
             ))}
         </div>
+      </div>
       </div>
       </>
       <div className='w-full h-[100px] bg-purple-100 flex justify-between lg:px-28 md:px-10 px-4 items-center'>
