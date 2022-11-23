@@ -7,6 +7,7 @@ import {IoIosNotifications} from 'react-icons/io';
 import {useQuery} from '@tanstack/react-query';
 import axios from '../../api/axios';
 import {VscWorkspaceTrusted, VscWorkspaceUntrusted} from 'react-icons/vsc';
+import {IoCloseCircleOutline, IoCheckmarkCircleOutline} from 'react-icons/io5'
 import { useSelector } from 'react-redux';
  
 const MainHeader = ({title, empty, open, refetch}) => {
@@ -91,8 +92,8 @@ const MainHeader = ({title, empty, open, refetch}) => {
                       <div className='border-b-[1px] pb-2 border-black-100' key={notification._id}>
                         <p className='text-black-100 my-2 font-normal'>{notification.user_email} wants to add you as a moderator to his election "{notification.election_title}</p>
                         <div className='flex gap-4'>
-                          <VscWorkspaceTrusted className='text-green text-[24px] hover:text-black-100 duration-150' onClick={() => acceptRequest(notification.election_id)} />
-                          <VscWorkspaceUntrusted className='text-red text-[24px] hover:text-black-100 duration-150' onClick={() => rejectRequest(notification.election_id)} />
+                          <IoCheckmarkCircleOutline className='text-green text-[24px] hover:text-black-100 duration-150' onClick={() => acceptRequest(notification.election_id)} />
+                          <IoCloseCircleOutline className='text-red text-[24px] hover:text-black-100 duration-150' onClick={() => rejectRequest(notification.election_id)} />
                         </div>
                       </div>
                       ))}
