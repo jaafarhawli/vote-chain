@@ -41,22 +41,22 @@ const Dashboard = () => {
           <h2 className='text-purple-100 mt-8 text-[22px] font-semibold'>Election Appliance URL</h2>
           <CopyData value={`http://localhost:3000/survey/${election.code}`} onClick={(value) => copyTextToClipboard(value)} />
         </div>
-        <div className='text-black-100 border-black-200 border-2 rounded-lg shadow-xl p-3  text-[24px] font-bold  flex  max-h-[170px] gap-6 h-fit justify-between'>
+        <div className='bg-bg/50 border-2 rounded-lg shadow-xl p-3  text-[24px] font-bold  flex  max-h-[170px] gap-6 h-fit justify-between'>
             <div className='text-center flex flex-col gap-2 items-center'>
               <h1>Voters</h1>
-              <div className='rounded-lg w-full border-2 py-1 border-purple-100 flex items-center justify-center min-w-[130px]'>
+              <div className='rounded-lg w-full py-1  flex items-center justify-center min-w-[130px]'>
                 {data?.voters}
               </div>
             </div>
             <div className='text-center flex flex-col gap-2 items-center'>
               <h1>Parties</h1>
-              <div className='rounded-lg w-full border-2 py-1 border-purple-100 flex items-center justify-center min-w-[130px]'>
+              <div className='rounded-lg w-full py-1  flex items-center justify-center min-w-[130px]'>
                 {data?.parties}
               </div>
             </div>
             <div className='text-center flex flex-col gap-2 items-center'>
               <h1>Candidates</h1>
-              <div className='rounded-lg w-full border-2 py-1 border-purple-100 flex items-center justify-center min-w-[130px]'>
+              <div className='rounded-lg w-full py-1  flex items-center justify-center min-w-[130px]'>
                 {data?.candidates}
               </div>
             </div>

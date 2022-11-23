@@ -95,9 +95,11 @@ const Parties = () => {
     return (
         <>
         <AddPartyModal open={partyModal} closeModal={closeModal}    refetch={refetch} />
-        <div className='pl-[330px] pt-[150px] pr-6'>
+        <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
+        <div className='w-[98%] mx-auto px-8 '>
             <h1 className='text-[28px] font-bold'>Parties</h1>
             <EmptyState title={'No Parties'} button={'Add party'} disabled={launched} onClick={openModal} >You don’t have any parties, add one now!</EmptyState>
+        </div>
         </div>
         </>
     );
