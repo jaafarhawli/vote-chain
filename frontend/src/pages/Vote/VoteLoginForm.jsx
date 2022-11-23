@@ -77,15 +77,15 @@ const VoteLoginForm = () => {
   }
 
   return (
-    <div className='bg-gradient-to-br from-white/30 to-white/10 w-[450px]  rounded-xl flex flex-col items-center p-6 pb-10 backdrop-blur-2xl shadow-2xl before:absolute before:bg-white/[15%] before:inset-0 before:rotate-[-5deg] before:-z-[1] before:rounded-xl neon'>
+    <div className='bg-gradient-to-br from-white/50 to-white/30 w-[450px]  rounded-xl flex flex-col items-center p-6 pb-10 backdrop-blur-2xl shadow-2xl before:absolute before:bg-white/[15%] before:inset-0 before:rotate-[-5deg] before:-z-[1] before:rounded-xl neon'>
       <img src={logo} alt="logo" className='w-[180px]' />
       <div className='bg-white h-[2px] w-[180px]'></div>  
       <h1 className='my-4 text-2xl font-semibold text-white'>Welcome!</h1>  
       <h1 className={error? 'text-red ' : 'hidden'}>{message}</h1>
       <form className='w-4/5 flex flex-col gap-5 '>
-          <FormInput type="text" textStyle='text-purple-200' className='border-0' onChange={e => setCode(e.target.value)}>Election Code</FormInput>          
-          <FormInput type="text" textStyle='text-purple-200' className='border-0' onChange={e => setId(e.target.value)}>ID</FormInput>          
-          <FormInput type="text" textStyle='text-purple-200' className='border-0' onChange={e => setKey(e.target.value)}>Key</FormInput>                
+          <FormInput type="text" error={error} required={true} textStyle='text-purple-200' className='border-0' onChange={e => setCode(e.target.value)}>Election Code</FormInput>          
+          <FormInput type="text" error={error} required={true} textStyle='text-purple-200' className='border-0' onChange={e => setId(e.target.value)}>ID</FormInput>          
+          <FormInput type="text" error={error} required={true} textStyle='text-purple-200' className='border-0' onChange={e => setKey(e.target.value)}>Key</FormInput>                
           <Button className='bg-cyan' onClick={handleSubmit}>Join</Button>
       </form> 
     </div>
