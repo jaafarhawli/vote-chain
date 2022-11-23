@@ -11,6 +11,7 @@ import { viewElection as view } from '../../redux/election';
 import { ToastContainer } from 'react-toastify';
 import { checkIfLaunched } from '../../Web3Client';
 import { useSelector } from 'react-redux';
+import Loader from '../../components/Reusable/Loader';
 
 const UserElections = () => {
 
@@ -20,7 +21,7 @@ const UserElections = () => {
 
   const [electionModal, setElectionModal] = useState(false);
 
-  const {data: admin_elections, refetch} = useQuery(["elections"], async () => {
+  const {data: admin_elections, refetch, isLoading} = useQuery(["elections"], async () => {
     return axios.get(`election/${user.id}`, {
                 headers: {
                   Authorization: `bearer ${localStorage.token}`
@@ -59,8 +60,12 @@ const closeModal = () => {
   document.body.style.overflow = 'unset';
 }
 
-if(admin_elections?.length===0) 
+
+
 return (
+  <>
+  {
+  admin_elections?.length===0 ?
     <div>
       <CreateElection open={electionModal} closeModal={closeModal} refetch={refetch} />
       <div className='bg-bg lg:px-28 md:px-10 px-4 pt-6 min-h-screen'>
@@ -69,21 +74,24 @@ return (
       </div>
       <ToastContainer autoClose={4000} hideProgressBar={true} position="top-right" limit={1} />
     </div>
-)
-
-  return (
+    :
     <div>
       <CreateElection open={electionModal} closeModal={closeModal} refetch={refetch} />
       <div className='bg-bg lg:px-28 md:px-10 px-4 pt-6 min-h-screen'>
         <MainHeader empty={false} title={'Your Elections'} open={openModal} refetch={refetch} />
+        {isLoading ? 
+        <Loader loading={isLoading} />
+        :
         <div className='grid md:grid-cols-2 gap-4  w-full py-8'>
         {admin_elections?.map((election) => (
             <ElectionCard onClick={() => viewElection(election._id)} id={election._id} title={election.title} start_time={election.start_time} end_time={election.end_time} key={election._id} />
         ))}
       </div>
+      }
       </div>
       <ToastContainer autoClose={4000} hideProgressBar={true} position="top-right" limit={1} />
-    </div>
+    </div>}
+    </>
   );
 }
 
