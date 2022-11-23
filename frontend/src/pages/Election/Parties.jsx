@@ -8,6 +8,7 @@ import EmptyState from '../../components/Reusable/EmptyState';
 import Table from '../../components/Reusable/Table';
 import AddCandidate from '../../components/Modals/AddCandidate';
 import { useSelector } from 'react-redux';
+import Loader from '../../components/Reusable/Loader';
 
 const Parties = () => {
 
@@ -31,7 +32,7 @@ const Parties = () => {
       }
 
 
-    const {data, refetch} = useQuery(["parties"], async () => {
+    const {data, refetch, isLoading} = useQuery(["parties"], async () => {
         return axios.get(`party/${election.id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
@@ -91,8 +92,14 @@ const Parties = () => {
             }
         }
 
-    if(data?.length === 0)
     return (
+      <>
+      {isLoading ? 
+      <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
+        <Loader loading={isLoading} />
+      </div>
+      :
+      data?.length === 0 ? 
         <>
         <AddPartyModal open={partyModal} closeModal={closeModal}    refetch={refetch} />
         <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
@@ -102,10 +109,7 @@ const Parties = () => {
         </div>
         </div>
         </>
-    );
-
-
-  return (
+      :
     <>
     <ConfirmModal  open={confirmModal} closeModal={closeConfirm} click={deleteParty} text={"Are you sure you want to delete this party?"} />
     <AddPartyModal open={partyModal} closeModal={closeModal}  refetch={refetch} />
@@ -120,6 +124,7 @@ const Parties = () => {
             <Table data={filteredData} party={true} remove={(id) => openConfirmModal(id)} addCandidate={(id) => openCandidateModal(id)} />
     </div>
     </div>
+    </>}
     </>
   );
 }
