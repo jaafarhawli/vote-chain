@@ -1,14 +1,13 @@
 import React from 'react';
 import RegisterForm from './RegisterForm';
-import banner from '../../assets/banner.png';
+import bg from '../../assets/register2.png';
 
 const Register = () => {
   return (
-    <div className='bg-gradient-to-r from-purple-100 to-purple-200  flex w-full h-screen justify-center items-center md:justify-between'>
+    <div className='bg-no-repeat bg-center bg-cover  flex w-full h-screen justify-center items-center md:justify-between' style={{backgroundImage: `url("${bg}")`}}>
       <div className='flex md:w-1/2 justify-center items-center'>
           <RegisterForm className='' />
       </div>
-      <img src={banner} alt="/" className='hidden md:flex w-1/2 object-cover h-full' />
     </div>
   );
 }
