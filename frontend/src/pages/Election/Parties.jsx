@@ -95,9 +95,7 @@ const Parties = () => {
     return (
       <>
       {isLoading ? 
-      <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
-        <Loader loading={isLoading} />
-      </div>
+      <Loader loading={isLoading} admin={true} />
       :
       data?.length === 0 ? 
         <>
