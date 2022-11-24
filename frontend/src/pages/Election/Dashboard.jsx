@@ -6,6 +6,7 @@ import axios from '../../api/axios';
 import CopyData from '../../components/Reusable/CopyData';
 import { useSelector } from 'react-redux';
 import BlockchainStatistics from '../../components/Reusable/BlockchainStatistics';
+import Loader from '../../components/Reusable/Loader';
 
 const Dashboard = () => {
 
@@ -20,7 +21,7 @@ const Dashboard = () => {
         }
       }  
 
-      const {data} = useQuery(["numerics"], async () => {
+      const {data, isLoading} = useQuery(["numerics"], async () => {
          return axios.get(`statistics/${election.id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
@@ -29,6 +30,12 @@ const Dashboard = () => {
       })
 
     return (
+    <>
+    {isLoading ? 
+    <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
+      <Loader loading={isLoading} />
+    </div>
+    :
     <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
     <div className='w-[98%] mx-auto px-8 '>
       <h1 className='text-[28px] font-bold'>Election Dashboard</h1>
@@ -65,7 +72,8 @@ const Dashboard = () => {
       <BlockchainStatistics electionAddress={election.address} />
       <ToastContainer autoClose={1000} hideProgressBar={true} position="bottom-center" />
     </div>
-    </div>
+    </div>}
+    </>
   );
 }
 
