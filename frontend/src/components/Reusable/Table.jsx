@@ -11,7 +11,9 @@ const Table = (props) => {
                     <>
                     <th>Email</th>
                     <th>Wallet Address</th>
+                    {props.admin ?
                     <th></th>
+                    : null}
                     </>
                     :
                     props.party?
@@ -33,7 +35,10 @@ const Table = (props) => {
                     <th>Email</th>
                     <th>ID</th>
                     <th>Wallet Address</th>
+                    {props.admin ?
                     <th></th>
+                    :
+                    null}
                     </> : null
                     }
                 </tr>
