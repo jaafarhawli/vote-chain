@@ -5,7 +5,7 @@ import logo from '../../assets/VOTE CHAIN-logo-white.png';
 import Button from '../Reusable/Button';
 import SuccessModal from './SuccessModal';
 import { useSelector } from 'react-redux';
-import FormLabelInput from '../Reusable/FormLabelInput';
+import FormInput from '../Reusable/FormInput';
 
 const ChangePassword = ({open, closeModal}) => {
 
@@ -70,9 +70,9 @@ const ChangePassword = ({open, closeModal}) => {
       <div className='bg-white h-[2px] w-[180px]'></div>  
       <h1 className='my-4 text-2xl font-semibold text-purple-100'>Change Password</h1>  
       <form className='w-4/5 flex flex-col gap-5 '>
-            <FormLabelInput type="password" textStyle='text-white' onChange={e => setOldPassword(e.target.value)}>Old Password</FormLabelInput>
-            <FormLabelInput type="password" textStyle='text-white' onChange={e => setPassword(e.target.value)}>New Password</FormLabelInput>
-            <FormLabelInput type="password" textStyle='text-white' onChange={e => setConfirm(e.target.value)}>Confirm New Password</FormLabelInput>
+            <FormInput type="password" textStyle='text-white' onChange={e => setOldPassword(e.target.value)}>Old Password</FormInput>
+            <FormInput type="password" textStyle='text-white' onChange={e => setPassword(e.target.value)}>New Password</FormInput>
+            <FormInput type="password" textStyle='text-white' onChange={e => setConfirm(e.target.value)}>Confirm New Password</FormInput>
             <Button className=' bg-cyan' onClick={changePassword} disabled={disabled}>Save changes</Button>
       </form> 
      </div>

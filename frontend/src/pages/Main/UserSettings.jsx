@@ -118,7 +118,7 @@ const deleteAccount = async () => {
     if(email!==user.email && email!=='')
     setDisabled(false);
 
-  }, [firstname, lastname, email, save, user]);
+  }, [firstname, lastname, email, save, user, passwordModal]);
 
   return (
     <div>
@@ -128,7 +128,7 @@ const deleteAccount = async () => {
       <div className='bg-bg lg:px-28 md:px-10 px-4 pt-6 min-h-screen flex flex-col gap-12'>
       <MainHeader title={'Account Settings'} empty={true} />
       <div className='w-full flex justify-center'>
-      <form className='lg:w-[600px] w-[400px] flex flex-col gap-5 lg:px-28 md:px-10 px-4 neon py-6'>
+      <form className={passwordModal ? 'lg:w-[600px] w-[400px] flex flex-col gap-5 lg:px-28 md:px-10 px-4 py-6' : 'lg:w-[600px] w-[400px] flex flex-col gap-5 lg:px-28 md:px-10 px-4 neon py-6'}>
           <h1 className='text-[28px] font-semibold text-purple-100 text-center'>Account Info</h1>
             <FormInput type="text" textStyle='text-white' onChange={e => setFirstname(e.target.value)} defaultValue={user.firstName}>First Name</FormInput>
             <FormInput type="text" textStyle='text-white' defaultValue={user.lastName}  onChange={e => setLastname(e.target.value)}>Last Name</FormInput>
