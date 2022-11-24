@@ -20,6 +20,7 @@ const UserElections = () => {
   const user = useSelector((state) => state.user.value);
 
   const [electionModal, setElectionModal] = useState(false);
+  const [loadingElection, setLoadingElection] = useState(false);
 
   const {data: admin_elections, refetch, isLoading} = useQuery(["elections"], async () => {
     return axios.get(`election/${user.id}`, {
@@ -30,6 +31,7 @@ const UserElections = () => {
   })
 
 const viewElection = async (id) => {
+    setLoadingElection(true);
     const election = await axios.get(`election/${user.id}/${id}`, {
     headers: {
       Authorization: `bearer ${localStorage.token}`
@@ -47,6 +49,7 @@ const viewElection = async (id) => {
       description: election.data.data.description,
       address: election.data.data.contract_address
     }));
+    setLoadingElection(false);
     navigate('admin/election/dashboard')
 }
 
@@ -77,10 +80,10 @@ return (
     :
     <div>
       <CreateElection open={electionModal} closeModal={closeModal} refetch={refetch} />
-      <div className='bg-bg lg:px-28 md:px-10 px-4 pt-6 min-h-screen'>
+      <div className='bg-bg lg:px-28 md:px-10 px-4 pt-6 min-h-screen flex flex-col'>
         <MainHeader empty={false} title={'Your Elections'} open={openModal} refetch={refetch} />
-        {isLoading ? 
-        <Loader loading={isLoading} />
+        {isLoading || loadingElection ? 
+        <Loader />
         :
         <div className='grid md:grid-cols-2 gap-4  w-full py-8'>
         {admin_elections?.map((election) => (

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useQuery} from '@tanstack/react-query';
 import axios from '../../api/axios';
 import { useNavigate } from 'react-router-dom';
@@ -16,6 +16,7 @@ const ModeratorElections = () => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const [loadingElection, setLoadingElection] = useState(false);
     const user = useSelector((state) => state.user.value);
 
     const {data, refetch, isLoading} = useQuery(["moderatorElections"], async () => {
@@ -27,6 +28,7 @@ const ModeratorElections = () => {
     })
 
     const viewElection = async (id) => {
+      setLoadingElection(true);
       const election = await axios.get(`election/moderator/${user.id}/${id}`, {
         headers: {
           Authorization: `bearer ${localStorage.token}`
@@ -43,6 +45,7 @@ const ModeratorElections = () => {
         launched: isLaunched,
         address: election.data.data.contract_address
       }));
+      setLoadingElection(false);
       navigate('/main/moderator/election/dashboard')
     }
 
@@ -60,8 +63,8 @@ const ModeratorElections = () => {
         <div>
           <div className='bg-bg lg:px-28 md:px-10 px-4 pt-6 min-h-screen'>
           <MainHeader empty={true} title={'Moderator Elections'} refetch={refetch} />
-          {isLoading ? 
-          <Loader loading={isLoading} />
+          {isLoading || loadingElection ? 
+          <Loader />
           :
           <div className=' grid md:grid-cols-2 gap-4 mt-8'>
           {data?.map((election) => (

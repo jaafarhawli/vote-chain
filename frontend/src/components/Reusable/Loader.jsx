@@ -15,7 +15,7 @@ const Loader = ({loading, admin}) => {
       />
     </div>
     :
-    <div className='flex w-full h-full justify-center items-center mt-12'>
+    <div className='flex w-full h- flex-1 justify-center items-center'>
       <PropagateLoader
         color={'#6B81FF'}
         loading={loading}
