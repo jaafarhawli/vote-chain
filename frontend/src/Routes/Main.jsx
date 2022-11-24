@@ -7,6 +7,7 @@ import UserSettings from '../pages/Main/UserSettings';
 import ModeratorElection from './ModeratorElection';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ProtectedRoutes from './ProtectedRoutes';
 
 const Main = ({socket}) => {
 
@@ -28,11 +29,13 @@ const Main = ({socket}) => {
   return (
     <div>
         <Routes>
+          <Route element={<ProtectedRoutes />}>
             <Route path='/' element={<UserElections />} />
             <Route path='/moderate' element={<ModeratorElections />} />
             <Route path='/settings' element={<UserSettings socket={socket} />} />
             <Route path='/admin/election/*' element={<AdminElection socket={socket} />} />
             <Route path='/moderator/election/*' element={<ModeratorElection />} />
+          </Route>
         </Routes>
     </div>
   );
