@@ -21,7 +21,7 @@ const Dashboard = () => {
         }
       }  
 
-      const {data, isLoading} = useQuery(["numerics"], async () => {
+      const {data, isFetching} = useQuery(["numerics"], async () => {
          return axios.get(`statistics/${election.id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
@@ -31,8 +31,8 @@ const Dashboard = () => {
 
     return (
     <>
-    {isLoading ? 
-    <Loader loading={isLoading} admin={true} />
+    {isFetching ? 
+    <Loader loading={isFetching} admin={true} />
     :
     <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
     <div className='w-[98%] mx-auto px-8 '>

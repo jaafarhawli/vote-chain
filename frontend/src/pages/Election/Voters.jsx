@@ -62,7 +62,7 @@ const Voters = (props) => {
             }
     }
 
-    const {data, refetch, isLoading} = useQuery(["voters"], async () => {
+    const {data, refetch, isFetching} = useQuery(["voters"], async () => {
         return axios.get(`voter/voters/${election.id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
@@ -80,8 +80,8 @@ const Voters = (props) => {
   return (
     <>
     {
-    isLoading ? 
-    <Loader loading={isLoading} admin={true} />
+    isFetching ? 
+    <Loader loading={isFetching} admin={true} />
     :
     data?.length===0 ?
     <>

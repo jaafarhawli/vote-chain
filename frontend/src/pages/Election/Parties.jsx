@@ -32,7 +32,7 @@ const Parties = () => {
       }
 
 
-    const {data, refetch, isLoading} = useQuery(["parties"], async () => {
+    const {data, refetch, isFetching} = useQuery(["parties"], async () => {
         return axios.get(`party/${election.id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
@@ -94,8 +94,8 @@ const Parties = () => {
 
     return (
       <>
-      {isLoading ? 
-      <Loader loading={isLoading} admin={true} />
+      {isFetching ? 
+      <Loader loading={isFetching} admin={true} />
       :
       data?.length === 0 ? 
         <>

@@ -1,3 +1,4 @@
+/* eslint-disable */ 
 import React, {useState, useEffect} from 'react';
 import {IoClose} from 'react-icons/io5';
 import axios from '../../api/axios';

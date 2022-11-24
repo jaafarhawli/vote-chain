@@ -35,7 +35,7 @@ const Applicants = (props) => {
         }
     }
 
-    const {data, refetch, isLoading} = useQuery(["applicants"], async () => {
+    const {data, refetch, isFetching} = useQuery(["applicants"], async () => {
         return axios.get(`election/view/applyers/${election.id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
@@ -53,8 +53,8 @@ const Applicants = (props) => {
   return (
     <>
     {
-    isLoading ? 
-    <Loader loading={isLoading} admin={true} />
+    isFetching ? 
+    <Loader loading={isFetching} admin={true} />
     :
     data?.length===0 ?
     <>

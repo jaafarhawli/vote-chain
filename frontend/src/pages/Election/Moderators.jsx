@@ -29,7 +29,7 @@ const Moderators = ({socket}) => {
         document.body.style.overflow = 'unset';
       }
     
-    const {data, refetch, isLoading} = useQuery(["moderators"], async () => {
+    const {data, refetch, isFetching} = useQuery(["moderators"], async () => {
         return axios.get(`moderator/${election.id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
@@ -82,8 +82,8 @@ const Moderators = ({socket}) => {
     return (
         <>
         {
-        isLoading ? 
-        <Loader loading={isLoading} admin={true} />
+        isFetching ? 
+        <Loader loading={isFetching} admin={true} />
         :
         data?.length === 0 ?
         <>

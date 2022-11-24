@@ -16,7 +16,7 @@ const Candidates = () => {
     const [confirmModal, setConfirmModal] = useState(false);
     const launched = election.launched===true;
     
-    const {data, refetch, isLoading} = useQuery(["candidates"], async () => {
+    const {data, refetch, isFetching} = useQuery(["candidates"], async () => {
         return axios.get(`candidate/${election.id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
@@ -69,8 +69,8 @@ const Candidates = () => {
     return (
       <>
       {
-      isLoading ? 
-      <Loader loading={isLoading} admin={true} />
+      isFetching ? 
+      <Loader loading={isFetching} admin={true} />
       :
       data?.length===0 ? <>
         <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
