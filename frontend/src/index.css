@@ -21,12 +21,12 @@
 }
 
 .hero {
-	background-image: url("assets/backgroundcurve.svg");
+	background-image: url("assets/Group47.svg");
 }
 
 @media (max-width: 640px) {
 	.hero {
-	  background-image: url("assets/backgroundcurve-sm.svg");
+	  background-image: url("assets/Group47.svg");
 	}
   }
 
@@ -51,6 +51,32 @@ th {
     padding: 8px;
 	
 }
+
+tr:nth-child(odd):hover.party {
+    background-color: #eaeaea;
+}
+
 tr:nth-child(even) {
     background-color: #D3DCFF;
+}
+
+tr:nth-child(even):hover.party {
+    background-color: #bbc7fa;
+}
+
+.neon {
+	box-shadow: 0 0 .2rem #fff,
+            0 0 .2rem #fff,
+            0 0 2rem #00B8FF,
+            0 0 0.8rem #00B8FF,
+            0 0 2.8rem #00B8FF,
+            inset 0 0 1.3rem #00B8FF; 
+}
+
+.MuiFormLabel-root.Mui-focused {
+	color: #9ce3ff !important;
+  }
+
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {	
+	border-color: #9ce3ff !important;
 }

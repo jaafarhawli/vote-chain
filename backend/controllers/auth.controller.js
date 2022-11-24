@@ -42,8 +42,32 @@ const voterLogin = async (req, res)=>{
     res.status(200).json(token);
 }
 
+const checkToken = async (req, res) => {
+    const {token} = req.body;
+    try{
+      const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+      const user = await User.findOne({email: decoded.email}).lean();
+      return res.status(200).json({data: user});
+    } catch(err){
+      return res.status(401).json({message: "Unauthorized"})
+    }
+  }
+
+  const checkVoterToken = async (req, res) => {
+    const {token} = req.body;
+    try{
+      const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+      const voter = await Voter.findOne({voter_id: decoded.voter_id}).lean();
+      return res.status(200).json({data: voter});
+    } catch(err){
+      return res.status(401).json({message: "Unauthorized"})
+    }
+  }
+
 
 module.exports = {
     login,
     voterLogin,
+    checkToken,
+    checkVoterToken
 }

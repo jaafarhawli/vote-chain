@@ -5,6 +5,7 @@ import EmptyState from '../../components/Reusable/EmptyState';
 import Button from '../../components/Reusable/Button';
 import Table from '../../components/Reusable/Table';
 import { useSelector } from 'react-redux';
+import Loader from '../../components/Reusable/Loader';
 
 const Applicants = (props) => {
     
@@ -34,7 +35,7 @@ const Applicants = (props) => {
         }
     }
 
-    const {data, refetch} = useQuery(["applicants"], async () => {
+    const {data, refetch, isFetching} = useQuery(["applicants"], async () => {
         return axios.get(`election/view/applyers/${election.id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
@@ -51,16 +52,23 @@ const Applicants = (props) => {
 
   return (
     <>
-    {data?.length===0 ?
+    {
+    isFetching ? 
+    <Loader loading={isFetching} admin={true} />
+    :
+    data?.length===0 ?
     <>
-    <div className='pl-[330px] pt-[150px] pr-6'>
+    <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
+    <div className='w-[98%] mx-auto px-8 '>
         <h1 className='text-[28px] font-bold'>Applicants</h1>
         <EmptyState title={'No Applicants'}>You don’t have any applicants</EmptyState>
+    </div>
     </div>
     </>
     : 
     <>
-    <div className='pl-[330px] pt-[150px] pr-6'>
+    <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
+    <div className='w-[98%] mx-auto px-8 '>
         <div className='flex justify-between items-center w-full'>
           <h1 className='text-[28px] font-bold'>Applicants</h1>
           <Button add={true} disabled={launched} >Add Applicant</Button>
@@ -72,6 +80,7 @@ const Applicants = (props) => {
         :
         <Table data={filteredData} applicants={true} remove={(id) => removeApplicant(id)} />
         }
+    </div>
     </div>
     </>
     }     

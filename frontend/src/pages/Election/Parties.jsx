@@ -8,6 +8,7 @@ import EmptyState from '../../components/Reusable/EmptyState';
 import Table from '../../components/Reusable/Table';
 import AddCandidate from '../../components/Modals/AddCandidate';
 import { useSelector } from 'react-redux';
+import Loader from '../../components/Reusable/Loader';
 
 const Parties = () => {
 
@@ -31,7 +32,7 @@ const Parties = () => {
       }
 
 
-    const {data, refetch} = useQuery(["parties"], async () => {
+    const {data, refetch, isFetching} = useQuery(["parties"], async () => {
         return axios.get(`party/${election.id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
@@ -91,24 +92,28 @@ const Parties = () => {
             }
         }
 
-    if(data?.length === 0)
     return (
+      <>
+      {isFetching ? 
+      <Loader loading={isFetching} admin={true} />
+      :
+      data?.length === 0 ? 
         <>
         <AddPartyModal open={partyModal} closeModal={closeModal}    refetch={refetch} />
-        <div className='pl-[330px] pt-[150px] pr-6'>
+        <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
+        <div className='w-[98%] mx-auto px-8 '>
             <h1 className='text-[28px] font-bold'>Parties</h1>
             <EmptyState title={'No Parties'} button={'Add party'} disabled={launched} onClick={openModal} >You don’t have any parties, add one now!</EmptyState>
         </div>
+        </div>
         </>
-    );
-
-
-  return (
+      :
     <>
     <ConfirmModal  open={confirmModal} closeModal={closeConfirm} click={deleteParty} text={"Are you sure you want to delete this party?"} />
     <AddPartyModal open={partyModal} closeModal={closeModal}  refetch={refetch} />
     <AddCandidate open={candidateModal} closeModal={closeCandidateModal} />
-    <div className='pl-[330px] pt-[150px] pr-6'>
+    <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
+    <div className='w-[98%] mx-auto px-8 '>
         <div className='flex justify-between items-center w-full'>
           <h1 className='text-[28px] font-bold'>Parties</h1>
           <Button onClick={openModal} add={true} disabled={launched}>Add Party</Button>
@@ -116,6 +121,8 @@ const Parties = () => {
             <input type="search" className='border-2 border-[#dddddd] w-1/3 rounded-md mt-4' placeholder='Search moderator by email' onChange={e => setSearch(e.target.value)} />
             <Table data={filteredData} party={true} remove={(id) => openConfirmModal(id)} addCandidate={(id) => openCandidateModal(id)} />
     </div>
+    </div>
+    </>}
     </>
   );
 }

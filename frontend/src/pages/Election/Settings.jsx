@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
 import Button from '../../components/Reusable/Button';
-import FormInput from '../../components/Reusable/FormInput';
 import axios from '../../api/axios';
 import SuccessModal from '../../components/Modals/SuccessModal';
 import ConfirmModal from '../../components/Modals/ConfirmModal';
@@ -10,6 +9,7 @@ import Flatpickr from "react-flatpickr";
 import { useSelector, useDispatch } from 'react-redux';
 import {viewElection} from '../../redux/election';
 import { changeTimeInterval } from '../../Web3Client';
+import FormLabelInput from '../../components/Reusable/FormLabelInput';
 require("flatpickr/dist/themes/material_blue.css");
 
 const Settings = () => {
@@ -161,22 +161,23 @@ const Settings = () => {
            setSuccessModal(false);
            document.body.style.overflow = 'unset';
         }} />
-    <div className='pl-[330px] pt-[150px] pr-6 flex flex-col'>
+    <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
+    <div className='w-[98%] mx-auto px-8 '>
         <div className='flex justify-between items-center w-full'>
           <h1 className='text-[28px] font-bold'>Settings</h1>
           <Button className='bg-red' disabled={launched} onClick={() => setConfirmModal(true)}>Delete Election</Button>
         </div>
-        <form className='w-[400px] flex flex-col gap-5 mt-12'>
-          <FormInput type="text" onChange={e => setTitle(e.target.value)} defaultValue={election.title} >Election title</FormInput>          
+        <form className='w-1/2 flex flex-col gap-5 mt-12'>
+        <FormLabelInput type="text" onChange={e => setTitle(e.target.value)} defaultValue={election.title} >Election title</FormLabelInput>       
           <label>
             <p className='font-semibold'>Description</p>
             <textarea defaultValue={election.description? election.description : ""} onChange={e => setDescription(e.target.value)} className='w-full border-[1px] border-black-200 outline-none rounded-sm p-4 text-[16px]' />
           </label>
-          <Button className='bg-cyan' disabled={disabled || launched} onClick={saveInfo} >Save Changes</Button>
+          <Button className='bg-cyan w-1/2 self-start' disabled={disabled || launched} onClick={saveInfo} >Save Changes</Button>
       </form> 
-      <form className='w-[400px] flex flex-col gap-5 mt-12'>
-        <div className='flex gap-2'>
-            <label>
+      <form className='w-1/2 flex flex-col gap-5 mt-12'>
+        <div className='flex gap-2 w-full'>
+            <label className='flex-1'>
                 <p className='font-semibold'>Start date</p>
                 <Flatpickr
                   data-enable-time
@@ -187,7 +188,7 @@ const Settings = () => {
                 }
                 />
             </label>
-            <label>
+            <label className='flex-1'>
                 <p className='font-semibold'>End date</p>
                 <Flatpickr
                   data-enable-time
@@ -199,8 +200,9 @@ const Settings = () => {
                 />
             </label>
           </div>
-          <Button className='bg-cyan' disabled={timeDisabled || launched} onClick={changeTime} >Change Time Interval</Button>
+          <Button className='bg-cyan w-1/2 self-start' disabled={timeDisabled || launched} onClick={changeTime} >Change Time Interval</Button>
       </form>
+    </div>
     </div>
     </>
   );

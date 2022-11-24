@@ -118,25 +118,29 @@ const deleteAccount = async () => {
     if(email!==user.email && email!=='')
     setDisabled(false);
 
-  }, [firstname, lastname, email, save, user]);
+  }, [firstname, lastname, email, save, user, passwordModal]);
 
   return (
     <div>
       <ConfirmModal open={openConfirmModal} closeModal={closeModal} click={deleteAccount} text={"Are you sure you want to delete your account?"} />
       <SuccessModal open={successModal} message={message} error={isError} closeSuccess={() => setSuccessModal(false)} />
       <ChangePassword open={passwordModal} closeModal={closePassword} />
+      <div className='bg-bg lg:px-28 md:px-10 px-4 pt-6 min-h-screen flex flex-col gap-12'>
       <MainHeader title={'Account Settings'} empty={true} />
-      <form className='lg:w-[600px] w-[400px] flex flex-col gap-5 lg:px-28 md:px-10 px-4'>
-          <h1 className='text-[28px] font-semibold text-purple-100'>Account Info</h1>
-            <FormInput type="text" onChange={e => setFirstname(e.target.value)} defaultValue={user.firstName}>First Name</FormInput>
-            <FormInput type="text" defaultValue={user.lastName}  onChange={e => setLastname(e.target.value)}>Last Name</FormInput>
-            <FormInput type="text" defaultValue={user.email}  onChange={e => setEmail(e.target.value)}>Email</FormInput>
+      <div className='w-full flex justify-center'>
+      <form className={passwordModal ? 'lg:w-[600px] w-[400px] flex flex-col gap-5 lg:px-28 md:px-10 px-4 py-6' : 'lg:w-[600px] w-[400px] flex flex-col gap-5 lg:px-28 md:px-10 px-4 neon py-6'}>
+          <h1 className='text-[28px] font-semibold text-purple-100 text-center'>Account Info</h1>
+            <FormInput type="text" textStyle='text-white' onChange={e => setFirstname(e.target.value)} defaultValue={user.firstName}>First Name</FormInput>
+            <FormInput type="text" textStyle='text-white' defaultValue={user.lastName}  onChange={e => setLastname(e.target.value)}>Last Name</FormInput>
+            <FormInput type="text" textStyle='text-white' defaultValue={user.email}  onChange={e => setEmail(e.target.value)}>Email</FormInput>
           <Button className=' bg-cyan' onClick={saveInfo} disabled={disabled} >Save changes</Button>
           <p className='font-semibold text-purple-100 hover:underline select-none cursor-pointer mb-4' onClick={openPassword} >Change Password?</p>
           <Button className='bg-red flex-1 hover:bg-red/80'  onClick={openModal} >Delete Account</Button>
           <Button className='bg-red flex-1 hover:bg-red/80'  onClick={logout} >Log out</Button>
-        </form>   
+        </form> 
+        </div>  
         <ToastContainer autoClose={4000} hideProgressBar={true} position="top-right" limit={1} />
+    </div>
     </div>
   );
 }

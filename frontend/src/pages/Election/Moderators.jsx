@@ -7,6 +7,7 @@ import ConfirmModal from '../../components/Modals/ConfirmModal';
 import EmptyState from '../../components/Reusable/EmptyState';
 import Table from '../../components/Reusable/Table';
 import { useSelector } from 'react-redux';
+import Loader from '../../components/Reusable/Loader';
 
 const Moderators = ({socket}) => {
 
@@ -28,7 +29,7 @@ const Moderators = ({socket}) => {
         document.body.style.overflow = 'unset';
       }
     
-    const {data, refetch} = useQuery(["moderators"], async () => {
+    const {data, refetch, isFetching} = useQuery(["moderators"], async () => {
         return axios.get(`moderator/${election.id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
@@ -78,32 +79,37 @@ const Moderators = ({socket}) => {
             }
         }
 
-        
-      
-
-    if(data?.length === 0)
     return (
         <>
+        {
+        isFetching ? 
+        <Loader loading={isFetching} admin={true} />
+        :
+        data?.length === 0 ?
+        <>
         <AddModerator open={moderatorModal} closeModal={closeModal} refetch={refetch} socket={socket} />
-        <div className='pl-[330px] pt-[150px] pr-6'>
+        <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
+        <div className='w-[98%] mx-auto px-8 '>
             <h1 className='text-[28px] font-bold'>Moderators</h1>
             <EmptyState title={'No Moderators'} button={'Add moderator'} disabled={launched} onClick={openModal} >You don’t have any moderators, add one now!</EmptyState>
         </div>
+        </div>
         </>
-    );
-
-  return (
+        :
         <>
         <ConfirmModal  open={confirmModal} closeModal={closeConfirm} click={deleteModerator} text={"Are you sure you want to delete this moderator?"} />
         <AddModerator open={moderatorModal} closeModal={closeModal} refetch={refetch} socket={socket} />
-    <div className='pl-[330px] pt-[150px] pr-6'>
+        <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
+        <div className='w-[98%] mx-auto px-8 '> 
         <div className='flex justify-between items-center w-full'>
           <h1 className='text-[28px] font-bold'>Moderators</h1>
           <Button onClick={openModal} add={true} disabled={launched}>Add Moderator</Button>
         </div>
             <input type="search" className='border-2 border-[#dddddd] w-1/3 rounded-md mt-4' placeholder='Search moderator by email' onChange={e => setSearch(e.target.value)} />
         <Table data={filteredData} moderator={true} remove={(id) => openConfirmModal(id)} />
+        </div>
     </div>
+    </>}
     </>
   );
 }

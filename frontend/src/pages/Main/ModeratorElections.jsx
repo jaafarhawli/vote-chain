@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useQuery} from '@tanstack/react-query';
 import axios from '../../api/axios';
 import { useNavigate } from 'react-router-dom';
@@ -10,14 +10,16 @@ import { useDispatch } from 'react-redux';
 import { viewElection as view } from '../../redux/election';
 import { checkIfLaunched } from '../../Web3Client';
 import { useSelector } from 'react-redux';
+import Loader from '../../components/Reusable/Loader';
 
 const ModeratorElections = () => {
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const [loadingElection, setLoadingElection] = useState(false);
     const user = useSelector((state) => state.user.value);
 
-    const {data, refetch} = useQuery(["moderatorElections"], async () => {
+    const {data, refetch, isLoading} = useQuery(["moderatorElections"], async () => {
         return axios.get(`election/moderator/${user.id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
@@ -26,6 +28,7 @@ const ModeratorElections = () => {
     })
 
     const viewElection = async (id) => {
+      setLoadingElection(true);
       const election = await axios.get(`election/moderator/${user.id}/${id}`, {
         headers: {
           Authorization: `bearer ${localStorage.token}`
@@ -42,28 +45,36 @@ const ModeratorElections = () => {
         launched: isLaunched,
         address: election.data.data.contract_address
       }));
+      setLoadingElection(false);
       navigate('/main/moderator/election/dashboard')
     }
 
-    if(data?.length===0) 
     return (
+        <>
+        {data?.length===0 ? 
         <div>
+          <div className='bg-bg lg:px-28 md:px-10 px-4 pt-6 min-h-screen'>
             <MainHeader empty={true} title={'Moderator Elections'} refetch={refetch} />
-            <EmptyState title={'No Elections'} >You're not assigned as moderator to any election</EmptyState>
+            <EmptyState title={'No Elections'} light={true}>You're not assigned as moderator to any election</EmptyState>
+          </div>
             <ToastContainer autoClose={4000} hideProgressBar={true} position="top-right" limit={1} />
         </div>
-    );
-
-    return (
+        :
         <div>
+          <div className='bg-bg lg:px-28 md:px-10 px-4 pt-6 min-h-screen'>
           <MainHeader empty={true} title={'Moderator Elections'} refetch={refetch} />
-          <div className=' grid md:grid-cols-2 gap-4 lg:px-28 md:px-10 px-4 mt-8'>
+          {isLoading || loadingElection ? 
+          <Loader />
+          :
+          <div className=' grid md:grid-cols-2 gap-4 mt-8'>
           {data?.map((election) => (
               <ElectionCard onClick={() => viewElection(election._id)} id={election._id} title={election.title} start_time={election.start_time} end_time={election.end_time} key={election._id} />
          ))}
+          </div>}
           </div>
           <ToastContainer autoClose={4000} hideProgressBar={true} position="top-right" limit={1} />
-        </div>
+        </div>}
+        </>
       );
 }
 

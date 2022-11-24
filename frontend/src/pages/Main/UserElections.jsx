@@ -11,6 +11,7 @@ import { viewElection as view } from '../../redux/election';
 import { ToastContainer } from 'react-toastify';
 import { checkIfLaunched } from '../../Web3Client';
 import { useSelector } from 'react-redux';
+import Loader from '../../components/Reusable/Loader';
 
 const UserElections = () => {
 
@@ -19,8 +20,9 @@ const UserElections = () => {
   const user = useSelector((state) => state.user.value);
 
   const [electionModal, setElectionModal] = useState(false);
+  const [loadingElection, setLoadingElection] = useState(false);
 
-  const {data: admin_elections, refetch} = useQuery(["elections"], async () => {
+  const {data: admin_elections, refetch, isLoading} = useQuery(["elections"], async () => {
     return axios.get(`election/${user.id}`, {
                 headers: {
                   Authorization: `bearer ${localStorage.token}`
@@ -29,6 +31,7 @@ const UserElections = () => {
   })
 
 const viewElection = async (id) => {
+    setLoadingElection(true);
     const election = await axios.get(`election/${user.id}/${id}`, {
     headers: {
       Authorization: `bearer ${localStorage.token}`
@@ -46,6 +49,7 @@ const viewElection = async (id) => {
       description: election.data.data.description,
       address: election.data.data.contract_address
     }));
+    setLoadingElection(false);
     navigate('admin/election/dashboard')
 }
 
@@ -59,27 +63,38 @@ const closeModal = () => {
   document.body.style.overflow = 'unset';
 }
 
-if(admin_elections?.length===0) 
-return (
-    <div>
-      <CreateElection open={electionModal} closeModal={closeModal} refetch={refetch} />
-        <MainHeader title={'Your Elections'} empty={true} open={openModal} refetch={refetch} />
-        <EmptyState title={'No Elections'} button={'Create a new election'} onClick={openModal} >You don’t have any elections, create one now!</EmptyState>
-        <ToastContainer autoClose={4000} hideProgressBar={true} position="top-right" limit={1} />
-    </div>
-)
 
-  return (
+
+return (
+  <>
+  {
+  admin_elections?.length===0 ?
     <div>
       <CreateElection open={electionModal} closeModal={closeModal} refetch={refetch} />
-      <MainHeader empty={false} title={'Your Elections'} open={openModal} refetch={refetch} />
-      <div className=' grid md:grid-cols-2 gap-4 lg:px-28 md:px-10 px-4 my-8'>
-      {admin_elections?.map((election) => (
-          <ElectionCard onClick={() => viewElection(election._id)} id={election._id} title={election.title} start_time={election.start_time} end_time={election.end_time} key={election._id} />
-     ))}
+      <div className='bg-bg lg:px-28 md:px-10 px-4 pt-6 min-h-screen'>
+        <MainHeader title={'Your Elections'} empty={true} open={openModal} refetch={refetch} />
+        <EmptyState title={'No Elections'} light={true} button={'Create a new election'} onClick={openModal} >You don’t have any elections, create one now!</EmptyState>
       </div>
       <ToastContainer autoClose={4000} hideProgressBar={true} position="top-right" limit={1} />
     </div>
+    :
+    <div>
+      <CreateElection open={electionModal} closeModal={closeModal} refetch={refetch} />
+      <div className='bg-bg lg:px-28 md:px-10 px-4 pt-6 min-h-screen flex flex-col'>
+        <MainHeader empty={false} title={'Your Elections'} open={openModal} refetch={refetch} />
+        {isLoading || loadingElection ? 
+        <Loader />
+        :
+        <div className='grid md:grid-cols-2 gap-4  w-full py-8'>
+        {admin_elections?.map((election) => (
+            <ElectionCard onClick={() => viewElection(election._id)} id={election._id} title={election.title} start_time={election.start_time} end_time={election.end_time} key={election._id} />
+        ))}
+      </div>
+      }
+      </div>
+      <ToastContainer autoClose={4000} hideProgressBar={true} position="top-right" limit={1} />
+    </div>}
+    </>
   );
 }
 

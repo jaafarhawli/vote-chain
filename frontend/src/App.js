@@ -38,10 +38,10 @@ function App() {
 					<Route path='/' element={<Landing />} />
 					<Route path='/login' element={<Login socket={socket} />} />
 					<Route path='/register' element={<Register />} />
-					<Route path='/main/*' element={<Main socket={socket} />} />
 					<Route path='/vote/*' element={<Vote />} />
 					<Route path='/survey/:code' element={<Survey />} />
-					<Route path='api/email/verify/:id/:token' element={<EmailVerification />} />
+					<Route path='api/email/verify/:id/:token' element={<EmailVerification />} />			
+					<Route path='/main/*' element={<Main socket={socket} />} />					
 				</Routes>
     	</BrowserRouter>
 	</QueryClientProvider>

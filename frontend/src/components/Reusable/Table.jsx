@@ -11,7 +11,9 @@ const Table = (props) => {
                     <>
                     <th>Email</th>
                     <th>Wallet Address</th>
+                    {props.admin ?
                     <th></th>
+                    : null}
                     </>
                     :
                     props.party?
@@ -33,7 +35,10 @@ const Table = (props) => {
                     <th>Email</th>
                     <th>ID</th>
                     <th>Wallet Address</th>
+                    {props.admin ?
                     <th></th>
+                    :
+                    null}
                     </> : null
                     }
                 </tr>
@@ -55,7 +60,7 @@ const Table = (props) => {
             props.party ?
             <tbody>
             {props.data?.map((party) => (
-                <tr className='relative' key={party.name} onClick={() => props.addCandidate(party._id)}>
+                <tr className='relative party' key={party.name} onClick={() => props.addCandidate(party._id)}>
                     <td className='w-full'>{party.name}</td>
                     <td>
                         <IoClose className=' text-[25px] hover:text-red duration-150' onClick={(e) => { props.remove(party._id);

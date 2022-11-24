@@ -109,7 +109,8 @@ const BlockchainStatistics = ({electionAddress}) => {
       datasets: [{
         label: "Votes",
         data: allCandidatesScores?.slice(0, 10),
-        backgroundColor: ["#4ba0f7", "#00B8FF", "#7685e4", "#9568c7", "#a847a1", "#ae1f74"]
+        backgroundColor: ["#4ba0f7", "#00B8FF", "#7685e4", "#9568c7", "#a847a1", "#ae1f74"],
+        barThickness: 55,
       }]
     }
 
@@ -134,13 +135,13 @@ const BlockchainStatistics = ({electionAddress}) => {
                     y: {
                       grid: {
                         display: false
-                      }
+                      },
                     },
                     x: {
                       grid: {
                         display: false
-                      }
-                    }
+                      },
+                    },
                   },       
                   elements: {
                     bar: {
@@ -170,7 +171,8 @@ const BlockchainStatistics = ({electionAddress}) => {
               datasets: [{
                 label: party,
                 data: candidatesScores[index],
-                backgroundColor: ["#4ba0f7", "#00B8FF", "#7685e4", "#9568c7", "#a847a1", "#ae1f74"]
+                backgroundColor: ["#4ba0f7", "#00B8FF", "#7685e4", "#9568c7", "#a847a1", "#ae1f74"],
+                barThickness: 55,
               }]}}
               options={{
                 indexAxis: 'y',

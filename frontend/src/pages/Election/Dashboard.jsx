@@ -6,6 +6,7 @@ import axios from '../../api/axios';
 import CopyData from '../../components/Reusable/CopyData';
 import { useSelector } from 'react-redux';
 import BlockchainStatistics from '../../components/Reusable/BlockchainStatistics';
+import Loader from '../../components/Reusable/Loader';
 
 const Dashboard = () => {
 
@@ -20,7 +21,7 @@ const Dashboard = () => {
         }
       }  
 
-      const {data} = useQuery(["numerics"], async () => {
+      const {data, isFetching} = useQuery(["numerics"], async () => {
          return axios.get(`statistics/${election.id}`, {
                     headers: {
                       Authorization: `bearer ${localStorage.token}`
@@ -29,7 +30,12 @@ const Dashboard = () => {
       })
 
     return (
-    <div className='pl-[330px] pt-[150px] bg-purple-400 pr-8'>
+    <>
+    {isFetching ? 
+    <Loader loading={isFetching} admin={true} />
+    :
+    <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
+    <div className='w-[98%] mx-auto px-8 '>
       <h1 className='text-[28px] font-bold'>Election Dashboard</h1>
       <h2 className='text-purple-100 mt-8 text-[22px] font-semibold'>Election code</h2>
       <div className='flex w-full '>
@@ -40,15 +46,32 @@ const Dashboard = () => {
           <h2 className='text-purple-100 mt-8 text-[22px] font-semibold'>Election Appliance URL</h2>
           <CopyData value={`http://localhost:3000/survey/${election.code}`} onClick={(value) => copyTextToClipboard(value)} />
         </div>
-        <ul className='bg-purple-300 w-[300px] rounded-2xl shadow-xl p-3 text-black-100 text-[24px] font-bold space-y-2 flex flex-col justify-center max-h-[170px]'>
-            <li>Voters: <span className='text-purple-100'>{data?.voters}</span> </li>
-            <li>Parties: <span className='text-purple-100'>{data?.parties}</span> </li>
-            <li>Candidates: <span className='text-purple-100'>{data?.candidates}</span> </li>
-        </ul>
+        <div className='bg-bg/50 border-2 rounded-lg shadow-xl p-3  text-[24px] font-bold  flex  max-h-[170px] gap-6 h-fit justify-between'>
+            <div className='text-center flex flex-col gap-2 items-center'>
+              <h1>Voters</h1>
+              <div className='rounded-lg w-full py-1  flex items-center justify-center min-w-[130px]'>
+                {data?.voters}
+              </div>
+            </div>
+            <div className='text-center flex flex-col gap-2 items-center'>
+              <h1>Parties</h1>
+              <div className='rounded-lg w-full py-1  flex items-center justify-center min-w-[130px]'>
+                {data?.parties}
+              </div>
+            </div>
+            <div className='text-center flex flex-col gap-2 items-center'>
+              <h1>Candidates</h1>
+              <div className='rounded-lg w-full py-1  flex items-center justify-center min-w-[130px]'>
+                {data?.candidates}
+              </div>
+            </div>
+        </div>
       </div>
       <BlockchainStatistics electionAddress={election.address} />
       <ToastContainer autoClose={1000} hideProgressBar={true} position="bottom-center" />
     </div>
+    </div>}
+    </>
   );
 }
 
