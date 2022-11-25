@@ -71,19 +71,19 @@ Here's a brief high-level overview of the tech stack the Well app uses:
 
 | Landing  | Register  |
 | -----------------| -----|
-| ![Landing](./readme/PNGs/landing-gif-3.gif) | ![Register](./readme/PNGs/register.gif) |
+| ![Landing](./readme/Gifs/landing-gif-3.gif) | ![Register](./readme/Gifs/register.gif) |
 
 | Admin Elections Page  | Create Election  |
 | -----------------| -----|
-| ![Admin Elections Page](./readme/PNGs/main-preview.gif) | ![Create Election](./readme/PNGs/create-election-gif.gif) |
+| ![Admin Elections Page](./readme/Gifs/main-preview.gif) | ![Create Election](./readme/Gifs/create-election-gif.gif) |
 
 | Admin Panel  | Notifications  |
 | -----------------| -----|
-| ![Admin Panel](./readme/PNGs/view-election-gif.gif) | ![Notifications](./readme/PNGs/notification-gif.gif) |
+| ![Admin Panel](./readme/Gifs/view-election-gif.gif) | ![Notifications](./readme/Gifs/notification-gif.gif) |
 
 | Voter Login  | Voting  |
 | -----------------| -----|
-| ![Voter Login](./readme/PNGs/voter-login-gif.gif) | ![Voting](./readme/PNGs/vote-gif.gif) |
+| ![Voter Login](./readme/Gifs/voter-login-gif.gif) | ![Voting](./readme/Gifs/vote-gif.gif) |
 
 
 <br><br>
