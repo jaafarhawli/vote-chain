@@ -106,7 +106,7 @@ This is a list of things you need to use the software and how to install them.
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/jaafarhawli/Vote-Chain.git
+   git clone https://github.com/jaafarhawli/vote-chain.git
    ```
 2. Create a new ganache workspace and load the "blockchain" folder path inside "Truffle Projects" box
 3. Login/Create a metamask wallet. Add localhost network and import any account from your Ganache workspace into it
