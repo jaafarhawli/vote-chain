@@ -94,26 +94,41 @@ To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
+This is a list of things you need to use the software and how to install them.
 * npm
   ```sh
   npm install npm@latest -g
   ```
+* Ganache using this [link](https://trufflesuite.com/ganache/)
+* Metamask wallet extension using this [link](https://metamask.io/)
 
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Clone the repo
    ```sh
    git clone https://github.com/jaafarhawli/Vote-Chain.git
    ```
+2. Create a new ganache workspace and load the "blockchain" folder path inside "Truffle Projects" box
+3. Login/Create a metamask wallet. Add localhost network and import any account from your Ganache workspace into it
 3. Install NPM packages
    ```sh
+   cd frontend
    npm install
    ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
+   ```sh
+   cd backend
+   npm install
+   ```
+4. Rename .env.example to .env inside the backend folder and add your own gmail and gmail app password
+5. Rename .env.example to .env inside the frontend folder
+5. Start the application
+   ```sh
+   cd backend
+   npm start
+   ```
+   ```sh
+   cd frontend
+   npm start
    ```
 
 
