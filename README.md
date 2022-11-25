@@ -99,6 +99,7 @@ This is a list of things you need to use the software and how to install them.
   ```sh
   npm install npm@latest -g
   ```
+* MongoDB atlas using this [link](https://www.mongodb.com/atlas)
 * Ganache using this [link](https://trufflesuite.com/ganache/)
 * Metamask wallet extension using this [link](https://metamask.io/)
 
@@ -110,7 +111,8 @@ This is a list of things you need to use the software and how to install them.
    ```
 2. Create a new ganache workspace and load the "blockchain" folder path inside "Truffle Projects" box
 3. Login/Create a metamask wallet. Add localhost network and import any account from your Ganache workspace into it
-3. Install NPM packages
+4. Create a new "votechaindb" database at MongoDB atlas 
+5. Install NPM packages
    ```sh
    cd frontend
    npm install
@@ -119,9 +121,9 @@ This is a list of things you need to use the software and how to install them.
    cd backend
    npm install
    ```
-4. Rename .env.example to .env inside the backend folder and add your own gmail and gmail app password
-5. Rename .env.example to .env inside the frontend folder
-5. Start the application
+6. Rename .env.example to .env inside the backend folder and add your own gmail and gmail app password
+7. Rename .env.example to .env inside the frontend folder
+8. Start the application
    ```sh
    cd backend
    npm start
