@@ -82,7 +82,7 @@ const Moderators = ({socket}) => {
     return (
         <>
         {
-        isFetching ? 
+        isFetching && !moderatorModal ? 
         <Loader loading={isFetching} admin={true} />
         :
         data?.length === 0 ?

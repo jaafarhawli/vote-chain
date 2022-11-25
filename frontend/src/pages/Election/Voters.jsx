@@ -80,7 +80,7 @@ const Voters = (props) => {
   return (
     <>
     {
-    isFetching ? 
+    isFetching && !voterModal ? 
     <Loader loading={isFetching} admin={true} />
     :
     data?.length===0 ?
