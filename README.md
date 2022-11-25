@@ -72,17 +72,21 @@ Here's a brief high-level overview of the tech stack the Well app uses:
 
 > Uing the above mentioned tecch stacks and the wireframes build with figma from the user sotries we have, the implementation of the app is shown as below, these are screenshots from the real app
 
-| Landing  | Login  |
+| Landing  | Register  |
 | -----------------| -----|
-| ![Landing](./readme/PNGs/Screenshot%20(253).png) | ![Login](./readme/PNGs/Screenshot%20(254).png) |
+| ![Landing](./readme/PNGs/landing-gif-3.gif) | ![Register](./readme/PNGs/register.gif) |
 
-| Admin Elections Page  | Admin Panel  |
+| Admin Elections Page  | Create Election  |
 | -----------------| -----|
-| ![Admin Elections Page](./readme/PNGs/Screenshot%20(255).png) | ![Admin Panel](./readme/PNGs/Screenshot%20(256).png) |
+| ![Admin Elections Page](./readme/PNGs/main-preview.gif) | ![Create Election](./readme/PNGs/create-election-gif.gif) |
 
-| Moderator Panel  | Voter Landing Page  |
+| Admin Panel  | Notifications  |
 | -----------------| -----|
-| ![Moderator Panel](./readme/PNGs/Screenshot%20(257).png) | ![Voter Landing Page](./readme/PNGs/Screenshot%20(258).png) |
+| ![Admin Panel](./readme/PNGs/view-election-gif.gif) | ![Notifications](./readme/PNGs/notification-gif.gif) |
+
+| Voter Login  | Voting  |
+| -----------------| -----|
+| ![Voter Login](./readme/PNGs/voter-login-gif.gif) | ![Voting](./readme/PNGs/vote-gif.gif) |
 
 
 <br><br>
