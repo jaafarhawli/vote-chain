@@ -94,7 +94,7 @@ const Parties = () => {
 
     return (
       <>
-      {isFetching ? 
+      {isFetching && !candidateModal ? 
       <Loader loading={isFetching} admin={true} />
       :
       data?.length === 0 ? 

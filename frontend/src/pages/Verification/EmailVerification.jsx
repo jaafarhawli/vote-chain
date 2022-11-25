@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {useParams, useNavigate} from 'react-router-dom';
-import logo from '../../assets/VOTE CHAIN-logo-black.png';
+import logo from '../../assets/VOTE CHAIN-logo-white.png';
 import Button from '../../components/Reusable/Button';
 import axios from '../../api/axios';
 
@@ -29,7 +29,7 @@ const EmailVerification = () => {
 
 
   return (
-    <div className='flex flex-col w-screen h-screen bg-purple-300 justify-center items-center gap-3'>
+    <div className='flex flex-col w-screen h-screen bg-bg justify-center items-center gap-3'>
       <img src={logo} alt="" className='w-[300px]' />
       <Button onClick={() => navigate('/login')} >Login</Button>
       <p className={error ? 'text-center text-[24px] text-red' : 'text-center text-[24px] text-green'}>{error ? message : "Email verified"}</p>

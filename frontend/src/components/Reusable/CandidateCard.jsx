@@ -6,7 +6,7 @@ const CandidateCard = (props) => {
   return (
     <>
     {props.vote ? 
-    <div className={props.selected ? 'w-[200px] h-[240px] bg-purple-100 rounded-lg flex flex-col p-4 items-center relative' : 'w-[200px] h-[240px] bg-purple-200 rounded-lg flex flex-col p-4 items-center relative'}>
+    <div className={props.selected ? 'min-w-[200px] h-[240px] bg-purple-100 rounded-lg flex flex-col p-4 items-center relative' : 'min-w-[200px] h-[240px] bg-purple-200 rounded-lg flex flex-col p-4 items-center relative'}>
       <img src={props.image} alt="" className='rounded-full w-[130px] h-[130px] bg-white object-contain' />
       <h2 className='mt-2 font-bold text-[18px]'>{props.name}</h2>
       <Button className={props.selected? 'bg-white text-cyan mt-2 w-2/3 disabled:bg-white' : 'mt-2 w-2/3'} disabled={props.selected ? true : false} onClick={props.select} >{props.selected? 'Selected' : 'Select'}</Button>

@@ -58,7 +58,7 @@ const RegisterForm = () => {
       <img src={logo} alt="logo" className='w-[180px]' />
       <div className='bg-white h-[2px] w-[180px]'></div>  
       <h1 className='my-4 text-2xl font-semibold text-white'>Create Account</h1>  
-      <h1 className={error ? 'text-red pb-2' : 'text-green pb-2'}>{message}</h1>
+      <h1 className={error ? 'text-red pb-6' : 'text-green pb-6'}>{message}</h1>
       <form className='w-4/5 flex flex-col gap-5 '>
           <div className='flex gap-2'>
             <FormInput type="text" error={error} required={true} textStyle='text-purple-200' className='border-0' onChange={e => setFirstname(e.target.value)}>First Name</FormInput> 
