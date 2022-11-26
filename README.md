@@ -15,12 +15,12 @@
 
 > Vote Chain is a decentralized online voting wesbite that is built to run any election using blockchain. Any user can create an account and launch elections by adding parties, candidates, voters, and moderators in order to help him take control of the election
 > 
-> When election is launched, voters can access the voting poll after logging in using their generated ID and key sent to them by email, they can then vote for their candidate, deploy the vote on the blockchain, and check statistical results after the election ends.
+> When the election is launched, voters can access the voting poll after logging in using their generated ID and key sent to them by email, they can then vote for their candidate, deploy the vote on the blockchain, and check statistical results after the election ends.
 
 ### User Stories
 - As a user, I want to launch an election in a specific time interval
 - As a user, I want to be able to add moderators to my election to help me add voters to the election
-- As a user, I want to receive a notification when someone wants to add me as a moderator to his election
+- As a user, I want to receive a live notification when someone wants to add me as a moderator to his election
 - As a user, I want to be able to add my own list of parties and candidates to my election
 - As a user, I want to be able to add voters to my election
 - As a user, I want to be able to check election statistical data while running the election
@@ -43,9 +43,9 @@ Note that I used TailwindCSS as a styling framework
 | -----------------| -----|
 | ![Voter Landing Page](./readme/Mockups/landing-page.png) | ![Register Page](./readme/Mockups/register.png) |
 
-| Admin Elections Page  | Admin Panel  |
+| User Main Page  | Admin Panel  |
 | -----------------| -----|
-| ![Admin Elections Page](./readme/Mockups/elections-page.png) | ![Admin Panel](./readme/Mockups/admin-panel.png) |
+| ![User Main Page](./readme/Mockups/elections-page.png) | ![Admin Panel](./readme/Mockups/admin-panel.png) |
 
 | Voter Main Page  | Voting Page  |
 | -----------------| -----|
@@ -56,7 +56,7 @@ Note that I used TailwindCSS as a styling framework
 
 <img src="./readme/title4.svg"/>
 
-Here's a brief high-level overview of the tech stack the Well app uses:
+Here's a brief high-level overview of the tech stack that Vote Chain uses:
 
 - This project uses the [React app library](https://reactjs.org/). React makes it painless to create interactive UIs, is component-based and is reusable.
 - As database, [MongoDB](https://www.mongodb.com/) was used. MongoDB is a NoSQL database which is well-suited for handling off-chain data, it can easily store and access data that is spread across multiple servers. It is scalable and this means that it can handle large amounts of data without becoming bogged down. This makes it ideal for storing data that is used by blockchain applications.
@@ -67,15 +67,15 @@ Here's a brief high-level overview of the tech stack the Well app uses:
 <br><br>
 <img src="./readme/title5.svg"/>
 
-> Uing the above mentioned tecch stacks and the wireframes build with figma from the user sotries we have, the implementation of the app is shown as below, these are screenshots from the real app
+> Using the above mentioned tech stacks and the mockups built with figma from the user sotries we have, the implementation of the website is shown as below, these are gifs from the real website
 
 | Landing  | Register  |
 | -----------------| -----|
 | ![Landing](./readme/Gifs/landing-gif-3.gif) | ![Register](./readme/Gifs/register.gif) |
 
-| Admin Elections Page  | Create Election  |
+| User Main Page  | Create Election  |
 | -----------------| -----|
-| ![Admin Elections Page](./readme/Gifs/main-preview.gif) | ![Create Election](./readme/Gifs/create-election-gif.gif) |
+| ![User Main Page](./readme/Gifs/main-preview.gif) | ![Create Election](./readme/Gifs/create-election-gif.gif) |
 
 | Admin Panel  | Notifications  |
 | -----------------| -----|
@@ -90,7 +90,7 @@ Here's a brief high-level overview of the tech stack the Well app uses:
 <img src="./readme/title6.svg"/>
 
 
-To get a local copy up and running follow these simple example steps.
+To get a local copy up and running follow these simple steps.
 
 ### Prerequisites
 
