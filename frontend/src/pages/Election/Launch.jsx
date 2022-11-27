@@ -3,7 +3,7 @@ import Button from '../../components/Reusable/Button';
 import ConfirmModal from '../../components/Modals/ConfirmModal';
 import axios from '../../api/axios';
 import {useQuery} from '@tanstack/react-query';
-import { launchElection as launchToBlockchain } from '../../Web3Client';
+import { launchElection as launchToBlockchain } from '../../Web3/LaunchElection';
 import { addVotersToBlockchain as addVoters } from '../../Web3/AddVoter';
 import { addCandidates } from '../../Web3/AddCandidates';
 import { useSelector, useDispatch } from 'react-redux';
