@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {createElectionContract} from '../../Web3Client';
+import { createElectionContract } from '../../Web3/CreateElection';
 import {IoClose} from 'react-icons/io5';
 import axios from '../../api/axios';
 import logo from '../../assets/VOTE CHAIN-logo-white.png';
