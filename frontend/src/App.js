@@ -4,8 +4,7 @@ import { BrowserRouter, Routes, Route} from "react-router-dom";
 import Landing from './pages/Landing/Landing';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
-import Main from './Routes/Main';
-import Vote from './Routes/Vote';
+import {Main, Vote} from './Routes';
 // eslint-disable-next-line
 import { Chart as ChartJS } from 'chart.js/auto';
 import EmailVerification from './pages/Verification/EmailVerification';
