@@ -2,7 +2,7 @@ import React, {useState, useMemo} from 'react';
 import {useQuery} from '@tanstack/react-query';
 import axios from '../../api/axios';
 import Button from '../../components/Reusable/Button';
-import AddModerator from '../../components/Modals/AddModerator';
+import AddModerator from '../../components/Modals/AddModerator/AddModerator';
 import ConfirmModal from '../../components/Modals/ConfirmModal';
 import EmptyState from '../../components/Reusable/EmptyState';
 import Table from '../../components/Reusable/Table';
