@@ -6,7 +6,7 @@ import {useQuery} from '@tanstack/react-query';
 import CandidateCard from '../../components/Reusable/CandidateCard';
 import Button from '../../components/Reusable/Button';
 import { useNavigate } from 'react-router-dom';
-import { voteCandidate } from '../../Web3Client';
+import { voteCandidate } from '../../Web3/Vote';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateVoter } from '../../redux/voter';
 
