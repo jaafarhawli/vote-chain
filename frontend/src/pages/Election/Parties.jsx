@@ -6,7 +6,7 @@ import AddPartyModal from '../../components/Modals/AddPartyModal';
 import ConfirmModal from '../../components/Modals/ConfirmModal';
 import EmptyState from '../../components/Reusable/EmptyState';
 import Table from '../../components/Reusable/Table';
-import AddCandidate from '../../components/Modals/AddCandidate';
+import AddCandidate from '../../components/Modals/AddCandidate/AddCandidate';
 import { useSelector } from 'react-redux';
 import Loader from '../../components/Reusable/Loader';
 
