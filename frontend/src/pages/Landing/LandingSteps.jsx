@@ -1,5 +1,5 @@
 import React from 'react';
-import banner from '../../assets/stepsBanner.gif';
+import banner from '../../assets/StepsBanner.gif';
 import {MdBallot} from 'react-icons/md';
 import {AiOutlineUsergroupAdd} from 'react-icons/ai';
 import {FaUserShield} from 'react-icons/fa';

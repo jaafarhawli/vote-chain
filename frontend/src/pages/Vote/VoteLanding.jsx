@@ -2,8 +2,8 @@ import React from 'react';
 import Button from '../../components/Reusable/Button';
 import logo from '../../assets/VOTE CHAIN-logo-white-horizantal.png';
 import { useNavigate } from 'react-router-dom';
-import landinglg from '../../assets/Group48.svg';
-import hero from '../../assets/hero.jpg';
+import landinglg from '../../assets/VoterLandingHero.svg';
+import hero from '../../assets/Hero.jpg';
 
 const VoteLanding = () => {
 

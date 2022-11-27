@@ -1,6 +1,6 @@
 import React from 'react';
 import RegisterForm from './RegisterForm';
-import bg from '../../assets/register2.png';
+import bg from '../../assets/AuthBg.png';
 
 const Register = () => {
   return (

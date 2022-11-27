@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/VOTE CHAIN-logo-white-horizantal.png';
-import curve from '../../assets/backgroundcurve.svg';
+import curve from '../../assets/BackgroundCurve.svg';
 import Button from '../../components/Reusable/Button';
 import LandingFooter from '../Landing/LandingFooter';
 import Timer from '../../components/Reusable/Timer';

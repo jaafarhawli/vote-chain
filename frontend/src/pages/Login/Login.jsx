@@ -1,6 +1,6 @@
 import React from 'react';
 import LoginForm from './LoginForm';
-import bg from '../../assets/register2.png';
+import bg from '../../assets/AuthBg.png';
 
 const Login = ({socket}) => {
   return (
