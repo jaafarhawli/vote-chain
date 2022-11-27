@@ -1,25 +1,19 @@
 import { Outlet } from "react-router-dom";
-import axios from "../api/axios";
+
+import { userAuth } from "../api/userAuth";
 import Login from "../pages/Login/Login";
 
-const userAuth = () => {
-    if(!localStorage.token)
-    return false;
-    const form = {
-        token: localStorage.token
-    };
-    try {
-        axios.post('auth/token', form);
-        return true
-    }
-    catch (error) {
-        return false
-    }
-};
+import { voterAuth } from "../api/voterAuth";
+import VoteLogin from "../pages/Vote/VoteLogin";
 
-const ProtectedRoutes = () => {
+
+export const ProtectedRoutes = () => {
     const isAuth = userAuth();
     return isAuth ? <Outlet /> : <Login />
 };
 
-export default ProtectedRoutes;
+export const ProtectedVoterRoutes = () => {
+    const isAuth = voterAuth();
+    return isAuth ? <Outlet /> : <VoteLogin />
+};
+

@@ -5,7 +5,7 @@ import VoteLogin from '../pages/Vote/VoteLogin';
 import VoteMain from '../pages/Vote/VoteMain';
 import VoteSelect from '../pages/Vote/VoteSelect';
 import VoteResults from '../pages/Vote/VoteResults';
-import ProtectedVoterRoutes from './ProtectedVoterRoutes';
+import {ProtectedVoterRoutes} from './ProtectedRoutes';
 
 const Vote = () => {
   return (

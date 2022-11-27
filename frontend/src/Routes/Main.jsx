@@ -7,7 +7,7 @@ import UserSettings from '../pages/Main/UserSettings';
 import ModeratorElection from './ModeratorElection';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import ProtectedRoutes from './ProtectedRoutes';
+import {ProtectedRoutes} from './ProtectedRoutes';
 
 const Main = ({socket}) => {
 
