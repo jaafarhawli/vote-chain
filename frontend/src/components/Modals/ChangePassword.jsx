@@ -62,7 +62,7 @@ const ChangePassword = ({open, closeModal}) => {
 
   return (
     <div>
-      <Modal title={'Change Password'} closeModal={closeModal} content={
+      <Modal title={'Change Password'} closeModal={closeModal} dark={true} content={
         <form className='w-4/5 flex flex-col gap-5 '>
         <FormInput type="password" textStyle='text-white' onChange={e => setOldPassword(e.target.value)}>Old Password</FormInput>
         <FormInput type="password" textStyle='text-white' onChange={e => setPassword(e.target.value)}>New Password</FormInput>
