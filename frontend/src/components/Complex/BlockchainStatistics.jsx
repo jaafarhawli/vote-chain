@@ -4,7 +4,7 @@ import { Doughnut } from 'react-chartjs-2';
 import { Bar } from 'react-chartjs-2';
 import { Pie } from 'react-chartjs-2';
 import { viewCandidates, viewTimeInterval, viewVoters } from '../../Web3';
-import { candidateStatsOptions } from '../../JSON';
+import { candidateStatsOptions, partyCandidateStatsOptions } from '../../JSON';
 
 const BlockchainStatistics = ({electionAddress}) => {
 
@@ -147,26 +147,7 @@ const BlockchainStatistics = ({electionAddress}) => {
                 backgroundColor: ["#4ba0f7", "#00B8FF", "#7685e4", "#9568c7", "#a847a1", "#ae1f74"],
                 barThickness: 55,
               }]}}
-              options={{
-                indexAxis: 'y',
-                elements: {
-                  bar: {
-                    borderWidth: 2,
-                  },
-                },
-                scales: {
-                  y: {
-                    grid: {
-                      display: false
-                    }
-                  },
-                  x: {
-                    grid: {
-                      display: false
-                    }
-                  }
-                }
-              }}
+              options={partyCandidateStatsOptions}
              />
           </div>
       ))}
