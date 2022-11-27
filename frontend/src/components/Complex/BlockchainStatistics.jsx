@@ -4,6 +4,7 @@ import { Doughnut } from 'react-chartjs-2';
 import { Bar } from 'react-chartjs-2';
 import { Pie } from 'react-chartjs-2';
 import { viewCandidates, viewTimeInterval, viewVoters } from '../../Web3';
+import { candidateStatsOptions } from '../../JSON';
 
 const BlockchainStatistics = ({electionAddress}) => {
 
@@ -129,35 +130,7 @@ const BlockchainStatistics = ({electionAddress}) => {
             }} /> : null}
         </div>
         <div className='w-2/3 bg-white rounded-2xl shadow-xl p-6 flex align-baseline'>
-          <Bar data={candidateStats}
-                options={{
-                  scales: {
-                    y: {
-                      grid: {
-                        display: false
-                      },
-                    },
-                    x: {
-                      grid: {
-                        display: false
-                      },
-                    },
-                  },       
-                  elements: {
-                    bar: {
-                      borderWidth: 2,
-                    },
-                  },
-                  plugins: {
-                    legend: {
-                      position: 'right',
-                    },
-                    title: {
-                      display: true,
-                      text: 'Top Candidates',
-                    },
-                  },
-                }} />
+          <Bar data={candidateStats} options={candidateStatsOptions} />
         </div>
       </div>
       <div className='flex flex-wrap gap-6 mb-6 w-full'>
