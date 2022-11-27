@@ -8,7 +8,7 @@ import "flatpickr/dist/themes/material_green.css";
 import Flatpickr from "react-flatpickr";
 import { useSelector, useDispatch } from 'react-redux';
 import {viewElection} from '../../redux/election';
-import { changeTimeInterval } from '../../Web3/ChangeTimeInterval';
+import { changeTimeInterval } from '../../Web3';
 import FormLabelInput from '../../components/Reusable/FormLabelInput';
 require("flatpickr/dist/themes/material_blue.css");
 

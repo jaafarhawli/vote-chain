@@ -8,7 +8,7 @@ import EmptyState from '../../components/Reusable/EmptyState';
 import { ToastContainer } from 'react-toastify';
 import { useDispatch } from 'react-redux';
 import { viewElection as view } from '../../redux/election';
-import { checkIfLaunched } from '../../Web3/CheckIfLaunched';
+import { checkIfLaunched } from '../../Web3';
 import { useSelector } from 'react-redux';
 import Loader from '../../components/Reusable/Loader';
 
