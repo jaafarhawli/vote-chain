@@ -24,12 +24,6 @@
 	background-image: url("assets/Group47.svg");
 }
 
-@media (max-width: 640px) {
-	.hero {
-	  background-image: url("assets/Group47.svg");
-	}
-  }
-
 .timezone {
 	border: 1px solid #777777 !important;
 }
