@@ -1,12 +1,7 @@
 import React from 'react';
 import {NavLink} from 'react-router-dom';
 import logo from '../../assets/VOTE CHAIN-logo-white-horizantal.png';
-import {RiDashboardFill} from 'react-icons/ri';
-import {HiUserGroup} from 'react-icons/hi';
-import {FaUserTie, FaUserCog, FaUser} from 'react-icons/fa';
-import {MdSettings} from 'react-icons/md';
-import {TbCloudUpload} from 'react-icons/tb';
-import {FcAddDatabase} from 'react-icons/fc';
+import {PanelComponents, ModeratorPanelComponents} from '../../JSON';
 
 const Panel = (props) => {
   return (
@@ -14,45 +9,25 @@ const Panel = (props) => {
       <img src={logo} alt="" className='w-3/5 self-center pt-8' />
       <h1 className='self-center text-white bg-purple-300/20 w-3/5 text-center mt-6 py-2 font-semibold select-none rounded-[10px]'>{props.admin ? "Admin" : "Moderator"}</h1>
       <ul className='flex flex-col w-full mt-6'>
-        <NavLink to='dashboard' className='flex items-center gap-3 text-white/60 text-xl w-full hover:bg-purple-300/40 duration-200 py-4 pl-4 font-semibold' activeclassname='active'>
-            <RiDashboardFill />
-            Dashboard
-        </NavLink>
-        
-        {props.admin ?
-        <>
-        <NavLink to='moderators' className='flex items-center gap-3 text-white/60 text-xl w-full hover:bg-purple-300/40 duration-200 py-4 pl-4 font-semibold' activeclassname='active'>
-            <FaUserCog />
-            Moderators
-        </NavLink>
-        <NavLink to='parties' className='flex items-center gap-3 text-white/60 text-xl w-full hover:bg-purple-300/40 duration-200 py-4 pl-4 font-semibold' activeclassname='active'>
-            <HiUserGroup />
-            Parties
-        </NavLink>
-        <NavLink to='candidates' className='flex items-center gap-3 text-white/60 text-xl w-full hover:bg-purple-300/40 duration-200 py-4 pl-4 font-semibold' activeclassname='active'>
-            <FaUserTie />
-            Candidates
-        </NavLink>
-        </> : null }    
-        <NavLink to='voters' className='flex items-center gap-3 text-white/60 text-xl w-full hover:bg-purple-300/40 duration-200 py-4 pl-4 font-semibold' activeclassname='active'>
-            <FaUser />
-            Voters
-        </NavLink>
-        <NavLink to='applicants' className='flex items-center gap-3 text-white/60 text-xl w-full hover:bg-purple-300/40 duration-200 py-4 pl-4 font-semibold' activeclassname='active'>
-            <FcAddDatabase />
-            Applicants
-        </NavLink>
-        {props.admin ? 
-        <>
-        <NavLink to='settings' className='flex items-center gap-3 text-white/60 text-xl w-full hover:bg-purple-300/40 duration-200 py-4 pl-4 font-semibold' activeclassname='active'>
-            <MdSettings />
-            Settings
-        </NavLink>
-        <NavLink to='launch' className='flex items-center gap-3 text-white/60 text-xl w-full hover:bg-purple-300/40 duration-200 py-4 pl-4 font-semibold' activeclassname='active'>
-            <TbCloudUpload />
-            Launch
-        </NavLink>
-        </> : null}
+      {props.admin ?
+      PanelComponents.map((item, index) => {
+          return (         
+            <NavLink to={item.path} className='flex items-center gap-3 text-white/60 text-xl w-full hover:bg-purple-300/40 duration-200 py-4 pl-4 font-semibold' key={index} activeclassname='active'>
+                {item.icon}
+                <p>{item.title}</p>
+            </NavLink>
+            );
+          })
+        :
+        ModeratorPanelComponents.map((item, index) => {
+          return (         
+            <NavLink to={item.path} className='flex items-center gap-3 text-white/60 text-xl w-full hover:bg-purple-300/40 duration-200 py-4 pl-4 font-semibold' key={index} activeclassname='active'>
+                {item.icon}
+                <p>{item.title}</p>
+            </NavLink>
+            );
+          })
+          }
       </ul>
     </div>
   );

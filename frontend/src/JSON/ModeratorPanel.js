@@ -2,7 +2,7 @@ import {RiDashboardFill} from 'react-icons/ri';
 import {FaUser} from 'react-icons/fa';
 import {FcAddDatabase} from 'react-icons/fc';
 
-export const PanelComponents = [
+export const ModeratorPanelComponents = [
 
     {
       title: 'Dashboard',
