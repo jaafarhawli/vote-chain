@@ -7,7 +7,7 @@ import "flatpickr/dist/themes/material_green.css";
 import Flatpickr from "react-flatpickr";
 import { useSelector } from 'react-redux';
 import FormLabelInput from '../Reusable/FormLabelInput';
-import Modal from './Modal';
+import Modal from '../Reusable/Modal';
 require("flatpickr/dist/themes/material_blue.css");
 
 const CreateElection = ({open, closeModal, refetch}) => {

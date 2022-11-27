@@ -5,7 +5,7 @@ import SuccessModal from './SuccessModal';
 import {IoMdImage} from 'react-icons/io';
 import { useSelector } from 'react-redux';
 import FormLabelInput from '../Reusable/FormLabelInput';
-import Modal from './Modal';
+import Modal from '../Reusable/Modal';
 
 const AddCandidate = ({open, closeModal}) => {
 

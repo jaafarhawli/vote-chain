@@ -4,7 +4,7 @@ import SuccessModal from './SuccessModal';
 import axios from '../../api/axios';
 import { useSelector } from 'react-redux';
 import FormLabelInput from '../Reusable/FormLabelInput';
-import Modal from './Modal';
+import Modal from '../Reusable/Modal';
 
 const AddVoter = ({open, closeModal, refetch}) => {
 

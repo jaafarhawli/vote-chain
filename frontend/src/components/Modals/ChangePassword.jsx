@@ -4,7 +4,7 @@ import Button from '../Reusable/Button';
 import SuccessModal from './SuccessModal';
 import { useSelector } from 'react-redux';
 import FormInput from '../Reusable/FormInput';
-import Modal from './Modal';
+import Modal from '../Reusable/Modal';
 
 const ChangePassword = ({open, closeModal}) => {
 
