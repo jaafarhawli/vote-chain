@@ -1,3 +1,7 @@
+// !Important //
+// This file was used to display statistics from the database before integrating blockchain
+// It's not used anywhere now
+
 import React from 'react';
 import {useQuery} from '@tanstack/react-query';
 import axios from '../../api/axios';
