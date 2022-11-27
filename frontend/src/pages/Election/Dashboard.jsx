@@ -5,7 +5,7 @@ import {useQuery} from '@tanstack/react-query';
 import axios from '../../api/axios';
 import CopyData from '../../components/Reusable/CopyData';
 import { useSelector } from 'react-redux';
-import BlockchainStatistics from '../../components/Complex/BlockchainStatistics';
+import BlockchainStatistics from '../../components/Complex/BlockchainStatistics/BlockchainStatistics';
 import Loader from '../../components/Reusable/Loader';
 
 const Dashboard = () => {

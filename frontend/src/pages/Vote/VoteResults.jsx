@@ -1,7 +1,7 @@
 import React from 'react';
 import VoteHeader from './VoteHeader';
 import ElectionCard from '../../components/Reusable/ElectionCard';
-import BlockchainStatistics from '../../components/Complex/BlockchainStatistics';
+import BlockchainStatistics from '../../components/Complex/BlockchainStatistics/BlockchainStatistics';
 import { useSelector } from 'react-redux';
 
 const VoteResults = () => {

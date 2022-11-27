@@ -3,8 +3,8 @@ import React, {useState, useEffect} from 'react';
 import { Doughnut } from 'react-chartjs-2';
 import { Bar } from 'react-chartjs-2';
 import { Pie } from 'react-chartjs-2';
-import { viewCandidates, viewTimeInterval, viewVoters } from '../../Web3';
-import { candidateStatsOptions, partyCandidateStatsOptions } from '../../JSON';
+import { viewCandidates, viewTimeInterval, viewVoters } from '../../../Web3';
+import { candidateStatsOptions, partyCandidateStatsOptions } from '../../../JSON';
 
 const BlockchainStatistics = ({electionAddress}) => {
 
