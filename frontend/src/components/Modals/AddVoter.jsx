@@ -52,17 +52,17 @@ const AddVoter = ({open, closeModal, refetch}) => {
 
   return (
     <div>
-    <Modal title={'Add Voter'} closeModal={closeModal} content={
-      <form className='w-4/5 flex flex-col gap-5 '>
-        <FormLabelInput type="email" onChange={e => setEmail(e.target.value)} >Voter Email</FormLabelInput>
-        <FormLabelInput type="text" onChange={e => setName(e.target.value)}>Voter Name</FormLabelInput>
-        <FormLabelInput type="text" onChange={e => setAddress(e.target.value)}>Voter Wallet Address</FormLabelInput>
-        <Button className='bg-cyan' onClick={addVoter} disabled={disabled} >Add</Button>
-      </form> 
-    } />
+      <Modal title={'Add Voter'} closeModal={closeModal} content={
+        <form className='w-4/5 flex flex-col gap-5 '>
+          <FormLabelInput type="email" onChange={e => setEmail(e.target.value)} >Voter Email</FormLabelInput>
+          <FormLabelInput type="text" onChange={e => setName(e.target.value)}>Voter Name</FormLabelInput>
+          <FormLabelInput type="text" onChange={e => setAddress(e.target.value)}>Voter Wallet Address</FormLabelInput>
+          <Button className='bg-cyan' onClick={addVoter} disabled={disabled} >Add</Button>
+        </form> 
+      } />
     <SuccessModal open={successModal} message={success} error={true} closeSuccess={() => setSuccessModal(false)} />
-  </div> 
-  );
+    </div> 
+    );
 }
 
 export default AddVoter;
