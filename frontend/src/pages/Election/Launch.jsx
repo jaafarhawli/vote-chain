@@ -3,7 +3,8 @@ import Button from '../../components/Reusable/Button';
 import ConfirmModal from '../../components/Modals/ConfirmModal';
 import axios from '../../api/axios';
 import {useQuery} from '@tanstack/react-query';
-import { addVoterToBlockchain, launchElection as launchToBlockchain } from '../../Web3Client';
+import { launchElection as launchToBlockchain } from '../../Web3Client';
+import { addVotersToBlockchain as addVoters } from '../../Web3/AddVoter';
 import { addCandidates } from '../../Web3/AddCandidates';
 import { useSelector, useDispatch } from 'react-redux';
 import { viewElection } from '../../redux/election';
@@ -48,7 +49,7 @@ const Launch = () => {
     for(let voter of voters) {
       voters_addresses.push(voter.voter_wallet_address);
     }
-    await addVoterToBlockchain(voters_addresses, election.address);
+    await addVoters(voters_addresses, election.address);
   }
 
     
