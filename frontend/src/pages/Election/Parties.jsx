@@ -2,7 +2,7 @@ import React, {useState, useMemo} from 'react';
 import {useQuery} from '@tanstack/react-query';
 import axios from '../../api/axios';
 import Button from '../../components/Reusable/Button';
-import AddPartyModal from '../../components/Modals/AddPartyModal';
+import AddParty from '../../components/Modals/AddParty/AddParty';
 import ConfirmModal from '../../components/Modals/ConfirmModal';
 import EmptyState from '../../components/Reusable/EmptyState';
 import Table from '../../components/Reusable/Table';
@@ -99,7 +99,7 @@ const Parties = () => {
       :
       data?.length === 0 ? 
         <>
-        <AddPartyModal open={partyModal} closeModal={closeModal}    refetch={refetch} />
+        <AddParty open={partyModal} closeModal={closeModal}    refetch={refetch} />
         <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
         <div className='w-[98%] mx-auto px-8 '>
             <h1 className='text-[28px] font-bold'>Parties</h1>
@@ -110,7 +110,7 @@ const Parties = () => {
       :
     <>
     <ConfirmModal  open={confirmModal} closeModal={closeConfirm} click={deleteParty} text={"Are you sure you want to delete this party?"} />
-    <AddPartyModal open={partyModal} closeModal={closeModal}  refetch={refetch} />
+    <AddParty open={partyModal} closeModal={closeModal}  refetch={refetch} />
     <AddCandidate open={candidateModal} closeModal={closeCandidateModal} />
     <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
     <div className='w-[98%] mx-auto px-8 '>
