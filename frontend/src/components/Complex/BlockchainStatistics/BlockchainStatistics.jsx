@@ -5,7 +5,7 @@ import { Bar } from 'react-chartjs-2';
 import { Pie } from 'react-chartjs-2';
 import { viewCandidates, viewTimeInterval, viewVoters } from '../../../Web3';
 import { candidateStatsOptions, partyCandidateStatsOptions } from '../../../JSON';
-import { getStats } from './GetStats';
+import { compareTime } from './CompareTime';
 
 const BlockchainStatistics = ({electionAddress}) => {
 
@@ -19,61 +19,60 @@ const BlockchainStatistics = ({electionAddress}) => {
     const [sorted, setSorted] = useState(false);
     const [isLive, setIsLive] = useState(false);
 
-    const setData = (data) => {
-        getStats(data).then((stats) => {
-          setParties(stats.names);
-          setPartiesScores(stats.scores);
-          setCandidatesNames(stats.candidates);
-          setCandidatesScores(stats.candidatesScores);
-          setAllCandidates(stats.allCandidates);
-          setAllCandidatesScores(stats.allCandidatesScores);
-        })       
+    const getPartyNames = async (data) => {
+      const names = [];
+      const scores = [];
+      const candidates = [];
+      const candidatesScores = [];
+      const allCandidates = [];
+      const allCandidatesScores = [];
+      for(let candidate of data) {
+          allCandidates.push(candidate.name);
+          allCandidatesScores.push(parseInt(candidate.voteCount));
+          if(!names.includes(candidate.partyName)) {
+              names.push(candidate.partyName);
+              scores.push(parseInt(candidate.voteCount));
+              candidates.push([candidate.name]);
+              candidatesScores.push([parseInt(candidate.voteCount)]);
+          }
+          else {
+              for(let i=0; i<names.length; i++) {
+                  if(names[i]===candidate.partyName) {
+                      scores[i]+=parseInt(candidate.voteCount);
+                      candidates[i].push(candidate.name);
+                      candidatesScores[i].push(parseInt(candidate.voteCount));
+                  }
+              }
+          }
+      setParties(names);
+      setPartiesScores(scores);
+      setCandidatesNames(candidates);
+      setCandidatesScores(candidatesScores);
+      setAllCandidates(allCandidates);
+      setAllCandidatesScores(allCandidatesScores);
       }
+  }
 
-    const sortCandidates = () => {
-        if(allCandidates) {
-        const indices = [];
-        for(let i = 0; i< allCandidates.length; i++) {
-          indices[i] = i;
-        }
-        indices.sort( (a,b) => allCandidatesScores[b] - allCandidatesScores[a] )
-
-        const sortedNames = indices.map(i => allCandidates[i]);
-        const sortedScores = indices.map(i => allCandidatesScores[i]);
-        setAllCandidates(sortedNames);
-        setAllCandidatesScores(sortedScores);
+  const sortCandidates = () => {
+      if(allCandidates) {
+      const indices = [];
+      for(let i = 0; i< allCandidates.length; i++) {
+        indices[i] = i;
       }
+      indices.sort( (a,b) => allCandidatesScores[b] - allCandidatesScores[a] )
+      const sortedNames = indices.map(i => allCandidates[i]);
+      const sortedScores = indices.map(i => allCandidatesScores[i]);
+      setAllCandidates(sortedNames);
+      setAllCandidatesScores(sortedScores);
     }
+  }
 
     const viewStats = (data) => {
-      setData(data);
+      getPartyNames(data);
       sortCandidates();
       if(!sorted)
       setSorted(true);
     }
-
-    const compareTime = async (startDate) => {
-      const offset = new Date().getTimezoneOffset()
-      const epoch = new Date(`01/01/1970 ${-offset/60}:00:00`);
-      const unixDate = Math.floor((new Date() - epoch) / 1000);
-      return unixDate > startDate
-    }
-    
-    useEffect(() => {
-      if(electionAddress){
-        viewCandidates(electionAddress).then((data) => {
-            viewStats(data);
-        });
-        viewVoters(electionAddress).then((data) => {
-            setVotedVoters([data]);
-        })
-        viewTimeInterval(electionAddress).then((data) => {
-        compareTime(parseInt(data[0])).then((live) => {
-          setIsLive(live);
-        })
-      });
-      }
-    }, [sorted, electionAddress]);
 
     const partyStats = {
       labels: parties,
@@ -92,6 +91,22 @@ const BlockchainStatistics = ({electionAddress}) => {
         barThickness: 55,
       }]
     }
+
+    useEffect(() => {
+      if(electionAddress){
+        viewCandidates(electionAddress).then((data) => {
+            viewStats(data);
+        });
+        viewVoters(electionAddress).then((data) => {
+            setVotedVoters([data]);
+        })
+        viewTimeInterval(electionAddress).then((data) => {
+        compareTime(parseInt(data[0])).then((live) => {
+          setIsLive(live);
+        })
+      });
+      }
+    }, [sorted, electionAddress]);
 
   return (
     <div>
