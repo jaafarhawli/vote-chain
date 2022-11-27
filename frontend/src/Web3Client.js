@@ -27,17 +27,6 @@ export const init = async () => {
 	  }
 } 
 
-	export const viewCandidates = async (address) => {
-		if(!isInitialized)
-		await init();
-	
-		let provider = window.ethereum;
-		const web3 = new Web3(provider);
-		let contract = new web3.eth.Contract(ElectionContract.abi, address);
-
-		return contract.methods.results().call();
-	}
-	
 	export const viewVoters = async (address) => {
 		if(!isInitialized)
 		await init();
