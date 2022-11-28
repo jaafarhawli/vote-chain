@@ -1,14 +1,11 @@
 import React, {useState, useMemo} from 'react';
+import {ConfirmModal, AddModerator} from '../../components/Modals';
+import {Loader, Table, EmptyState, Button} from '../../components/Reusable';
 import {useQuery} from '@tanstack/react-query';
-import axios from '../../api/axios';
-import Button from '../../components/Reusable/Button';
-import AddModerator from '../../components/Modals/AddModerator/AddModerator';
-import ConfirmModal from '../../components/Modals/ConfirmModal';
-import EmptyState from '../../components/Reusable/EmptyState';
-import Table from '../../components/Reusable/Table';
 import { useSelector } from 'react-redux';
-import Loader from '../../components/Reusable/Loader';
 import { viewModerators } from '../../api/viewModerators';
+import { deleteModerator } from '../../api/deleteModerator';
+import { closeModal } from '../../components/Modals/closeModal';
 
 const Moderators = ({socket}) => {
 
@@ -27,16 +24,6 @@ const Moderators = ({socket}) => {
           return row?.email?.toLowerCase().includes(search.toLowerCase())
         })
       }, [data, search])
-
-    const closeModal = () => {
-        setModeratorModal(false)
-        document.body.style.overflow = 'unset';
-      }
-    
-    const closeConfirm = () => {
-      setConfirmModal(false)
-      document.body.style.overflow = 'unset';
-    }
     
     const openModal = () => {
         setModeratorModal(true);
@@ -51,28 +38,6 @@ const Moderators = ({socket}) => {
         document.body.style.overflow = 'hidden';
       }
 
-      
-      
-      const deleteModerator = async () => {
-        const form = {
-            moderator_id: localStorage.moderator_id,
-            election_id: election.id,
-            user_id: user.id 
-        }
-        
-        try {
-            await axios.post('moderator/remove', form, {
-                headers: {
-                  Authorization: `bearer ${localStorage.token}`
-                }
-              });
-              refetch();
-              closeConfirm();
-            } catch (error) {
-              console.log(error.response.data.message);
-            }
-        }
-
     return (
         <>
         {
@@ -81,7 +46,7 @@ const Moderators = ({socket}) => {
         :
         data?.length === 0 ?
         <>
-        <AddModerator open={moderatorModal} closeModal={closeModal} refetch={refetch} socket={socket} />
+        <AddModerator open={moderatorModal} closeModal={() => closeModal(setModeratorModal)} refetch={refetch} socket={socket} />
         <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
         <div className='w-[98%] mx-auto px-8 '>
             <h1 className='text-[28px] font-bold'>Moderators</h1>
@@ -91,8 +56,8 @@ const Moderators = ({socket}) => {
         </>
         :
         <>
-        <ConfirmModal  open={confirmModal} closeModal={closeConfirm} click={deleteModerator} text={"Are you sure you want to delete this moderator?"} />
-        <AddModerator open={moderatorModal} closeModal={closeModal} refetch={refetch} socket={socket} />
+        <ConfirmModal  open={confirmModal} closeModal={() => closeModal(setConfirmModal)} click={() => deleteModerator(election.id, user.id, refetch, closeModal(setConfirmModal))} text={"Are you sure you want to delete this moderator?"} />
+        <AddModerator open={moderatorModal} closeModal={() => closeModal(setModeratorModal)} refetch={refetch} socket={socket} />
         <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
         <div className='w-[98%] mx-auto px-8 '> 
         <div className='flex justify-between items-center w-full'>
