@@ -1,6 +1,7 @@
 import axios from "../../../api/axios";
 import {viewElection} from '../../../redux/election';
 
+// Save the new election title and description
 export const saveInfo = async(election_id, user_id, title, description, dispatch, setError, setMessage, setSuccessModal, setSave, save) => {
     const form = {
         election_id: election_id,

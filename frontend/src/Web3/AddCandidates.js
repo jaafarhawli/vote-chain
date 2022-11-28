@@ -4,7 +4,9 @@ import Web3 from 'web3';
 import ElectionContract from 'contracts/Election.json';
 import { selectedAccount } from "../Web3Client";
 
+// Add the election candidates list inside the database to the web3 election smart contract 
 export const addCandidates = async (candidates, parties, address) => {
+	// If no account selected yet await the user to select one
 	if(!isInitialized)
 	await init();
 

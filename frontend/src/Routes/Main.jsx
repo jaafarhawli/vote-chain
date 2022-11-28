@@ -12,6 +12,7 @@ const Main = ({socket}) => {
   const [notification, setNotification] = useState(false);
   const [message, setMessage] = useState('');
 
+  // Notify the user when he's requested to be a moderator to another election
   socket.on('getNotification', (sender_email, election_title) => {
     setMessage(`${sender_email} wants to add you as a moderator to his election ${election_title}`);
     setNotification(true);

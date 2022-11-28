@@ -4,6 +4,7 @@ import Button from '../../components/Reusable/Button';
 import axios from '../../api/axios';
 import {useParams, useNavigate} from 'react-router-dom';
 
+// This page pops up when you click on the link sent to you by email to verify your account on register
 const EmailVerification = () => {
 
     const [message, setMessage] = useState();

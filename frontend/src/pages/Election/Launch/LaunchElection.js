@@ -2,6 +2,7 @@ import axios from '../../../api/axios';
 import { addCandidates, addVotersToBlockchain as addVoters, launchElection as launchToBlockchain } from '../../../Web3';
 import { viewElection } from '../../../redux/election';
 
+// Add the election candidates list inside the database to the blockchain
 const addCandidatesToBlockchain = async (data, election_address) => {
     let candidates = [];
     let parties = [];
@@ -11,7 +12,8 @@ const addCandidatesToBlockchain = async (data, election_address) => {
     }
     await addCandidates(candidates, parties, election_address);
   }
-  
+
+// Add the election moderators list inside the database to the blockchain
 const addVotersToBlockChain = async (voters, election_address) => {
   let voters_addresses = [];
   for(let voter of voters) {
@@ -20,6 +22,7 @@ const addVotersToBlockChain = async (voters, election_address) => {
   await addVoters(voters_addresses, election_address);
 }
 
+// Launch the election in blockchain and database
 export const launchElection = async (election_id, user_id, election_address, data, voters, dispatch, setDisabled, setConfirmModal) => {
     const form = {
         election_id: election_id,

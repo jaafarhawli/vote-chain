@@ -13,6 +13,7 @@ const SurveyForm = () => {
 
   const param = useParams();
 
+  // Add the submitted data to the applicants list of the election
   const handleSubmit = async () => {
     const form = {
         email: email,

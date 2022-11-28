@@ -1,6 +1,7 @@
 import React from 'react';
 import logo from '../../../assets/VOTE CHAIN-logo-white-horizantal.png';
 
+// Header used inside the voter select and results pages
 const VoteHeader = (props) => {
 
     return (

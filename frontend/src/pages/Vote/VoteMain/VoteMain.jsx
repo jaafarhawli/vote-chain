@@ -7,6 +7,7 @@ import {Timer, Button} from '../../../components/Reusable';
 import { useSelector, useDispatch } from 'react-redux';
 import { countDown } from './CountDown';
 
+// This is the page accessed after the voter logs into an election 
 const VoteMain = () => {
   
   const navigate = useNavigate();
@@ -27,9 +28,11 @@ const VoteMain = () => {
   }
 
   useEffect(() => {
+    // If election is live, set the counter to show how much time left for election to end
     if(live)
     countDown(false , election.endTime, dispatch, setLive, setDisabled, clearInterval, setTimerDays, setTimerHours, setTimerMinutes, setTimerSeconds);
     else
+     // If election has not started, set the counter to show how much time left for election to start
     countDown(true , election.startTime, dispatch, setLive, setDisabled, clearInterval, setTimerDays, setTimerHours, setTimerMinutes, setTimerSeconds);
   }, [live, election.endTime, election.startTime, dispatch]);
 

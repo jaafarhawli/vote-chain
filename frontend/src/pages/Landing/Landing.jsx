@@ -5,6 +5,7 @@ import LandingHero from './LandingHero';
 import LandingSignup from './LandingSignup';
 import LandingSteps from './LandingSteps';
 
+// Landing page when the website opens
 const Landing = () => {
   return (
     <div>

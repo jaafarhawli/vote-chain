@@ -6,6 +6,7 @@ import {Loader, ElectionContainer, EmptyState, Table} from '../../../components/
 import { viewVoters } from '../../../api/viewVoters';
 import { deleteVoter } from '../../../api/deleteVoter';
 
+// Election voters list
 const Voters = (props) => {
 
     const election = useSelector((state) => state.election.value);
@@ -18,12 +19,14 @@ const Voters = (props) => {
     
     const {data, refetch, isFetching} = useQuery(["voters"], () => viewVoters(election.id));
 
+    // Filter voters upon searching
     const filteredData = useMemo(() => {
         return data?.filter(row => {
           return row?.email?.toLowerCase().includes(search.toLowerCase())
         })
       }, [data, search])
-
+    
+      // Open modal to confirm removing a voter
     const openConfirmModal = (id) => {
         if(launched)
         return

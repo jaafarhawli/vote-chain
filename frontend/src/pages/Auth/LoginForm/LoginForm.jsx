@@ -24,6 +24,7 @@ const LoginForm = ({socket}) => {
   }
 
   useEffect(() => {
+    // Disable button if any of the text fields is null
     if(email==='' || password==='')
     setDisabled(true)
     else

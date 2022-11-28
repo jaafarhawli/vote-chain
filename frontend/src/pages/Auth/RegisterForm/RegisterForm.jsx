@@ -23,6 +23,7 @@ const RegisterForm = () => {
   }
 
   useEffect(() => {
+    // Disable button if password is less than 8 characters or any of the text fields is null
     if(email==='' || password.length<8 || confirm.length<8 || firstname==='' || lastname==='')
     setDisabled(true)
     else

@@ -31,6 +31,7 @@ const Settings = () => {
 
     const navigate = useNavigate();
 
+    // Disable the save buttons if there's no new data or if the inputs are null
     useEffect(() => {
         if (title===election.title && description===election.description)
         setDisabled(true);

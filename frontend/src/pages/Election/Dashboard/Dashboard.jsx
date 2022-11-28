@@ -7,6 +7,9 @@ import { useSelector } from 'react-redux';
 import {useQuery} from '@tanstack/react-query';
 import { viewElectionNumerics } from '../../../api/viewElectionNumerics';
 
+// Election dashboard page
+// Contains the election numerics and statistical charts when election is live
+// Contains election code, voting link that can be sent to voters, and survey link
 const Dashboard = () => {
 
     const election = useSelector((state) => state.election.value);

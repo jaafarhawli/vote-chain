@@ -8,6 +8,7 @@ export const login = async (email, password, socket, dispatch, navigate) => {
         email: email,
         password: password
     };
+    // Get the email from jwt
     try {
         const data = await axios.post('auth/login/user', form);
         const token = data.data;
@@ -16,12 +17,14 @@ export const login = async (email, password, socket, dispatch, navigate) => {
           email: decoded.email
         }));
         localStorage.setItem('token', token);
+        // Save the jwt then get the rest of the user data from email
         try {
           const user = await axios.get(`user/${decoded.email}`, {
             headers: {
               Authorization: `bearer ${localStorage.token}`
             }
           });
+          // Add a new user email to socket.io users list
           socket.emit('login', decoded.email);
           dispatch(updateUser({
             firstName: user.data.data.first_name,

@@ -9,6 +9,7 @@ import { ToastContainer } from 'react-toastify';
 import { viewElections } from '../../../api/viewElections';
 import { openElection } from './openElection';
 
+// This page displays all the elections created by the user
 const UserElections = () => {
 
   const navigate = useNavigate();

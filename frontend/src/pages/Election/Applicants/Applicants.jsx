@@ -5,6 +5,8 @@ import {Loader, Table, EmptyState, ElectionContainer} from '../../../components/
 import { viewApplicants } from '../../../api/viewApplicants';
 import { removeApplicant } from '../../../api/removeApplicant';
 
+// Election applicants section
+// Anyone can apply to the election by filling a survey in a link send by the election admin 
 const Applicants = (props) => {
     
     const election = useSelector((state) => state.election.value);
@@ -14,6 +16,7 @@ const Applicants = (props) => {
 
     const {data, refetch, isFetching} = useQuery(["applicants"], () => viewApplicants(election.id));
 
+    // Filter applicants table on searching
     const filteredData = useMemo(() => {
         return data?.filter(row => {
           return row?.email?.toLowerCase().includes(search.toLowerCase())

@@ -17,10 +17,13 @@ function App() {
 
 	const user = useSelector((state) => state.user.value);
 
+	// On initialization
+	// Pop up metamask tab and choose an account to perform web3 operations from 
 	useEffect(() => {
 	  init();  
 	}, []);
 	
+	// Add the new user email to socket.io users list if logged in
 	useEffect(() => {
 		if(user.email)
 		socket.emit('newUser', user.email);

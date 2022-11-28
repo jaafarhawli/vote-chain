@@ -12,12 +12,15 @@ export const countDown = (start , time, dispatch, setLive, setDisabled, clearInt
       const minutes = Math.floor(distance % (60 * 60 * 1000) / (60 * 1000));
       const seconds = Math.floor(distance % (60 * 1000) / 1000);
 
+      // If the timer has ended
       if(distance<0) {
+        // If election has just started, start a new counter that counts the time left for election to end
         if(start) {
           setLive(true);
           setDisabled(false);
           clearInterval(interval.current);
         }
+        // If the election has ended, stop the timer
         else {
             dispatch(viewElection({
                 ended: true

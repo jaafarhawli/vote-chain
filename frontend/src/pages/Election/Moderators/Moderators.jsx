@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { viewModerators } from '../../../api/viewModerators';
 import { deleteModerator } from '../../../api/deleteModerator';
 
+// List of the election moderators 
 const Moderators = ({socket}) => {
 
     const election = useSelector((state) => state.election.value);
@@ -18,12 +19,14 @@ const Moderators = ({socket}) => {
 
     const {data, refetch, isFetching} = useQuery(["moderators"], () => viewModerators(election.id))
 
+    // Filter moderators table upon search
     const filteredData = useMemo(() => {
         return data?.filter(row => {
           return row?.email?.toLowerCase().includes(search.toLowerCase())
         })
       }, [data, search])
-    
+      
+      // Open modal to confirm removing a moderator
       const openConfirmModal = (id) => {
         if(launched)
         return

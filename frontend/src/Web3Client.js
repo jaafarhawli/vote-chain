@@ -1,6 +1,8 @@
 export let selectedAccount;
 export let isInitialized = false;
 
+// On page initialization
+// Pop up metamask wallet and select an account to perform web3 operations from
 export const init = async () => {
     let provider = window.ethereum;
 	  if(typeof provider !== 'undefined') {
@@ -15,6 +17,7 @@ export const init = async () => {
 				return;
 			})
 
+		// Switch to the new selected account in metamask
 		window.ethereum.on('accountsChanged', function (accounts) {
 			selectedAccount = accounts[0];
 			console.log(`Selected account changed to ${selectedAccount}`);

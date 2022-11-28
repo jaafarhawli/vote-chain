@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { viewModeratorElections } from '../../../api/viewModeratorElections';
 import { openElection } from './openElection';
 
+// This page displays all the elections the user is a moderator for
 const ModeratorElections = () => {
 
     const navigate = useNavigate();

@@ -4,7 +4,9 @@ import Web3 from 'web3';
 import ElectionContract from 'contracts/Election.json';
 import { selectedAccount } from "../Web3Client";
 
+// Set the election launched to true inside the election smart contract
 export const launchElection = async (address) => {
+    // If no account selected yet await the user to select one
     if(!isInitialized)
     await init();
 

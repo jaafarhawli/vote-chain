@@ -8,6 +8,9 @@ import { viewCandidates } from '../../../api/viewCandidates';
 import { launchElection } from './LaunchElection';
 import { ElectionContainer } from '../../../components/Reusable';
 
+// Launch election page
+// Where the election admin can launch his election and no longer be able to alter it's data
+// No voting can be done before the election gets launched 
 const Launch = () => {
 
   const election = useSelector((state) => state.election.value);

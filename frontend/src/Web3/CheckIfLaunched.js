@@ -3,7 +3,9 @@ import { init } from "../Web3Client";
 import Web3 from 'web3';
 import ElectionContract from 'contracts/Election.json';
 
+// Check if election is launched 
 export const checkIfLaunched = async (address) => {
+    // If no account selected yet await the user to select one
     if(!isInitialized)
     await init();
 

@@ -9,11 +9,13 @@ export const login = async (code, id, key, dispatch, navigate) => {
         voter_id: id,
         voter_key: key
     };
+    // Get jwt if credentials are correct
     try {
         const data = await axios.post('auth/login/voter', form);
         const token = data.data;
         const decoded = jwt_decode(token);
         localStorage.setItem('token', token);
+        // Get the voter id from the jwt and load the rest of the voter's data
         try {
             const user = await axios.get(`voter/${decoded.voter_id}`, {
               headers: {
@@ -28,6 +30,7 @@ export const login = async (code, id, key, dispatch, navigate) => {
               chosenParty: user.data.data.chosenParty,
               chosenCandidate: user.data.data.chosenCandidate
             }));
+            // Get the data of the election which the voter is accessing 
             try {
                 const election = await axios.get(`voter/election/${user.data.data.email}/${user.data.data.election_id}`, {
                   headers: {

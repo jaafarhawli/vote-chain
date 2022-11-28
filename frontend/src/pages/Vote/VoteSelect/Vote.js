@@ -4,6 +4,7 @@ import { updateVoter } from "../../../redux/voter";
 
 export const vote = async (selectedCandidateId, election_address, voter_id, selectedParty, selectedPartyName, selectedCandidate, selectedCandidateName, dispatch, navigate) => {
 
+    // Await adding the vote to the blockchain
     await voteCandidate(selectedCandidateId, election_address);
     const form = {
         id: voter_id,

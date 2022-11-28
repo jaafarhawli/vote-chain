@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { viewParties } from '../../../api/viewParties';
 import { deleteParty } from '../../../api/deleteParty';
 
+// This page contains all parties of the election
 const Parties = () => {
 
     const election = useSelector((state) => state.election.value);
@@ -19,12 +20,14 @@ const Parties = () => {
 
     const {data, refetch, isFetching} = useQuery(["parties"], () => viewParties(election.id));
 
+    // Filter the parties table upon searching
     const filteredData = useMemo(() => {
         return data?.filter(row => {
           return row?.name?.toLowerCase().includes(search.toLowerCase())
         })
       }, [data, search])
-
+    
+    // Open modal to confirm removing a party
     const openConfirmModal = (id) => {
         if(launched)
         return;
@@ -33,6 +36,7 @@ const Parties = () => {
         document.body.style.overflow = 'hidden';
       }
 
+      // Open modal to add candidate to party
       const openCandidateModal = (id) => {
         if(launched)
         return;

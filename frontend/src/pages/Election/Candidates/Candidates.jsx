@@ -6,6 +6,7 @@ import {Loader, EmptyState, CandidateCard, ElectionContainer} from '../../../com
 import { viewCandidates } from '../../../api/viewCandidates';
 import { deleteCandidate } from '../../../api/deleteCandidate';
 
+// Election candidates section
 const Candidates = () => {
 
     const election = useSelector((state) => state.election.value);
@@ -17,12 +18,14 @@ const Candidates = () => {
     
     const {data, refetch, isFetching} = useQuery(["candidates"], () => viewCandidates(election.id));
 
+    // Filter candidates grid on searching
     const filteredData = useMemo(() => {
       return data?.filter(row => {
         return row?.name?.toLowerCase().includes(search.toLowerCase())
       })
     }, [data, search])
 
+    // Open modal to confirm deleting a candidate
     const openConfirmModal = (id, party) => {
       if(launched)
       return

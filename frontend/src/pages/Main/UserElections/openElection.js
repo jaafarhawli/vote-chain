@@ -2,6 +2,7 @@ import axios from "../../../api/axios";
 import { checkIfLaunched } from "../../../Web3";
 import { viewElection as view } from '../../../redux/election';
 
+// Open admin panel page for the election 
 export const openElection = async (id, user_id, dispatch) => {
     const election = await axios.get(`election/${user_id}/${id}`, {
     headers: {
