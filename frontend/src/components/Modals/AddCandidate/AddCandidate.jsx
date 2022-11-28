@@ -1,6 +1,6 @@
 import React, {useState, useRef} from 'react';
 import {Button, FormLabelInput, Modal} from '../../Reusable';
-import SuccessModal from '../SuccessModal';
+import SuccessModal from '../SuccessModal/SuccessModal';
 import {IoMdImage} from 'react-icons/io';
 import { useSelector } from 'react-redux';
 import { addCandidate } from './addCandidateFunction';

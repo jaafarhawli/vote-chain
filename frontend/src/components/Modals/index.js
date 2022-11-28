@@ -1,5 +1,5 @@
-import ConfirmModal from "./ConfirmModal";
-import SuccessModal from "./SuccessModal";
+import ConfirmModal from "./ConfirmModal/ConfirmModal";
+import SuccessModal from "./SuccessModal/SuccessModal";
 import AddCandidate from "./AddCandidate/AddCandidate";
 import AddModerator from "./AddModerator/AddModerator";
 import AddParty from "./AddParty/AddParty";

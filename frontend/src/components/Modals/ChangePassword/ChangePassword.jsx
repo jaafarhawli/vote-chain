@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {Button, FormInput, Modal} from '../../Reusable';
-import SuccessModal from '../SuccessModal';
+import SuccessModal from '../SuccessModal/SuccessModal';
 import { useSelector } from 'react-redux';
 import { changePassword } from './ChangePasswordFunction';
 

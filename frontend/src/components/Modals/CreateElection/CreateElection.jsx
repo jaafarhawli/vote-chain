@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {Button, FormLabelInput, Modal} from '../../Reusable';
-import SuccessModal from '../SuccessModal';
+import SuccessModal from '../SuccessModal/SuccessModal';
 import "flatpickr/dist/themes/material_green.css";
 import Flatpickr from "react-flatpickr";
 import { useSelector } from 'react-redux';
