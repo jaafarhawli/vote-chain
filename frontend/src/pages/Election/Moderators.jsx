@@ -8,6 +8,7 @@ import EmptyState from '../../components/Reusable/EmptyState';
 import Table from '../../components/Reusable/Table';
 import { useSelector } from 'react-redux';
 import Loader from '../../components/Reusable/Loader';
+import { viewModerators } from '../../api/viewModerators';
 
 const Moderators = ({socket}) => {
 
@@ -19,23 +20,7 @@ const Moderators = ({socket}) => {
     const [search, setSearch] = useState('');
     const launched = election.launched===true;
 
-    const closeModal = () => {
-        setModeratorModal(false)
-        document.body.style.overflow = 'unset';
-      }
-    
-      const closeConfirm = () => {
-        setConfirmModal(false)
-        document.body.style.overflow = 'unset';
-      }
-    
-    const {data, refetch, isFetching} = useQuery(["moderators"], async () => {
-        return axios.get(`moderator/${election.id}`, {
-                    headers: {
-                      Authorization: `bearer ${localStorage.token}`
-                    }
-                  }).then((res) => res.data.data);
-    })
+    const {data, refetch, isFetching} = useQuery(["moderators"], () => viewModerators(election.id))
 
     const filteredData = useMemo(() => {
         return data?.filter(row => {
@@ -43,7 +28,16 @@ const Moderators = ({socket}) => {
         })
       }, [data, search])
 
-
+    const closeModal = () => {
+        setModeratorModal(false)
+        document.body.style.overflow = 'unset';
+      }
+    
+    const closeConfirm = () => {
+      setConfirmModal(false)
+      document.body.style.overflow = 'unset';
+    }
+    
     const openModal = () => {
         setModeratorModal(true);
         document.body.style.overflow = 'hidden';
