@@ -1,9 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from '../../api/axios';
-import Button from '../../components/Reusable/Button';
-import FormInput from '../../components/Reusable/FormInput';
-import AuthForm from './AuthForm';
+import {AuthForm, FormInput, Button} from '../../components/Reusable';
 
 const RegisterForm = () => {
 

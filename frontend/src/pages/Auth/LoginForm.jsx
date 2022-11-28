@@ -2,11 +2,9 @@ import React, {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from '../../api/axios';
 import jwt_decode from "jwt-decode";
-import Button from '../../components/Reusable/Button';
-import FormInput from '../../components/Reusable/FormInput';
 import { useDispatch } from 'react-redux';
 import { updateUser } from '../../redux/user';
-import AuthForm from './AuthForm';
+import {AuthForm, FormInput, Button} from '../../components/Reusable';
 
 const LoginForm = ({socket}) => {
 

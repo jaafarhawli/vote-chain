@@ -1,13 +1,11 @@
 import React, {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
-import Button from '../../components/Reusable/Button';
-import FormInput from '../../components/Reusable/FormInput';
 import axios from '../../api/axios';
 import jwt_decode from "jwt-decode";
 import { useDispatch } from 'react-redux';
 import { updateVoter } from '../../redux/voter';
 import { viewElection } from '../../redux/election';
-import AuthForm from './AuthForm';
+import {AuthForm, FormInput, Button} from '../../components/Reusable';
 
 const VoteLoginForm = () => {
 

@@ -9,5 +9,6 @@ import Loader from "./Loader";
 import Modal from "./Modal";
 import Table from "./Table";
 import Timer from "./Timer";
+import AuthForm from "./AuthForm";
 
-export {Button, CandidateCard, CopyData, ElectionCard, EmptyState, FormInput, FormLabelInput, Loader, Modal, Table, Timer}
+export {Button, CandidateCard, CopyData, ElectionCard, EmptyState, FormInput, FormLabelInput, Loader, Modal, Table, Timer, AuthForm}
