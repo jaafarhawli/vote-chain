@@ -1,10 +1,10 @@
 import React, {useState, useMemo} from 'react';
-import axios from '../../api/axios';
 import {ConfirmModal, closeModal} from '../../components/Modals';
 import {useQuery} from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
 import {Loader, EmptyState, CandidateCard} from '../../components/Reusable';
 import { viewCandidates } from '../../api/viewCandidates';
+import { deleteCandidate } from '../../api/deleteCandidate';
 
 const Candidates = () => {
 
@@ -33,27 +33,6 @@ const Candidates = () => {
       document.body.style.overflow = 'hidden';
     }
 
-    const deleteCandidate = async () => {
-      const form = {
-          candidate_id: localStorage.candidate_id,
-          party_id: localStorage.party_id,
-          election_id: election.id,
-          user_id: user.id 
-      }
-      
-      try {
-          await axios.post('candidate/remove', form, {
-              headers: {
-                Authorization: `bearer ${localStorage.token}`
-              }
-            });
-            closeModal(setConfirmModal);
-            refetch();
-          } catch (error) {
-            console.log(error.response.data.message);
-          }
-      }
-
     return (
       <>
       {
@@ -69,7 +48,7 @@ const Candidates = () => {
         </div>
         </> : 
         <>
-        <ConfirmModal  open={confirmModal} closeModal={() => closeModal(setConfirmModal)} click={deleteCandidate} text={"Are you sure you want to delete this candidate?"} />
+        <ConfirmModal  open={confirmModal} closeModal={() => closeModal(setConfirmModal)} click={() => deleteCandidate(election.id, user.id, setConfirmModal, refetch)} text={"Are you sure you want to delete this candidate?"} />
         <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
         <div className='w-[98%] mx-auto px-8 '>
         <div className='flex justify-between items-center w-full'>
