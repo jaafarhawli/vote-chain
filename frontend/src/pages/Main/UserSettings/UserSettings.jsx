@@ -1,8 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import MainHeader from '../MainHeader/MainHeader';
-import ConfirmModal from '../../../components/Modals/ConfirmModal';
-import SuccessModal from '../../../components/Modals/SuccessModal';
-import ChangePassword from '../../../components/Modals/ChangePassword/ChangePassword';
+import {ConfirmModal, SuccessModal, ChangePassword} from '../../../components/Modals';
 import { useNavigate } from 'react-router-dom';
 import {Button, FormInput} from '../../../components/Reusable';
 import { ToastContainer } from 'react-toastify';

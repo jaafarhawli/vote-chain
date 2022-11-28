@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import MainHeader from '../MainHeader/MainHeader';
-import CreateElection from '../../../components/Modals/CreateElection/CreateElection';
+import {CreateElection} from '../../../components/Modals';
 import {Loader, EmptyState, ElectionCard} from '../../../components/Reusable';
 import { useNavigate } from 'react-router-dom';
 import {useQuery} from '@tanstack/react-query';
