@@ -7,7 +7,7 @@ const AuthForm = ({title, content, error, message}) => {
       <img src={logo} alt="logo" className='w-[180px]' />
       <div className='bg-white h-[2px] w-[180px]'></div>  
       <h1 className='my-4 text-2xl font-semibold text-white'>{title}</h1>  
-      <h1 className={error? 'text-red ' : 'hidden'}>{message}</h1>
+      <h1 className={error ? 'text-red pb-6' : 'text-green pb-6'}>{message}</h1>
       {content}
     </div>
   );

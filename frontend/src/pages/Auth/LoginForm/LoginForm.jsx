@@ -16,7 +16,7 @@ const LoginForm = ({socket}) => {
   const [disabled, setDisabled] = useState(true);
 
   const handleSubmit = async () => {
-    const res = login(email, password, socket, dispatch, navigate);
+    const res = await login(email, password, socket, dispatch, navigate);
     if(res) {
       setError(res.error);
       setMessage(res.message);

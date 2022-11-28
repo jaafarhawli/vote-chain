@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from '../../api/axios';
-import {AuthForm, FormInput, Button} from '../../components/Reusable';
+import {AuthForm, FormInput, Button} from '../../../components/Reusable';
+import { register } from './RegisterFormFunction';
 
 const RegisterForm = () => {
 
@@ -17,31 +17,9 @@ const RegisterForm = () => {
   const [disabled, setDisabled] = useState(true);
 
   const handleSubmit = async() => {
-      if(confirm!==password) {
-          setMessage('Passwords didnt match');
-          setError(true);
-          return;
-      }
-      if(password.length<8) {
-          setMessage('Password should be 8 characters atleast');
-          setError(true);
-          return;
-      }
-      const form = {
-          first_name: firstname,
-          last_name: lastname,
-          email: email,
-          password: password
-      }
-      try {
-        const signup = await axios.post('email', form);
-        setMessage(signup.data);
-        setError(false);
-      } catch (error) {
-        setMessage(error.data);
-        setError(true);
-        console.log(error);
-      }
+      const res = await register(confirm, password, firstname, lastname, email);
+      setError(res.error);
+      setMessage(res.message);
   }
 
   useEffect(() => {
