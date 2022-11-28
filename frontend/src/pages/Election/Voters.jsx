@@ -1,13 +1,10 @@
 import React, {useState, useMemo} from 'react';
-import {useQuery} from '@tanstack/react-query';
 import axios from '../../api/axios';
-import EmptyState from '../../components/Reusable/EmptyState';
-import Button from '../../components/Reusable/Button';
-import Table from '../../components/Reusable/Table';
-import AddVoter from '../../components/Modals/AddVoter/AddVoter';
-import ConfirmModal from '../../components/Modals/ConfirmModal';
+import {AddVoter, ConfirmModal, closeModal, openModal} from '../../components/Modals';
+import {useQuery} from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
-import Loader from '../../components/Reusable/Loader';
+import {Loader, Button, EmptyState, Table} from '../../components/Reusable';
+import { viewVoters } from '../../api/viewVoters';
 
 const Voters = (props) => {
 
@@ -18,16 +15,14 @@ const Voters = (props) => {
     const [voterModal, setVoterModal] = useState(false);
     const [confirmModal, setConfirmModal] = useState(false);
     const launched = election.launched===true;
-
-    const closeModal = () => {
-        setVoterModal(false)
-        document.body.style.overflow = 'unset';
-      }
     
-    const openModal = () => {
-      setVoterModal(true);
-      document.body.style.overflow = 'hidden';
-    }
+    const {data, refetch, isFetching} = useQuery(["voters"], () => viewVoters(election.id));
+
+    const filteredData = useMemo(() => {
+        return data?.filter(row => {
+          return row?.email?.toLowerCase().includes(search.toLowerCase())
+        })
+      }, [data, search])
 
     const openConfirmModal = (id) => {
         if(launched)
@@ -36,11 +31,6 @@ const Voters = (props) => {
         localStorage.setItem('voter_id', id)
         document.body.style.overflow = 'hidden';
       }
-
-    const closeConfirm = () => {
-      setConfirmModal(false)
-      document.body.style.overflow = 'unset';
-    }
 
     const deleteVoter = async () => {
         const form = {
@@ -56,25 +46,12 @@ const Voters = (props) => {
                 }
               });
               refetch();
-              closeConfirm()
+              closeModal(setConfirmModal)
             } catch (error) {
               console.log(error.response.data.message);
             }
     }
 
-    const {data, refetch, isFetching} = useQuery(["voters"], async () => {
-        return axios.get(`voter/voters/${election.id}`, {
-                    headers: {
-                      Authorization: `bearer ${localStorage.token}`
-                    }
-                  }).then((res) => res.data.data);
-    })
-
-    const filteredData = useMemo(() => {
-        return data?.filter(row => {
-          return row?.email?.toLowerCase().includes(search.toLowerCase())
-        })
-      }, [data, search])
 
 
   return (
@@ -85,23 +62,23 @@ const Voters = (props) => {
     :
     data?.length===0 ?
     <>
-    <AddVoter open={voterModal} closeModal={closeModal}  refetch={refetch} />
+    <AddVoter open={voterModal} closeModal={() => closeModal(setVoterModal)}  refetch={refetch} />
     <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
     <div className='w-[98%] mx-auto px-8 '>
         <h1 className='text-[28px] font-bold'>Voters</h1>
-        <EmptyState title={'No Voters'} button={'Add voter'} disabled={launched} onClick={openModal}>You don’t have any voters, add one now!</EmptyState>
+        <EmptyState title={'No Voters'} button={'Add voter'} disabled={launched} onClick={() => openModal(setVoterModal)}>You don’t have any voters, add one now!</EmptyState>
     </div>
     </div>
     </>
     : 
     <>
-    <ConfirmModal  open={confirmModal} closeModal={closeConfirm} click={deleteVoter} text={"Are you sure you want to delete this voter?"} />
-    <AddVoter open={voterModal} closeModal={closeModal}  refetch={refetch} />
+    <ConfirmModal  open={confirmModal} closeModal={() => closeModal(setConfirmModal)} click={deleteVoter} text={"Are you sure you want to delete this voter?"} />
+    <AddVoter open={voterModal} closeModal={() => closeModal(setVoterModal)}  refetch={refetch} />
     <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
     <div className='w-[98%] mx-auto px-8 '>
         <div className='flex justify-between items-center w-full'>
           <h1 className='text-[28px] font-bold'>Voters</h1>
-          <Button add={true} onClick={openModal} disabled={launched} >Add Voter</Button>
+          <Button add={true} onClick={() => openModal(setVoterModal)} disabled={launched} >Add Voter</Button>
         </div>
         <input type="search" className='border-2 border-[#dddddd] w-1/3 rounded-md mt-4' placeholder='Search voter by email' onChange={e => setSearch(e.target.value)} />
         {filteredData?.length===0 ? <EmptyState title={'No Voters'}>You don’t have any voters</EmptyState> : 
