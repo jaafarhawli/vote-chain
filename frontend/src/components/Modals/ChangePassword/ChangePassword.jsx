@@ -1,10 +1,10 @@
 import React, {useState, useEffect} from 'react';
-import axios from '../../api/axios';
-import Button from '../Reusable/Button';
-import SuccessModal from './SuccessModal';
+import Button from '../../Reusable/Button';
+import SuccessModal from '../SuccessModal';
 import { useSelector } from 'react-redux';
-import FormInput from '../Reusable/FormInput';
-import Modal from '../Reusable/Modal';
+import FormInput from '../../Reusable/FormInput';
+import Modal from '../../Reusable/Modal';
+import { changePassword } from './ChangePasswordFunction';
 
 const ChangePassword = ({open, closeModal}) => {
 
@@ -18,36 +18,11 @@ const ChangePassword = ({open, closeModal}) => {
     const [successModal, setSuccessModal] = useState(false);
     const [disabled, setDisabled] = useState();
 
-    const changePassword = async() => {
-
-        if(confirm!==password) {
-            setMessage('Passwords didnt match');
-            setIsError(true);
-            setSuccessModal(true);
-            return;
-        }
-    
-        const form = {
-            id: user.id,
-            old_password: oldPassword,
-            password: password,
-        }
-        try {
-          await axios.put('user/password', form, {
-            headers: {
-              Authorization: `bearer ${localStorage.token}`
-            }
-          });
-          setIsError(false);
-          setMessage('Password updated successfully');
-          setSuccessModal(true);
-    
-        } catch (error) {
-          setMessage(error.response.data.message);
-          setIsError(true);
-          setSuccessModal(true);
-          console.log(error.response.data.message);
-        }
+    const handleClick = async() => {
+        const res = await changePassword(confirm, password, user.id, oldPassword);
+        setMessage(res.message);
+        setIsError(res.isError);
+        setSuccessModal(res.successModal);
     }
 
     useEffect(() => {
@@ -67,7 +42,7 @@ const ChangePassword = ({open, closeModal}) => {
         <FormInput type="password" textStyle='text-white' onChange={e => setOldPassword(e.target.value)}>Old Password</FormInput>
         <FormInput type="password" textStyle='text-white' onChange={e => setPassword(e.target.value)}>New Password</FormInput>
         <FormInput type="password" textStyle='text-white' onChange={e => setConfirm(e.target.value)}>Confirm New Password</FormInput>
-        <Button className=' bg-cyan' onClick={changePassword} disabled={disabled}>Save changes</Button>
+        <Button className=' bg-cyan' onClick={handleClick} disabled={disabled}>Save changes</Button>
         </form> 
       } />
     <SuccessModal open={successModal} message={message} error={isError} closeSuccess={() => setSuccessModal(false)} />

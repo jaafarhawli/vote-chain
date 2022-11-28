@@ -6,7 +6,7 @@ import SuccessModal from '../../components/Modals/SuccessModal';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Reusable/Button';
 import FormInput from '../../components/Reusable/FormInput';
-import ChangePassword from '../../components/Modals/ChangePassword';
+import ChangePassword from '../../components/Modals/ChangePassword/ChangePassword';
 import { ToastContainer } from 'react-toastify';
 import { useSelector, useDispatch } from 'react-redux';
 import { updateUser } from '../../redux/user';
