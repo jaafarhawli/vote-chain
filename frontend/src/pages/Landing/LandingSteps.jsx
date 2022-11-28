@@ -1,9 +1,6 @@
 import React from 'react';
 import banner from '../../assets/StepsBanner.gif';
-import {MdBallot} from 'react-icons/md';
-import {AiOutlineUsergroupAdd} from 'react-icons/ai';
-import {FaUserShield} from 'react-icons/fa';
-import {ImStatsDots} from 'react-icons/im';
+import steps from '../../JSON/LandingSteps'
 
 const LandingSteps = () => {
   return (
@@ -12,42 +9,18 @@ const LandingSteps = () => {
       <div className='flex flex-col  text-center lg:w-1/2 border-[2px] rounded-xl border-purple-100 p-6 neon'>
         <h1 className='font-bold text-[32px] md:text-[36px] text-purple-100 lg:text-[40px]'>Build your own election</h1>
         <p className='pt-2 font-medium text-[20px] text-black-200'>Take control over the election, add some moderators to help you out</p>
-        <div className='flex mt-8 gap-4 text-left h-fit'>
+        {steps.map((step, index) => {
+        return(
+        <div className='flex mt-8 gap-4 text-left h-fit' key={index}>
             <div className='w-[70px] h-[70px] bg-purple-100 rounded-full flex justify-center items-center flex-shrink-0'>
-                <MdBallot className='text-white text-[30px]' />
+                {step.icon}
             </div>
             <div>
-                <h2 className='font-bold text-[18px] text-purple-100'>Create your Election</h2>
-                <p className='text-purple-200'>Add as many parties as you want to the election, with candidates for each party</p>
+                <h2 className='font-bold text-[18px] text-purple-100'>{step.title}</h2>
+                <p className='text-purple-200'>{step.content}</p>
             </div>
-        </div>
-        <div className='flex mt-8 gap-4 text-left h-fit'>
-            <div className='w-[70px] h-[70px] bg-purple-100 rounded-full flex justify-center items-center flex-shrink-0'>
-                <AiOutlineUsergroupAdd className='text-white text-[30px]' />
-            </div>
-            <div>
-                <h2 className='font-bold text-[18px] text-purple-100'>Add Voters</h2>
-                <p className='text-purple-200'>Add voters to your election, create a unique password and id for each voter and sent it to them by email </p>
-            </div>
-        </div>
-        <div className='flex mt-8 gap-4 text-left h-fit'>
-            <div className='w-[70px] h-[70px] bg-purple-100 rounded-full flex justify-center items-center flex-shrink-0'>
-                <FaUserShield className='text-white text-[30px]' />
-            </div>
-            <div>
-                <h2 className='font-bold text-[18px] text-purple-100'>Add Moderators</h2>
-                <p className='text-purple-200'>Add moderators to help you in adding voters to your election</p>
-            </div>
-        </div>
-        <div className='flex mt-8 gap-4 text-left h-fit'>
-            <div className='w-[70px] h-[70px] bg-purple-100 rounded-full flex justify-center items-center flex-shrink-0'>
-                <ImStatsDots className='text-white text-[30px]' />
-            </div>
-            <div>
-                <h2 className='font-bold text-[18px] text-purple-100'>Launch your vote and keep track of results</h2>
-                <p className='text-purple-200'>Launch your vote and notify the voters, view statistical charts of your live election results, </p>
-            </div>
-        </div>
+        </div>);
+        })}
       </div>
     </div>
   );
