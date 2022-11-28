@@ -2,7 +2,7 @@ import React from 'react';
 import LoginForm from './LoginForm/LoginForm';
 import bg from '../../assets/AuthBg.png';
 import RegisterForm from './RegisterForm/RegisterForm';
-import VoteLoginForm from './VoteLoginForm';
+import VoteLoginForm from './VoterLoginForm/VoteLoginForm';
 
 const Auth = ({socket, login, register, voterLogin}) => {
   return (

@@ -1,25 +1,9 @@
-import React, {useState} from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from '../../api/axios';
+import axios from "../../../api/axios";
 import jwt_decode from "jwt-decode";
-import { useDispatch } from 'react-redux';
-import { updateVoter } from '../../redux/voter';
-import { viewElection } from '../../redux/election';
-import {AuthForm, FormInput, Button} from '../../components/Reusable';
+import { updateVoter } from '../../../redux/voter';
+import { viewElection } from '../../../redux/election';
 
-const VoteLoginForm = () => {
-
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-
-
-  const [code, setCode] = useState('');
-  const [id, setId] = useState('');
-  const [key, setKey] = useState('');
-  const [error, setError] = useState(false);
-  const [message, setMessage] = useState("");
-
-  const handleSubmit = async () => {
+export const login = async (code, id, key, dispatch, navigate) => {
     const form = {
         election_code: code,
         voter_id: id,
@@ -59,33 +43,27 @@ const VoteLoginForm = () => {
                   address: election.data.data.contract_address
                 }));         
                 navigate('/vote/main');
+                return null;
               } catch (error) {
                 console.log(error.response.data.message);
+                return {
+                    error: true,
+                    message: error.response.data.message
+                }
               }
           } catch (error) {             
             console.log(error.response.data.message);
-          }
-            
+            return {
+                error: true,
+                message: error.response.data.message
+            }
+          }         
     }
     catch (error) {
-        setError(true);
-        setMessage(error.response.data.message);
         console.log(error.response.data.message);
+        return {
+            error: true,
+            message: error.response.data.message
+        }
     }
   }
-
-  return (
-    <AuthForm title={'Welcome!'} error={error} message={message} content={
-      <>
-      <form className='w-4/5 flex flex-col gap-5 '>
-          <FormInput type="text" error={error} required={true} textStyle='text-purple-200' className='border-0' onChange={e => setCode(e.target.value)}>Election Code</FormInput>          
-          <FormInput type="text" error={error} required={true} textStyle='text-purple-200' className='border-0' onChange={e => setId(e.target.value)}>ID</FormInput>          
-          <FormInput type="text" error={error} required={true} textStyle='text-purple-200' className='border-0' onChange={e => setKey(e.target.value)}>Key</FormInput>                
-          <Button className='bg-cyan' onClick={handleSubmit}>Join</Button>
-      </form> 
-      </>}
-      />
-  );
-}
-
-export default VoteLoginForm;
