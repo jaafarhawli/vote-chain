@@ -3,7 +3,7 @@ import Button from '../../../components/Reusable/Button';
 import logo from '../../../assets/VOTE CHAIN-logo-white-horizantal.png';
 import { useNavigate } from 'react-router-dom';
 import landinglg from '../../../assets/VoterLandingHero.svg';
-import hero from '../../../assets/Hero.jpg';
+import hero from '../../../assets/hero.jpg';
 
 // Landing page when voter wants to log into an election 
 const VoteLanding = () => {

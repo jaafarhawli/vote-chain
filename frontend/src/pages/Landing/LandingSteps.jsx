@@ -1,5 +1,5 @@
 import React from 'react';
-import banner from '../../assets/StepsBanner.gif';
+import banner from '../../assets/stepsBanner.gif';
 import steps from '../../JSON/LandingSteps'
 
 const LandingSteps = () => {
