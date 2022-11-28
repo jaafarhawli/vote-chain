@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../../assets/VOTE CHAIN-logo-white-horizantal.png';
+import logo from '../../../assets/VOTE CHAIN-logo-white-horizantal.png';
 
 const VoteHeader = (props) => {
 

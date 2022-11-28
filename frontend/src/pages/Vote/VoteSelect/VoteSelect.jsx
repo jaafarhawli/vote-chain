@@ -1,14 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import ElectionCard from '../../components/Reusable/ElectionCard';
-import VoteHeader from './VoteHeader';
-import axios from '../../api/axios';
+import VoteHeader from '../VoteHeader/VoteHeader';
+import axios from '../../../api/axios';
 import {useQuery} from '@tanstack/react-query';
-import CandidateCard from '../../components/Reusable/CandidateCard';
-import Button from '../../components/Reusable/Button';
+import { CandidateCard, Button, ElectionCard } from '../../../components/Reusable';
 import { useNavigate } from 'react-router-dom';
-import { voteCandidate } from '../../Web3';
+import { voteCandidate } from '../../../Web3';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateVoter } from '../../redux/voter';
+import { updateVoter } from '../../../redux/voter';
 
 const VoteSelect = () => {
 

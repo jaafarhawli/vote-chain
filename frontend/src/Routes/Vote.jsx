@@ -1,9 +1,6 @@
 import React from 'react';
 import {Route, Routes} from 'react-router-dom';
-import VoteLanding from '../pages/Vote/VoteLanding';
-import VoteMain from '../pages/Vote/VoteMain';
-import VoteSelect from '../pages/Vote/VoteSelect';
-import VoteResults from '../pages/Vote/VoteResults';
+import { VoteLanding, VoteMain, VoteResults, VoteSelect} from '../pages/Vote';
 import {ProtectedVoterRoutes} from './ProtectedRoutes';
 import Auth from '../pages/Auth/Auth';
 
