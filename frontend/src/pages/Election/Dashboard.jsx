@@ -1,13 +1,11 @@
 import React from 'react';
-import { ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import {useQuery} from '@tanstack/react-query';
-import axios from '../../api/axios';
-import CopyData from '../../components/Reusable/CopyData';
-import { useSelector } from 'react-redux';
 import BlockchainStatistics from '../../components/Complex/BlockchainStatistics/BlockchainStatistics';
-import Loader from '../../components/Reusable/Loader';
-import ElectionNumerics from '../../components/Reusable/ElectionNumerics';
+import {Loader, ElectionNumerics, CopyData} from '../../components/Reusable';
+import { ToastContainer, toast} from 'react-toastify';
+import { useSelector } from 'react-redux';
+import {useQuery} from '@tanstack/react-query';
+import { viewElectionNumerics } from '../../api/viewElectionNumerics';
 
 const Dashboard = () => {
 
@@ -22,13 +20,7 @@ const Dashboard = () => {
         }
       }  
 
-      const {data, isFetching} = useQuery(["numerics"], async () => {
-         return axios.get(`statistics/${election.id}`, {
-                    headers: {
-                      Authorization: `bearer ${localStorage.token}`
-                    }
-                  }).then((res) => res.data.numerics);     
-      })
+      const {data, isFetching} = useQuery(["numerics"], () => viewElectionNumerics(election.id));
 
     return (
     <>
