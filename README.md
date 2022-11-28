@@ -109,7 +109,7 @@ This is a list of things you need to use the software and how to install them.
    ```sh
    git clone https://github.com/jaafarhawli/vote-chain.git
    ```
-2. Create a new ganache workspace and load the "blockchain" folder path inside "Truffle Projects" box
+2. Create a new ganache workspace and load the truffle-config.js file inside the blockchain folder inside "Truffle Projects" box
 3. Login/Create a metamask wallet. Add localhost network and import any account from your Ganache workspace into it
 4. Create a new "votechaindb" database at MongoDB compass 
 5. Install NPM packages
@@ -123,7 +123,8 @@ This is a list of things you need to use the software and how to install them.
    ```
 6. Rename .env.example to .env inside the backend folder and add your own gmail and gmail app password
 7. Rename .env.example to .env inside the frontend folder
-8. Start the application
+8. Create an empty public folder inside of backend folder
+9. Start the application
    ```sh
    cd backend
    npm start
