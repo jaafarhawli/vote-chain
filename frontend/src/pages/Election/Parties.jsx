@@ -1,14 +1,10 @@
 import React, {useState, useMemo} from 'react';
-import {useQuery} from '@tanstack/react-query';
 import axios from '../../api/axios';
-import Button from '../../components/Reusable/Button';
-import AddParty from '../../components/Modals/AddParty/AddParty';
-import ConfirmModal from '../../components/Modals/ConfirmModal';
-import EmptyState from '../../components/Reusable/EmptyState';
-import Table from '../../components/Reusable/Table';
-import AddCandidate from '../../components/Modals/AddCandidate/AddCandidate';
+import {AddParty, ConfirmModal, AddCandidate, openModal, closeModal} from '../../components/Modals';
+import {Table, EmptyState, Button, Loader} from '../../components/Reusable';
+import {useQuery} from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
-import Loader from '../../components/Reusable/Loader';
+import { viewParties } from '../../api/viewParties';
 
 const Parties = () => {
 
@@ -21,24 +17,7 @@ const Parties = () => {
     const [candidateModal, setCandidateModal] = useState(false);
     const launched = election.launched===true;
 
-    const closeModal = () => {
-        setPartyModal(false)
-        document.body.style.overflow = 'unset';
-      }
-    
-      const openModal = () => {
-        setPartyModal(true);
-        document.body.style.overflow = 'hidden';
-      }
-
-
-    const {data, refetch, isFetching} = useQuery(["parties"], async () => {
-        return axios.get(`party/${election.id}`, {
-                    headers: {
-                      Authorization: `bearer ${localStorage.token}`
-                    }
-                  }).then((res) => res.data.data);
-    })
+    const {data, refetch, isFetching} = useQuery(["parties"], () => viewParties(election.id));
 
     const filteredData = useMemo(() => {
         return data?.filter(row => {
@@ -46,10 +25,6 @@ const Parties = () => {
         })
       }, [data, search])
 
-    const closeConfirm = () => {
-        setConfirmModal(false)
-        document.body.style.overflow = 'unset';
-      }
     const openConfirmModal = (id) => {
         if(launched)
         return;
@@ -66,12 +41,6 @@ const Parties = () => {
         document.body.style.overflow = 'hidden';
       }
 
-      const closeCandidateModal = () => {
-        setCandidateModal(false)
-        document.body.style.overflow = 'unset';
-      }
-      
-
       const deleteParty = async () => {
         const form = {
             party_id: localStorage.party_id,
@@ -86,7 +55,7 @@ const Parties = () => {
                 }
               });
               refetch();
-              closeConfirm()
+              closeModal(setConfirmModal);
             } catch (error) {
               console.log(error.response.data.message);
             }
@@ -99,24 +68,24 @@ const Parties = () => {
       :
       data?.length === 0 ? 
         <>
-        <AddParty open={partyModal} closeModal={closeModal}    refetch={refetch} />
+        <AddParty open={partyModal} closeModal={() => closeModal(setPartyModal)}    refetch={refetch} />
         <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
         <div className='w-[98%] mx-auto px-8 '>
             <h1 className='text-[28px] font-bold'>Parties</h1>
-            <EmptyState title={'No Parties'} button={'Add party'} disabled={launched} onClick={openModal} >You don’t have any parties, add one now!</EmptyState>
+            <EmptyState title={'No Parties'} button={'Add party'} disabled={launched} onClick={() => openModal(setPartyModal)} >You don’t have any parties, add one now!</EmptyState>
         </div>
         </div>
         </>
       :
     <>
-    <ConfirmModal  open={confirmModal} closeModal={closeConfirm} click={deleteParty} text={"Are you sure you want to delete this party?"} />
-    <AddParty open={partyModal} closeModal={closeModal}  refetch={refetch} />
-    <AddCandidate open={candidateModal} closeModal={closeCandidateModal} />
+    <ConfirmModal  open={confirmModal} closeModal={() => closeModal(setConfirmModal)} click={deleteParty} text={"Are you sure you want to delete this party?"} />
+    <AddParty open={partyModal} closeModal={() => closeModal(setPartyModal)}  refetch={refetch} />
+    <AddCandidate open={candidateModal} closeModal={() => closeModal(setCandidateModal)} />
     <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
     <div className='w-[98%] mx-auto px-8 '>
         <div className='flex justify-between items-center w-full'>
           <h1 className='text-[28px] font-bold'>Parties</h1>
-          <Button onClick={openModal} add={true} disabled={launched}>Add Party</Button>
+          <Button onClick={() => openModal(setPartyModal)} add={true} disabled={launched}>Add Party</Button>
         </div>
             <input type="search" className='border-2 border-[#dddddd] w-1/3 rounded-md mt-4' placeholder='Search moderator by email' onChange={e => setSearch(e.target.value)} />
             <Table data={filteredData} party={true} remove={(id) => openConfirmModal(id)} addCandidate={(id) => openCandidateModal(id)} />
