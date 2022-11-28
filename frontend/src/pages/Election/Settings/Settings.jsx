@@ -1,12 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import axios from '../../../api/axios';
 import Flatpickr from "react-flatpickr";
-import {SuccessModal, ConfirmModal} from '../../../components/Modals';
+import {SuccessModal, ConfirmModal, closeModal} from '../../../components/Modals';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import {FormLabelInput, Button} from '../../../components/Reusable';
 import { saveInfo } from './SaveInfo';
 import {changeTime} from './ChangeTime';
+import { deleteElection } from '../../../api/deleteElection';
 require("flatpickr/dist/themes/material_blue.css");
 
 const Settings = () => {
@@ -31,29 +31,6 @@ const Settings = () => {
 
     const navigate = useNavigate();
 
-    const deleteElection = async () => {
-        const form = {
-            election_id: election.id, 
-            user_id: user.id 
-        }
-        
-        try {
-            await axios.post('election/delete', form, {
-                headers: {
-                  Authorization: `bearer ${localStorage.token}`
-                }
-              });
-              navigate('/main');
-            } catch (error) {
-              console.log(error.response.data.message);
-            }
-    }
-
-    const closeConfirm = () => {
-        setConfirmModal(false);
-        document.body.style.overflow = 'unset';
-    }
-
     useEffect(() => {
         if (title===election.title && description===election.description)
         setDisabled(true);
@@ -73,7 +50,7 @@ const Settings = () => {
 
   return (
       <>
-      <ConfirmModal  open={confirmModal} closeModal={closeConfirm} click={deleteElection} text={"Are you sure you want to delete this election?"} />
+      <ConfirmModal  open={confirmModal} closeModal={() => closeModal(setConfirmModal)} click={() => deleteElection(election.id, user.id, navigate)} text={"Are you sure you want to delete this election?"} />
        <SuccessModal open={successModal} message={message} error={error} closeSuccess={() => 
        {
            setSuccessModal(false);
