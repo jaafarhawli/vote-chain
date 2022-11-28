@@ -3,7 +3,7 @@ import {useQuery} from '@tanstack/react-query';
 import axios from '../../api/axios';
 import { useNavigate } from 'react-router-dom';
 import MainHeader from './MainHeader';
-import CreateElection from '../../components/Modals/CreateElection';
+import CreateElection from '../../components/Modals/CreateElection/CreateElection';
 import ElectionCard from '../../components/Reusable/ElectionCard';
 import EmptyState from '../../components/Reusable/EmptyState';
 import { useDispatch } from 'react-redux';

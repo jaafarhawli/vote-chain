@@ -1,13 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import { createElectionContract } from '../../Web3';
-import axios from '../../api/axios';
-import Button from '../Reusable/Button';
-import SuccessModal from './SuccessModal';
+import Button from '../../Reusable/Button';
+import SuccessModal from '../SuccessModal';
 import "flatpickr/dist/themes/material_green.css";
 import Flatpickr from "react-flatpickr";
 import { useSelector } from 'react-redux';
-import FormLabelInput from '../Reusable/FormLabelInput';
-import Modal from '../Reusable/Modal';
+import FormLabelInput from '../../Reusable/FormLabelInput';
+import Modal from '../../Reusable/Modal';
+import { createElection } from './CreateElectionFunction';
 require("flatpickr/dist/themes/material_blue.css");
 
 const CreateElection = ({open, closeModal, refetch}) => {
@@ -24,41 +23,10 @@ const CreateElection = ({open, closeModal, refetch}) => {
     const offset = new Date().getTimezoneOffset()
     const epoch = new Date(`01/01/1970 ${-offset/60}:00:00`);
 
-    const createElection = async () => {
-     
-        if(((endtime - starttime)/36e5) < 24) {
-            setError("Your election should be 24 hours at least");
-            setErrorModal(true);
-            return;
-        }
-
-        const unixStartDate = Math.floor((new Date(starttime) - epoch) / 1000);
-        const unixEndDate = Math.floor((new Date(endtime)- epoch) / 1000);
-
-        const address = await createElectionContract(unixStartDate, unixEndDate);
-
-        const form = {
-            admin_id: user.id,
-            title: title,
-            start_time: starttime,
-            end_time: endtime,
-            address: address
-        }
-        
-        try {
-             await axios.post('election', form, {
-                headers: {
-                  Authorization: `bearer ${localStorage.token}`
-                }
-              });
-              refetch();
-              closeModal();
-            } catch (error) {
-                setError(error.response.data.message);
-                setErrorModal(true);
-              console.log(error.response.data.message);
-            }
-        
+    const handleClick = async () => {
+        const res = createElection(endtime, starttime, epoch, user.id, title, refetch, closeModal);
+        setError(res.error);
+        setErrorModal(res.errorModal);
     }
 
     useEffect(() => {
@@ -68,10 +36,9 @@ const CreateElection = ({open, closeModal, refetch}) => {
         setDisabled(false)
       }, [title, starttime, endtime]);
 
-    if(!open)
-    return null;
-
 return (
+    <>
+    {open ? 
     <div>
     <Modal title={'New Election'} closeModal={closeModal} dark={true} content={
       <form className='w-4/5 flex flex-col gap-5 '>
@@ -100,11 +67,14 @@ return (
               />
           </label>
         </div>
-        <Button className='bg-cyan' onClick={createElection} disabled={disabled} >Create election</Button>
+        <Button className='bg-cyan' onClick={handleClick} disabled={disabled} >Create election</Button>
       </form>
     } />
    <SuccessModal open={errorModal} message={error} error={true} closeError={() => setErrorModal(false)} />
-  </div> 
+  </div>
+  :
+  null}
+  </> 
   );
 }
 
