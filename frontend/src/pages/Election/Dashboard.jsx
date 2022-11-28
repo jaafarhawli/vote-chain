@@ -7,6 +7,7 @@ import CopyData from '../../components/Reusable/CopyData';
 import { useSelector } from 'react-redux';
 import BlockchainStatistics from '../../components/Complex/BlockchainStatistics/BlockchainStatistics';
 import Loader from '../../components/Reusable/Loader';
+import ElectionNumerics from '../../components/Reusable/ElectionNumerics';
 
 const Dashboard = () => {
 
@@ -47,24 +48,9 @@ const Dashboard = () => {
           <CopyData value={`http://localhost:3000/survey/${election.code}`} onClick={(value) => copyTextToClipboard(value)} />
         </div>
         <div className='bg-bg/50 border-2 rounded-lg shadow-xl p-3  text-[24px] font-bold  flex  max-h-[170px] gap-6 h-fit justify-between'>
-            <div className='text-center flex flex-col gap-2 items-center'>
-              <h1>Voters</h1>
-              <div className='rounded-lg w-full py-1  flex items-center justify-center min-w-[130px]'>
-                {data?.voters}
-              </div>
-            </div>
-            <div className='text-center flex flex-col gap-2 items-center'>
-              <h1>Parties</h1>
-              <div className='rounded-lg w-full py-1  flex items-center justify-center min-w-[130px]'>
-                {data?.parties}
-              </div>
-            </div>
-            <div className='text-center flex flex-col gap-2 items-center'>
-              <h1>Candidates</h1>
-              <div className='rounded-lg w-full py-1  flex items-center justify-center min-w-[130px]'>
-                {data?.candidates}
-              </div>
-            </div>
+            <ElectionNumerics label={'Voters'} value={data?.voters} />
+            <ElectionNumerics label={'Parties'} value={data?.parties} />
+            <ElectionNumerics label={'Candidates'} value={data?.candidates} />
         </div>
       </div>
       <BlockchainStatistics electionAddress={election.address} />
