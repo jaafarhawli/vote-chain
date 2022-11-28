@@ -1,10 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from '../../api/axios';
-import jwt_decode from "jwt-decode";
 import { useDispatch } from 'react-redux';
-import { updateUser } from '../../redux/user';
-import {AuthForm, FormInput, Button} from '../../components/Reusable';
+import {AuthForm, FormInput, Button} from '../../../components/Reusable';
+import { login } from './LoginFormFunction';
 
 const LoginForm = ({socket}) => {
 
@@ -18,39 +16,10 @@ const LoginForm = ({socket}) => {
   const [disabled, setDisabled] = useState(true);
 
   const handleSubmit = async () => {
-    const form = {
-        email: email,
-        password: password
-    };
-    try {
-        const data = await axios.post('auth/login/user', form);
-        const token = data.data;
-        const decoded = jwt_decode(token);
-        dispatch(updateUser({
-          email: decoded.email
-        }));
-        localStorage.setItem('token', token);
-        try {
-          const user = await axios.get(`user/${decoded.email}`, {
-            headers: {
-              Authorization: `bearer ${localStorage.token}`
-            }
-          });
-          socket.emit('login', decoded.email);
-          dispatch(updateUser({
-            firstName: user.data.data.first_name,
-            lastName: user.data.data.last_name,
-            id: user.data.data._id
-          }));
-          navigate('/main');
-        } catch (error) {
-          console.log(error);
-        }
-    }
-    catch (error) {
-        setError(true);
-        setMessage(error.response.data.message);
-        console.log(error.response.data.message);
+    const res = login(email, password, socket, dispatch, navigate);
+    if(res) {
+      setError(res.error);
+      setMessage(res.message);
     }
   }
 
