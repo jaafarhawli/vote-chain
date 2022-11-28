@@ -4,7 +4,7 @@ import axios from '../../api/axios';
 import EmptyState from '../../components/Reusable/EmptyState';
 import Button from '../../components/Reusable/Button';
 import Table from '../../components/Reusable/Table';
-import AddVoter from '../../components/Modals/AddVoter';
+import AddVoter from '../../components/Modals/AddVoter/AddVoter';
 import ConfirmModal from '../../components/Modals/ConfirmModal';
 import { useSelector } from 'react-redux';
 import Loader from '../../components/Reusable/Loader';
