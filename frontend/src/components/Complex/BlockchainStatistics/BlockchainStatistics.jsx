@@ -7,6 +7,7 @@ import { viewCandidates, viewTimeInterval, viewVoters } from '../../../Web3';
 import { candidateStatsOptions, partyCandidateStatsOptions } from '../../../JSON';
 import { compareTime } from './CompareTime';
 import {getStats} from './GetStats';
+import { sortCandidates } from './SortCandidates';
 
 const BlockchainStatistics = ({electionAddress}) => {
 
@@ -20,23 +21,9 @@ const BlockchainStatistics = ({electionAddress}) => {
   const [sorted, setSorted] = useState(false);
   const [isLive, setIsLive] = useState(false);
 
-  const sortCandidates = () => {
-      if(allCandidates) {
-      const indices = [];
-      for(let i = 0; i< allCandidates.length; i++) {
-        indices[i] = i;
-      }
-      indices.sort( (a,b) => allCandidatesScores[b] - allCandidatesScores[a] )
-      const sortedNames = indices.map(i => allCandidates[i]);
-      const sortedScores = indices.map(i => allCandidatesScores[i]);
-      setAllCandidates(sortedNames);
-      setAllCandidatesScores(sortedScores);
-    }
-  }
-
     const viewStats = (data) => {
       getStats(data, setParties, setPartiesScores, setAllCandidates, setAllCandidatesScores, setCandidatesNames, setCandidatesScores);
-      sortCandidates();
+      sortCandidates(allCandidates, allCandidatesScores, setAllCandidates, setAllCandidatesScores);
       if(!sorted)
       setSorted(true);
     }
