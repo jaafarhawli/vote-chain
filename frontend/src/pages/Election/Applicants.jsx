@@ -1,11 +1,9 @@
 import React, {useState, useMemo} from 'react';
-import {useQuery} from '@tanstack/react-query';
 import axios from '../../api/axios';
-import EmptyState from '../../components/Reusable/EmptyState';
-import Button from '../../components/Reusable/Button';
-import Table from '../../components/Reusable/Table';
+import {useQuery} from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
-import Loader from '../../components/Reusable/Loader';
+import {Loader, Table, EmptyState, Button} from '../../components/Reusable';
+import { viewApplicants } from '../../api/viewApplicants';
 
 const Applicants = (props) => {
     
@@ -35,13 +33,7 @@ const Applicants = (props) => {
         }
     }
 
-    const {data, refetch, isFetching} = useQuery(["applicants"], async () => {
-        return axios.get(`election/view/applyers/${election.id}`, {
-                    headers: {
-                      Authorization: `bearer ${localStorage.token}`
-                    }
-                  }).then((res) => res.data.data);
-    })
+    const {data, refetch, isFetching} = useQuery(["applicants"], () => viewApplicants(election.id));
 
     const filteredData = useMemo(() => {
         return data?.filter(row => {
