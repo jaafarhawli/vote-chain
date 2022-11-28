@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import logo from '../../assets/VOTE CHAIN-logo-white-horizantal.png';
+import logo from '../../../assets/VOTE CHAIN-logo-white-horizantal.png';
 import { useNavigate } from 'react-router-dom';
-import Button from '../../components/Reusable/Button';
+import Button from '../../../components/Reusable/Button';
 import {IoIosNotifications} from 'react-icons/io';
 import {useQuery} from '@tanstack/react-query';
-import axios from '../../api/axios';
+import axios from '../../../api/axios';
 import {IoCloseCircleOutline, IoCheckmarkCircleOutline} from 'react-icons/io5'
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { acceptRequest } from './AcceptRequest';
+import { rejectRequest } from './RejectRequest';
  
 const MainHeader = ({title, empty, open, refetch}) => {
 
@@ -36,42 +38,6 @@ const MainHeader = ({title, empty, open, refetch}) => {
       setShowNotifications(false);
       }
     }
-
-    const acceptRequest = async (election_id) => {
-      const form = {
-        user_id: user.id,
-        election_id: election_id
-     }   
-      try {
-           await axios.post('user/notifications/accept', form, {
-              headers: {
-                Authorization: `bearer ${localStorage.token}`
-              }
-            });
-            refetchNotifications();
-            refetch();
-          } catch (error) {
-            console.log(error);
-          }  
-    }  
-    
-    const rejectRequest = async (election_id) => {
-      const form = {
-        user_id: user.id,
-        election_id: election_id
-     }   
-      try {
-           await axios.post('user/notifications/reject', form, {
-              headers: {
-                Authorization: `bearer ${localStorage.token}`
-              }
-            });
-            refetchNotifications();
-            refetch();
-          } catch (error) {
-            console.log(error);
-          }  
-    } 
     
     useEffect(() => {
       if(param['*'] === 'moderate')
@@ -101,8 +67,8 @@ const MainHeader = ({title, empty, open, refetch}) => {
                       <div className='border-b-[1px] pb-2 border-black-100' key={notification._id}>
                         <p className='text-black-100 my-2 font-normal'>{notification.user_email} wants to add you as a moderator to his election "{notification.election_title}</p>
                         <div className='flex gap-4'>
-                          <IoCheckmarkCircleOutline className='text-green text-[24px] hover:text-black-100 duration-150' onClick={() => acceptRequest(notification.election_id)} />
-                          <IoCloseCircleOutline className='text-red text-[24px] hover:text-black-100 duration-150' onClick={() => rejectRequest(notification.election_id)} />
+                          <IoCheckmarkCircleOutline className='text-green text-[24px] hover:text-black-100 duration-150' onClick={() => acceptRequest(notification.election_id, user.id, refetchNotifications, refetch)} />
+                          <IoCloseCircleOutline className='text-red text-[24px] hover:text-black-100 duration-150' onClick={() => rejectRequest(notification.election_id, user.id, refetchNotifications, refetch)} />
                         </div>
                       </div>
                       ))}
