@@ -4,12 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../../../components/Reusable/Button';
 import {IoIosNotifications} from 'react-icons/io';
 import {useQuery} from '@tanstack/react-query';
-import axios from '../../../api/axios';
 import {IoCloseCircleOutline, IoCheckmarkCircleOutline} from 'react-icons/io5'
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { acceptRequest } from './AcceptRequest';
 import { rejectRequest } from './RejectRequest';
+import { viewNotifications as notifications } from '../../../api/viewNotifications';
  
 const MainHeader = ({title, empty, open, refetch}) => {
 
@@ -20,13 +20,7 @@ const MainHeader = ({title, empty, open, refetch}) => {
     const [showNotifications, setShowNotifications] = useState(false);
     const [active, setActive] = useState();   
     
-    const {data, refetch: refetchNotifications} = useQuery(["notifications"], async () => {
-      return axios.get(`user/notifications/${user.id}`, {
-                  headers: {
-                    Authorization: `bearer ${localStorage.token}`
-                  }
-                }).then((res) => res.data.data);
-    })
+    const {data, refetch: refetchNotifications} = useQuery(["notifications"], () => notifications(user.id))
 
     const viewNotifications = async () => {
       if(!showNotifications) {
