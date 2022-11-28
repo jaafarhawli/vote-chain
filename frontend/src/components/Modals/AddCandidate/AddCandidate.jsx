@@ -1,10 +1,8 @@
 import React, {useState, useRef} from 'react';
-import Button from '../../Reusable/Button';
+import {Button, FormLabelInput, Modal} from '../../Reusable';
 import SuccessModal from '../SuccessModal';
 import {IoMdImage} from 'react-icons/io';
 import { useSelector } from 'react-redux';
-import FormLabelInput from '../../Reusable/FormLabelInput';
-import Modal from '../../Reusable/Modal';
 import { addCandidate } from './addCandidateFunction';
 
 const AddCandidate = ({open, closeModal}) => {

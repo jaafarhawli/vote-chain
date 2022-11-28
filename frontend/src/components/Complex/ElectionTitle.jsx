@@ -1,7 +1,7 @@
 import React from 'react';
 import {AiFillHome} from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
-import Button from '../Reusable/Button';
+import {Button} from '../Reusable';
 import { useSelector } from 'react-redux';
 
 const ElectionTitle = () => {

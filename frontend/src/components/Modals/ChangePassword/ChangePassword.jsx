@@ -1,9 +1,7 @@
 import React, {useState, useEffect} from 'react';
-import Button from '../../Reusable/Button';
+import {Button, FormInput, Modal} from '../../Reusable';
 import SuccessModal from '../SuccessModal';
 import { useSelector } from 'react-redux';
-import FormInput from '../../Reusable/FormInput';
-import Modal from '../../Reusable/Modal';
 import { changePassword } from './ChangePasswordFunction';
 
 const ChangePassword = ({open, closeModal}) => {

@@ -1,11 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import Button from '../../Reusable/Button';
+import {Button, FormLabelInput, Modal} from '../../Reusable';
 import SuccessModal from '../SuccessModal';
 import "flatpickr/dist/themes/material_green.css";
 import Flatpickr from "react-flatpickr";
 import { useSelector } from 'react-redux';
-import FormLabelInput from '../../Reusable/FormLabelInput';
-import Modal from '../../Reusable/Modal';
 import { createElection } from './CreateElectionFunction';
 require("flatpickr/dist/themes/material_blue.css");
 

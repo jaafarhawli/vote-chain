@@ -1,10 +1,8 @@
 /* eslint-disable */ 
 import React, {useState, useEffect} from 'react';
-import Button from '../../Reusable/Button';
+import {Button, FormLabelInput, Modal} from '../../Reusable';
 import SuccessModal from '../SuccessModal';
 import { useSelector } from 'react-redux';
-import FormLabelInput from '../../Reusable/FormLabelInput';
-import Modal from '../../Reusable/Modal';
 import { addModerator } from './AddModeratorFunction';
 
 const AddModerator = ({open, closeModal, refetch, socket}) => {
