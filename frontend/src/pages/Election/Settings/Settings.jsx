@@ -1,15 +1,13 @@
 import React, {useState, useEffect} from 'react';
-import Button from '../../../components/Reusable/Button';
 import axios from '../../../api/axios';
-import SuccessModal from '../../../components/Modals/SuccessModal';
-import ConfirmModal from '../../../components/Modals/ConfirmModal';
-import { useNavigate } from 'react-router-dom';
-import "flatpickr/dist/themes/material_green.css";
 import Flatpickr from "react-flatpickr";
+import {SuccessModal, ConfirmModal} from '../../../components/Modals';
+import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import {viewElection} from '../../../redux/election';
 import { changeTimeInterval } from '../../../Web3';
-import FormLabelInput from '../../../components/Reusable/FormLabelInput';
+import { saveInfo } from './SaveInfo';
+import {FormLabelInput, Button} from '../../../components/Reusable';
 require("flatpickr/dist/themes/material_blue.css");
 
 const Settings = () => {
@@ -33,35 +31,6 @@ const Settings = () => {
     const date = new Date();
 
     const navigate = useNavigate();
-
-    const saveInfo = async() => {
-        const form = {
-            election_id: election.id,
-            user_id: user.id,
-            title: title,
-            description: description
-        }
-        try {
-          await axios.put('election', form, {
-            headers: {
-              Authorization: `bearer ${localStorage.token}`
-            }
-          });
-          dispatch(viewElection({
-            title: title,
-            description: description,
-          }));
-          setError(false);
-          setMessage('Election updated succussfully');
-          setSuccessModal(true);
-          setSave(!save);
-        } catch (error) {
-            setError(true);
-            setMessage(error.response.data.message);
-            setSuccessModal(true);
-          console.log(error);
-        }
-    }
 
     const changeTime = async () => {
       const startdate = new Date(starttime);
@@ -173,7 +142,7 @@ const Settings = () => {
             <p className='font-semibold'>Description</p>
             <textarea defaultValue={election.description? election.description : ""} onChange={e => setDescription(e.target.value)} className='w-full border-[1px] border-black-200 outline-none rounded-sm p-4 text-[16px]' />
           </label>
-          <Button className='bg-cyan w-1/2 self-start' disabled={disabled || launched} onClick={saveInfo} >Save Changes</Button>
+          <Button className='bg-cyan w-1/2 self-start' disabled={disabled || launched} onClick={() => saveInfo(election.id, user.id, title, description, dispatch, setError, setMessage, setSuccessModal, setSave, save)} >Save Changes</Button>
       </form> 
       <form className='w-1/2 flex flex-col gap-5 mt-12'>
         <div className='flex gap-2 w-full'>
