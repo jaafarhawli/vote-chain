@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import MainHeader from '../MainHeader/MainHeader';
-import {ConfirmModal, SuccessModal, ChangePassword} from '../../../components/Modals';
+import {ConfirmModal, SuccessModal, ChangePassword, openModal, closeModal} from '../../../components/Modals';
 import { useNavigate } from 'react-router-dom';
 import {Button, FormInput} from '../../../components/Reusable';
 import { ToastContainer } from 'react-toastify';
@@ -28,35 +28,12 @@ const UserSettings = ({socket}) => {
   const handleSave = async() => {
       await saveInfo(user.id, firstname, lastname, email, dispatch, setSave, save, setMessage, setIsError, setSuccessModal);
 }
-  
-
-const openModal = () => {
-  setOpenConfirmModal(true);
-  document.body.style.overflow = 'hidden';
-}
-
-const closeModal = () => {
-  setOpenConfirmModal(false);
-  document.body.style.overflow = 'unset';
-
-}
 
 const logout = () => {
   socket.emit('logout', localStorage.email);
   localStorage.clear();      
   navigate('/');
 }
-
-const closePassword = () => {
-  setPasswordModal(false);
-  document.body.style.overflow = 'unset';
-}
-
-const openPassword = () => {
-  setPasswordModal(true);
-  document.body.style.overflow = 'hidden';
-}
-
 
 const handleDelete = async () => {
   await deleteAccount(user.id, navigate);
@@ -78,9 +55,9 @@ const handleDelete = async () => {
 
   return (
     <div>
-      <ConfirmModal open={openConfirmModal} closeModal={closeModal} click={handleDelete} text={"Are you sure you want to delete your account?"} />
+      <ConfirmModal open={openConfirmModal} closeModal={() => closeModal(setOpenConfirmModal)} click={handleDelete} text={"Are you sure you want to delete your account?"} />
       <SuccessModal open={successModal} message={message} error={isError} closeSuccess={() => setSuccessModal(false)} />
-      <ChangePassword open={passwordModal} closeModal={closePassword} />
+      <ChangePassword open={passwordModal} closeModal={() => closeModal(setPasswordModal)} />
       <div className='bg-bg lg:px-28 md:px-10 px-4 pt-6 min-h-screen flex flex-col gap-12'>
       <MainHeader title={'Account Settings'} empty={true} />
       <div className='w-full flex justify-center'>
@@ -90,8 +67,8 @@ const handleDelete = async () => {
             <FormInput type="text" textStyle='text-white' defaultValue={user.lastName}  onChange={e => setLastname(e.target.value)}>Last Name</FormInput>
             <FormInput type="text" textStyle='text-white' defaultValue={user.email}  onChange={e => setEmail(e.target.value)}>Email</FormInput>
           <Button className=' bg-cyan' onClick={handleSave} disabled={disabled} >Save changes</Button>
-          <p className='font-semibold text-purple-100 hover:underline select-none cursor-pointer mb-4' onClick={openPassword} >Change Password?</p>
-          <Button className='bg-red flex-1 hover:bg-red/80'  onClick={openModal} >Delete Account</Button>
+          <p className='font-semibold text-purple-100 hover:underline select-none cursor-pointer mb-4' onClick={() => openModal(setPasswordModal)} >Change Password?</p>
+          <Button className='bg-red flex-1 hover:bg-red/80'  onClick={() => openModal(setOpenConfirmModal)} >Delete Account</Button>
           <Button className='bg-red flex-1 hover:bg-red/80'  onClick={logout} >Log out</Button>
         </form> 
         </div>  

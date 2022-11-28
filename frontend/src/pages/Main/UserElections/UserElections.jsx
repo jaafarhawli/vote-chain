@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import MainHeader from '../MainHeader/MainHeader';
-import {CreateElection} from '../../../components/Modals';
+import {CreateElection, openModal, closeModal} from '../../../components/Modals';
 import {Loader, EmptyState, ElectionCard} from '../../../components/Reusable';
 import { useNavigate } from 'react-router-dom';
 import {useQuery} from '@tanstack/react-query';
@@ -27,35 +27,23 @@ const viewElection = async (id) => {
     navigate('admin/election/dashboard')
 }
 
-const openModal = () => {
-  setElectionModal(true);
-  document.body.style.overflow = 'hidden';
-}
-
-const closeModal = () => {
-  setElectionModal(false)
-  document.body.style.overflow = 'unset';
-}
-
-
-
 return (
   <>
   {
   admin_elections?.length===0 ?
     <div>
-      <CreateElection open={electionModal} closeModal={closeModal} refetch={refetch} />
+      <CreateElection open={electionModal} closeModal={() => closeModal(setElectionModal)} refetch={refetch} />
       <div className='bg-bg lg:px-28 md:px-10 px-4 pt-6 min-h-screen'>
-        <MainHeader title={'Your Elections'} empty={true} open={openModal} refetch={refetch} />
-        <EmptyState title={'No Elections'} light={true} button={'Create a new election'} onClick={openModal} >You don’t have any elections, create one now!</EmptyState>
+        <MainHeader title={'Your Elections'} empty={true} open={() => openModal(setElectionModal)} refetch={refetch} />
+        <EmptyState title={'No Elections'} light={true} button={'Create a new election'} onClick={() => openModal(setElectionModal)} >You don’t have any elections, create one now!</EmptyState>
       </div>
       <ToastContainer autoClose={4000} hideProgressBar={true} position="top-right" limit={1} />
     </div>
     :
     <div>
-      <CreateElection open={electionModal} closeModal={closeModal} refetch={refetch} />
+      <CreateElection open={electionModal} closeModal={() => closeModal(setElectionModal)} refetch={refetch} />
       <div className='bg-bg lg:px-28 md:px-10 px-4 pt-6 min-h-screen flex flex-col'>
-        <MainHeader empty={false} title={'Your Elections'} open={openModal} refetch={refetch} />
+        <MainHeader empty={false} title={'Your Elections'} open={() => openModal(setElectionModal)} refetch={refetch} />
         {isLoading || loadingElection ? 
         <Loader />
         :
