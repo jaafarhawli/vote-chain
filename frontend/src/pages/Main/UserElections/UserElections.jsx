@@ -1,17 +1,18 @@
 import React, {useState} from 'react';
-import {useQuery} from '@tanstack/react-query';
-import axios from '../../api/axios';
+import axios from '../../../api/axios';
+import MainHeader from '../MainHeader/MainHeader';
+import CreateElection from '../../../components/Modals/CreateElection/CreateElection';
+import ElectionCard from '../../../components/Reusable/ElectionCard';
+import EmptyState from '../../../components/Reusable/EmptyState';
+import Loader from '../../../components/Reusable/Loader';
 import { useNavigate } from 'react-router-dom';
-import MainHeader from './MainHeader/MainHeader';
-import CreateElection from '../../components/Modals/CreateElection/CreateElection';
-import ElectionCard from '../../components/Reusable/ElectionCard';
-import EmptyState from '../../components/Reusable/EmptyState';
+import {useQuery} from '@tanstack/react-query';
 import { useDispatch } from 'react-redux';
-import { viewElection as view } from '../../redux/election';
+import { viewElection as view } from '../../../redux/election';
 import { ToastContainer } from 'react-toastify';
-import { checkIfLaunched } from '../../Web3';
+import { checkIfLaunched } from '../../../Web3';
 import { useSelector } from 'react-redux';
-import Loader from '../../components/Reusable/Loader';
+import { viewElections } from '../../../api/viewElections';
 
 const UserElections = () => {
 
@@ -22,13 +23,7 @@ const UserElections = () => {
   const [electionModal, setElectionModal] = useState(false);
   const [loadingElection, setLoadingElection] = useState(false);
 
-  const {data: admin_elections, refetch, isLoading} = useQuery(["elections"], async () => {
-    return axios.get(`election/${user.id}`, {
-                headers: {
-                  Authorization: `bearer ${localStorage.token}`
-                }
-              }).then((res) => res.data.data);
-  })
+  const {data: admin_elections, refetch, isLoading} = useQuery(["elections"], () => viewElections(user.id));
 
 const viewElection = async (id) => {
     setLoadingElection(true);
