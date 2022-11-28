@@ -1,15 +1,14 @@
 import React, {useState, useEffect} from 'react';
 import MainHeader from '../MainHeader/MainHeader';
-import axios from '../../../api/axios';
 import ConfirmModal from '../../../components/Modals/ConfirmModal';
 import SuccessModal from '../../../components/Modals/SuccessModal';
-import { useNavigate } from 'react-router-dom';
-import Button from '../../../components/Reusable/Button';
-import FormInput from '../../../components/Reusable/FormInput';
 import ChangePassword from '../../../components/Modals/ChangePassword/ChangePassword';
+import { useNavigate } from 'react-router-dom';
+import {Button, FormInput} from '../../../components/Reusable';
 import { ToastContainer } from 'react-toastify';
 import { useSelector, useDispatch } from 'react-redux';
 import { saveInfo } from './SaveInfo';
+import { deleteAccount } from './DeleteAccount';
 
 const UserSettings = ({socket}) => {
 
@@ -61,24 +60,9 @@ const openPassword = () => {
 }
 
 
-const deleteAccount = async () => {
-  const form = {
-      id: user.id
-  }
-
-  try {
-      await axios.post('user/account', form, {
-          headers: {
-            Authorization: `bearer ${localStorage.token}`
-          }
-        });
-        localStorage.clear(); 
-        document.body.style.overflow = 'unset';
-        navigate('/');
-      } catch (error) {
-        console.log(error.response.data.message);
-      }
-  }
+const handleDelete = async () => {
+  await deleteAccount(user.id, navigate);
+}
 
   useEffect(() => {
     if (firstname===user.firstName && lastname===user.lastName && email===user.email)
@@ -96,7 +80,7 @@ const deleteAccount = async () => {
 
   return (
     <div>
-      <ConfirmModal open={openConfirmModal} closeModal={closeModal} click={deleteAccount} text={"Are you sure you want to delete your account?"} />
+      <ConfirmModal open={openConfirmModal} closeModal={closeModal} click={handleDelete} text={"Are you sure you want to delete your account?"} />
       <SuccessModal open={successModal} message={message} error={isError} closeSuccess={() => setSuccessModal(false)} />
       <ChangePassword open={passwordModal} closeModal={closePassword} />
       <div className='bg-bg lg:px-28 md:px-10 px-4 pt-6 min-h-screen flex flex-col gap-12'>
