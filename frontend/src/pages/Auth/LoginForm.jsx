@@ -1,12 +1,12 @@
 import React, {useState, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
-import logo from '../../assets/VOTE CHAIN-logo-white.png';
 import axios from '../../api/axios';
 import jwt_decode from "jwt-decode";
 import Button from '../../components/Reusable/Button';
 import FormInput from '../../components/Reusable/FormInput';
 import { useDispatch } from 'react-redux';
 import { updateUser } from '../../redux/user';
+import AuthForm from './AuthForm';
 
 const LoginForm = ({socket}) => {
 
@@ -64,18 +64,16 @@ const LoginForm = ({socket}) => {
   }, [email, password]);
 
   return (
-    <div className='bg-gradient-to-br from-bg/50 to-bg/30 w-[450px]  rounded-xl flex flex-col items-center p-6 pb-10 backdrop-blur-2xl shadow-2xl before:absolute before:bg-white/[15%] before:inset-0 before:rotate-[-5deg] before:-z-[1] before:rounded-xl neon'>
-      <img src={logo} alt="logo" className='w-[180px]' />
-      <div className='bg-white h-[2px] w-[180px]'></div>  
-      <h1 className='my-4 text-2xl font-semibold text-white'>Welcome!</h1>  
-      <h1 className={error? 'text-red ' : 'hidden'}>{message}</h1>
+    <AuthForm title={'Welcome!'} error={error} message={message} content={
+      <>
       <form className='w-4/5 flex flex-col gap-5 '>
           <FormInput type="email" error={error} required={true} className='border-0' textStyle='text-purple-200' onChange={e => setEmail(e.target.value)}>Email</FormInput>          
           <FormInput type="password" error={error} required={true} className='border-0' textStyle='text-purple-200' onChange={e => setPassword(e.target.value)}>Password</FormInput>                
           <Button className='bg-cyan' onClick={handleSubmit} disabled={disabled} >Login</Button>
       </form> 
       <p className='mt-4 text-[16px] text-white'>New to Vote Chain? <span className='font-semibold text-cyan select-none hover:underline' onClick={() => navigate('/register')}>Register</span></p>
-    </div>
+      </>
+    } />
   );
 }
 
