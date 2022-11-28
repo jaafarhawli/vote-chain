@@ -1,10 +1,10 @@
 import React, {useState, useMemo} from 'react';
-import axios from '../../api/axios';
 import {AddVoter, ConfirmModal, closeModal, openModal} from '../../components/Modals';
 import {useQuery} from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
 import {Loader, Button, EmptyState, Table} from '../../components/Reusable';
 import { viewVoters } from '../../api/viewVoters';
+import { deleteVoter } from '../../api/deleteVoter';
 
 const Voters = (props) => {
 
@@ -32,28 +32,6 @@ const Voters = (props) => {
         document.body.style.overflow = 'hidden';
       }
 
-    const deleteVoter = async () => {
-        const form = {
-            voter_id: localStorage.voter_id,
-            election_id: election.id,
-            user_id: user.id 
-        }
-        
-        try {
-            await axios.post('voter/remove', form, {
-                headers: {
-                  Authorization: `bearer ${localStorage.token}`
-                }
-              });
-              refetch();
-              closeModal(setConfirmModal)
-            } catch (error) {
-              console.log(error.response.data.message);
-            }
-    }
-
-
-
   return (
     <>
     {
@@ -72,7 +50,7 @@ const Voters = (props) => {
     </>
     : 
     <>
-    <ConfirmModal  open={confirmModal} closeModal={() => closeModal(setConfirmModal)} click={deleteVoter} text={"Are you sure you want to delete this voter?"} />
+    <ConfirmModal  open={confirmModal} closeModal={() => closeModal(setConfirmModal)} click={() => deleteVoter(election.id, user.id, refetch, setConfirmModal)} text={"Are you sure you want to delete this voter?"} />
     <AddVoter open={voterModal} closeModal={() => closeModal(setVoterModal)}  refetch={refetch} />
     <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
     <div className='w-[98%] mx-auto px-8 '>
