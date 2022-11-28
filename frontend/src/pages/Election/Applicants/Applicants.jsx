@@ -1,9 +1,9 @@
 import React, {useState, useMemo} from 'react';
 import {useQuery} from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
-import {Loader, Table, EmptyState, Button} from '../../components/Reusable';
-import { viewApplicants } from '../../api/viewApplicants';
-import { removeApplicant } from '../../api/removeApplicant';
+import {Loader, Table, EmptyState, Button} from '../../../components/Reusable';
+import { viewApplicants } from '../../../api/viewApplicants';
+import { removeApplicant } from '../../../api/removeApplicant';
 
 const Applicants = (props) => {
     

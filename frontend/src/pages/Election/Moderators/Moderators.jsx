@@ -1,10 +1,10 @@
 import React, {useState, useMemo} from 'react';
-import {ConfirmModal, AddModerator, closeModal, openModal} from '../../components/Modals';
-import {Loader, Table, EmptyState, Button} from '../../components/Reusable';
+import {ConfirmModal, AddModerator, closeModal, openModal} from '../../../components/Modals';
+import {Loader, Table, EmptyState, Button} from '../../../components/Reusable';
 import {useQuery} from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
-import { viewModerators } from '../../api/viewModerators';
-import { deleteModerator } from '../../api/deleteModerator';
+import { viewModerators } from '../../../api/viewModerators';
+import { deleteModerator } from '../../../api/deleteModerator';
 
 const Moderators = ({socket}) => {
 

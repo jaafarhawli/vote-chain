@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
-import Button from '../../components/Reusable/Button';
-import ConfirmModal from '../../components/Modals/ConfirmModal';
-import axios from '../../api/axios';
+import Button from '../../../components/Reusable/Button';
+import ConfirmModal from '../../../components/Modals/ConfirmModal';
+import axios from '../../../api/axios';
 import {useQuery} from '@tanstack/react-query';
-import { addCandidates, addVotersToBlockchain as addVoters, launchElection as launchToBlockchain } from '../../Web3';
+import { addCandidates, addVotersToBlockchain as addVoters, launchElection as launchToBlockchain } from '../../../Web3';
 import { useSelector, useDispatch } from 'react-redux';
-import { viewElection } from '../../redux/election';
+import { viewElection } from '../../../redux/election';
 
 const Launch = () => {
 

@@ -1,11 +1,11 @@
 import React from 'react';
 import 'react-toastify/dist/ReactToastify.css';
-import BlockchainStatistics from '../../components/Complex/BlockchainStatistics/BlockchainStatistics';
-import {Loader, ElectionNumerics, CopyData} from '../../components/Reusable';
+import BlockchainStatistics from '../../../components/Complex/BlockchainStatistics/BlockchainStatistics';
+import {Loader, ElectionNumerics, CopyData} from '../../../components/Reusable';
 import { ToastContainer, toast} from 'react-toastify';
 import { useSelector } from 'react-redux';
 import {useQuery} from '@tanstack/react-query';
-import { viewElectionNumerics } from '../../api/viewElectionNumerics';
+import { viewElectionNumerics } from '../../../api/viewElectionNumerics';
 
 const Dashboard = () => {
 

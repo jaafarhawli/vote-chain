@@ -1,10 +1,10 @@
 import React, {useState, useMemo} from 'react';
-import {AddParty, ConfirmModal, AddCandidate, openModal, closeModal} from '../../components/Modals';
-import {Table, EmptyState, Button, Loader} from '../../components/Reusable';
+import {AddParty, ConfirmModal, AddCandidate, openModal, closeModal} from '../../../components/Modals';
+import {Table, EmptyState, Button, Loader} from '../../../components/Reusable';
 import {useQuery} from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
-import { viewParties } from '../../api/viewParties';
-import { deleteParty } from '../../api/deleteParty';
+import { viewParties } from '../../../api/viewParties';
+import { deleteParty } from '../../../api/deleteParty';
 
 const Parties = () => {
 

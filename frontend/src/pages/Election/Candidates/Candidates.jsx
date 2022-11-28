@@ -1,10 +1,10 @@
 import React, {useState, useMemo} from 'react';
-import {ConfirmModal, closeModal} from '../../components/Modals';
+import {ConfirmModal, closeModal} from '../../../components/Modals';
 import {useQuery} from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
-import {Loader, EmptyState, CandidateCard} from '../../components/Reusable';
-import { viewCandidates } from '../../api/viewCandidates';
-import { deleteCandidate } from '../../api/deleteCandidate';
+import {Loader, EmptyState, CandidateCard} from '../../../components/Reusable';
+import { viewCandidates } from '../../../api/viewCandidates';
+import { deleteCandidate } from '../../../api/deleteCandidate';
 
 const Candidates = () => {
 

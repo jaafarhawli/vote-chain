@@ -1,15 +1,15 @@
 import React, {useState, useEffect} from 'react';
-import Button from '../../components/Reusable/Button';
-import axios from '../../api/axios';
-import SuccessModal from '../../components/Modals/SuccessModal';
-import ConfirmModal from '../../components/Modals/ConfirmModal';
+import Button from '../../../components/Reusable/Button';
+import axios from '../../../api/axios';
+import SuccessModal from '../../../components/Modals/SuccessModal';
+import ConfirmModal from '../../../components/Modals/ConfirmModal';
 import { useNavigate } from 'react-router-dom';
 import "flatpickr/dist/themes/material_green.css";
 import Flatpickr from "react-flatpickr";
 import { useSelector, useDispatch } from 'react-redux';
-import {viewElection} from '../../redux/election';
-import { changeTimeInterval } from '../../Web3';
-import FormLabelInput from '../../components/Reusable/FormLabelInput';
+import {viewElection} from '../../../redux/election';
+import { changeTimeInterval } from '../../../Web3';
+import FormLabelInput from '../../../components/Reusable/FormLabelInput';
 require("flatpickr/dist/themes/material_blue.css");
 
 const Settings = () => {

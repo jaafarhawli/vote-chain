@@ -1,10 +1,10 @@
 import React, {useState, useMemo} from 'react';
-import {AddVoter, ConfirmModal, closeModal, openModal} from '../../components/Modals';
+import {AddVoter, ConfirmModal, closeModal, openModal} from '../../../components/Modals';
 import {useQuery} from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
-import {Loader, Button, EmptyState, Table} from '../../components/Reusable';
-import { viewVoters } from '../../api/viewVoters';
-import { deleteVoter } from '../../api/deleteVoter';
+import {Loader, Button, EmptyState, Table} from '../../../components/Reusable';
+import { viewVoters } from '../../../api/viewVoters';
+import { deleteVoter } from '../../../api/deleteVoter';
 
 const Voters = (props) => {
 

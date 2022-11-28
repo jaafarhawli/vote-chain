@@ -1,10 +1,8 @@
 import React from 'react';
-import {Route, Routes} from 'react-router-dom';
 import Panel from '../components/Complex/Panel';
 import ElectionTitle from '../components/Complex/ElectionTitle';
-import Dashboard from '../pages/Election/Dashboard';
-import Voters from '../pages/Election/Voters';
-import Applicants from '../pages/Election/Applicants';
+import {Route, Routes} from 'react-router-dom';
+import {Dashboard, Voters, Applicants} from '../pages/Election';
 
 const ModeratorElection = () => {
 
