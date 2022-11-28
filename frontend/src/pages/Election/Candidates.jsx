@@ -1,11 +1,10 @@
 import React, {useState, useMemo} from 'react';
-import {useQuery} from '@tanstack/react-query';
 import axios from '../../api/axios';
-import CandidateCard from '../../components/Reusable/CandidateCard';
-import EmptyState from '../../components/Reusable/EmptyState';
-import ConfirmModal from '../../components/Modals/ConfirmModal';
+import {ConfirmModal, closeModal} from '../../components/Modals';
+import {useQuery} from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
-import Loader from '../../components/Reusable/Loader';
+import {Loader, EmptyState, CandidateCard} from '../../components/Reusable';
+import { viewCandidates } from '../../api/viewCandidates';
 
 const Candidates = () => {
 
@@ -16,13 +15,7 @@ const Candidates = () => {
     const [confirmModal, setConfirmModal] = useState(false);
     const launched = election.launched===true;
     
-    const {data, refetch, isFetching} = useQuery(["candidates"], async () => {
-        return axios.get(`candidate/${election.id}`, {
-                    headers: {
-                      Authorization: `bearer ${localStorage.token}`
-                    }
-                  }).then((res) => res.data.data);
-    })
+    const {data, refetch, isFetching} = useQuery(["candidates"], () => viewCandidates(election.id));
 
     const filteredData = useMemo(() => {
       return data?.filter(row => {
@@ -30,11 +23,6 @@ const Candidates = () => {
       })
     }, [data, search])
 
-    const closeConfirm = () => {
-      setConfirmModal(false)
-      document.body.style.overflow = 'unset';
-    }
-    
     const openConfirmModal = (id, party) => {
       if(launched)
       return
@@ -59,7 +47,7 @@ const Candidates = () => {
                 Authorization: `bearer ${localStorage.token}`
               }
             });
-            closeConfirm();
+            closeModal(setConfirmModal);
             refetch();
           } catch (error) {
             console.log(error.response.data.message);
@@ -81,7 +69,7 @@ const Candidates = () => {
         </div>
         </> : 
         <>
-        <ConfirmModal  open={confirmModal} closeModal={closeConfirm} click={deleteCandidate} text={"Are you sure you want to delete this candidate?"} />
+        <ConfirmModal  open={confirmModal} closeModal={() => closeModal(setConfirmModal)} click={deleteCandidate} text={"Are you sure you want to delete this candidate?"} />
         <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
         <div className='w-[98%] mx-auto px-8 '>
         <div className='flex justify-between items-center w-full'>
@@ -103,4 +91,3 @@ const Candidates = () => {
 }
 
 export default Candidates;
-
