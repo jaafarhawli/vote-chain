@@ -6,7 +6,6 @@ export const removeApplicant = async (id, election_id, user_id, refetch) => {
         election_id: election_id,
         user_id: user_id 
     }
-    
     try {
         await axios.post('voter/remove/applicant', form, {
             headers: {

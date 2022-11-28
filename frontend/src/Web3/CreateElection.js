@@ -1,5 +1,7 @@
 import Web3 from 'web3';
 import ElectionContract from 'contracts/Election.json';
+import { isInitialized } from "../Web3Client";
+import { init } from "../Web3Client";
 import { selectedAccount } from "../Web3Client";
 
 // Create a new election contract and add it to the blockchain

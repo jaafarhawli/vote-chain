@@ -42,7 +42,7 @@ const Applicants = (props) => {
         <input type="search" className='border-2 border-[#dddddd] w-1/3 rounded-md mt-4' placeholder='Search voter by email' onChange={e => setSearch(e.target.value)} />
         {filteredData?.length===0 ? <EmptyState title={'No Applicants'}>You don’t have any applicants</EmptyState> : 
         props.admin ? 
-        <Table admin={true} data={filteredData} applicants={true} remove={(id) => removeApplicant(id)} />
+        <Table admin={true} data={filteredData} applicants={true} remove={(id) => removeApplicant(id, election.id, user.id, refetch)} />
         :
         <Table data={filteredData} applicants={true} remove={(id) => removeApplicant(id, election.id, user.id, refetch)} />
         }
