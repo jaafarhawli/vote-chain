@@ -1,15 +1,8 @@
 import React from 'react';
 import {Route, Routes} from 'react-router-dom';
-import Panel from '../components/Reusable/Panel';
-import ElectionTitle from '../components/Reusable/ElectionTitle';
-import Dashboard from '../pages/Election/Dashboard';
-import Moderators from '../pages/Election/Moderators';
-import Parties from '../pages/Election/Parties';
-import Candidates from '../pages/Election/Candidates';
-import Voters from '../pages/Election/Voters';
-import Settings from '../pages/Election/Settings';
-import Launch from '../pages/Election/Launch';
-import Applicants from '../pages/Election/Applicants';
+import Panel from '../components/Complex/Panel';
+import ElectionTitle from '../components/Complex/ElectionTitle';
+import {Dashboard, Moderators, Parties, Candidates, Voters, Applicants, Settings, Launch} from '../pages/Election';
 
 const AdminElection = ({socket}) => {
 

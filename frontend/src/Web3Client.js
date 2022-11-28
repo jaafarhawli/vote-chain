@@ -1,9 +1,8 @@
-import Web3 from 'web3';
-import ElectionContract from 'contracts/Election.json';
+export let selectedAccount;
+export let isInitialized = false;
 
-let selectedAccount;
-let isInitialized = false;
-
+// On page initialization
+// Pop up metamask wallet and select an account to perform web3 operations from
 export const init = async () => {
     let provider = window.ethereum;
 	  if(typeof provider !== 'undefined') {
@@ -18,6 +17,7 @@ export const init = async () => {
 				return;
 			})
 
+		// Switch to the new selected account in metamask
 		window.ethereum.on('accountsChanged', function (accounts) {
 			selectedAccount = accounts[0];
 			console.log(`Selected account changed to ${selectedAccount}`);
@@ -26,126 +26,3 @@ export const init = async () => {
 		isInitialized = true;
 	  }
 } 
-
-export const addCandidates = async (candidates, parties, address) => {
-	if(!isInitialized)
-	await init();
-
-	let provider = window.ethereum;
-	const web3 = new Web3(provider);
-	let contract = new web3.eth.Contract(ElectionContract.abi, address);
-
-	return contract.methods.addCandidates(candidates, parties).send({from: selectedAccount});
-}
-
-export const createElectionContract = async (start_time, end_time) => {
-	let account = selectedAccount;
-	let provider = window.ethereum;
-	const web3 = new Web3(provider);
-	let deploy_contract = new web3.eth.Contract(ElectionContract.abi);
-
-	let payload = {
-    data: ElectionContract.bytecode,
-    arguments: [start_time, end_time]
-	}
-
-	let parameter = {
-    from: account,
-    gas: 6721975,
-    gasPrice: 20000000000,
-	}
-
-    return deploy_contract.deploy(payload).send(parameter, (err, transactionHash) => {
-        console.log('Transaction Hash :', transactionHash);
-    }).on('confirmation', () => {}).then((newContractInstance) => 
-		newContractInstance._address
-	)}
-
-
-	export const viewCandidates = async (address) => {
-		if(!isInitialized)
-		await init();
-	
-		let provider = window.ethereum;
-		const web3 = new Web3(provider);
-		let contract = new web3.eth.Contract(ElectionContract.abi, address);
-
-		return contract.methods.results().call();
-	}
-	
-	export const viewVoters = async (address) => {
-		if(!isInitialized)
-		await init();
-	
-		let provider = window.ethereum;
-		const web3 = new Web3(provider);
-		let contract = new web3.eth.Contract(ElectionContract.abi, address);
-
-		return contract.methods.viewVoters().call();
-	}
-
-	export const addVoterToBlockchain = async (voter_addresses, address) => {
-		if(!isInitialized)
-		await init();
-	
-		let provider = window.ethereum;
-		const web3 = new Web3(provider);
-		let contract = new web3.eth.Contract(ElectionContract.abi, address);
-
-		return contract.methods.giveRightToVote(voter_addresses).send({from: selectedAccount});
-	}
-
-	export const voteCandidate = async (candidate_id, address) => {
-		if(!isInitialized)
-		await init();
-	
-		let provider = window.ethereum;
-		const web3 = new Web3(provider);
-		let contract = new web3.eth.Contract(ElectionContract.abi, address);
-	
-		return contract.methods.vote(candidate_id).send({from: selectedAccount});
-	}
-
-	export const viewTimeInterval = async (address) => {
-		if(!isInitialized)
-		await init();
-	
-		let provider = window.ethereum;
-		const web3 = new Web3(provider);
-		let contract = new web3.eth.Contract(ElectionContract.abi, address);
-
-		return contract.methods.viewTimeInterval().call();
-	}
-
-	export const launchElection = async (address) => {
-		if(!isInitialized)
-		await init();
-	
-		let provider = window.ethereum;
-		const web3 = new Web3(provider);
-		let contract = new web3.eth.Contract(ElectionContract.abi, address);
-	
-		return contract.methods.launchElection().send({from: selectedAccount});
-	}
-
-	export const checkIfLaunched = async (address) => {
-		if(!isInitialized)
-		await init();
-	
-		let provider = window.ethereum;
-		const web3 = new Web3(provider);
-		let contract = new web3.eth.Contract(ElectionContract.abi, address);
-
-		return contract.methods.checkIfLaunched().call();
-	}
-
-	export const changeTimeInterval = async (startTime, endTime, address) => {
-		if(!isInitialized)
-		await init();
-	
-		let provider = window.ethereum;
-		const web3 = new Web3(provider);
-		let contract = new web3.eth.Contract(ElectionContract.abi, address);
-	
-		return contract.methods.changeTime(startTime, endTime).send({from: selectedAccount});
-	}

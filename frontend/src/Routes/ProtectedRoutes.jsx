@@ -1,25 +1,21 @@
 import { Outlet } from "react-router-dom";
-import axios from "../api/axios";
-import Login from "../pages/Login/Login";
 
-const userAuth = () => {
-    if(!localStorage.token)
-    return false;
-    const form = {
-        token: localStorage.token
-    };
-    try {
-        axios.post('auth/token', form);
-        return true
-    }
-    catch (error) {
-        return false
-    }
-};
+import { userAuth } from "../api/userAuth";
 
-const ProtectedRoutes = () => {
+import { voterAuth } from "../api/voterAuth";
+import Auth from "../pages/Auth/Auth";
+
+// User protected routes
+// Return to login page if not authenticated when trying to access the route
+export const ProtectedRoutes = ({socket}) => {
     const isAuth = userAuth();
-    return isAuth ? <Outlet /> : <Login />
+    return isAuth ? <Outlet /> : <Auth login={true} socket={socket} />
 };
 
-export default ProtectedRoutes;
+// Voter protected routes
+// Return to voter login page if not authenticated when trying to access the route
+export const ProtectedVoterRoutes = () => {
+    const isAuth = voterAuth();
+    return isAuth ? <Outlet /> : <Auth voterLogin={true} />
+};
+

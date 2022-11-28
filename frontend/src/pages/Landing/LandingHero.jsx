@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/VOTE CHAIN-logo-white-horizantal.png';
-import curve from '../../assets/Group47.svg';
+import curve from '../../assets/LandingHero.svg';
 import Button from '../../components/Reusable/Button';
 
 const LandingHero = () => {

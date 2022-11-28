@@ -5,7 +5,7 @@ import userReducer from './user';
 import {persistReducer, persistStore} from 'redux-persist';
 import storage  from 'redux-persist/lib/storage';
 
-
+// Prevent losing redux state when refreshing the page
 const persistConfig =  {
     key: 'root',
     version: 1,

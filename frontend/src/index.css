@@ -20,26 +20,19 @@
 	}
 }
 
+/* Landing psgr hero background */
 .hero {
-	background-image: url("assets/Group47.svg");
+	background-image: url("assets/LandingHero.svg");
 }
 
-@media (max-width: 640px) {
-	.hero {
-	  background-image: url("assets/Group47.svg");
-	}
-  }
-
-.timezone {
-	border: 1px solid #777777 !important;
-}
-
+/* Active nav in main page navbar */
 .active {
 	background-color: rgb(235, 235, 255, 0.5);
 	border-right: 7px solid #00b7ff;
 	color: white;
 }
 
+/* Table style */
 table {  
     border-collapse: collapse;
     width: 100%;
@@ -64,6 +57,7 @@ tr:nth-child(even):hover.party {
     background-color: #bbc7fa;
 }
 
+/* Neon effect */
 .neon {
 	box-shadow: 0 0 .2rem #fff,
             0 0 .2rem #fff,
@@ -73,6 +67,7 @@ tr:nth-child(even):hover.party {
             inset 0 0 1.3rem #00B8FF; 
 }
 
+/* Material ui text field color on focus */
 .MuiFormLabel-root.Mui-focused {
 	color: #9ce3ff !important;
   }
