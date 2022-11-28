@@ -1,6 +1,6 @@
 import React, {useState, useMemo} from 'react';
 import {AddParty, ConfirmModal, AddCandidate, openModal, closeModal} from '../../../components/Modals';
-import {Table, EmptyState, Button, Loader} from '../../../components/Reusable';
+import {Table, EmptyState, Loader, ElectionContainer} from '../../../components/Reusable';
 import {useQuery} from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
 import { viewParties } from '../../../api/viewParties';
@@ -49,29 +49,20 @@ const Parties = () => {
       data?.length === 0 ? 
         <>
         <AddParty open={partyModal} closeModal={() => closeModal(setPartyModal)}    refetch={refetch} />
-        <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
-        <div className='w-[98%] mx-auto px-8 '>
-            <h1 className='text-[28px] font-bold'>Parties</h1>
+        <ElectionContainer title={'Parties'}>
             <EmptyState title={'No Parties'} button={'Add party'} disabled={launched} onClick={() => openModal(setPartyModal)} >You don’t have any parties, add one now!</EmptyState>
-        </div>
-        </div>
+        </ElectionContainer>
         </>
       :
     <>
-    <ConfirmModal  open={confirmModal} closeModal={() => closeModal(setConfirmModal)} click={() => deleteParty(election.id, user.id, refetch, setConfirmModal)} text={"Are you sure you want to delete this party?"} />
-    <AddParty open={partyModal} closeModal={() => closeModal(setPartyModal)}  refetch={refetch} />
-    <AddCandidate open={candidateModal} closeModal={() => closeModal(setCandidateModal)} />
-    <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
-    <div className='w-[98%] mx-auto px-8 '>
-        <div className='flex justify-between items-center w-full'>
-          <h1 className='text-[28px] font-bold'>Parties</h1>
-          <Button onClick={() => openModal(setPartyModal)} add={true} disabled={launched}>Add Party</Button>
-        </div>
-            <input type="search" className='border-2 border-[#dddddd] w-1/3 rounded-md mt-4' placeholder='Search moderator by email' onChange={e => setSearch(e.target.value)} />
-            <Table data={filteredData} party={true} remove={(id) => openConfirmModal(id)} addCandidate={(id) => openCandidateModal(id)} />
-    </div>
-    </div>
-    </>}
+      <ConfirmModal  open={confirmModal} closeModal={() => closeModal(setConfirmModal)} click={() => deleteParty(election.id, user.id, refetch, setConfirmModal)} text={"Are you sure you want to delete this party?"} />
+      <AddParty open={partyModal} closeModal={() => closeModal(setPartyModal)}  refetch={refetch} />
+      <AddCandidate open={candidateModal} closeModal={() => closeModal(setCandidateModal)} />
+      <ElectionContainer title={'Parties'} button={true} onClick={() => openModal(setPartyModal)} disabled={launched} buttonContent={'Add Party'} >
+              <input type="search" className='border-2 border-[#dddddd] w-1/3 rounded-md mt-4' placeholder='Search moderator by email' onChange={e => setSearch(e.target.value)} />
+              <Table data={filteredData} party={true} remove={(id) => openConfirmModal(id)} addCandidate={(id) => openCandidateModal(id)} />
+      </ElectionContainer>
+      </>}
     </>
   );
 }

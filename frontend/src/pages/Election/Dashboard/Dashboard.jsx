@@ -1,7 +1,7 @@
 import React from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import BlockchainStatistics from '../../../components/Complex/BlockchainStatistics/BlockchainStatistics';
-import {Loader, ElectionNumerics, CopyData} from '../../../components/Reusable';
+import {Loader, ElectionNumerics, CopyData, ElectionContainer} from '../../../components/Reusable';
 import { ToastContainer, toast} from 'react-toastify';
 import { useSelector } from 'react-redux';
 import {useQuery} from '@tanstack/react-query';
@@ -27,9 +27,7 @@ const Dashboard = () => {
     {isFetching ? 
     <Loader loading={isFetching} admin={true} />
     :
-    <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
-    <div className='w-[98%] mx-auto px-8 '>
-      <h1 className='text-[28px] font-bold'>Election Dashboard</h1>
+    <ElectionContainer title={'Dashboard'}>
       <h2 className='text-purple-100 mt-8 text-[22px] font-semibold'>Election code</h2>
       <div className='flex w-full '>
         <div className='w-full'>
@@ -47,8 +45,7 @@ const Dashboard = () => {
       </div>
       <BlockchainStatistics electionAddress={election.address} />
       <ToastContainer autoClose={1000} hideProgressBar={true} position="bottom-center" />
-    </div>
-    </div>}
+    </ElectionContainer>}
     </>
   );
 }

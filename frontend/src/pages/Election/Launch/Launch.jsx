@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { viewVoters } from '../../../api/viewVoters';
 import { viewCandidates } from '../../../api/viewCandidates';
 import { launchElection } from './LaunchElection';
+import { ElectionContainer } from '../../../components/Reusable';
 
 const Launch = () => {
 
@@ -22,9 +23,7 @@ const Launch = () => {
   return (
     <>
     <ConfirmModal  open={confirmModal} closeModal={() => setConfirmModal(false)} click={() => launchElection(election.id, user.id, election.address, data, voters, dispatch, setDisabled, setConfirmModal)} launch={true} text={"Are you sure you want to launch this election?"} />
-    <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
-    <div className='w-[98%] mx-auto px-8'>
-        <h1 className='text-[28px] font-bold'>Launch Election</h1>
+    <ElectionContainer title={'Launch Election'}>
         <div className='my-8 bg-yellow px-12 py-4 rounded-lg'>
           {election.launched ?
             <h1 className='text-center text-[24px] font-bold'>Your Election is launched</h1> 
@@ -44,8 +43,7 @@ const Launch = () => {
             </>}
         </div>
         <Button className='mt-4 mx-auto' disabled={disabled} onClick={() => setConfirmModal(true)}>Launch</Button>      
-    </div>
-    </div>
+    </ElectionContainer>
     </>
   );
 }

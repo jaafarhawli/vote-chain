@@ -3,7 +3,7 @@ import Flatpickr from "react-flatpickr";
 import {SuccessModal, ConfirmModal, closeModal} from '../../../components/Modals';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import {FormLabelInput, Button} from '../../../components/Reusable';
+import {FormLabelInput, Button, ElectionContainer} from '../../../components/Reusable';
 import { saveInfo } from './SaveInfo';
 import {changeTime} from './ChangeTime';
 import { deleteElection } from '../../../api/deleteElection';
@@ -56,12 +56,7 @@ const Settings = () => {
            setSuccessModal(false);
            document.body.style.overflow = 'unset';
         }} />
-    <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
-    <div className='w-[98%] mx-auto px-8 '>
-        <div className='flex justify-between items-center w-full'>
-          <h1 className='text-[28px] font-bold'>Settings</h1>
-          <Button className='bg-red' disabled={launched} onClick={() => setConfirmModal(true)}>Delete Election</Button>
-        </div>
+    <ElectionContainer title={'Settings'} button={true} onClick={() => setConfirmModal(true)} disabled={launched} buttonContent={'Delete Election'} redButton={true}>
         <form className='w-1/2 flex flex-col gap-5 mt-12'>
         <FormLabelInput type="text" onChange={e => setTitle(e.target.value)} defaultValue={election.title} >Election title</FormLabelInput>       
           <label>
@@ -97,8 +92,7 @@ const Settings = () => {
           </div>
           <Button className='bg-cyan w-1/2 self-start' disabled={timeDisabled || launched} onClick={() => changeTime(starttime, endtime, election.id, user.id, election.address, dispatch, setError, setMessage, setSuccessModal, setSave, save)} >Change Time Interval</Button>
       </form>
-    </div>
-    </div>
+      </ElectionContainer>
     </>
   );
 }

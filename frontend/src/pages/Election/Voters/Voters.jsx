@@ -2,7 +2,7 @@ import React, {useState, useMemo} from 'react';
 import {AddVoter, ConfirmModal, closeModal, openModal} from '../../../components/Modals';
 import {useQuery} from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
-import {Loader, Button, EmptyState, Table} from '../../../components/Reusable';
+import {Loader, ElectionContainer, EmptyState, Table} from '../../../components/Reusable';
 import { viewVoters } from '../../../api/viewVoters';
 import { deleteVoter } from '../../../api/deleteVoter';
 
@@ -41,23 +41,15 @@ const Voters = (props) => {
     data?.length===0 ?
     <>
     <AddVoter open={voterModal} closeModal={() => closeModal(setVoterModal)}  refetch={refetch} />
-    <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
-    <div className='w-[98%] mx-auto px-8 '>
-        <h1 className='text-[28px] font-bold'>Voters</h1>
+    <ElectionContainer>
         <EmptyState title={'No Voters'} button={'Add voter'} disabled={launched} onClick={() => openModal(setVoterModal)}>You don’t have any voters, add one now!</EmptyState>
-    </div>
-    </div>
+    </ElectionContainer>
     </>
     : 
     <>
     <ConfirmModal  open={confirmModal} closeModal={() => closeModal(setConfirmModal)} click={() => deleteVoter(election.id, user.id, refetch, setConfirmModal)} text={"Are you sure you want to delete this voter?"} />
     <AddVoter open={voterModal} closeModal={() => closeModal(setVoterModal)}  refetch={refetch} />
-    <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
-    <div className='w-[98%] mx-auto px-8 '>
-        <div className='flex justify-between items-center w-full'>
-          <h1 className='text-[28px] font-bold'>Voters</h1>
-          <Button add={true} onClick={() => openModal(setVoterModal)} disabled={launched} >Add Voter</Button>
-        </div>
+    <ElectionContainer title={'Voters'} button={true} onClick={() => openModal(setVoterModal)} disabled={launched} buttonContent={'Add Voter'} >
         <input type="search" className='border-2 border-[#dddddd] w-1/3 rounded-md mt-4' placeholder='Search voter by email' onChange={e => setSearch(e.target.value)} />
         {filteredData?.length===0 ? <EmptyState title={'No Voters'}>You don’t have any voters</EmptyState> : 
         props.admin ? 
@@ -65,8 +57,7 @@ const Voters = (props) => {
         :
         <Table data={filteredData} voter={true} remove={(id) => openConfirmModal(id)} />
         }
-    </div>
-    </div>
+    </ElectionContainer>
     </>
     }     
     </>

@@ -1,7 +1,7 @@
 import React, {useState, useMemo} from 'react';
 import {useQuery} from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
-import {Loader, Table, EmptyState, Button} from '../../../components/Reusable';
+import {Loader, Table, EmptyState, ElectionContainer} from '../../../components/Reusable';
 import { viewApplicants } from '../../../api/viewApplicants';
 import { removeApplicant } from '../../../api/removeApplicant';
 
@@ -11,7 +11,6 @@ const Applicants = (props) => {
     const user = useSelector((state) => state.user.value);
 
     const [search, setSearch] = useState('');
-    const launched = election.launched===true;
 
     const {data, refetch, isFetching} = useQuery(["applicants"], () => viewApplicants(election.id));
 
@@ -30,21 +29,13 @@ const Applicants = (props) => {
     :
     data?.length===0 ?
     <>
-    <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
-    <div className='w-[98%] mx-auto px-8 '>
-        <h1 className='text-[28px] font-bold'>Applicants</h1>
+    <ElectionContainer title={'Applicants'}>
         <EmptyState title={'No Applicants'}>You don’t have any applicants</EmptyState>
-    </div>
-    </div>
+    </ElectionContainer>
     </>
     : 
     <>
-    <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
-    <div className='w-[98%] mx-auto px-8 '>
-        <div className='flex justify-between items-center w-full'>
-          <h1 className='text-[28px] font-bold'>Applicants</h1>
-          <Button add={true} disabled={launched} >Add Applicant</Button>
-        </div>
+    <ElectionContainer title={'Applicants'}>
         <input type="search" className='border-2 border-[#dddddd] w-1/3 rounded-md mt-4' placeholder='Search voter by email' onChange={e => setSearch(e.target.value)} />
         {filteredData?.length===0 ? <EmptyState title={'No Applicants'}>You don’t have any applicants</EmptyState> : 
         props.admin ? 
@@ -52,8 +43,7 @@ const Applicants = (props) => {
         :
         <Table data={filteredData} applicants={true} remove={(id) => removeApplicant(id, election.id, user.id, refetch)} />
         }
-    </div>
-    </div>
+    </ElectionContainer>
     </>
     }     
     </>

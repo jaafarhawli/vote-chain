@@ -11,5 +11,6 @@ import Table from "./Table";
 import Timer from "./Timer";
 import AuthForm from "./AuthForm";
 import ElectionNumerics from "./ElectionNumerics";
+import ElectionContainer from "./ElectionContainer";
 
-export {Button, CandidateCard, CopyData, ElectionCard, EmptyState, FormInput, FormLabelInput, Loader, Modal, Table, Timer, AuthForm, ElectionNumerics}
+export {Button, CandidateCard, CopyData, ElectionCard, EmptyState, FormInput, FormLabelInput, Loader, Modal, Table, Timer, AuthForm, ElectionNumerics, ElectionContainer}
