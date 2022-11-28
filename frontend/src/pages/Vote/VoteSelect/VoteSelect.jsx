@@ -1,12 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import VoteHeader from '../VoteHeader/VoteHeader';
-import axios from '../../../api/axios';
 import {useQuery} from '@tanstack/react-query';
 import { CandidateCard, Button, ElectionCard } from '../../../components/Reusable';
 import { useNavigate } from 'react-router-dom';
-import { voteCandidate } from '../../../Web3';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateVoter } from '../../../redux/voter';
+import { viewParties } from '../../../api/viewParties';
+import { vote } from './Vote';
 
 const VoteSelect = () => {
 
@@ -24,13 +23,7 @@ const VoteSelect = () => {
 
     const navigate = useNavigate();
 
-    const {data} = useQuery(["parties"], async () => {
-        return axios.get(`party/${election.id}`, {
-                    headers: {
-                      Authorization: `bearer ${localStorage.token}`
-                    }
-                  }).then((res) => res.data.data);
-    })
+    const {data} = useQuery(["parties"], () => viewParties(election.id));
 
     const showCandidates = async (data, party_id, party_name) => {
         setCandidates(data);
@@ -42,31 +35,6 @@ const VoteSelect = () => {
         setSelectedCandidate(id);
         setSelectedCandidateName(candidate_name);
         setSelectedCandidateId(blockchain_candidate_id);
-    }
-
-    const handleSubmit = async () => {
-
-        await voteCandidate(selectedCandidateId, election.address);
-        const form = {
-            id: voter.id,
-            party_id: selectedParty,
-            candidate_id: selectedCandidate
-        }     
-        try {
-             await axios.post('voter/vote', form, {
-                headers: {
-                  Authorization: `bearer ${localStorage.token}`
-                }
-              });
-              dispatch(updateVoter({
-                chosenParty: selectedPartyName,
-                chosenCandidate: selectedCandidateName, 
-                voted: true
-              }));
-              navigate('/vote/main/results');
-            } catch (error) {
-                console.log(error.response.data.message);
-            }  
     }
 
     useEffect(() => {
@@ -110,7 +78,7 @@ const VoteSelect = () => {
                 <p className='flex-1 text-[24px] font-bold text-white'>{selectedCandidateName}</p>
             </div>
           </div>
-        <Button disabled={disabled} onClick={handleSubmit}>Submit vote</Button>
+        <Button disabled={disabled} onClick={() => vote(selectedCandidateId, election.address, voter.id, selectedParty, selectedPartyName, selectedCandidate, selectedCandidateName, dispatch, navigate)}>Submit vote</Button>
       </div>
     </div>
   );
