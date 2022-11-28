@@ -1,15 +1,15 @@
 import React, {useState, useEffect} from 'react';
-import MainHeader from './MainHeader/MainHeader';
-import axios from '../../api/axios';
-import ConfirmModal from '../../components/Modals/ConfirmModal';
-import SuccessModal from '../../components/Modals/SuccessModal';
+import MainHeader from '../MainHeader/MainHeader';
+import axios from '../../../api/axios';
+import ConfirmModal from '../../../components/Modals/ConfirmModal';
+import SuccessModal from '../../../components/Modals/SuccessModal';
 import { useNavigate } from 'react-router-dom';
-import Button from '../../components/Reusable/Button';
-import FormInput from '../../components/Reusable/FormInput';
-import ChangePassword from '../../components/Modals/ChangePassword/ChangePassword';
+import Button from '../../../components/Reusable/Button';
+import FormInput from '../../../components/Reusable/FormInput';
+import ChangePassword from '../../../components/Modals/ChangePassword/ChangePassword';
 import { ToastContainer } from 'react-toastify';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateUser } from '../../redux/user';
+import { saveInfo } from './SaveInfo';
 
 const UserSettings = ({socket}) => {
 
@@ -28,34 +28,8 @@ const UserSettings = ({socket}) => {
   const [disabled, setDisabled] = useState(true);
   const [save, setSave] = useState(false);
 
-  const saveInfo = async() => {
-    const form = {
-        id: user.id,
-        first_name: firstname,
-        last_name: lastname,
-        email: email,
-    }
-    try {
-      await axios.put('user/account', form, {
-        headers: {
-          Authorization: `bearer ${localStorage.token}`
-        }
-      });
-      dispatch(updateUser({
-        firstName: firstname,
-        lastName: lastname,
-        email: email
-      }));
-      setSave(!save);
-      setIsError(false);
-      setMessage('Account updated successfully');
-      setSuccessModal(true);
-    } catch (error) {
-      setMessage(error.response.data.message);
-      setIsError(true);
-      setSuccessModal(true);
-      console.log(error.response.data.message);
-    }
+  const handleSave = async() => {
+      await saveInfo(user.id, firstname, lastname, email, dispatch, setSave, save, setMessage, setIsError, setSuccessModal);
 }
   
 
@@ -133,7 +107,7 @@ const deleteAccount = async () => {
             <FormInput type="text" textStyle='text-white' onChange={e => setFirstname(e.target.value)} defaultValue={user.firstName}>First Name</FormInput>
             <FormInput type="text" textStyle='text-white' defaultValue={user.lastName}  onChange={e => setLastname(e.target.value)}>Last Name</FormInput>
             <FormInput type="text" textStyle='text-white' defaultValue={user.email}  onChange={e => setEmail(e.target.value)}>Email</FormInput>
-          <Button className=' bg-cyan' onClick={saveInfo} disabled={disabled} >Save changes</Button>
+          <Button className=' bg-cyan' onClick={handleSave} disabled={disabled} >Save changes</Button>
           <p className='font-semibold text-purple-100 hover:underline select-none cursor-pointer mb-4' onClick={openPassword} >Change Password?</p>
           <Button className='bg-red flex-1 hover:bg-red/80'  onClick={openModal} >Delete Account</Button>
           <Button className='bg-red flex-1 hover:bg-red/80'  onClick={logout} >Log out</Button>

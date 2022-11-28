@@ -3,7 +3,7 @@ import {Route, Routes} from 'react-router-dom';
 import AdminElection from './AdminElection';
 import ModeratorElections from '../pages/Main/ModeratorElections/ModeratorElections';
 import UserElections from '../pages/Main/UserElections/UserElections';
-import UserSettings from '../pages/Main/UserSettings';
+import UserSettings from '../pages/Main/UserSettings/UserSettings';
 import ModeratorElection from './ModeratorElection';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
