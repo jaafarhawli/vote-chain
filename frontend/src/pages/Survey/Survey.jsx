@@ -1,8 +1,8 @@
 import React from 'react';
+import axios from '../../api/axios';
 import SurveyForm from './SurveyForm';
 import {useQuery} from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
-import axios from '../../api/axios';
 
 const Survey = () => {
 

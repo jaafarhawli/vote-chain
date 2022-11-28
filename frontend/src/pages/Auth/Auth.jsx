@@ -1,6 +1,6 @@
 import React from 'react';
-import LoginForm from './LoginForm/LoginForm';
 import bg from '../../assets/AuthBg.png';
+import LoginForm from './LoginForm/LoginForm';
 import RegisterForm from './RegisterForm/RegisterForm';
 import VoteLoginForm from './VoterLoginForm/VoteLoginForm';
 

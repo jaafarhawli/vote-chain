@@ -1,8 +1,8 @@
 import React, {useState, useEffect} from 'react';
-import {useParams, useNavigate} from 'react-router-dom';
 import logo from '../../assets/VOTE CHAIN-logo-white.png';
 import Button from '../../components/Reusable/Button';
 import axios from '../../api/axios';
+import {useParams, useNavigate} from 'react-router-dom';
 
 const EmailVerification = () => {
 
