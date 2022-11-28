@@ -1,11 +1,11 @@
 import React, {useState, useEffect} from 'react';
-import { useNavigate } from 'react-router-dom';
 import logo from '../../../assets/VOTE CHAIN-logo-white-horizantal.png';
 import curve from '../../../assets/BackgroundCurve.svg';
 import LandingFooter from '../../Landing/LandingFooter';
+import { useNavigate } from 'react-router-dom';
 import {Timer, Button} from '../../../components/Reusable';
 import { useSelector, useDispatch } from 'react-redux';
-import { viewElection } from '../../../redux/election';
+import { countDown } from './CountDown';
 
 const VoteMain = () => {
   
@@ -21,60 +21,6 @@ const VoteMain = () => {
   const [timerSeconds, setTimerSeconds] = useState();
   const [live, setLive] = useState(false);
   const [disabled, setDisabled] = useState(true);
-  
-  const startEndTimer = () => {
-    const endDate = new Date(election.endTime).getTime();
-  
-    let interval = setInterval(() => {
-      const now = new Date().getTime();
-      let distance = endDate - now;
-      
-      const days = Math.floor(distance / (24 * 60 * 60 * 1000));
-      const hours = Math.floor(distance % (24 * 60 * 60 * 1000) / (60 * 60 * 1000));
-      const minutes = Math.floor(distance % (60 * 60 * 1000) / (60 * 1000));
-      const seconds = Math.floor(distance % (60 * 1000) / 1000);
-  
-      if(distance<0) {    
-          dispatch(viewElection({
-            ended: true
-          }));
-          clearInterval(interval.current);
-        }
-        
-      else {
-        setTimerDays(days);
-        setTimerHours(hours);
-        setTimerMinutes(minutes);
-        setTimerSeconds(seconds);
-      }
-    })
-  }
-
-  const startTimer = () => {
-    const startDate = new Date(election.startTime).getTime();
-
-    let interval = setInterval(() => {
-      const now = new Date().getTime();
-      let distance = startDate - now;
-      
-      const days = Math.floor(distance / (24 * 60 * 60 * 1000));
-      const hours = Math.floor(distance % (24 * 60 * 60 * 1000) / (60 * 60 * 1000));
-      const minutes = Math.floor(distance % (60 * 60 * 1000) / (60 * 1000));
-      const seconds = Math.floor(distance % (60 * 1000) / 1000);
-
-      if(distance<0) {
-          setLive(true);
-          setDisabled(false);
-          clearInterval(interval.current);
-      }
-      else {
-        setTimerDays(days);
-        setTimerHours(hours);
-        setTimerMinutes(minutes);
-        setTimerSeconds(seconds);
-      }
-    })
-  }
 
   const checkResults = () => {
     navigate('results');
@@ -82,10 +28,10 @@ const VoteMain = () => {
 
   useEffect(() => {
     if(live)
-    startEndTimer();
+    countDown(false , election.endTime, dispatch, setLive, setDisabled, clearInterval, setTimerDays, setTimerHours, setTimerMinutes, setTimerSeconds);
     else
-    startTimer();
-  });
+    countDown(true , election.startTime, dispatch, setLive, setDisabled, clearInterval, setTimerDays, setTimerHours, setTimerMinutes, setTimerSeconds);
+  }, [live, election.endTime, election.startTime, dispatch]);
 
 
   return (
