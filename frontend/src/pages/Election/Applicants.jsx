@@ -1,9 +1,9 @@
 import React, {useState, useMemo} from 'react';
-import axios from '../../api/axios';
 import {useQuery} from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
 import {Loader, Table, EmptyState, Button} from '../../components/Reusable';
 import { viewApplicants } from '../../api/viewApplicants';
+import { removeApplicant } from '../../api/removeApplicant';
 
 const Applicants = (props) => {
     
@@ -12,26 +12,6 @@ const Applicants = (props) => {
 
     const [search, setSearch] = useState('');
     const launched = election.launched===true;
-
-    const removeApplicant = async (id) => {
-        const form = {
-            applier_id: id,
-            election_id: election.id,
-            user_id: user.id 
-        }
-        
-        try {
-            await axios.post('voter/remove/applicant', form, {
-                headers: {
-                  Authorization: `bearer ${localStorage.token}`
-                }
-            });
-            refetch();
-        } 
-        catch (error) {
-            console.log(error.response.data.message);
-        }
-    }
 
     const {data, refetch, isFetching} = useQuery(["applicants"], () => viewApplicants(election.id));
 
@@ -70,7 +50,7 @@ const Applicants = (props) => {
         props.admin ? 
         <Table admin={true} data={filteredData} applicants={true} remove={(id) => removeApplicant(id)} />
         :
-        <Table data={filteredData} applicants={true} remove={(id) => removeApplicant(id)} />
+        <Table data={filteredData} applicants={true} remove={(id) => removeApplicant(id, election.id, user.id, refetch)} />
         }
     </div>
     </div>
