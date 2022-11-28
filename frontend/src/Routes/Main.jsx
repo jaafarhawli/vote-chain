@@ -29,7 +29,7 @@ const Main = ({socket}) => {
   return (
     <div>
         <Routes>
-          <Route element={<ProtectedRoutes />}>
+          <Route element={<ProtectedRoutes socket={socket} />}>
             <Route path='/' element={<UserElections />} />
             <Route path='/moderate' element={<ModeratorElections />} />
             <Route path='/settings' element={<UserSettings socket={socket} />} />

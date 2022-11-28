@@ -1,19 +1,18 @@
 import { Outlet } from "react-router-dom";
 
 import { userAuth } from "../api/userAuth";
-import Login from "../pages/Login/Login";
 
 import { voterAuth } from "../api/voterAuth";
-import VoteLogin from "../pages/Vote/VoteLogin";
+import Auth from "../pages/Auth/Auth";
 
 
-export const ProtectedRoutes = () => {
+export const ProtectedRoutes = ({socket}) => {
     const isAuth = userAuth();
-    return isAuth ? <Outlet /> : <Login />
+    return isAuth ? <Outlet /> : <Auth login={true} socket={socket} />
 };
 
 export const ProtectedVoterRoutes = () => {
     const isAuth = voterAuth();
-    return isAuth ? <Outlet /> : <VoteLogin />
+    return isAuth ? <Outlet /> : <Auth voterLogin={true} />
 };
 
