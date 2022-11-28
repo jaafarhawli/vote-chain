@@ -1,10 +1,10 @@
 import React, {useState, useMemo} from 'react';
-import axios from '../../api/axios';
 import {AddParty, ConfirmModal, AddCandidate, openModal, closeModal} from '../../components/Modals';
 import {Table, EmptyState, Button, Loader} from '../../components/Reusable';
 import {useQuery} from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
 import { viewParties } from '../../api/viewParties';
+import { deleteParty } from '../../api/deleteParty';
 
 const Parties = () => {
 
@@ -41,26 +41,6 @@ const Parties = () => {
         document.body.style.overflow = 'hidden';
       }
 
-      const deleteParty = async () => {
-        const form = {
-            party_id: localStorage.party_id,
-            election_id: election.id,
-            user_id: user.id 
-        }
-        
-        try {
-            await axios.post('party/remove', form, {
-                headers: {
-                  Authorization: `bearer ${localStorage.token}`
-                }
-              });
-              refetch();
-              closeModal(setConfirmModal);
-            } catch (error) {
-              console.log(error.response.data.message);
-            }
-        }
-
     return (
       <>
       {isFetching && !candidateModal ? 
@@ -78,7 +58,7 @@ const Parties = () => {
         </>
       :
     <>
-    <ConfirmModal  open={confirmModal} closeModal={() => closeModal(setConfirmModal)} click={deleteParty} text={"Are you sure you want to delete this party?"} />
+    <ConfirmModal  open={confirmModal} closeModal={() => closeModal(setConfirmModal)} click={() => deleteParty(election.id, user.id, refetch, setConfirmModal)} text={"Are you sure you want to delete this party?"} />
     <AddParty open={partyModal} closeModal={() => closeModal(setPartyModal)}  refetch={refetch} />
     <AddCandidate open={candidateModal} closeModal={() => closeModal(setCandidateModal)} />
     <div className='pl-[250px] pt-[150px] w-full bg-purple-400 min-h-screen'>
