@@ -1,17 +1,13 @@
 import React, {useState} from 'react';
+import MainHeader from '../MainHeader/MainHeader';
 import {useQuery} from '@tanstack/react-query';
-import axios from '../../api/axios';
 import { useNavigate } from 'react-router-dom';
-import MainHeader from './MainHeader/MainHeader';
-import ElectionCard from '../../components/Reusable/ElectionCard';
-import EmptyState from '../../components/Reusable/EmptyState';
+import {Loader, EmptyState, ElectionCard} from '../../../components/Reusable';
 import { ToastContainer } from 'react-toastify';
 import { useDispatch } from 'react-redux';
-import { viewElection as view } from '../../redux/election';
-import { checkIfLaunched } from '../../Web3';
 import { useSelector } from 'react-redux';
-import Loader from '../../components/Reusable/Loader';
-import { viewModeratorElections } from '../../api/viewModeratorElections';
+import { viewModeratorElections } from '../../../api/viewModeratorElections';
+import { openElection } from './openElection';
 
 const ModeratorElections = () => {
 
@@ -24,24 +20,9 @@ const ModeratorElections = () => {
 
     const viewElection = async (id) => {
       setLoadingElection(true);
-      const election = await axios.get(`election/moderator/${user.id}/${id}`, {
-        headers: {
-          Authorization: `bearer ${localStorage.token}`
-        }
-      });
-      let isLaunched = false;
-      await checkIfLaunched(election.data.data.contract_address).then((launched) => isLaunched = launched);
-      dispatch(view({
-        id: id,
-        title: election.data.data.title,
-        startTime: election.data.data.start_time,
-        endTime: election.data.data.end_time,
-        code: election.data.data.code,
-        launched: isLaunched,
-        address: election.data.data.contract_address
-      }));
+      await openElection(id, user.id, dispatch);
       setLoadingElection(false);
-      navigate('/main/moderator/election/dashboard')
+      navigate('/main/moderator/election/dashboard');
     }
 
     return (
