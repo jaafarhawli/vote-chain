@@ -4,8 +4,7 @@ import {useQuery} from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 import {Loader, EmptyState, ElectionCard} from '../../../components/Reusable';
 import { ToastContainer } from 'react-toastify';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { viewModeratorElections } from '../../../api/viewModeratorElections';
 import { openElection } from './openElection';
 

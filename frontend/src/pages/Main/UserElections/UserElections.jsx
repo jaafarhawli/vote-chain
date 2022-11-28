@@ -4,9 +4,8 @@ import CreateElection from '../../../components/Modals/CreateElection/CreateElec
 import {Loader, EmptyState, ElectionCard} from '../../../components/Reusable';
 import { useNavigate } from 'react-router-dom';
 import {useQuery} from '@tanstack/react-query';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
-import { useSelector } from 'react-redux';
 import { viewElections } from '../../../api/viewElections';
 import { openElection } from './openElection';
 
